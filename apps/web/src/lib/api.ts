@@ -9,12 +9,16 @@
 
 import type {
   ChapterDetail,
+  ChatSession,
   ClickCount,
   Course,
   CourseWithChapters,
   CreateMessageInput,
   Message,
   NavCourse,
+  PersonaDetail,
+  PersonaSummary,
+  TagDimension,
 } from "@app/shared";
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
@@ -50,4 +54,11 @@ export const api = {
       method: "POST",
       body: JSON.stringify(input),
     }),
+
+  // AI 模拟用户
+  getTags: () => request<{ dimensions: TagDimension[] }>("/api/tags"),
+  listPersonas: (tags?: string) =>
+    request<PersonaSummary[]>(`/api/personas${tags ? `?tags=${tags}` : ""}`),
+  getPersona: (id: number) => request<PersonaDetail>(`/api/personas/${id}`),
+  getChatSession: (id: number) => request<ChatSession>(`/api/chat/sessions/${id}`),
 };

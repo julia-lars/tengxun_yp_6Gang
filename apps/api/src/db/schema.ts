@@ -126,9 +126,83 @@ export const sectionsRelations = relations(sections, ({ one }) => ({
   }),
 }));
 
+// -------------------- source_segments（AI 标注后的用户原声片段）--------------------
+
+export const sourceSegments = pgTable(
+  "source_segments",
+  {
+    id: serial("id").primaryKey(),
+    sourceFile: text("source_file").notNull(),
+    segmentIndex: integer("segment_index").notNull().default(0),
+    originalText: text("original_text").notNull(),
+    cleanedText: text("cleaned_text"),
+    annotation: jsonb("annotation").$type<Record<string, unknown>>(),
+    embedding: text("embedding"), // pgvector array stored as text; migrate to vector(1024) when pgvector installed
+    personaIds: integer("persona_ids").array(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => ({
+    sourceIdx: index("ss_source_file_idx").on(table.sourceFile),
+  }),
+);
+
+// -------------------- personas（用户画像定义）--------------------
+
+export const personas = pgTable(
+  "personas",
+  {
+    id: serial("id").primaryKey(),
+    name: text("name").notNull(),
+    description: text("description"),
+    tagSpec: jsonb("tag_spec").$type<Record<string, unknown>>().notNull(),
+    motivationChain: jsonb("motivation_chain").$type<Record<string, unknown>>(),
+    evidenceIds: integer("evidence_ids").array(),
+    clusterId: text("cluster_id"),
+    sampleCount: integer("sample_count").default(0),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => ({
+    clusterIdx: index("personas_cluster_idx").on(table.clusterId),
+  }),
+);
+
+// -------------------- chat_sessions（对话记录）--------------------
+
+export const chatSessions = pgTable(
+  "chat_sessions",
+  {
+    id: serial("id").primaryKey(),
+    personaId: integer("persona_id")
+      .notNull()
+      .references(() => personas.id, { onDelete: "cascade" }),
+    messages: jsonb("messages").$type<Record<string, unknown>[]>().notNull().default([]),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => ({
+    personaIdx: index("chat_persona_idx").on(table.personaId),
+  }),
+);
+
+// -------------------- relations --------------------
+
+export const personasRelations = relations(personas, ({ many }) => ({
+  chatSessions: many(chatSessions),
+}));
+
+export const chatSessionsRelations = relations(chatSessions, ({ one }) => ({
+  persona: one(personas, {
+    fields: [chatSessions.personaId],
+    references: [personas.id],
+  }),
+}));
+
 // -------------------- 便捷类型导出 --------------------
 
 export type CourseRow = typeof courses.$inferSelect;
 export type ChapterRow = typeof chapters.$inferSelect;
 export type SectionRow = typeof sections.$inferSelect;
 export type DemoEventRow = typeof demoEvents.$inferSelect;
+export type SourceSegmentRow = typeof sourceSegments.$inferSelect;
+export type PersonaRow = typeof personas.$inferSelect;
+export type ChatSessionRow = typeof chatSessions.$inferSelect;

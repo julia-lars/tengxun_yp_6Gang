@@ -13,9 +13,12 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router";
 
 import { Root, rootLoader } from "./root.js";
+import { ChatRoomLayout } from "./routes/chat-room.js";
 import { ChapterPage, chapterLoader } from "./routes/chapter.js";
 import { CoursePage, courseLoader } from "./routes/course.js";
 import { HomePage, homeLoader } from "./routes/home.js";
+import { PersonaDetailPage } from "./routes/persona-detail.js";
+import { PersonasPage } from "./routes/personas.js";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +27,18 @@ const router = createBrowserRouter([
     loader: rootLoader,
     children: [
       { index: true, element: <HomePage />, loader: homeLoader },
+      {
+        path: "personas",
+        element: <PersonasPage />,
+      },
+      {
+        path: "personas/:id",
+        element: <PersonaDetailPage />,
+      },
+      {
+        path: "personas/:id/chat",
+        element: <ChatRoomLayout />,
+      },
       {
         path: "courses/:slug",
         element: <CoursePage />,

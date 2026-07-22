@@ -107,3 +107,73 @@ export const clickCountSchema = z.object({
   count: z.number().int().nonnegative(),
 });
 export type ClickCount = z.infer<typeof clickCountSchema>;
+
+// ============================================================
+// AI 模拟用户系统 — 画像、对话、标注 相关类型
+// ============================================================
+
+/** 标签维度定义 */
+export const tagDimensionSchema = z.object({
+  name: z.string(),
+  label: z.string(),
+  values: z.array(z.object({
+    value: z.string(),
+    label: z.string(),
+    incompatibleWith: z.array(z.string()).optional(),
+  })),
+});
+export type TagDimension = z.infer<typeof tagDimensionSchema>;
+
+/** 画像摘要（列表用） */
+export const personaSummarySchema = z.object({
+  id: z.number().int().positive(),
+  name: z.string(),
+  description: z.string(),
+  tagSpec: z.record(z.string(), z.union([z.string(), z.array(z.string())])),
+  sampleCount: z.number().int().nonnegative(),
+  createdAt: z.string(),
+});
+export type PersonaSummary = z.infer<typeof personaSummarySchema>;
+
+/** 画像详情（含证据原文） */
+export const evidenceSchema = z.object({
+  id: z.number().int().positive(),
+  sourceFile: z.string(),
+  originalText: z.string(),
+  annotation: z.record(z.string(), z.unknown()).nullable(),
+});
+export type Evidence = z.infer<typeof evidenceSchema>;
+
+export const personaDetailSchema = personaSummarySchema.extend({
+  motivationChain: z.record(z.string(), z.unknown()).nullable(),
+  evidenceList: z.array(evidenceSchema),
+  clusterId: z.string().nullable(),
+});
+export type PersonaDetail = z.infer<typeof personaDetailSchema>;
+
+/** 对话消息 */
+export const chatMessageSchema = z.object({
+  role: z.enum(["user", "assistant"]),
+  content: z.string(),
+  evidenceIds: z.array(z.number().int().positive()).optional(),
+  timestamp: z.string(),
+});
+export type ChatMessage = z.infer<typeof chatMessageSchema>;
+
+/** 发送消息请求 */
+export const chatRequestSchema = z.object({
+  personaId: z.number().int().positive(),
+  sessionId: z.number().int().positive().optional(),
+  message: z.string().min(1).max(2000),
+});
+export type ChatRequest = z.infer<typeof chatRequestSchema>;
+
+/** 对话会话 */
+export const chatSessionSchema = z.object({
+  id: z.number().int().positive(),
+  personaId: z.number().int().positive(),
+  messages: z.array(chatMessageSchema),
+  createdAt: z.string(),
+  updatedAt: z.string(),
+});
+export type ChatSession = z.infer<typeof chatSessionSchema>;
