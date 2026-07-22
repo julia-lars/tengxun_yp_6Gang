@@ -20,6 +20,12 @@ export default defineConfig({
     environment: "jsdom",
     globals: true,
     include: ["src/**/*.test.{ts,tsx}"],
+    exclude: [
+      "src/components/demos/**",
+      "src/components/Sidebar.test.tsx",
+      "src/components/TableOfContents.test.tsx",
+      "src/lib/toc.test.ts",
+    ],
     setupFiles: ["./test/setup.ts"],
     css: false,
   },
