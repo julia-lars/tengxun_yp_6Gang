@@ -11,8 +11,9 @@
 //   - jsonb：Postgres 特有的、能存半结构化数据的字段
 // --------------------------------------------------------------
 
-import { relations } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
 import {
+  customType,
   index,
   integer,
   jsonb,
@@ -23,6 +24,19 @@ import {
   timestamp,
   uniqueIndex,
 } from "drizzle-orm/pg-core";
+
+// pgvector 向量类型（Drizzle 没有内置，用 customType）
+const vector = customType<{ data: number[]; driverData: string }>({
+  dataType() {
+    return "vector(1024)";
+  },
+  toDriver(value: number[]): string {
+    return JSON.stringify(value);
+  },
+  fromDriver(value: string): number[] {
+    return JSON.parse(value);
+  },
+});
 
 // -------------------- courses --------------------
 
@@ -137,7 +151,7 @@ export const sourceSegments = pgTable(
     originalText: text("original_text").notNull(),
     cleanedText: text("cleaned_text"),
     annotation: jsonb("annotation").$type<Record<string, unknown>>(),
-    embedding: text("embedding"), // pgvector array stored as text; migrate to vector(1024) when pgvector installed
+    embedding: vector("embedding"),
     personaIds: integer("persona_ids").array(),
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   },
