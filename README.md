@@ -1,5 +1,42 @@
 # 6Gang 项目计划
 
+> 射击品类 AI 模拟用户系统 · MUR × 北大元培
+
+## 本地运行
+
+```bash
+# 1. 克隆仓库
+git clone https://github.com/julia-lars/tengxun_yp_6Gang.git
+cd tengxun_yp_6Gang
+
+# 2. 装依赖（需要 Bun：curl -fsSL https://bun.sh/install | bash）
+bun install
+
+# 3. 启动 PostgreSQL（二选一）
+# 方式 A — Docker（推荐）
+bun run db:up
+# 方式 B — Homebrew
+brew install postgresql@16 pgvector
+brew services start postgresql@16
+createuser -s dev && createdb -O dev webtutor
+
+# 4. 初始化数据库
+bun run db:migrate
+bun run db:seed-personas   # 灌入示例画像
+
+# 5. 配置 API Key（用研经理提供）
+echo 'DEEPSEEK_API_KEY=sk-xxx' > apps/api/.env
+
+# 6. 启动
+bun run dev
+```
+
+打开 **http://localhost:5173**，首页 → 进入画像系统 → 选择画像 → 开始对话。
+
+常用命令：`bun run test`（跑测试）`bun run typecheck`（类型检查）
+
+---
+
  ✅=已完成 ⬜=待完成 🔧=需优化
 
 ---
