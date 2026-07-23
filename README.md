@@ -24,8 +24,8 @@ createuser -s dev && createdb -O dev webtutor
 bun run db:migrate
 bun run db:seed-personas   # 灌入示例画像
 
-# 5. 配置 API Key（用研经理提供）
-echo 'DEEPSEEK_API_KEY=sk-xxx' > apps/api/.env
+# 5. 配置 API Key
+cp .env.example apps/api/.env
 
 # 6. 启动
 bun run dev
