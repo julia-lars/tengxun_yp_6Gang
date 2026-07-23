@@ -35,14 +35,19 @@ export function ChatRoomPage() {
     setMessages((prev) => [...prev, { role: "assistant", content: "" }]);
 
     try {
+      const body: Record<string, unknown> = { personaId, message: userMsg };
+      if (sessionId) body.sessionId = sessionId;
+
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ personaId, sessionId, message: userMsg }),
+        body: JSON.stringify(body),
       });
 
       if (!res.ok) {
-        setMessages((prev) => { const next = [...prev]; const last = next[next.length - 1]; if (last) last.content = "[请求失败]"; return [...next]; });
+        const errText = await res.text();
+        console.error("API错误:", res.status, errText);
+        setMessages((prev) => { const next = [...prev]; const last = next[next.length - 1]; if (last) last.content = `[请求失败 ${res.status}]`; return [...next]; });
         return;
       }
 
