@@ -4,6 +4,8 @@
 // 支持 DeepSeek / GLM / MiniMax 切换，内置重试和流式。
 // --------------------------------------------------------------
 
+import "dotenv/config";
+
 export type ModelName = "deepseek" | "glm" | "minimax";
 
 export interface ChatOptions {

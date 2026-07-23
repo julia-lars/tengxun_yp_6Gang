@@ -11,6 +11,7 @@ import { streamSSE } from "hono/streaming";
 import { db } from "../db/client.js";
 import { chatSessions, personas, sourceSegments } from "../db/schema.js";
 import type { ChatMessage } from "../lib/llm.js";
+import { chatStream } from "../lib/llm.js";
 
 export const chatRoute = new Hono();
 
@@ -97,8 +98,6 @@ chatRoute.post("/", zValidator("json", chatRequestSchema), async (c) => {
     let fullResponse = "";
 
     try {
-      const { chatStream } = await import("../lib/llm.js");
-
       for await (const token of chatStream(llmMessages)) {
         fullResponse += token;
         await stream.writeSSE({ data: token });
