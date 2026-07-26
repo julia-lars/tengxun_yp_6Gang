@@ -1,3 +1,5 @@
 *.jsonl
 *.json
+!segments_cleaned/
+!segments_cleaned/*.json
 !README.md
