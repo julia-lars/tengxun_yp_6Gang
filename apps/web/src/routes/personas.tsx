@@ -16,7 +16,10 @@ export function PersonasPage() {
   const selectedTags = searchParams.get("tags") ?? "";
 
   useEffect(() => {
-    api.listPersonas(selectedTags).then(setPersonas).finally(() => setLoading(false));
+    api
+      .listPersonas(selectedTags)
+      .then(setPersonas)
+      .finally(() => setLoading(false));
   }, [selectedTags]);
 
   const allTags = [
@@ -39,9 +42,7 @@ export function PersonasPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="font-serif text-3xl font-bold text-[--color-primary]">
-          选择目标用户
-        </h1>
+        <h1 className="font-serif text-3xl font-bold text-[--color-primary]">选择目标用户</h1>
         <p className="text-[--color-muted-foreground] mt-1">
           从以下维度选择特征标签，匹配对应的模拟用户画像
         </p>

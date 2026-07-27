@@ -83,20 +83,21 @@ export interface ChatMessage {
   content: string;
 }
 
-export async function chat(
-  messages: ChatMessage[],
-  options: ChatOptions = {},
-): Promise<string> {
+export async function chat(messages: ChatMessage[], options: ChatOptions = {}): Promise<string> {
   const cfg = getConfig(options.model);
   return withRetry(async () => {
-    const res = await apiFetch("/chat/completions", {
-      model: cfg.defaultModel,
-      messages,
-      temperature: options.temperature ?? 0.7,
-      max_tokens: options.maxTokens ?? 2048,
-      stream: false,
-    }, options.model);
-    const data = await res.json() as { choices: [{ message: { content: string } }] };
+    const res = await apiFetch(
+      "/chat/completions",
+      {
+        model: cfg.defaultModel,
+        messages,
+        temperature: options.temperature ?? 0.7,
+        max_tokens: options.maxTokens ?? 2048,
+        stream: false,
+      },
+      options.model,
+    );
+    const data = (await res.json()) as { choices: [{ message: { content: string } }] };
     return data.choices[0].message.content;
   });
 }
@@ -109,13 +110,17 @@ export async function* chatStream(
 ): AsyncGenerator<string> {
   const cfg = getConfig(options.model);
   const res = await withRetry(async () =>
-    apiFetch("/chat/completions", {
-      model: cfg.defaultModel,
-      messages,
-      temperature: options.temperature ?? 0.7,
-      max_tokens: options.maxTokens ?? 2048,
-      stream: true,
-    }, options.model),
+    apiFetch(
+      "/chat/completions",
+      {
+        model: cfg.defaultModel,
+        messages,
+        temperature: options.temperature ?? 0.7,
+        max_tokens: options.maxTokens ?? 2048,
+        stream: true,
+      },
+      options.model,
+    ),
   );
 
   const reader = res.body?.getReader();
@@ -157,11 +162,15 @@ export async function embed(text: string, model?: string): Promise<number[]> {
   const embedModel = model ?? "text-embedding-3-small";
 
   return withRetry(async () => {
-    const res = await apiFetch("/embeddings", {
-      model: embedModel,
-      input: text,
-    }, DEFAULT_MODEL);
-    const data = await res.json() as { data: [{ embedding: number[] }] };
+    const res = await apiFetch(
+      "/embeddings",
+      {
+        model: embedModel,
+        input: text,
+      },
+      DEFAULT_MODEL,
+    );
+    const data = (await res.json()) as { data: [{ embedding: number[] }] };
     return data.data[0].embedding;
   });
 }

@@ -14,7 +14,7 @@ export const personasRoute = new Hono();
 // ---- 标签维度 ----
 
 // 初期硬编码，后续可从配置表读取
-const TAG_DIMENSIONS: TagDimension[] = [
+const _TAG_DIMENSIONS: TagDimension[] = [
   {
     name: "诉求",
     label: "游戏诉求",
@@ -68,21 +68,23 @@ const TAG_DIMENSIONS: TagDimension[] = [
   },
 ];
 
-
 // ---- 画像 ----
 
 // GET /api/personas
 personasRoute.get("/", async (c) => {
   const tagsParam = c.req.query("tags");
 
-  let query = db.select().from(personas).orderBy(sql`${personas.sampleCount} DESC`);
+  const query = db.select().from(personas).orderBy(sql`${personas.sampleCount} DESC`);
 
   const rows = await query;
 
   // 如果有标签筛选，做简单的 jsonb 匹配
   let filtered = rows;
   if (tagsParam) {
-    const tags = tagsParam.split(",").map((t) => t.trim()).filter(Boolean);
+    const tags = tagsParam
+      .split(",")
+      .map((t) => t.trim())
+      .filter(Boolean);
     filtered = rows.filter((row) => {
       const spec = row.tagSpec as Record<string, unknown>;
       return tags.every((tag) => JSON.stringify(spec).includes(tag));

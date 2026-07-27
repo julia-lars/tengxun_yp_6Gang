@@ -11,7 +11,7 @@
 //   - jsonb：Postgres 特有的、能存半结构化数据的字段
 // --------------------------------------------------------------
 
-import { relations} from "drizzle-orm";
+import { relations } from "drizzle-orm";
 import {
   customType,
   index,

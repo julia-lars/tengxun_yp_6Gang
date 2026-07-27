@@ -8,7 +8,9 @@ export function Root() {
   const mainRef = useRef<HTMLElement>(null);
   const { pathname } = useLocation();
 
-  useEffect(() => { mainRef.current?.scrollTo(0, 0); }, [pathname]);
+  useEffect(() => {
+    mainRef.current?.scrollTo(0, 0);
+  }, [pathname]);
 
   return (
     <div className="h-screen flex flex-col overflow-hidden bg-[--color-background] text-[--color-foreground]">

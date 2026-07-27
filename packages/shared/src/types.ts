@@ -3,46 +3,65 @@ import { z } from "zod";
 
 // ---- 标签 ----
 export const tagDimensionSchema = z.object({
-  name: z.string(), label: z.string(),
-  values: z.array(z.object({ value: z.string(), label: z.string(), incompatibleWith: z.array(z.string()).optional() })),
+  name: z.string(),
+  label: z.string(),
+  values: z.array(
+    z.object({
+      value: z.string(),
+      label: z.string(),
+      incompatibleWith: z.array(z.string()).optional(),
+    }),
+  ),
 });
 export type TagDimension = z.infer<typeof tagDimensionSchema>;
 
 // ---- 画像 ----
 export const personaSummarySchema = z.object({
-  id: z.number().int().positive(), name: z.string(), description: z.string(),
+  id: z.number().int().positive(),
+  name: z.string(),
+  description: z.string(),
   tagSpec: z.record(z.string(), z.union([z.string(), z.array(z.string())])),
-  sampleCount: z.number().int().nonnegative(), createdAt: z.string(),
+  sampleCount: z.number().int().nonnegative(),
+  createdAt: z.string(),
 });
 export type PersonaSummary = z.infer<typeof personaSummarySchema>;
 
 export const evidenceSchema = z.object({
-  id: z.number().int().positive(), sourceFile: z.string(),
-  originalText: z.string(), annotation: z.record(z.string(), z.unknown()).nullable(),
+  id: z.number().int().positive(),
+  sourceFile: z.string(),
+  originalText: z.string(),
+  annotation: z.record(z.string(), z.unknown()).nullable(),
 });
 export type Evidence = z.infer<typeof evidenceSchema>;
 
 export const personaDetailSchema = personaSummarySchema.extend({
   motivationChain: z.record(z.string(), z.unknown()).nullable(),
-  evidenceList: z.array(evidenceSchema), clusterId: z.string().nullable(),
+  evidenceList: z.array(evidenceSchema),
+  clusterId: z.string().nullable(),
 });
 export type PersonaDetail = z.infer<typeof personaDetailSchema>;
 
 // ---- 对话 ----
 export const chatMessageSchema = z.object({
-  role: z.enum(["user", "assistant"]), content: z.string(),
-  evidenceIds: z.array(z.number().int().positive()).optional(), timestamp: z.string(),
+  role: z.enum(["user", "assistant"]),
+  content: z.string(),
+  evidenceIds: z.array(z.number().int().positive()).optional(),
+  timestamp: z.string(),
 });
 export type ChatMessage = z.infer<typeof chatMessageSchema>;
 
 export const chatRequestSchema = z.object({
-  personaId: z.number().int().positive(), sessionId: z.number().int().positive().optional(),
+  personaId: z.number().int().positive(),
+  sessionId: z.number().int().positive().optional(),
   message: z.string().min(1).max(2000),
 });
 export type ChatRequest = z.infer<typeof chatRequestSchema>;
 
 export const chatSessionSchema = z.object({
-  id: z.number().int().positive(), personaId: z.number().int().positive(),
-  messages: z.array(chatMessageSchema), createdAt: z.string(), updatedAt: z.string(),
+  id: z.number().int().positive(),
+  personaId: z.number().int().positive(),
+  messages: z.array(chatMessageSchema),
+  createdAt: z.string(),
+  updatedAt: z.string(),
 });
 export type ChatSession = z.infer<typeof chatSessionSchema>;
