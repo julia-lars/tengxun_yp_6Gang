@@ -2,4 +2,6 @@
 *.json
 !segments_cleaned/
 !segments_cleaned/*.json
+!sheets_data/
+!sheets_data/*.json
 !README.md

@@ -142,14 +142,25 @@ export const sectionsRelations = relations(sections, ({ one }) => ({
 
 // -------------------- source_segments（AI 标注后的用户原声片段）--------------------
 
+// interviewee：被访者发言；moderator：主持人发言（保留用于还原 preceding_question 语境，不代表最终画像证据）
+export const speakerRoleEnum = pgEnum("speaker_role", ["interviewee", "moderator"]);
+
 export const sourceSegments = pgTable(
   "source_segments",
   {
     id: serial("id").primaryKey(),
     sourceFile: text("source_file").notNull(),
     segmentIndex: integer("segment_index").notNull().default(0),
+    // 不同来源文件的编号体系不统一（P1-P15 / G3-P1 / 真实姓名等），仅在同一 source_file 内保证唯一，不跨文件关联
+    speakerId: text("speaker_id"),
+    speakerRole: speakerRoleEnum("speaker_role").notNull().default("interviewee"),
+    // 该条发言对应的上一条 moderator 提问，为空代表紧邻上一条就是同一说话人或本来就无提问语境
+    precedingQuestion: text("preceding_question"),
+    // 提取阶段写入后不再变动，用于清洗规则出问题时回溯重跑
     originalText: text("original_text").notNull(),
+    // 清洗前为 null；下游查询用 COALESCE(cleanedText, originalText)
     cleanedText: text("cleaned_text"),
+    charCount: integer("char_count"),
     annotation: jsonb("annotation").$type<Record<string, unknown>>(),
     embedding: vector("embedding"),
     personaIds: integer("persona_ids").array(),
@@ -157,6 +168,27 @@ export const sourceSegments = pgTable(
   },
   (table) => ({
     sourceIdx: index("ss_source_file_idx").on(table.sourceFile),
+    speakerIdx: index("ss_speaker_id_idx").on(table.speakerId),
+  }),
+);
+
+// -------------------- respondents（受访者背景信息，人物级别）--------------------
+
+// 一个受访者对应多条 source_segments，用 (source_file, speaker_id) 做关联，避免把背景信息重复塞进每条发言
+export const respondents = pgTable(
+  "respondents",
+  {
+    id: serial("id").primaryKey(),
+    sourceFile: text("source_file").notNull(),
+    speakerId: text("speaker_id").notNull(),
+    displayName: text("display_name"),
+    groupCode: text("group_code"),
+    // 背景信息深浅不一（从详细背调到一句自我介绍都有），字段不固定，按来源实际情况填
+    background: jsonb("background").$type<Record<string, unknown>>(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => ({
+    sourceSpeakerIdx: uniqueIndex("resp_source_speaker_idx").on(table.sourceFile, table.speakerId),
   }),
 );
 
@@ -218,5 +250,6 @@ export type ChapterRow = typeof chapters.$inferSelect;
 export type SectionRow = typeof sections.$inferSelect;
 export type DemoEventRow = typeof demoEvents.$inferSelect;
 export type SourceSegmentRow = typeof sourceSegments.$inferSelect;
+export type RespondentRow = typeof respondents.$inferSelect;
 export type PersonaRow = typeof personas.$inferSelect;
 export type ChatSessionRow = typeof chatSessions.$inferSelect;
