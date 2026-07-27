@@ -115,8 +115,9 @@ export function ChatRoomPage() {
             开始和这位模拟玩家对话吧。试着问他关于射击游戏的看法。
           </p>
         )}
-        {messages.map((m) => (
-          <div key={m.timestamp} className={`flex gap-3 ${m.role === "user" ? "justify-end" : ""}`}>
+        {messages.map((m, i) => (
+          // biome-ignore lint/suspicious/noArrayIndexKey: messages have no stable id
+          <div key={i} className={`flex gap-3 ${m.role === "user" ? "justify-end" : ""}`}>
             {m.role === "assistant" && (
               <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[--color-primary] flex items-center justify-center">
                 <User className="h-4 w-4 text-white" />
