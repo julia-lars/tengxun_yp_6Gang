@@ -33,10 +33,10 @@ beforeAll(async () => {
     .filter((f) => f.endsWith(".sql"))
     .sort();
 
-  // 只复制 0000（原始教程表），跳过 0001/0002（新业务表含 vector）
+  // 只复制 0000（原始教程表），跳过 0001/0002/0003（新业务表含 vector 或依赖含 vector 的表）
   const skippedTags: string[] = [];
   for (const f of sqlFiles) {
-    if (f.includes("0001") || f.includes("0002")) {
+    if (f.includes("0001") || f.includes("0002") || f.includes("0003")) {
       skippedTags.push(f.replace(".sql", ""));
       continue;
     }
