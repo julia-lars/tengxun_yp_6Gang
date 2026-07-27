@@ -1,17 +1,10 @@
 # --------------------------------------------------------------
 # Docker Compose 文件：定义"用一条命令能起来的一组服务"
-# 这里只有 PostgreSQL 一个服务，学生可用来学习：
-#   - 数据库不是"代码库里的一个文件"，而是一个独立进程
-#   - 服务通过 端口 与外界通信
-#   - volume 让数据在容器重启后不丢失
-# 启动：  bun run db:up   （即 docker compose up -d）
-# 停止：  bun run db:down
 # --------------------------------------------------------------
 
 services:
   postgres:
-    image: postgres:16-alpine
-    container_name: web-tutor-postgres
+    image: pgvector/pgvector:pg16
     restart: unless-stopped
     environment:
       POSTGRES_DB: webtutor
@@ -27,12 +20,8 @@ services:
       timeout: 5s
       retries: 5
 
-  # pgweb —— 浏览器数据库管理，启动时传 DATABASE_URL，打开页面直接进库
-  # http://localhost:8081 —— 零配置、零登录、UI 现代
-  # 只在本地开发用；生产绝不要暴露 pgweb 到公网
   pgweb:
     image: sosedoff/pgweb:latest
-    container_name: web-tutor-pgweb
     restart: unless-stopped
     ports:
       - "8081:8081"
@@ -45,4 +34,4 @@ services:
 
 volumes:
   pgdata:
-    name: web-dev-tutorial_pgdata
+    driver: local
