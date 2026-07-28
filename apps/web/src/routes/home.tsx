@@ -20,38 +20,61 @@ export function HomePage() {
         <div className="flex items-center justify-center gap-4 pt-4">
           <Button asChild size="lg">
             <Link to="/personas">
-              <Users className="h-4 w-4 mr-2" />进入画像系统<ArrowRight className="h-4 w-4 ml-1" />
+              <Users className="h-4 w-4 mr-2" />
+              进入画像系统
+              <ArrowRight className="h-4 w-4 ml-1" />
             </Link>
           </Button>
         </div>
       </section>
 
       <section className="space-y-5">
-        <h2 className="font-serif text-2xl md:text-3xl font-bold text-[--color-primary] text-center">核心能力</h2>
+        <h2 className="font-serif text-2xl md:text-3xl font-bold text-[--color-primary] text-center">
+          核心能力
+        </h2>
         <div className="grid gap-4 sm:grid-cols-2">
           <Card>
             <CardHeader className="pb-3">
-              <CardTitle className="text-lg flex items-center gap-2"><Users className="h-5 w-5 text-[--color-primary]" />群体画像</CardTitle>
-              <CardDescription>基于 17,000+ 条真实玩家访谈片段，聚类形成典型玩家画像。选择特征标签，匹配画像并开展深度对话。</CardDescription>
+              <CardTitle className="text-lg flex items-center gap-2">
+                <Users className="h-5 w-5 text-[--color-primary]" />
+                群体画像
+              </CardTitle>
+              <CardDescription>
+                基于 17,000+
+                条真实玩家访谈片段，聚类形成典型玩家画像。选择特征标签，匹配画像并开展深度对话。
+              </CardDescription>
             </CardHeader>
           </Card>
           <Card className="opacity-50">
             <CardHeader className="pb-3">
-              <CardTitle className="text-lg flex items-center gap-2"><MessageCircle className="h-5 w-5 text-[--color-primary]" />KOL 分身</CardTitle>
-              <CardDescription>基于 B 站 UP 主内容构建数字孪生，获取专业视角的游戏评价反馈。（下一期）</CardDescription>
+              <CardTitle className="text-lg flex items-center gap-2">
+                <MessageCircle className="h-5 w-5 text-[--color-primary]" />
+                KOL 分身
+              </CardTitle>
+              <CardDescription>
+                基于 B 站 UP 主内容构建数字孪生，获取专业视角的游戏评价反馈。（下一期）
+              </CardDescription>
             </CardHeader>
           </Card>
         </div>
       </section>
 
       <section className="space-y-5">
-        <h2 className="font-serif text-2xl md:text-3xl font-bold text-[--color-primary] text-center">使用流程</h2>
+        <h2 className="font-serif text-2xl md:text-3xl font-bold text-[--color-primary] text-center">
+          使用流程
+        </h2>
         <Card>
           <CardContent className="pt-6">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
-              {[{ step: "1", title: "选择特征标签", desc: "从诉求、能力、风格等维度筛选目标用户" }, { step: "2", title: "查看匹配画像", desc: "浏览画像详情，查看动机链和代表性原声" }, { step: "3", title: "深度对话", desc: "进入虚拟访谈室，像真实深访一样提问" }].map(({ step, title, desc }) => (
+              {[
+                { step: "1", title: "选择特征标签", desc: "从诉求、能力、风格等维度筛选目标用户" },
+                { step: "2", title: "查看匹配画像", desc: "浏览画像详情，查看动机链和代表性原声" },
+                { step: "3", title: "深度对话", desc: "进入虚拟访谈室，像真实深访一样提问" },
+              ].map(({ step, title, desc }) => (
                 <div key={step} className="space-y-2">
-                  <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-[--color-primary] text-white font-bold text-sm">{step}</div>
+                  <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-[--color-primary] text-white font-bold text-sm">
+                    {step}
+                  </div>
                   <h3 className="font-medium text-sm">{title}</h3>
                   <p className="text-xs text-[--color-muted-foreground]">{desc}</p>
                 </div>

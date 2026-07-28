@@ -9,7 +9,8 @@ import { personas } from "./schema.js";
 const SAMPLE_PERSONAS = [
   {
     name: "竞技核心 · 高能力 · PC端",
-    description: "追求竞技水平提升的硬核FPS玩家，享受排位上分的成就感。PC是唯一选择，对手机射击不屑一顾。",
+    description:
+      "追求竞技水平提升的硬核FPS玩家，享受排位上分的成就感。PC是唯一选择，对手机射击不屑一顾。",
     tagSpec: {
       诉求: ["竞技证明"],
       能力: "高手",

@@ -10,17 +10,23 @@ import { PersonaDetailPage } from "./routes/persona-detail.js";
 import { PersonasPage } from "./routes/personas.js";
 
 const router = createBrowserRouter([
-  { path: "/", element: <Root />, children: [
-    { index: true, element: <HomePage /> },
-    { path: "personas", element: <PersonasPage /> },
-    { path: "personas/:id", element: <PersonaDetailPage /> },
-    { path: "personas/:id/chat", element: <ChatRoomLayout /> },
-  ]},
+  {
+    path: "/",
+    element: <Root />,
+    children: [
+      { index: true, element: <HomePage /> },
+      { path: "personas", element: <PersonasPage /> },
+      { path: "personas/:id", element: <PersonaDetailPage /> },
+      { path: "personas/:id/chat", element: <ChatRoomLayout /> },
+    ],
+  },
 ]);
 
 const rootEl = document.getElementById("root");
 if (!rootEl) throw new Error("找不到 #root");
 
 ReactDOM.createRoot(rootEl).render(
-  <React.StrictMode><RouterProvider router={router} /></React.StrictMode>,
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>,
 );

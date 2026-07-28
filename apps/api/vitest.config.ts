@@ -11,10 +11,7 @@ export default defineConfig({
   test: {
     environment: "node",
     include: ["src/**/*.test.ts"],
-    exclude: [
-      "src/routes/chapters.test.ts",
-      "src/routes/demo-sandbox.test.ts",
-    ],
+    exclude: ["src/routes/chapters.test.ts", "src/routes/demo-sandbox.test.ts"],
     setupFiles: ["./test/setup.ts"],
     pool: "forks",
     poolOptions: { forks: { singleFork: true } },

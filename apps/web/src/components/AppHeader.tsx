@@ -15,7 +15,10 @@ export function AppHeader() {
           </span>
         </Link>
         <div className="ml-auto flex items-center gap-2">
-          <Link to="/personas" className="text-xs text-[var(--color-header-muted)] hover:text-[var(--color-header-foreground)] transition-colors">
+          <Link
+            to="/personas"
+            className="text-xs text-[var(--color-header-muted)] hover:text-[var(--color-header-foreground)] transition-colors"
+          >
             画像系统
           </Link>
           <ThemeToggle className="text-[var(--color-header-foreground)] hover:bg-white/10" />
