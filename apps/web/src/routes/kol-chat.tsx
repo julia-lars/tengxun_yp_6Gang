@@ -119,9 +119,7 @@ export function KolChatPage() {
         {messages.length === 0 && (
           <div className="text-center text-[--color-muted-foreground] py-8 space-y-2">
             <p>开始和这位 UP 主对话吧。</p>
-            <p className="text-xs">
-              试试问他关于游戏评价、行业趋势、或者对某款新游戏的看法。
-            </p>
+            <p className="text-xs">试试问他关于游戏评价、行业趋势、或者对某款新游戏的看法。</p>
           </div>
         )}
         {messages.map((m, i) => (

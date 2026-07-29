@@ -1,6 +1,6 @@
 // KOL 画像详情页
 import type { KolProfileDetail } from "@app/shared";
-import { ArrowLeft, MessageCircle, ExternalLink } from "lucide-react";
+import { ArrowLeft, ExternalLink, MessageCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
 import { Badge } from "@/components/ui/badge";
@@ -24,25 +24,17 @@ export function KolDetailPage() {
   }, [kolId]);
 
   if (loading) {
-    return (
-      <div className="text-center py-16 text-[--color-muted-foreground]">
-        加载中...
-      </div>
-    );
+    return <div className="text-center py-16 text-[--color-muted-foreground]">加载中...</div>;
   }
 
   if (error || !kol) {
-    return (
-      <div className="text-center py-16 text-red-500">
-        {error ?? "KOL 不存在"}
-      </div>
-    );
+    return <div className="text-center py-16 text-red-500">{error ?? "KOL 不存在"}</div>;
   }
 
   const personaCard = kol.personaCard as Record<string, unknown>;
   const styleProfile = kol.styleProfile as Record<string, unknown>;
   const evalFramework = personaCard.evaluationFramework as Record<string, string> | undefined;
-  const catchphrases = (styleProfile.catchphrases as string[]) ?? [];
+  const speechHabits = (styleProfile.speechHabits as string) ?? "";
   const contentFocus = (personaCard.contentFocus as string[]) ?? [];
 
   return (
@@ -64,7 +56,9 @@ export function KolDetailPage() {
         <CardContent>
           <div className="flex flex-wrap gap-1.5">
             {contentFocus.map((f) => (
-              <Badge key={f} variant="secondary">{f}</Badge>
+              <Badge key={f} variant="secondary">
+                {f}
+              </Badge>
             ))}
           </div>
         </CardContent>
@@ -99,14 +93,10 @@ export function KolDetailPage() {
             <p className="text-xs text-[--color-muted-foreground] mb-1.5">整体语气</p>
             <Badge>{String(styleProfile.tone ?? "—")}</Badge>
           </div>
-          {catchphrases.length > 0 && (
+          {speechHabits && (
             <div>
-              <p className="text-xs text-[--color-muted-foreground] mb-1.5">标志性表达</p>
-              <div className="flex flex-wrap gap-1">
-                {catchphrases.map((c) => (
-                  <Badge key={c} variant="outline" className="text-xs">{c}</Badge>
-                ))}
-              </div>
+              <p className="text-xs text-[--color-muted-foreground] mb-1.5">说话风格</p>
+              <p className="text-sm">{speechHabits}</p>
             </div>
           )}
           <div className="text-xs text-[--color-muted-foreground]">
@@ -123,9 +113,9 @@ export function KolDetailPage() {
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
-              {kol.sampleSegments.map((seg, i) => (
+              {kol.sampleSegments.map((seg) => (
                 <p
-                  key={`${kol.id}-detail-${i}-${seg.slice(0, 20)}`}
+                  key={seg.slice(0, 30)}
                   className="text-xs text-[--color-muted-foreground] bg-[--color-secondary] rounded p-2"
                 >
                   "{seg}"

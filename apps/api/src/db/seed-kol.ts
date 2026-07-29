@@ -48,7 +48,10 @@ function cleanText(text: string): string {
   // 结尾求三连 / 引导
   cleaned = cleaned.replace(/如果你喜欢这[期些个]视频.{0,60}/g, "");
   cleaned = cleaned.replace(/如果.{0,5}(喜欢|觉得).{0,5}(这期|这个)?视频.{0,60}/g, "");
-  cleaned = cleaned.replace(/(投币|点赞|收藏|转发|订阅|关注)[，,\s]*(投币|点赞|收藏|转发|订阅|关注)?[，,\s]*(投币|点赞|收藏|转发|订阅|关注)?/g, "");
+  cleaned = cleaned.replace(
+    /(投币|点赞|收藏|转发|订阅|关注)[，,\s]*(投币|点赞|收藏|转发|订阅|关注)?[，,\s]*(投币|点赞|收藏|转发|订阅|关注)?/g,
+    "",
+  );
   cleaned = cleaned.replace(/一键三连/g, "");
   cleaned = cleaned.replace(/还请[您你]?.{0,30}(投币|点赞|收藏|转发|订阅|三连|关注).{0,30}/g, "");
   cleaned = cleaned.replace(/带给.{0,10}(伯伯的)?关注/g, "");
@@ -66,7 +69,7 @@ function cleanText(text: string): string {
 
   // 清理多余空白
   cleaned = cleaned.replace(/\n{3,}/g, "\n\n");
-  cleaned = cleaned.replace(/  +/g, " ");
+  cleaned = cleaned.replace(/ {2,}/g, " ");
   cleaned = cleaned.trim();
 
   return cleaned;
@@ -76,7 +79,10 @@ function cleanText(text: string): string {
 
 const DEEPSEEK_KEY = process.env.DEEPSEEK_API_KEY ?? "";
 
-async function extractWithLLM(name: string, samples: string): Promise<{ personaCard: Record<string, unknown>; styleProfile: Record<string, unknown> }> {
+async function extractWithLLM(
+  name: string,
+  samples: string,
+): Promise<{ personaCard: Record<string, unknown>; styleProfile: Record<string, unknown> }> {
   const prompt = `你是游戏行业的内容分析师。请分析以下B站UP主「${name}」的视频转录文本，提取两份结构化画像。
 
 ## 提取要求
@@ -90,15 +96,14 @@ async function extractWithLLM(name: string, samples: string): Promise<{ personaC
 6. toneSummary: 整体语气的概括描述（如"批判性"、"热情"、"客观冷静"等）
 
 ### styleProfile（风格画像）：
-1. catchphrases: 真正的个人口头禅/标志性表达（数组，3-6个）。注意：不要包含"大家好我是"、"投币点赞收藏"、"下期再见"、"拜拜"、"感谢关注"这类B站通用结尾话术——这些都是所有UP主都说的套路，不是个人风格。
-2. tone: 语气倾向（"偏批判" / "偏正面" / "均衡" / "幽默调侃"之一）
-3. avgSentenceLength: 估算的平均句长（数字）
-4. firstPersonStyle: 第一人称表达方式（如"我觉得"、"我个人"、"鬼王我"等）
-5. signaturePatterns: 独特的句式或表达习惯（数组，2-4个。比如"进来，告诉你XXX"、"本质XXX"、"不是哥们"等。真正有辨识度的，不是通用话术）
+1. tone: 语气倾向（"偏批判" / "偏正面" / "均衡" / "幽默调侃"之一）
+2. avgSentenceLength: 估算的平均句长（数字）
+3. firstPersonStyle: 第一人称表达方式（如"我觉得"、"我个人"、"鬼王我"、"我说"等）
+4. speechHabits: 说话时的自然语言习惯（2-3句话描述，如"略带东北方言，会用单字评价、反问句式较多"，重点是自然融入回答而不是罗列关键词）。注意：不要列出具体的词汇或短语作为口头禅——描述语言风格的整体质感即可
 
 ### 重要规则
 - 所有提取必须基于原文实际内容，不要编造
-- catchphrases和signaturePatterns必须是该UP主独有的表达方式，不是所有B站UP主都说的通用话术
+- speechHabits 不要罗列具体词汇——描述风格的整体感觉，让AI理解"怎么说话"而不是"说什么词"
 - 如果无法从原文中确定某个字段，写"未知"而不是编造
 
 ## 视频转录样本（已清洗，取代表性片段）
@@ -134,13 +139,43 @@ ${samples.slice(0, 8000)}
 }
 
 // 备用方案：LLM 不可用时用统计方法
-function buildFallbackProfile(name: string, allText: string): { personaCard: Record<string, unknown>; styleProfile: Record<string, unknown> } {
+function buildFallbackProfile(
+  name: string,
+  allText: string,
+): { personaCard: Record<string, unknown>; styleProfile: Record<string, unknown> } {
   const sentences = allText.split(/[。！？\n]/).filter(Boolean);
-  const avgLen = Math.round(sentences.reduce((s, x) => s + x.length, 0) / Math.max(sentences.length, 1));
+  const avgLen = Math.round(
+    sentences.reduce((s, x) => s + x.length, 0) / Math.max(sentences.length, 1),
+  );
 
-  const praiseWords = ["好", "不错", "强", "厉害", "惊艳", "满意", "喜欢", "爱", "爽", "帅", "优秀", "出色"];
-  const criticizeWords = ["差", "烂", "不行", "失望", "问题", "不足", "缺陷", "糟糕", "无聊", "粗糙"];
-  let praiseCount = 0, criticCount = 0;
+  const praiseWords = [
+    "好",
+    "不错",
+    "强",
+    "厉害",
+    "惊艳",
+    "满意",
+    "喜欢",
+    "爱",
+    "爽",
+    "帅",
+    "优秀",
+    "出色",
+  ];
+  const criticizeWords = [
+    "差",
+    "烂",
+    "不行",
+    "失望",
+    "问题",
+    "不足",
+    "缺陷",
+    "糟糕",
+    "无聊",
+    "粗糙",
+  ];
+  let praiseCount = 0,
+    criticCount = 0;
   for (const w of praiseWords) praiseCount += (allText.match(new RegExp(w, "g")) ?? []).length;
   for (const w of criticizeWords) criticCount += (allText.match(new RegExp(w, "g")) ?? []).length;
 
@@ -151,14 +186,23 @@ function buildFallbackProfile(name: string, allText: string): { personaCard: Rec
       evaluationFramework: { 玩法: "重要", 手感: "重要", 画面: "参考", 叙事: "参考" },
       platformPreference: "未知",
       specialty: "未知",
-      toneSummary: praiseCount > criticCount * 1.5 ? "偏正面" : criticCount > praiseCount * 1.5 ? "偏批判" : "均衡",
+      toneSummary:
+        praiseCount > criticCount * 1.5
+          ? "偏正面"
+          : criticCount > praiseCount * 1.5
+            ? "偏批判"
+            : "均衡",
     },
     styleProfile: {
-      catchphrases: [],
-      tone: praiseCount > criticCount * 1.5 ? "偏正面" : criticCount > praiseCount * 1.5 ? "偏批判" : "均衡",
+      tone:
+        praiseCount > criticCount * 1.5
+          ? "偏正面"
+          : criticCount > praiseCount * 1.5
+            ? "偏批判"
+            : "均衡",
       avgSentenceLength: avgLen,
       firstPersonStyle: allText.includes("我觉得") ? "我觉得" : "我",
-      signaturePatterns: [],
+      speechHabits: "",
     },
   };
 }
@@ -214,13 +258,19 @@ async function main() {
     const cleanedSamples = videosWithSubtitles
       .map((v) => ({
         title: v.title,
-        text: v.subtitles.map((s) => cleanText(s.text)).filter((t) => t.length > 30).join("\n"),
+        text: v.subtitles
+          .map((s) => cleanText(s.text))
+          .filter((t) => t.length > 30)
+          .join("\n"),
       }))
       .filter((s) => s.text.length > 100)
       .sort((a, b) => b.text.length - a.text.length);
 
     const topSamples = cleanedSamples.slice(0, 5);
-    const randomSamples = cleanedSamples.slice(5).sort(() => Math.random() - 0.5).slice(0, 3);
+    const randomSamples = cleanedSamples
+      .slice(5)
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 3);
     const llmSamples = [...topSamples, ...randomSamples]
       .map((s) => `### ${s.title}\n${s.text.slice(0, 800)}`)
       .join("\n\n---\n\n");
@@ -230,7 +280,7 @@ async function main() {
     const { personaCard, styleProfile } = await extractWithLLM(kol.name, llmSamples);
 
     console.log(`  身份: ${personaCard.identity}`);
-    console.log(`  口头禅: ${(styleProfile.catchphrases as string[])?.join("、") || "无"}`);
+    console.log(`  说话风格: ${styleProfile.speechHabits || "未提取"}`);
     console.log(`  语气: ${styleProfile.tone}`);
 
     // 收集所有文本用于 sourceTexts（清洗后）

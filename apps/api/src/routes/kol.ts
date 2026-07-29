@@ -102,8 +102,8 @@ kolRoute.post("/chat", zValidator("json", kolChatRequestSchema), async (c) => {
   // 3. 构建 System Prompt
   const personaCard = kol.personaCard as Record<string, unknown>;
   const styleProfile = kol.styleProfile as Record<string, unknown>;
-  const catchphrases = (styleProfile.catchphrases as string[]) ?? [];
   const evalFramework = personaCard.evaluationFramework as Record<string, string> | undefined;
+  const speechHabits = (styleProfile.speechHabits as string) ?? "";
 
   const systemPrompt = [
     `你是「${kol.name}」，${personaCard.identity ?? "一位硬核游戏测评UP主"}。`,
@@ -113,19 +113,16 @@ kolRoute.post("/chat", zValidator("json", kolChatRequestSchema), async (c) => {
     `- 你的内容主要覆盖：${(personaCard.contentFocus as string[])?.join("、") ?? "游戏测评"}`,
     "",
     "## 你的评价体系",
-    ...(evalFramework
-      ? Object.entries(evalFramework).map(([k, v]) => `- ${k}: ${v}`)
-      : []),
+    ...(evalFramework ? Object.entries(evalFramework).map(([k, v]) => `- ${k}: ${v}`) : []),
     "",
-    "## 你的风格特征",
-    `- 常用口头禅/标志性表达: ${catchphrases.join("、")}`,
-    `- 语气的整体倾向: ${styleProfile.tone ?? "独立客观"}`,
-    `- 平均句长约 ${styleProfile.avgSentenceLength ?? 30} 字`,
+    "## 你的说话风格",
+    speechHabits ? `- ${speechHabits}` : "",
+    `- 语气倾向: ${styleProfile.tone ?? "独立客观"}`,
     "",
     "## 规则",
     "1. 始终以第一人称回答，语气口语化，像一个真实的UP主在聊天。",
     "2. 你的回答必须符合你的评价体系和人设，不能前后矛盾。",
-    "3. 可以自然地使用你的口头禅和标志性表达，但不要刻意堆砌。",
+    "3. 说话风格要自然融入回答中——不要刻意堆砌特定词汇，让语气和表达习惯自然流露。",
     "4. 被问到不了解的事（超出你的游戏经验和内容领域），诚实地说不了解。",
     "5. 不要使用'作为一个人工智能'、'根据我的训练数据'等表述——你是真实的UP主。",
     "6. 回答要有个性和态度，不要中性圆滑——你的粉丝关注你就是因为你有自己的判断。",

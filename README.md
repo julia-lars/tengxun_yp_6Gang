@@ -31,7 +31,7 @@ cp .env.example apps/api/.env
 bun run dev
 ```
 
-打开 **http://localhost:5173**，首页 → 进入画像系统 → 选择画像 → 开始对话。
+打开 **[http://localhost:5173](http://localhost:5173)**，首页 → 进入画像系统 → 选择画像 → 开始对话。
 
 常用命令：`bun run test`（跑测试）`bun run typecheck`（类型检查）
 
@@ -41,6 +41,8 @@ bun run dev
 
 ---
 
+
+
 ## 项目到底要做什么
 
 **1. 群体画像**：把 70+ 篇射击游戏玩家访谈笔录，变成一个可对话的虚拟玩家群。
@@ -49,9 +51,9 @@ bun run dev
 - 聚类形成 5-8 种典型玩家画像，每种画像包含：标签组合 + 动机因果链 + 代表性原声证据
 - 做对话界面：用研人员选标签 → 匹配画像 → 像跟真人深访一样提问 → AI 用画像人设回答 → 可溯源到原始语料
 
-**2. KOL 分身**：基于 B 站 UP 主的公开内容，构建个体级数字孪生。（todo）
-
 ---
+
+
 
 ## 当前进度总览
 
@@ -102,8 +104,6 @@ bun run dev
 ```
 tengxun_yp_6Gang/
 ├── PROJECT_PLAN.md           ← 你正在读的文件
-├── DEV_GUIDE.md              ← 代码写在哪 + 怎么跟 Claude 对话
-├── 新手上手指南.md            ← 零经验组员上手教程
 │
 ├── apps/api/src/             ← 后端（Hono + Drizzle）
 │   ├── db/schema.ts          ← 数据库表（7 张表）
@@ -311,6 +311,8 @@ tengxun_yp_6Gang/
 
 ---
 
+
+
 ## 关键依赖链
 
 ```
@@ -351,6 +353,8 @@ tengxun_yp_6Gang/
 暂缓：KOL 分身、多模拟用户同时对话、对话导出、管理后台、登录认证
 
 ---
+
+
 
 ## 评测标准
 

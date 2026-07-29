@@ -22,41 +22,11 @@ export function KolListPage() {
   }, []);
 
   if (loading) {
-    return (
-      <div className="text-center py-16 text-[--color-muted-foreground]">
-        加载中...
-      </div>
-    );
+    return <div className="text-center py-16 text-[--color-muted-foreground]">加载中...</div>;
   }
 
   if (error) {
-    return (
-      <div className="space-y-6">
-        <div className="space-y-2">
-          <h1 className="font-serif text-3xl font-bold text-[--color-primary]">KOL 数字孪生</h1>
-          <p className="text-[--color-muted-foreground]">
-            基于 B 站 UP 主真实内容构建的 AI 分身。
-          </p>
-        </div>
-        <Card className="border-dashed">
-          <CardContent className="flex flex-col items-center justify-center py-16 space-y-4">
-            <Database className="h-12 w-12 text-[--color-muted-foreground] opacity-30" />
-            <div className="text-center space-y-2">
-              <p className="text-[--color-muted-foreground] font-medium">KOL 数据暂不可用</p>
-              <p className="text-sm text-[--color-muted-foreground] opacity-70 max-w-md">
-                KOL 分身功能将在下期上线。
-              </p>
-            </div>
-            <Button asChild variant="outline" size="sm">
-              <Link to="/personas">
-                <ArrowRight className="h-3.5 w-3.5 mr-1" />
-                先体验群体画像
-              </Link>
-            </Button>
-          </CardContent>
-        </Card>
-      </div>
-    );
+    return <div className="text-center py-16 text-red-500">加载失败: {error}</div>;
   }
 
   if (kols.length === 0) {
@@ -128,13 +98,11 @@ export function KolListPage() {
               </p>
               {kol.sampleSegments && kol.sampleSegments.length > 0 && (
                 <div className="space-y-1.5">
-                  <p className="text-xs text-[--color-muted-foreground] font-medium">
-                    代表性发言
-                  </p>
+                  <p className="text-xs text-[--color-muted-foreground] font-medium">代表性发言</p>
                   <div className="space-y-1">
-                    {kol.sampleSegments.slice(0, 2).map((seg, i) => (
+                    {kol.sampleSegments.slice(0, 2).map((seg) => (
                       <p
-                        key={`${kol.id}-${i}-${seg.slice(0, 20)}`}
+                        key={seg.slice(0, 30)}
                         className="text-xs text-[--color-muted-foreground] bg-[--color-secondary] rounded px-2 py-1 line-clamp-2"
                       >
                         "{seg.slice(0, 150)}"
