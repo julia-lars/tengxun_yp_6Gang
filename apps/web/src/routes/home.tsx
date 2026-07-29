@@ -93,11 +93,11 @@ export function HomePage() {
       </section>
 
       {/* 历史对话 */}
-      {sessionsWithPersona.length > 0 && (
-        <section className="space-y-4">
-          <h2 className="font-serif text-xl sm:text-2xl font-bold text-[--color-primary] text-center">
-            历史对话
-          </h2>
+      <section className="space-y-4">
+        <h2 className="font-serif text-xl sm:text-2xl font-bold text-[--color-primary] text-center">
+          历史对话
+        </h2>
+        {sessionsWithPersona.length > 0 ? (
           <div className="space-y-2">
             {sessionsWithPersona.map((s) => {
               const firstMsg = (s.messages[0] as { content?: string } | undefined)?.content ?? "";
@@ -140,8 +140,18 @@ export function HomePage() {
               );
             })}
           </div>
-        </section>
-      )}
+        ) : (
+          <Card className="border-dashed">
+            <CardContent className="flex flex-col items-center justify-center py-8">
+              <Clock className="h-8 w-8 text-[--color-muted-foreground] opacity-30 mb-2" />
+              <p className="text-sm text-[--color-muted-foreground]">暂无历史对话</p>
+              <p className="text-xs text-[--color-muted-foreground] opacity-70 mt-1">
+                进入画像详情页，开始与虚拟玩家对话后，将在此显示
+              </p>
+            </CardContent>
+          </Card>
+        )}
+      </section>
 
       {/* 使用场景 */}
       <section className="space-y-5">

@@ -55,6 +55,14 @@ export function PersonaDetailPage() {
       <div>
         <h1 className="font-serif text-3xl font-bold text-[--color-primary]">{persona.name}</h1>
         <p className="text-[--color-muted-foreground] mt-1">{persona.description}</p>
+        <div className="mt-4">
+          <Link to={`/personas/${persona.id}/chat`}>
+            <Button size="lg" className="text-base px-8 py-6">
+              <MessageCircle className="h-5 w-5 mr-2" />
+              与「{persona.name}」开始对话
+            </Button>
+          </Link>
+        </div>
       </div>
 
       {/* 特征标签 */}
@@ -145,16 +153,6 @@ export function PersonaDetailPage() {
           </div>
         </CardContent>
       </Card>
-
-      {/* 操作按钮 */}
-      <div className="flex gap-3">
-        <Link to={`/personas/${persona.id}/chat`}>
-          <Button size="lg">
-            <MessageCircle className="h-4 w-4 mr-2" />
-            与「{persona.name}」开始对话
-          </Button>
-        </Link>
-      </div>
 
       {/* 历史对话 */}
       {sessions.length > 0 && (

@@ -59,6 +59,7 @@ export function ChatRoomPage() {
     evidenceList: EvidenceData[];
   }>({ open: false, evidenceIds: [], evidenceList: [] });
   const [showExportMenu, setShowExportMenu] = useState(false);
+  const [showScrollButton, setShowScrollButton] = useState(false);
   const [isNearBottom, setIsNearBottom] = useState(true);
   const bottomRef = useRef<HTMLDivElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
@@ -427,22 +428,28 @@ export function ChatRoomPage() {
                   <Download className="h-3 w-3 mr-1" /> 导出
                 </Button>
                 {showExportMenu && (
-                  <div className="absolute right-0 top-full mt-1 z-50 rounded-md border border-[--color-border] bg-[--color-popover] shadow-lg py-1 min-w-[120px]">
-                    <button
-                      type="button"
-                      className="w-full text-left px-3 py-1.5 text-xs text-[--color-foreground] hover:bg-[--color-secondary] flex items-center gap-2"
-                      onClick={() => exportChat("md")}
-                    >
-                      <FileText className="h-3 w-3" /> Markdown (.md)
-                    </button>
-                    <button
-                      type="button"
-                      className="w-full text-left px-3 py-1.5 text-xs text-[--color-foreground] hover:bg-[--color-secondary] flex items-center gap-2"
-                      onClick={() => exportChat("json")}
-                    >
-                      <FileJson className="h-3 w-3" /> JSON (.json)
-                    </button>
-                  </div>
+                  <>
+                    <div
+                      className="fixed inset-0 z-40"
+                      onClick={() => setShowExportMenu(false)}
+                    />
+                    <div className="absolute right-0 top-full mt-1 z-50 rounded-md border border-gray-200 bg-white shadow-lg py-1 min-w-[150px]">
+                      <button
+                        type="button"
+                        className="w-full text-left px-3 py-1.5 text-xs text-gray-800 hover:bg-gray-100 flex items-center gap-2 whitespace-nowrap"
+                        onClick={() => exportChat("md")}
+                      >
+                        <FileText className="h-3 w-3 flex-shrink-0" /> Markdown (.md)
+                      </button>
+                      <button
+                        type="button"
+                        className="w-full text-left px-3 py-1.5 text-xs text-gray-800 hover:bg-gray-100 flex items-center gap-2 whitespace-nowrap"
+                        onClick={() => exportChat("json")}
+                      >
+                        <FileJson className="h-3 w-3 flex-shrink-0" /> JSON (.json)
+                      </button>
+                    </div>
+                  </>
                 )}
               </div>
               <Button
@@ -489,7 +496,7 @@ export function ChatRoomPage() {
               <div
                 className={`rounded-lg px-4 py-2.5 text-sm whitespace-pre-wrap leading-relaxed ${
                   m.role === "user"
-                    ? "bg-[--color-primary] text-[--color-primary-foreground] rounded-br-sm"
+                    ? "bg-blue-600 text-white rounded-br-sm"
                     : "bg-[--color-secondary] text-[--color-foreground] rounded-bl-sm"
                 }`}
               >
