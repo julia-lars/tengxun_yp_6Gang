@@ -15,6 +15,8 @@ export const api = {
   listPersonas: (tags?: string) =>
     request<PersonaSummary[]>(`/api/personas${tags ? `?tags=${tags}` : ""}`),
   getPersona: (id: number) => request<PersonaDetail>(`/api/personas/${id}`),
+  getChatSessions: (personaId?: number) =>
+    request<ChatSession[]>(`/api/chat/sessions${personaId ? `?personaId=${personaId}` : ""}`),
   getChatSession: (id: number) => request<ChatSession>(`/api/chat/sessions/${id}`),
   // KOL
   listKol: () => request<KolProfileSummary[]>("/api/kol"),

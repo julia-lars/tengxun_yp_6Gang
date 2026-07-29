@@ -221,6 +221,7 @@ export const chatSessions = pgTable(
     personaId: integer("persona_id")
       .notNull()
       .references(() => personas.id, { onDelete: "cascade" }),
+    title: text("title"),
     messages: jsonb("messages").$type<Record<string, unknown>[]>().notNull().default([]),
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
     updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),

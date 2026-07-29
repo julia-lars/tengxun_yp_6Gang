@@ -4,7 +4,7 @@
 
 import { type ChatRequest, type ChatSession, chatRequestSchema } from "@app/shared";
 import { zValidator } from "@hono/zod-validator";
-import { eq, sql } from "drizzle-orm";
+import { eq, sql, and, desc } from "drizzle-orm";
 import { Hono } from "hono";
 import { streamSSE } from "hono/streaming";
 
@@ -31,9 +31,10 @@ chatRoute.post("/", zValidator("json", chatRequestSchema), async (c) => {
     : undefined;
 
   if (!session) {
+    const title = message.slice(0, 30);
     const [newSession] = await db
       .insert(chatSessions)
-      .values({ personaId, messages: [] })
+      .values({ personaId, title, messages: [] })
       .returning();
     session = newSession;
   }
@@ -134,6 +135,32 @@ chatRoute.post("/", zValidator("json", chatRequestSchema), async (c) => {
       data: JSON.stringify({ type: "evidence", ids: evidenceIds, sessionId: currentSession.id }),
     });
   });
+});
+
+// GET /api/chat/sessions —— 列出所有会话
+chatRoute.get("/sessions", async (c) => {
+  const personaId = c.req.query("personaId");
+  const conditions = personaId
+    ? and(eq(chatSessions.personaId, Number(personaId)))
+    : undefined;
+
+  const rows = await db
+    .select()
+    .from(chatSessions)
+    .where(conditions)
+    .orderBy(desc(chatSessions.updatedAt))
+    .limit(50);
+
+  const result: ChatSession[] = rows.map((r) => ({
+    id: r.id,
+    personaId: r.personaId,
+    title: r.title,
+    messages: (r.messages as ChatSession["messages"]) ?? [],
+    createdAt: r.createdAt.toISOString(),
+    updatedAt: r.updatedAt.toISOString(),
+  }));
+
+  return c.json(result);
 });
 
 // GET /api/chat/sessions/:id —— 对话历史

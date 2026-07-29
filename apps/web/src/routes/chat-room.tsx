@@ -1,5 +1,5 @@
 // 虚拟访谈室 — SSE 流式对话 · 交互设计规范 v1.0
-import { ArrowLeft, ArrowDown, Copy, Download, FileText, RotateCw, Send, Trash2, User } from "lucide-react";
+import { ArrowLeft, ArrowDown, Copy, Download, FileJson, FileText, RotateCw, Send, Trash2, User } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useParams, useSearchParams } from "react-router";
 import { Badge } from "@/components/ui/badge";
@@ -51,7 +51,7 @@ export function ChatRoomPage() {
     evidenceIds: number[];
     evidenceList: EvidenceData[];
   }>({ open: false, evidenceIds: [], evidenceList: [] });
-  const [showScrollButton, setShowScrollButton] = useState(false);
+  const [showExportMenu, setShowExportMenu] = useState(false);
   const [isNearBottom, setIsNearBottom] = useState(true);
   const bottomRef = useRef<HTMLDivElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
@@ -293,34 +293,66 @@ export function ChatRoomPage() {
   }, []);
 
   // 导出对话
-  const exportChat = useCallback(() => {
-    if (messages.length === 0) return;
-    const md = [
-      `# 6Gang 虚拟访谈记录`,
-      ``,
-      `**画像**: ${persona?.name ?? `#${personaId}`}`,
-      `**对话时间**: ${new Date().toLocaleString("zh-CN")}`,
-      `**对话轮数**: ${Math.floor(messages.length / 2)} 轮`,
-      ``,
-      `---`,
-      ``,
-      `## 对话记录`,
-      ``,
-      ...messages.map((m, i) => {
-        const prefix = m.role === "user" ? "**Q**" : "**A**";
-        return `${prefix}: ${m.content}\n`;
-      }),
-    ].join("\n");
+  const exportChat = useCallback(
+    (format: "md" | "json") => {
+      if (messages.length === 0) return;
+      const dateStr = new Date().toISOString().slice(0, 10);
+      const baseName = `6Gang-访谈-${persona?.name ?? personaId}-${dateStr}`;
 
-    const blob = new Blob([md], { type: "text/markdown" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `6Gang-访谈-${persona?.name ?? personaId}-${new Date().toISOString().slice(0, 10)}.md`;
-    a.click();
-    URL.revokeObjectURL(url);
-    toast.success("对话已导出");
-  }, [messages, persona, personaId]);
+      if (format === "json") {
+        const json = JSON.stringify(
+          {
+            persona: persona?.name ?? `#${personaId}`,
+            date: new Date().toLocaleString("zh-CN"),
+            rounds: Math.floor(messages.length / 2),
+            messages: messages.map((m) => ({
+              role: m.role,
+              content: m.content,
+              evidenceIds: m.evidenceIds,
+            })),
+          },
+          null,
+          2,
+        );
+        const blob = new Blob([json], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `${baseName}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+      } else {
+        const md = [
+          `# 6Gang 虚拟访谈记录`,
+          ``,
+          `**画像**: ${persona?.name ?? `#${personaId}`}`,
+          `**对话时间**: ${new Date().toLocaleString("zh-CN")}`,
+          `**对话轮数**: ${Math.floor(messages.length / 2)} 轮`,
+          ``,
+          `---`,
+          ``,
+          `## 对话记录`,
+          ``,
+          ...messages.map((m) => {
+            const prefix = m.role === "user" ? "**Q**" : "**A**";
+            return `${prefix}: ${m.content}\n`;
+          }),
+        ].join("\n");
+
+        const blob = new Blob([md], { type: "text/markdown" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `${baseName}.md`;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+
+      setShowExportMenu(false);
+      toast.success(`已导出为 ${format.toUpperCase()} 格式`);
+    },
+    [messages, persona, personaId],
+  );
 
   // 清空对话
   const clearChat = useCallback(() => {
@@ -369,15 +401,35 @@ export function ChatRoomPage() {
         <div className="flex items-center gap-1">
           {messages.length > 0 && (
             <>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={exportChat}
-                className="text-xs h-7"
-                title="导出对话"
-              >
-                <Download className="h-3 w-3 mr-1" /> 导出
-              </Button>
+              <div className="relative">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setShowExportMenu(!showExportMenu)}
+                  className="text-xs h-7"
+                  title="导出对话"
+                >
+                  <Download className="h-3 w-3 mr-1" /> 导出
+                </Button>
+                {showExportMenu && (
+                  <div className="absolute right-0 top-full mt-1 z-50 rounded-md border border-[--color-border] bg-[--color-popover] shadow-lg py-1 min-w-[120px]">
+                    <button
+                      type="button"
+                      className="w-full text-left px-3 py-1.5 text-xs text-[--color-foreground] hover:bg-[--color-secondary] flex items-center gap-2"
+                      onClick={() => exportChat("md")}
+                    >
+                      <FileText className="h-3 w-3" /> Markdown (.md)
+                    </button>
+                    <button
+                      type="button"
+                      className="w-full text-left px-3 py-1.5 text-xs text-[--color-foreground] hover:bg-[--color-secondary] flex items-center gap-2"
+                      onClick={() => exportChat("json")}
+                    >
+                      <FileJson className="h-3 w-3" /> JSON (.json)
+                    </button>
+                  </div>
+                )}
+              </div>
               <Button
                 variant="ghost"
                 size="sm"

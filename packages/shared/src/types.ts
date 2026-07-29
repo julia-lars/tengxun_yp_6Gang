@@ -60,6 +60,7 @@ export type ChatRequest = z.infer<typeof chatRequestSchema>;
 export const chatSessionSchema = z.object({
   id: z.number().int().positive(),
   personaId: z.number().int().positive(),
+  title: z.string().nullable().optional(),
   messages: z.array(chatMessageSchema),
   createdAt: z.string(),
   updatedAt: z.string(),

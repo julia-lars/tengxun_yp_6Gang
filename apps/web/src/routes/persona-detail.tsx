@@ -23,8 +23,10 @@ export function PersonaDetailPage() {
       .then(setPersona)
       .finally(() => setLoading(false));
 
-    // 获取最近对话历史 — 目前 API 没有按 persona 列出的端点，这里做简化处理
-    // TODO: 后续添加 GET /api/personas/:id/sessions
+    api
+      .getChatSessions(Number(id))
+      .then(setSessions)
+      .catch(() => setSessions([]));
   }, [id]);
 
   if (loading)
@@ -159,37 +161,44 @@ export function PersonaDetailPage() {
       {sessions.length > 0 && (
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-lg">历史对话</CardTitle>
+            <CardTitle className="text-lg">历史对话（{sessions.length}）</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
-            {sessions.map((s) => (
-              <div
-                key={s.id}
-                className="flex items-center justify-between p-2 rounded hover:bg-[--color-secondary] transition-colors"
-              >
-                <div className="flex items-center gap-3 text-xs">
-                  <Clock className="h-3 w-3 text-[--color-muted-foreground]" />
-                  <span className="text-[--color-muted-foreground]">
-                    {new Date(s.createdAt).toLocaleDateString("zh-CN", {
-                      month: "short",
-                      day: "numeric",
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}
-                  </span>
-                  <span className="text-[--color-foreground]">
-                    {s.messages.length} 轮对话
-                  </span>
-                </div>
-                <div className="flex gap-2">
-                  <Link to={`/personas/${persona.id}/chat?session=${s.id}`}>
+            {sessions.map((s) => {
+              const firstMsg = (s.messages[0] as { content?: string } | undefined)?.content ?? "";
+              const preview = firstMsg.slice(0, 50) || s.title || "新对话";
+              return (
+                <div
+                  key={s.id}
+                  className="flex items-center justify-between p-2 rounded hover:bg-[--color-secondary] transition-colors"
+                >
+                  <div className="flex items-center gap-3 min-w-0 text-xs">
+                    <Clock className="h-3 w-3 text-[--color-muted-foreground] flex-shrink-0" />
+                    <span className="text-[--color-muted-foreground] flex-shrink-0">
+                      {new Date(s.createdAt).toLocaleDateString("zh-CN", {
+                        month: "short",
+                        day: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
+                    </span>
+                    <span className="text-[--color-foreground] truncate">{preview}</span>
+                    <span className="text-[--color-muted-foreground] flex-shrink-0">
+                      {s.messages.length} 轮
+                    </span>
+                  </div>
+                  <Link
+                    to={`/personas/${persona.id}/chat?session=${s.id}`}
+                    className="flex-shrink-0"
+                  >
                     <Button variant="ghost" size="sm" className="text-xs h-7">
+                      <MessageCircle className="h-3 w-3 mr-1" />
                       继续对话
                     </Button>
                   </Link>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </CardContent>
         </Card>
       )}
