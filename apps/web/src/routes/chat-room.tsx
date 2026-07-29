@@ -123,7 +123,7 @@ export function ChatRoomPage() {
   // 更新 sessionId 到 URL
   useEffect(() => {
     if (sessionId) {
-      setSearchParams({ session: String(sessionId) });
+      setSearchParams({ session: String(sessionId), ...(fromParam ? { from: fromParam } : {}) });
     }
   }, [sessionId]);
 

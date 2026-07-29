@@ -31,7 +31,7 @@ export function SegmentedControl<T extends string>({
               "flex-1 px-3 py-1.5 text-xs font-medium transition-all duration-150",
               "border-r border-[--color-border] last:border-r-0",
               isSelected
-                ? "bg-[--color-primary] text-[--color-primary-foreground]"
+                ? "bg-gray-700 dark:bg-gray-200 text-white dark:text-gray-900 shadow-sm font-semibold"
                 : "bg-transparent text-[--color-muted-foreground] hover:bg-[--color-secondary] hover:text-[--color-foreground]",
             )}
           >

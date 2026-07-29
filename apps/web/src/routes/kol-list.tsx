@@ -120,7 +120,7 @@ export function KolListPage() {
                   </Link>
                 </Button>
                 <Button asChild size="sm">
-                  <Link to={`/kol/${kol.id}/chat`}>
+                  <Link to={`/kol/${kol.id}/chat?from=kol`}>
                     <MessageCircle className="h-3.5 w-3.5 mr-1" />
                     开始对话
                   </Link>

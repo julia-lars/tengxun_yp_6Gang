@@ -1,7 +1,7 @@
 // KOL 分身对话室 — SSE 流式对话
 import { ArrowLeft, Send, User } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { Link, useParams } from "react-router";
+import { Link, useParams, useSearchParams } from "react-router";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 
@@ -12,7 +12,10 @@ interface Message {
 
 export function KolChatPage() {
   const { id } = useParams<{ id: string }>();
+  const [searchParams] = useSearchParams();
   const kolId = Number(id);
+  const fromParam = searchParams.get("from");
+  const backUrl = fromParam === "kol" ? "/kol" : `/kol/${kolId}`;
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [streaming, setStreaming] = useState(false);
@@ -100,7 +103,7 @@ export function KolChatPage() {
     <div className="flex flex-col h-full">
       <div className="flex items-center gap-3 pb-3 border-b border-[--color-border] shrink-0">
         <Link
-          to={`/kol/${kolId}`}
+          to={backUrl}
           className="text-[--color-muted-foreground] hover:text-[--color-primary]"
         >
           <ArrowLeft className="h-4 w-4" />
