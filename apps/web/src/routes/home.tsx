@@ -1,12 +1,11 @@
 // 项目首页 — AI 模拟用户系统
-import { ArrowRight, MessageCircle, Users } from "lucide-react";
+import { Archive, ArrowRight, ClipboardCheck, GitCompare, Lightbulb, MessageCircle, Users } from "lucide-react";
 import { Link } from "react-router";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 export function HomePage() {
   return (
-    <div className="space-y-12 sm:space-y-16">
+    <div className="space-y-8 sm:space-y-10">
       <section className="space-y-6 pt-4 text-center">
         <div className="text-[10px] sm:text-xs tracking-[0.4em] text-[--color-accent] font-medium">
           MUR · AI SIMULATED USER SYSTEM
@@ -17,78 +16,84 @@ export function HomePage() {
         <p className="text-[--color-muted-foreground] text-base sm:text-lg max-w-[64ch] mx-auto leading-relaxed">
           基于真实玩家访谈数据，构建射击品类 AI 模拟用户画像。选择特征标签，即可与虚拟玩家深度对话。
         </p>
-        <div className="flex items-center justify-center gap-4 pt-4">
-          <Button asChild size="lg">
-            <Link to="/personas">
-              <Users className="h-4 w-4 mr-2" />
-              进入画像系统
-              <ArrowRight className="h-4 w-4 ml-1" />
-            </Link>
-          </Button>
-          <Button asChild size="lg" variant="outline">
-            <Link to="/kol">
-              <MessageCircle className="h-4 w-4 mr-2" />
-              KOL 分身
-              <ArrowRight className="h-4 w-4 ml-1" />
-            </Link>
-          </Button>
+      </section>
+
+      <section>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <Link to="/personas" className="block group">
+            <Card className="h-full transition-all duration-200 hover:border-[--color-primary] hover:shadow-md hover:-translate-y-0.5 cursor-pointer">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-lg flex items-center gap-2 group-hover:text-[--color-primary] transition-colors">
+                  <Users className="h-5 w-5 text-[--color-primary]" />
+                  群体画像
+                  <ArrowRight className="h-4 w-4 ml-auto text-[--color-muted-foreground] opacity-0 group-hover:opacity-100 group-hover:text-[--color-primary] transition-all duration-200 -translate-x-1 group-hover:translate-x-0" />
+                </CardTitle>
+                <CardDescription>
+                  基于 17,000+
+                  条真实玩家访谈片段，聚类形成典型玩家画像。选择特征标签，匹配画像并开展深度对话。
+                </CardDescription>
+              </CardHeader>
+            </Card>
+          </Link>
+
+          <Link to="/kol" className="block group">
+            <Card className="h-full transition-all duration-200 hover:border-[--color-primary] hover:shadow-md hover:-translate-y-0.5 cursor-pointer">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-lg flex items-center gap-2 group-hover:text-[--color-primary] transition-colors">
+                  <MessageCircle className="h-5 w-5 text-[--color-primary]" />
+                  KOL 分身
+                  <ArrowRight className="h-4 w-4 ml-auto text-[--color-muted-foreground] opacity-0 group-hover:opacity-100 group-hover:text-[--color-primary] transition-all duration-200 -translate-x-1 group-hover:translate-x-0" />
+                </CardTitle>
+                <CardDescription>
+                  基于 B 站 UP 主真实内容构建数字孪生，获取专业视角的游戏评价反馈。
+                </CardDescription>
+              </CardHeader>
+            </Card>
+          </Link>
         </div>
       </section>
 
+      {/* 使用场景 */}
       <section className="space-y-5">
-        <h2 className="font-serif text-2xl md:text-3xl font-bold text-[--color-primary] text-center">
-          核心能力
+        <h2 className="font-serif text-xl sm:text-2xl font-bold text-[--color-primary] text-center">
+          使用场景
         </h2>
         <div className="grid gap-4 sm:grid-cols-2">
-          <Card>
-            <CardHeader className="pb-3">
-              <CardTitle className="text-lg flex items-center gap-2">
-                <Users className="h-5 w-5 text-[--color-primary]" />
-                群体画像
-              </CardTitle>
-              <CardDescription>
-                基于 17,000+
-                条真实玩家访谈片段，聚类形成典型玩家画像。选择特征标签，匹配画像并开展深度对话。
-              </CardDescription>
-            </CardHeader>
-          </Card>
-          <Card>
-            <CardHeader className="pb-3">
-              <CardTitle className="text-lg flex items-center gap-2">
-                <MessageCircle className="h-5 w-5 text-[--color-primary]" />
-                KOL 分身
-              </CardTitle>
-              <CardDescription>
-                基于 B 站 UP 主（冷面叶星星IKGN、鬼王陆行）真实内容构建数字孪生，获取专业视角的游戏评价反馈。
-              </CardDescription>
-            </CardHeader>
-          </Card>
-        </div>
-      </section>
-
-      <section className="space-y-5">
-        <h2 className="font-serif text-2xl md:text-3xl font-bold text-[--color-primary] text-center">
-          使用流程
-        </h2>
-        <Card>
-          <CardContent className="pt-6">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
-              {[
-                { step: "1", title: "选择特征标签", desc: "从诉求、能力、风格等维度筛选目标用户" },
-                { step: "2", title: "查看匹配画像", desc: "浏览画像详情，查看动机链和代表性原声" },
-                { step: "3", title: "深度对话", desc: "进入虚拟访谈室，像真实深访一样提问" },
-              ].map(({ step, title, desc }) => (
-                <div key={step} className="space-y-2">
-                  <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-[--color-primary] text-white font-bold text-sm">
-                    {step}
+          {[
+            {
+              icon: Lightbulb,
+              title: "立项概念预筛",
+              desc: "团队有 2-4 个立项概念，选择目标玩家标签，快速验证不同画像的反应，淘汰明显不匹配的方向。",
+            },
+            {
+              icon: GitCompare,
+              title: "玩法机制比较",
+              desc: '需要比较 TTK、复活机制、武器方案时，对不同画像分别提问，理解「为什么喜欢/不喜欢」而非只看偏好比例。',
+            },
+            {
+              icon: ClipboardCheck,
+              title: "访谈提纲预演",
+              desc: "正式深访前，用模拟画像按提纲预演 10-15 分钟，标记空泛问题、诱导问题和无法区分画像的问题。",
+            },
+            {
+              icon: Archive,
+              title: "历史洞察复用",
+              desc: "出现新需求时，从历史语料中检索已有证据，明确哪些结论已有支撑、哪些仍需新研究，避免重复造轮子。",
+            },
+          ].map(({ icon: Icon, title, desc }) => (
+            <Card key={title} className="transition-all duration-200 hover:border-[--color-primary] hover:shadow-md">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-base flex items-center gap-2">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-[--color-primary]/10 flex items-center justify-center">
+                    <Icon className="h-4 w-4 text-[--color-primary]" />
                   </div>
-                  <h3 className="font-medium text-sm">{title}</h3>
-                  <p className="text-xs text-[--color-muted-foreground]">{desc}</p>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+                  {title}
+                </CardTitle>
+                <CardDescription className="text-sm leading-relaxed">{desc}</CardDescription>
+              </CardHeader>
+            </Card>
+          ))}
+        </div>
       </section>
 
       <footer className="text-center text-xs text-[--color-muted-foreground] py-4 border-t border-[--color-border]">

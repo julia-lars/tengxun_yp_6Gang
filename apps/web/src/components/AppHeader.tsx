@@ -27,7 +27,7 @@ export function AppHeader() {
           >
             KOL 分身
           </Link>
-          <ThemeToggle className="text-[var(--color-header-foreground)] hover:bg-white/10" />
+          <ThemeToggle />
         </div>
       </div>
     </header>

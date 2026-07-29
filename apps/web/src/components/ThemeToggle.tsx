@@ -7,13 +7,8 @@
 import { Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 
-interface ThemeToggleProps {
-  className?: string;
-}
-
-export function ThemeToggle({ className }: ThemeToggleProps) {
+export function ThemeToggle() {
   const [dark, setDark] = useState(() => {
     if (typeof window === "undefined") return false;
     const saved = localStorage.getItem("theme");
@@ -32,10 +27,10 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
       variant="ghost"
       size="icon"
       onClick={() => setDark((v) => !v)}
-      className={cn(className)}
+      className="text-[var(--color-header-foreground)] hover:bg-white/10"
       aria-label={dark ? "切换到浅色主题" : "切换到深色主题"}
     >
-      {dark ? <Sun /> : <Moon />}
+      {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
     </Button>
   );
 }

@@ -1,6 +1,6 @@
 // KOL 分身列表页
 import type { KolProfileSummary } from "@app/shared";
-import { ArrowRight, MessageCircle, Play, User } from "lucide-react";
+import { ArrowRight, MessageCircle, Play, User, Database } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { Badge } from "@/components/ui/badge";
@@ -31,16 +31,60 @@ export function KolListPage() {
 
   if (error) {
     return (
-      <div className="text-center py-16 text-red-500">
-        加载失败: {error}
+      <div className="space-y-6">
+        <div className="space-y-2">
+          <h1 className="font-serif text-3xl font-bold text-[--color-primary]">KOL 数字孪生</h1>
+          <p className="text-[--color-muted-foreground]">
+            基于 B 站 UP 主真实内容构建的 AI 分身。
+          </p>
+        </div>
+        <Card className="border-dashed">
+          <CardContent className="flex flex-col items-center justify-center py-16 space-y-4">
+            <Database className="h-12 w-12 text-[--color-muted-foreground] opacity-30" />
+            <div className="text-center space-y-2">
+              <p className="text-[--color-muted-foreground] font-medium">KOL 数据暂不可用</p>
+              <p className="text-sm text-[--color-muted-foreground] opacity-70 max-w-md">
+                KOL 分身功能将在下期上线。
+              </p>
+            </div>
+            <Button asChild variant="outline" size="sm">
+              <Link to="/personas">
+                <ArrowRight className="h-3.5 w-3.5 mr-1" />
+                先体验群体画像
+              </Link>
+            </Button>
+          </CardContent>
+        </Card>
       </div>
     );
   }
 
   if (kols.length === 0) {
     return (
-      <div className="text-center py-16 text-[--color-muted-foreground]">
-        暂无 KOL 数据。请先运行 seed 导入数据。
+      <div className="space-y-6">
+        <div className="space-y-2">
+          <h1 className="font-serif text-3xl font-bold text-[--color-primary]">KOL 数字孪生</h1>
+          <p className="text-[--color-muted-foreground]">
+            基于 B 站 UP 主真实内容构建的 AI 分身。选择一位 KOL，像与该 UP 主本人对话一样提问。
+          </p>
+        </div>
+        <Card className="border-dashed">
+          <CardContent className="flex flex-col items-center justify-center py-16 space-y-4">
+            <Database className="h-12 w-12 text-[--color-muted-foreground] opacity-30" />
+            <div className="text-center space-y-2">
+              <p className="text-[--color-muted-foreground] font-medium">暂无 KOL 数据</p>
+              <p className="text-sm text-[--color-muted-foreground] opacity-70 max-w-md">
+                KOL 分身功能将在下期上线。届时将基于 B 站 UP 主（如冷面叶星星IKGN、鬼王陆行）的公开内容构建数字孪生。
+              </p>
+            </div>
+            <Button asChild variant="outline" size="sm">
+              <Link to="/personas">
+                <ArrowRight className="h-3.5 w-3.5 mr-1" />
+                先体验群体画像
+              </Link>
+            </Button>
+          </CardContent>
+        </Card>
       </div>
     );
   }
