@@ -26,10 +26,18 @@ import {
   getExclusionMessage,
   TAG_DIMENSIONS,
   type TagDimension,
+  type TagOption,
 } from "../lib/tag-data.js";
 
 // 标签值在 URL 中的分隔符
 const TAG_SEPARATOR = ",";
+
+// 解构维度以消除 TS 的可选链警告
+const DIM_NEEDS = TAG_DIMENSIONS[0]!;
+const DIM_ABILITY = TAG_DIMENSIONS[1]!;
+const DIM_STYLE = TAG_DIMENSIONS[2]!;
+const DIM_PLATFORM = TAG_DIMENSIONS[3]!;
+const DIM_MODE = TAG_DIMENSIONS[4]!;
 
 export function PersonasPage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -106,10 +114,8 @@ export function PersonasPage() {
       .concat(
         activeTags
           .filter((t) => t.includes(":"))
-          .map((t) => {
-            const parts = t.split(":");
-            return parts[parts.length - 1];
-          }),
+          .map((t) => t.split(":").pop()!)
+          .filter(Boolean),
       );
   }, [activeTags]);
 
@@ -211,7 +217,7 @@ export function PersonasPage() {
   const lowSample = !loading && personas.length > 0 && personas.every((p) => p.sampleCount < 30);
 
   // 渲染标签 Badge
-  const renderTag = (tag: TagDimension["options"][0], dimName: string, groupName?: string) => {
+  const renderTag = (tag: TagOption, dimName: string, groupName?: string) => {
     const isActive = plainTags.includes(tag.value);
     const isDisabled = !isActive && isTagDisabled(tag.value);
     const disabledReason = isDisabled ? getDisabledReason(tag.value) : null;
@@ -292,7 +298,7 @@ export function PersonasPage() {
               <span className="text-xs ml-1 font-normal">（多选，最多3个）</span>
             </p>
             <div className="flex flex-wrap gap-2">
-              {TAG_DIMENSIONS[0].options!.map((opt) => {
+              {DIM_NEEDS.options!.map((opt) => {
                 const isActive = plainTags.includes(opt.value);
                 const isDisabled = !isActive && isTagDisabled(opt.value);
                 const isPrimary = isActive && activeTags[0] === opt.value;
@@ -311,7 +317,7 @@ export function PersonasPage() {
                         toggleTag(opt.value);
                       } else if (
                         plainTags.filter((t) =>
-                          TAG_DIMENSIONS[0].options!.some((o) => o.value === t),
+                          DIM_NEEDS.options!.some((o) => o.value === t),
                         ).length >= 3
                       ) {
                         return; // 最多3个
@@ -354,7 +360,7 @@ export function PersonasPage() {
             <div className="mb-2">
               <span className="text-xs text-[--color-muted-foreground]">综合等级</span>
               <div className="flex flex-wrap gap-2 mt-1">
-                {TAG_DIMENSIONS[1].groups![0].options.map((opt) => {
+                {DIM_ABILITY.groups![0]!.options.map((opt) => {
                   const isActive = abilityLevel === opt.value;
                   return (
                     <Badge
@@ -381,7 +387,7 @@ export function PersonasPage() {
             <div className="mb-2">
               <span className="text-xs text-[--color-muted-foreground]">技巧强项（最多3个）</span>
               <div className="flex flex-wrap gap-2 mt-1">
-                {TAG_DIMENSIONS[1].groups![1].options.map((opt) => {
+                {DIM_ABILITY.groups![1]!.options.map((opt) => {
                   const isActive = abilityStrengths.includes(opt.value);
                   const isDisabledInWeakness = abilityWeaknesses.includes(opt.value);
                   return (
@@ -411,7 +417,7 @@ export function PersonasPage() {
             <div>
               <span className="text-xs text-[--color-muted-foreground]">技巧短板（最多3个）</span>
               <div className="flex flex-wrap gap-2 mt-1">
-                {TAG_DIMENSIONS[1].groups![2].options.map((opt) => {
+                {DIM_ABILITY.groups![2]!.options.map((opt) => {
                   const isActive = abilityWeaknesses.includes(opt.value);
                   const isDisabledInStrength = abilityStrengths.includes(opt.value);
                   return (
@@ -446,7 +452,7 @@ export function PersonasPage() {
               <span className="text-xs ml-1 font-normal">（每组单选）</span>
             </p>
             <div className="space-y-3">
-              {TAG_DIMENSIONS[2].segmentedAxes!.map((axis) => (
+              {DIM_STYLE.segmentedAxes!.map((axis) => (
                 <div key={axis.name}>
                   <span className="text-xs text-[--color-muted-foreground] block mb-1">
                     {axis.label}
@@ -469,7 +475,7 @@ export function PersonasPage() {
             <div className="mb-2">
               <span className="text-xs text-[--color-muted-foreground]">主选平台</span>
               <div className="flex flex-wrap gap-2 mt-1">
-                {TAG_DIMENSIONS[3].groups![0].options.map((opt) => {
+                {DIM_PLATFORM.groups![0]!.options.map((opt) => {
                   const isActive = platformPrimary === opt.value;
                   const isSecondary = platformSecondary === opt.value;
                   return (
@@ -497,7 +503,7 @@ export function PersonasPage() {
             <div>
               <span className="text-xs text-[--color-muted-foreground]">次选平台</span>
               <div className="flex flex-wrap gap-2 mt-1">
-                {TAG_DIMENSIONS[3].groups![1].options.map((opt) => {
+                {DIM_PLATFORM.groups![1]!.options.map((opt) => {
                   const isActive = platformSecondary === opt.value;
                   const isPrimary = platformPrimary === opt.value;
                   return (
@@ -532,7 +538,7 @@ export function PersonasPage() {
             <div className="mb-2">
               <span className="text-xs text-[--color-muted-foreground]">主结构</span>
               <div className="flex flex-wrap gap-2 mt-1">
-                {TAG_DIMENSIONS[4].groups![0].options.map((opt) => {
+                {DIM_MODE.groups![0]!.options.map((opt: TagOption) => {
                   const isActive = modeStructure === opt.value;
                   const isDisabled = !isActive && isTagDisabled(opt.value);
                   const disabledReason = isDisabled ? getDisabledReason(opt.value) : null;
@@ -583,7 +589,7 @@ export function PersonasPage() {
             <div>
               <span className="text-xs text-[--color-muted-foreground]">二级模式</span>
               <div className="flex flex-wrap gap-2 mt-1">
-                {TAG_DIMENSIONS[4].groups![1].options.map((opt) => (
+                {DIM_MODE.groups![1]!.options.map((opt: TagOption) => (
                   <TriStateTag
                     key={opt.value}
                     label={opt.label}
