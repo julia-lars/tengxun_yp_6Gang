@@ -4,4 +4,6 @@
 !segments_cleaned/*.json
 !sheets_data/
 !sheets_data/*.json
+!kol/
+!kol/*.json
 !README.md
