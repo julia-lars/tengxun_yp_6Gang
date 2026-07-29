@@ -6,29 +6,16 @@
     "group_code": "G1",
     "background": {
       "batch": "ABIvsDF",
-      "source_sheets": [
-        "ABIvsDF记录表",
-        "特征诉求"
-      ],
+      "source_sheets": ["ABIvsDF记录表", "特征诉求"],
       "group_code_scope": "ABIvsDF批次内部编号，与 group_definitions.json 的 G1/G2/G3 定义不通用",
-      "main_game_codes": [
-        "CS"
-      ],
-      "main_games": [
-        "反恐精英"
-      ],
+      "main_game_codes": ["CS"],
+      "main_games": ["反恐精英"],
       "attribute_raw": {
         "ABIvsDF记录表": "G1 CS 卢",
         "特征诉求": "G1 CS"
       },
-      "play_order": [
-        "DF",
-        "ABI"
-      ],
-      "play_order_games": [
-        "三角洲行动",
-        "暗区突围"
-      ],
+      "play_order": ["DF", "ABI"],
+      "play_order_games": ["三角洲行动", "暗区突围"],
       "test_time": "2024-08-26",
       "test_time_raw": "2024-08-26 00:00:00",
       "behavior_summary": "仔细学习教程；跟随队友尝试学习机制玩法；尝试复刻新手关打法，前期尽量多进行游戏内交互，习得更多新信息；会带入之前游戏的习惯行为，如peek，拉枪的习惯；会尝试持续用成功过的路线；会主动切刀，技能等防止增加跑步时间",
@@ -42,29 +29,16 @@
     "group_code": "G1",
     "background": {
       "batch": "ABIvsDF",
-      "source_sheets": [
-        "ABIvsDF记录表",
-        "特征诉求"
-      ],
+      "source_sheets": ["ABIvsDF记录表", "特征诉求"],
       "group_code_scope": "ABIvsDF批次内部编号，与 group_definitions.json 的 G1/G2/G3 定义不通用",
-      "main_game_codes": [
-        "PUBG"
-      ],
-      "main_games": [
-        "绝地求生"
-      ],
+      "main_game_codes": ["PUBG"],
+      "main_games": ["绝地求生"],
       "attribute_raw": {
         "ABIvsDF记录表": "G1 PUBG 袁",
         "特征诉求": "G1 PUBG"
       },
-      "play_order": [
-        "ABI",
-        "DF"
-      ],
-      "play_order_games": [
-        "暗区突围",
-        "三角洲行动"
-      ],
+      "play_order": ["ABI", "DF"],
+      "play_order_games": ["暗区突围", "三角洲行动"],
       "test_time": "2024-08-27 09:00",
       "test_time_raw": "2024/8/27/9：00",
       "behavior_summary": "重复新手关的（部分）教学；走向对固定的路线，尝试通过声音确认战斗信息；想办法学习队友或和队友合作；会尝试使用新系统而不是学教程；不会开DF保险:；打完一个弹匣才换弹",
@@ -78,29 +52,16 @@
     "group_code": "G2",
     "background": {
       "batch": "ABIvsDF",
-      "source_sheets": [
-        "ABIvsDF记录表",
-        "特征诉求"
-      ],
+      "source_sheets": ["ABIvsDF记录表", "特征诉求"],
       "group_code_scope": "ABIvsDF批次内部编号，与 group_definitions.json 的 G1/G2/G3 定义不通用",
-      "main_game_codes": [
-        "VAL"
-      ],
-      "main_games": [
-        "无畏契约"
-      ],
+      "main_game_codes": ["VAL"],
+      "main_games": ["无畏契约"],
       "attribute_raw": {
         "ABIvsDF记录表": "G2 VAL 杨",
         "特征诉求": "G2 VAL"
       },
-      "play_order": [
-        "DF",
-        "ABI"
-      ],
-      "play_order_games": [
-        "三角洲行动",
-        "暗区突围"
-      ],
+      "play_order": ["DF", "ABI"],
+      "play_order_games": ["三角洲行动", "暗区突围"],
       "test_time": "2024-08-27 14:00",
       "test_time_raw": "2024/8/27/14：00",
       "behavior_summary": "不认真看教程；不爱开镜射击；不会解锁保险；看不懂技能；不理解市场和直售的区别，不敢乱卖东西；不会在战局内切子弹，不敢一直打；注意不到甲碎了，debuff等角标提醒；",
@@ -114,29 +75,16 @@
     "group_code": "G2",
     "background": {
       "batch": "ABIvsDF",
-      "source_sheets": [
-        "ABIvsDF记录表",
-        "特征诉求"
-      ],
+      "source_sheets": ["ABIvsDF记录表", "特征诉求"],
       "group_code_scope": "ABIvsDF批次内部编号，与 group_definitions.json 的 G1/G2/G3 定义不通用",
-      "main_game_codes": [
-        "VAL"
-      ],
-      "main_games": [
-        "无畏契约"
-      ],
+      "main_game_codes": ["VAL"],
+      "main_games": ["无畏契约"],
       "attribute_raw": {
         "ABIvsDF记录表": "G2 VAL 任",
         "特征诉求": "G2 VAL"
       },
-      "play_order": [
-        "ABI",
-        "DF"
-      ],
-      "play_order_games": [
-        "暗区突围",
-        "三角洲行动"
-      ],
+      "play_order": ["ABI", "DF"],
+      "play_order_games": ["暗区突围", "三角洲行动"],
       "test_time": "2024-08-28 09:00",
       "test_time_raw": "2024/8/28/9：00",
       "behavior_summary": "会把装备详情面板打开，比较后再换；频繁利用烟雾，治疗针等配合战斗；不知道什么情况下会摔伤，经常摔伤；对键位还不熟悉，例如b是切连发；学会了战备界面的整备上一次一样的装备；学会了长按R换子弹类型；学会了用快捷轮盘打药；暗区下图带钱；学会拆分堆叠物品；用查看武器-武器弹药买子弹",
@@ -150,29 +98,16 @@
     "group_code": "G2",
     "background": {
       "batch": "ABIvsDF",
-      "source_sheets": [
-        "ABIvsDF记录表",
-        "特征诉求"
-      ],
+      "source_sheets": ["ABIvsDF记录表", "特征诉求"],
       "group_code_scope": "ABIvsDF批次内部编号，与 group_definitions.json 的 G1/G2/G3 定义不通用",
-      "main_game_codes": [
-        "VAL"
-      ],
-      "main_games": [
-        "无畏契约"
-      ],
+      "main_game_codes": ["VAL"],
+      "main_games": ["无畏契约"],
       "attribute_raw": {
         "ABIvsDF记录表": "G2 Val  周",
         "特征诉求": "G2 Val"
       },
-      "play_order": [
-        "DF",
-        "ABI"
-      ],
-      "play_order_games": [
-        "三角洲行动",
-        "暗区突围"
-      ],
+      "play_order": ["DF", "ABI"],
+      "play_order_games": ["三角洲行动", "暗区突围"],
       "test_time": "2024-08-28 14:00",
       "test_time_raw": "2024/8/28/14：00",
       "behavior_summary": "喜欢啥都拿，先拿满再换；新手关迷路；看不懂地图，一直在试图绕，爬过障碍；找不到口袋，不知道右侧能滑；习惯性用DF操作打暗区；不知道R旋转；到保险位置没搜保险；绕路，分不清哪来过哪没来",
@@ -186,29 +121,16 @@
     "group_code": "G2",
     "background": {
       "batch": "ABIvsDF",
-      "source_sheets": [
-        "ABIvsDF记录表",
-        "特征诉求"
-      ],
+      "source_sheets": ["ABIvsDF记录表", "特征诉求"],
       "group_code_scope": "ABIvsDF批次内部编号，与 group_definitions.json 的 G1/G2/G3 定义不通用",
-      "main_game_codes": [
-        "CF"
-      ],
-      "main_games": [
-        "穿越火线"
-      ],
+      "main_game_codes": ["CF"],
+      "main_games": ["穿越火线"],
       "attribute_raw": {
         "ABIvsDF记录表": "G2 CF 官",
         "特征诉求": "G2 CF"
       },
-      "play_order": [
-        "ABI",
-        "DF"
-      ],
-      "play_order_games": [
-        "暗区突围",
-        "三角洲行动"
-      ],
+      "play_order": ["ABI", "DF"],
+      "play_order_games": ["暗区突围", "三角洲行动"],
       "test_time": "2024-08-29 09:00",
       "test_time_raw": "2024/8/29/9：00",
       "behavior_summary": "看教程最认真的一个；搜的道具弹挂只放俩，剩下的放背包；主动探索没升级的部门；会先跟队友熟图；进图主动接任务，虽然不知道是啥但是先探索；先追求满包再置换；没有注意到左下角debuff提示；会主动和队友交流；主动探索外部系统（改上架价格，找游戏内道具的来源，比如钥匙卡，枪，改枪系统）；大批量上架卖东西；经常卡位置拖不动东西；知道但没有压弹习惯；",
@@ -222,31 +144,16 @@
     "group_code": "G1",
     "background": {
       "batch": "ABIvsDF",
-      "source_sheets": [
-        "ABIvsDF记录表",
-        "特征诉求"
-      ],
+      "source_sheets": ["ABIvsDF记录表", "特征诉求"],
       "group_code_scope": "ABIvsDF批次内部编号，与 group_definitions.json 的 G1/G2/G3 定义不通用",
-      "main_game_codes": [
-        "CS",
-        "VAL"
-      ],
-      "main_games": [
-        "反恐精英",
-        "无畏契约"
-      ],
+      "main_game_codes": ["CS", "VAL"],
+      "main_games": ["反恐精英", "无畏契约"],
       "attribute_raw": {
         "ABIvsDF记录表": "G1 CS最近玩瓦 李",
         "特征诉求": "G1 CS最近玩瓦"
       },
-      "play_order": [
-        "DF",
-        "ABI"
-      ],
-      "play_order_games": [
-        "三角洲行动",
-        "暗区突围"
-      ],
+      "play_order": ["DF", "ABI"],
+      "play_order_games": ["三角洲行动", "暗区突围"],
       "test_time": "2024-08-29 14:00",
       "test_time_raw": "2024/8/29/14：00",
       "behavior_summary": "跳过了模式背景介绍； 点了开单人战斗；护甲换成了级别低但耐久更高的；跑了很多撤离点（不会完成局内任务）；撤离点前打烟撤离；主动看任务条件推进任务；有换弹癌；进图就标撤离点；不会打手术，只会按v但是手术不在弹挂里；大量卖战利品给商人；使用了付费撤离点；尝试了改枪",
@@ -260,31 +167,16 @@
     "group_code": "G1",
     "background": {
       "batch": "ABIvsDF",
-      "source_sheets": [
-        "ABIvsDF记录表",
-        "特征诉求"
-      ],
+      "source_sheets": ["ABIvsDF记录表", "特征诉求"],
       "group_code_scope": "ABIvsDF批次内部编号，与 group_definitions.json 的 G1/G2/G3 定义不通用",
-      "main_game_codes": [
-        "CS",
-        "VAL"
-      ],
-      "main_games": [
-        "反恐精英",
-        "无畏契约"
-      ],
+      "main_game_codes": ["CS", "VAL"],
+      "main_games": ["反恐精英", "无畏契约"],
       "attribute_raw": {
         "ABIvsDF记录表": "G1 王",
         "特征诉求": "G1 CS VAL"
       },
-      "play_order": [
-        "ABI",
-        "DF"
-      ],
-      "play_order_games": [
-        "暗区突围",
-        "三角洲行动"
-      ],
+      "play_order": ["ABI", "DF"],
+      "play_order_games": ["暗区突围", "三角洲行动"],
       "test_time": "2024-08-30 09:00",
       "test_time_raw": "2024/8/30/09：00",
       "behavior_summary": "以为m开门，教学重合了；侦察箭射飞了；先满包在比较价值；主动探索局外系统；查看了装备，子弹等的详细页，比较差异；带了两把枪但在准备界面换成了一把最好的；悬停看物品价值；迷路，某些地方跳不出去；主动接局内任务；把高价值物品都卖了；主动换角色体验；工程兵切了铁丝网；没有注意过右侧UI目标，一直没搜第一个尸体；跳过弹窗教程；跟随队友探索地图；搜刮凭借现实经验搜",

@@ -6,14 +6,7 @@
     "cell": "C8",
     "type": "cross_player_analysis",
     "player_cohort": "瓦/CS",
-    "mentioned_speaker_ids": [
-      "P1",
-      "P3",
-      "P4",
-      "P5",
-      "P7",
-      "P8"
-    ],
+    "mentioned_speaker_ids": ["P1", "P3", "P4", "P5", "P7", "P8"],
     "original_text": "瓦/CS玩家：更想要竞技性，与真人对战；更难注意到小的提示；操作上手时间会更长，包括干员技能和键位等；多数内容如果有视频讲解会直观（改枪，局内UI，技能）"
   },
   {
@@ -23,9 +16,7 @@
     "cell": "C8",
     "type": "cross_player_analysis",
     "player_cohort": "PUBG",
-    "mentioned_speaker_ids": [
-      "P2"
-    ],
+    "mentioned_speaker_ids": ["P2"],
     "original_text": "PUBG：会更想尝试自己试验，更希望有简洁明了的UI帮助战斗"
   },
   {
@@ -103,10 +94,7 @@
     "topic": "玩家类型",
     "section": "能快速建立游戏目标",
     "item_index": 1,
-    "mentioned_speaker_ids": [
-      "P1",
-      "P2"
-    ],
+    "mentioned_speaker_ids": ["P1", "P2"],
     "original_text": "为了某一系统/玩法而持续探索游玩其它系统来达到目的，改枪/交易等，通常能快速留存.P1P2（能被硬核玩法吸引，且能在其中找到目标点）"
   },
   {
@@ -118,10 +106,7 @@
     "topic": "玩家类型",
     "section": "能快速建立游戏目标",
     "item_index": 2,
-    "mentioned_speaker_ids": [
-      "P3",
-      "P7"
-    ],
+    "mentioned_speaker_ids": ["P3", "P7"],
     "original_text": "在某一游戏内容找到爽感，搜刮/战斗等，通常能快速留存P3P7（能被硬核玩法中的某一部分吸引，如战斗氛围，末日氛围）"
   },
   {
@@ -133,9 +118,7 @@
     "topic": "玩家类型",
     "section": "能快速建立游戏目标",
     "item_index": 3,
-    "mentioned_speaker_ids": [
-      "P6"
-    ],
+    "mentioned_speaker_ids": ["P6"],
     "original_text": "某一游戏内容符合其游戏需求，战术拟真/策略配合等，在过度到正常游戏并且有一定群体游玩时能留存P6（喜爱拟真的游戏玩法，但不一定能承受硬核带来的操作负担，偏手游？）"
   },
   {
@@ -155,9 +138,7 @@
     "type": "cross_player_analysis",
     "section": "无法快速建立游戏目标",
     "item_index": 4,
-    "mentioned_speaker_ids": [
-      "P7"
-    ],
+    "mentioned_speaker_ids": ["P7"],
     "original_text": "顺着游戏教学复刻，尝试在多次循环中理解游戏玩法，吃玩法的情况下，比较容易留存P7"
   },
   {
@@ -168,9 +149,7 @@
     "type": "cross_player_analysis",
     "section": "无法快速建立游戏目标",
     "item_index": 5,
-    "mentioned_speaker_ids": [
-      "P6"
-    ],
+    "mentioned_speaker_ids": ["P6"],
     "original_text": "先按自己玩过的射击游戏去玩（先只体验射击和战斗部分内容当大逃杀或COD玩），主动探索学习多出来的内容，吃玩法的情况下，比较容易留存P6（如PBUG玩家，能先当PUBG玩，战斗/苟人+搜物资，但不一定能满足其玩法诉求，且强度过高）"
   },
   {
@@ -181,9 +160,7 @@
     "type": "cross_player_analysis",
     "section": "无法快速建立游戏目标",
     "item_index": 6,
-    "mentioned_speaker_ids": [
-      "P4"
-    ],
+    "mentioned_speaker_ids": ["P4"],
     "original_text": "有自己的一套玩法（比如就只玩大逃杀/公平竞技玩法，没有就想办法在游戏中找类似的机制），这游戏没有相关内容玩法就不玩，很难在前期留存P4（强竞技诉求难以满足，不喜欢局外养成，地图，局外等难以吸引其探索，只关注局内战斗）"
   },
   {
