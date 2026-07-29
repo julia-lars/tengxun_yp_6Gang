@@ -1,0 +1,404 @@
+[
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx#ABIvsDF",
+    "note_index": 1,
+    "sheet": "特征诉求",
+    "cell": "C8",
+    "type": "cross_player_analysis",
+    "player_cohort": "瓦/CS",
+    "mentioned_speaker_ids": [
+      "P1",
+      "P3",
+      "P4",
+      "P5",
+      "P7",
+      "P8"
+    ],
+    "original_text": "瓦/CS玩家：更想要竞技性，与真人对战；更难注意到小的提示；操作上手时间会更长，包括干员技能和键位等；多数内容如果有视频讲解会直观（改枪，局内UI，技能）"
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx#ABIvsDF",
+    "note_index": 2,
+    "sheet": "特征诉求",
+    "cell": "C8",
+    "type": "cross_player_analysis",
+    "player_cohort": "PUBG",
+    "mentioned_speaker_ids": [
+      "P2"
+    ],
+    "original_text": "PUBG：会更想尝试自己试验，更希望有简洁明了的UI帮助战斗"
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx#ABIvsDF",
+    "note_index": 3,
+    "sheet": "特征诉求",
+    "cell": "C9",
+    "type": "cross_player_analysis",
+    "section": "可能的原因",
+    "item_index": 1,
+    "mentioned_speaker_ids": [],
+    "original_text": "对基本的操作熟悉，不会认真看基础操作，也没有上手难度，主要是需要打药和枪械等专有系统的教学"
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx#ABIvsDF",
+    "note_index": 4,
+    "sheet": "特征诉求",
+    "cell": "C9",
+    "type": "cross_player_analysis",
+    "section": "可能的原因",
+    "item_index": 2,
+    "mentioned_speaker_ids": [],
+    "original_text": "游戏偏向硬核，玩家难以在游戏中获取信息，所以更依赖于小地图，标识等（暗区有局外大地图有标识的，但是没教学）"
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx#ABIvsDF",
+    "note_index": 5,
+    "sheet": "特征诉求",
+    "cell": "C9",
+    "type": "cross_player_analysis",
+    "section": "可能的原因",
+    "item_index": 3,
+    "mentioned_speaker_ids": [],
+    "original_text": "基本没有局内内容教学，加上较大的地图，玩家需要探索时间很长且没有线性推进的办法，所以要对局内内容有基本教学，如钥匙房，局内任务，特殊撤离点等"
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx#ABIvsDF",
+    "note_index": 6,
+    "sheet": "特征诉求",
+    "cell": "C9",
+    "type": "cross_player_analysis",
+    "section": "可能的原因",
+    "item_index": 4,
+    "mentioned_speaker_ids": [],
+    "original_text": "常规射击类游戏局外没有太多系统，尤其是辅助成长类，应该加教程，玩家自己探索需要一定时间才能摸索清楚，但是解锁时间很早"
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx#ABIvsDF",
+    "note_index": 7,
+    "sheet": "特征诉求",
+    "cell": "C9",
+    "type": "cross_player_analysis",
+    "section": "可能的原因",
+    "item_index": 5,
+    "mentioned_speaker_ids": [],
+    "original_text": "由于枪械及其改装的多样性和干员的技能效果没有实机演示，应该加射击场，联系场地等，连瓦,CS这种传统FPS都有"
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx#ABIvsDF",
+    "note_index": 8,
+    "sheet": "特征诉求",
+    "cell": "C9",
+    "type": "cross_player_analysis",
+    "section": "可能的原因",
+    "item_index": 6,
+    "mentioned_speaker_ids": [],
+    "original_text": "技能教学不足，新手关卡的技能教学不到位，甚至玩家没有达到要求也会触发下一场景（发现两次）"
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx#ABIvsDF",
+    "note_index": 9,
+    "sheet": "特征诉求",
+    "cell": "C10",
+    "type": "cross_player_analysis",
+    "topic": "玩家类型",
+    "section": "能快速建立游戏目标",
+    "item_index": 1,
+    "mentioned_speaker_ids": [
+      "P1",
+      "P2"
+    ],
+    "original_text": "为了某一系统/玩法而持续探索游玩其它系统来达到目的，改枪/交易等，通常能快速留存.P1P2（能被硬核玩法吸引，且能在其中找到目标点）"
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx#ABIvsDF",
+    "note_index": 10,
+    "sheet": "特征诉求",
+    "cell": "C10",
+    "type": "cross_player_analysis",
+    "topic": "玩家类型",
+    "section": "能快速建立游戏目标",
+    "item_index": 2,
+    "mentioned_speaker_ids": [
+      "P3",
+      "P7"
+    ],
+    "original_text": "在某一游戏内容找到爽感，搜刮/战斗等，通常能快速留存P3P7（能被硬核玩法中的某一部分吸引，如战斗氛围，末日氛围）"
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx#ABIvsDF",
+    "note_index": 11,
+    "sheet": "特征诉求",
+    "cell": "C10",
+    "type": "cross_player_analysis",
+    "topic": "玩家类型",
+    "section": "能快速建立游戏目标",
+    "item_index": 3,
+    "mentioned_speaker_ids": [
+      "P6"
+    ],
+    "original_text": "某一游戏内容符合其游戏需求，战术拟真/策略配合等，在过度到正常游戏并且有一定群体游玩时能留存P6（喜爱拟真的游戏玩法，但不一定能承受硬核带来的操作负担，偏手游？）"
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx#ABIvsDF",
+    "note_index": 12,
+    "sheet": "特征诉求",
+    "cell": "D10",
+    "type": "note_to_colleague",
+    "topic": "玩家类型",
+    "original_text": "姐姐：对应的哪些玩家P几，是否有游戏属性的影响\n枪战玩家，去选择一款枪战时，前期要哪些诉求体验达标了就会有希望留存\n可以先列体验诉求，比如基础品质、枪战手感、战术想象、枪械等等"
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx#ABIvsDF",
+    "note_index": 13,
+    "sheet": "特征诉求",
+    "cell": "C11",
+    "type": "cross_player_analysis",
+    "section": "无法快速建立游戏目标",
+    "item_index": 4,
+    "mentioned_speaker_ids": [
+      "P7"
+    ],
+    "original_text": "顺着游戏教学复刻，尝试在多次循环中理解游戏玩法，吃玩法的情况下，比较容易留存P7"
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx#ABIvsDF",
+    "note_index": 14,
+    "sheet": "特征诉求",
+    "cell": "C11",
+    "type": "cross_player_analysis",
+    "section": "无法快速建立游戏目标",
+    "item_index": 5,
+    "mentioned_speaker_ids": [
+      "P6"
+    ],
+    "original_text": "先按自己玩过的射击游戏去玩（先只体验射击和战斗部分内容当大逃杀或COD玩），主动探索学习多出来的内容，吃玩法的情况下，比较容易留存P6（如PBUG玩家，能先当PUBG玩，战斗/苟人+搜物资，但不一定能满足其玩法诉求，且强度过高）"
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx#ABIvsDF",
+    "note_index": 15,
+    "sheet": "特征诉求",
+    "cell": "C11",
+    "type": "cross_player_analysis",
+    "section": "无法快速建立游戏目标",
+    "item_index": 6,
+    "mentioned_speaker_ids": [
+      "P4"
+    ],
+    "original_text": "有自己的一套玩法（比如就只玩大逃杀/公平竞技玩法，没有就想办法在游戏中找类似的机制），这游戏没有相关内容玩法就不玩，很难在前期留存P4（强竞技诉求难以满足，不喜欢局外养成，地图，局外等难以吸引其探索，只关注局内战斗）"
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx#ABIvsDF",
+    "note_index": 16,
+    "sheet": "特征诉求",
+    "cell": "D11",
+    "type": "note_to_colleague",
+    "original_text": "姐姐：对应的哪些玩家P几，是否有游戏属性的影响\n5.6，具体是指什么，可以括号说明"
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx#ABIvsDF",
+    "note_index": 17,
+    "sheet": "特征诉求",
+    "cell": "C12",
+    "type": "cross_player_analysis",
+    "topic": "局内特征",
+    "item_index": 1,
+    "mentioned_speaker_ids": [],
+    "original_text": "在游戏内更重视和自己在意的系统相关的内容，如改枪-战斗-BOSS，搜刮-交易-POI，以此满足自己对该系统的期望和持续循环从该系统获得爽感的能力"
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx#ABIvsDF",
+    "note_index": 18,
+    "sheet": "特征诉求",
+    "cell": "C12",
+    "type": "cross_player_analysis",
+    "topic": "局内特征",
+    "item_index": 2,
+    "mentioned_speaker_ids": [],
+    "original_text": "在局内更关注某系统，做其他事都是辅助，如搜刮导向的玩家路线往往都是围绕POI，搜刮后快速撤离，提高搜刮效率，战斗导向的玩家往往只搜刮战斗物资，枪械等"
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx#ABIvsDF",
+    "note_index": 19,
+    "sheet": "特征诉求",
+    "cell": "C12",
+    "type": "cross_player_analysis",
+    "topic": "局内特征",
+    "item_index": 3,
+    "mentioned_speaker_ids": [],
+    "original_text": "在局外主动关注技能，操作等，局内主动关注地图，标志等，为战术策略等或局内任务，长线任务等做准备，局内路线也是跟随战术走"
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx#ABIvsDF",
+    "note_index": 20,
+    "sheet": "特征诉求",
+    "cell": "C12",
+    "type": "cross_player_analysis",
+    "topic": "局内特征",
+    "item_index": 4,
+    "mentioned_speaker_ids": [],
+    "original_text": "会在新手关之后的对局中，尝试按新手关的思路进行游戏，在期间探索游戏内容，一般会固定路线探索，在熟悉的基础上，开始向外探索"
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx#ABIvsDF",
+    "note_index": 21,
+    "sheet": "特征诉求",
+    "cell": "C12",
+    "type": "cross_player_analysis",
+    "topic": "局内特征",
+    "item_index": 5,
+    "mentioned_speaker_ids": [],
+    "original_text": "在局外主动探索特色机制，如商人，改枪等，局内跟随基础引导，在完成射击-击败-逃离的基础上学习搜刮-买卖-升级等射击以外的循环"
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx#ABIvsDF",
+    "note_index": 22,
+    "sheet": "特征诉求",
+    "cell": "C12",
+    "type": "cross_player_analysis",
+    "topic": "局内特征",
+    "item_index": 6,
+    "mentioned_speaker_ids": [],
+    "original_text": "按自己原有的常玩类型游戏去玩，如CS玩家，就在局内纯对枪，基本不进行搜刮，除了下图，撤离等强制机制，其他的局内任务，交互等都不参与"
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx#ABIvsDF",
+    "note_index": 23,
+    "sheet": "特征诉求",
+    "cell": "D12",
+    "type": "note_to_colleague",
+    "topic": "局内特征",
+    "original_text": "姐姐：行为特征，是否和玩家类型能对应起来，是否能和玩法框架对应起来;DF\\ABI，玩家行为是否有差异"
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx#ABIvsDF",
+    "note_index": 24,
+    "sheet": "特征诉求",
+    "cell": "C13",
+    "type": "cross_player_analysis",
+    "topic": "DF",
+    "item_index": 1,
+    "mentioned_speaker_ids": [],
+    "original_text": "DF的部分系统在测试中被玩家反馈问题，包括改枪系统：玩家从查看装备等方式知道可以改枪，但是并不熟悉系统，并且不知道改完之后的效果，只能实战测试；干员系统：教学引导过少，且没有演示，只能实战测试；健康系统：debuff提示不明显，没有过教学对应使用药品，只能在战局内试验，或等UI提醒"
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx#ABIvsDF",
+    "note_index": 25,
+    "sheet": "特征诉求",
+    "cell": "C13",
+    "type": "cross_player_analysis",
+    "topic": "DF",
+    "item_index": 2,
+    "mentioned_speaker_ids": [],
+    "original_text": "DF的战斗存在AI战斗部分过于简单，战局信息不足，搜刮系统暂时没有反馈问题，但存在很多玩家看不懂地图上标注的物资点在哪，保险怎么解锁"
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx#ABIvsDF",
+    "note_index": 26,
+    "sheet": "特征诉求",
+    "cell": "C13",
+    "type": "cross_player_analysis",
+    "topic": "DF",
+    "item_index": 3,
+    "mentioned_speaker_ids": [],
+    "original_text": "DF技能介绍过于简单且只能在游戏内学习，难度较高，在大多游戏内都有足量地图标识，没有小地图，对玩家认识环境困难加大"
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx#ABIvsDF",
+    "note_index": 27,
+    "sheet": "特征诉求",
+    "cell": "C13",
+    "type": "cross_player_analysis",
+    "topic": "DF",
+    "item_index": 4,
+    "mentioned_speaker_ids": [],
+    "original_text": "游戏新手期（体验局后）后引导较少，玩家希望在见到新系统或第一次接触某物时有教学引导，加速认识"
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx#ABIvsDF",
+    "note_index": 28,
+    "sheet": "特征诉求",
+    "cell": "C13",
+    "type": "cross_player_analysis",
+    "topic": "DF",
+    "item_index": 5,
+    "mentioned_speaker_ids": [],
+    "original_text": "多数玩家会被DF战斗的打击感，反馈感吸引，而喜欢上战斗系统，但是很难建立起循环，当快感过后/装备耗尽很难在支持其玩下去（玩家说法是打的很爽，但是一直不知道赚钱是用来干嘛的，这个游戏最终目的是啥），需要更多的模式玩法讲解的教程来让玩家快速建立循环，现在就几秒的图"
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx#ABIvsDF",
+    "note_index": 29,
+    "sheet": "特征诉求",
+    "cell": "C13",
+    "type": "cross_player_analysis",
+    "topic": "DF",
+    "item_index": 6,
+    "mentioned_speaker_ids": [],
+    "original_text": "这类玩家单纯不喜欢玩法，但是觉得，如果之后有纯PVP模式，可能回来玩（团队，爆破这种）"
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx#ABIvsDF",
+    "note_index": 30,
+    "sheet": "特征诉求",
+    "cell": "C14",
+    "type": "cross_player_analysis",
+    "topic": "ABI",
+    "item_index": 1,
+    "mentioned_speaker_ids": [],
+    "original_text": "玩家很难在ABI里喜欢上某个系统，战斗系统普遍的问题有：反馈过差，不知道打没达到，也不知道哪里打的；没有准信，瞄准难度很大；AI很呆，没有爽感，操作系统：动作很僵硬，不灵活，和DF比也没有滑铲技能等操作，搜刮系统：很多物资都没有用，搜刮很慢，回报差，爆率低，地图中很多地方不知道什么能搜什么不能搜（很多容器不靠近不知道能搜），看不出来"
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx#ABIvsDF",
+    "note_index": 31,
+    "sheet": "特征诉求",
+    "cell": "C14",
+    "type": "cross_player_analysis",
+    "topic": "ABI",
+    "item_index": 2,
+    "mentioned_speaker_ids": [],
+    "original_text": "由于地图只有撤离点标识，玩家反馈中大量反馈了探索困难问题，具体有：不懂红圈意义，不知道资源点，迷路，导致搜刮，探索，撤离都很困难，希望能在小地图上多加标识，或有额外的教学"
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx#ABIvsDF",
+    "note_index": 32,
+    "sheet": "特征诉求",
+    "cell": "C14",
+    "type": "cross_player_analysis",
+    "topic": "ABI",
+    "item_index": 3,
+    "mentioned_speaker_ids": [],
+    "original_text": "局外操作引导不明显，甚至会被遮挡，如R旋转物资，一键整理等，快速整备等功能性系统也没有引导，玩家标识点进去乱七八糟一脸懵（这个手游似乎是有的，端游删了，还是个及其重要使用频率极高的功能），任务功能没有什么大问题，但是由于物资价值不明确，地图不清晰，有些任务玩家之恶能看着做，没办法做到很有针对性的推进"
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx#ABIvsDF",
+    "note_index": 33,
+    "sheet": "特征诉求",
+    "cell": "C14",
+    "type": "cross_player_analysis",
+    "topic": "ABI",
+    "item_index": 4,
+    "mentioned_speaker_ids": [],
+    "original_text": "新手关的教学经常会让玩家误解游戏玩法，尤其是剧情部分，有玩家认为是推进关卡，甚至觉得是类似于L4D2的游戏，导致从体检局开始不知道该在图内干什么，只能看什么能交互就做什么，拖慢玩家熟悉游戏内容的节奏"
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx#ABIvsDF",
+    "note_index": 34,
+    "sheet": "特征诉求",
+    "cell": "C14",
+    "type": "cross_player_analysis",
+    "topic": "ABI",
+    "item_index": 5,
+    "mentioned_speaker_ids": [],
+    "original_text": "从别的游戏转ABI很难适应，强竞技游戏转来不知道该干嘛，战斗频率低，其他游戏转不知道怎么搜，也无法快速学习清楚玩法，建立起目标，导致之前对游戏类型没有一定了解的玩家，前期都会有很长的尴尬期，无聊，不知道该干嘛（先玩ABI的严重，先玩DF适应玩法的就会好很多）"
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx#ABIvsDF",
+    "note_index": 35,
+    "sheet": "特征诉求",
+    "cell": "C14",
+    "type": "cross_player_analysis",
+    "topic": "ABI",
+    "item_index": 6,
+    "mentioned_speaker_ids": [],
+    "original_text": "这类玩家会觉得暗区纯垃圾，不会玩的下去的"
+  }
+]
