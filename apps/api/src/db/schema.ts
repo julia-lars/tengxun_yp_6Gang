@@ -276,6 +276,7 @@ export const kolSegments = pgTable(
     originalText: text("original_text").notNull(),
     sourceUrl: text("source_url"),
     embedding: vector("embedding"),
+    adLabel: text("ad_label"),
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   },
   (table) => ({

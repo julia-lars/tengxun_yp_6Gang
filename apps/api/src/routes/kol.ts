@@ -71,6 +71,19 @@ kolRoute.get("/:id", async (c) => {
 
 // ---- KOL 对话（SSE 流式） ----
 
+// GLM embedding 调用（内联，避免改 llm.ts 影响群体画像）
+async function embedQuery(text: string): Promise<number[]> {
+  const key = process.env.GLM_API_KEY ?? "";
+  const res = await fetch("https://open.bigmodel.cn/api/paas/v4/embeddings", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${key}` },
+    body: JSON.stringify({ model: "embedding-2", input: text.slice(0, 2000) }),
+  });
+  if (!res.ok) throw new Error(`GLM embedding ${res.status}`);
+  const data = (await res.json()) as { data: [{ embedding: number[] }] };
+  return data.data[0].embedding;
+}
+
 // POST /api/kol/chat
 kolRoute.post("/chat", zValidator("json", kolChatRequestSchema), async (c) => {
   const { kolId, message } = c.req.valid("json");
@@ -81,19 +94,59 @@ kolRoute.post("/chat", zValidator("json", kolChatRequestSchema), async (c) => {
   });
   if (!kol) return c.json({ error: "KOL 不存在" }, 404);
 
-  // 2. RAG: 基于用户问题检索该 KOL 的相关原声
-  const evidenceRows = await db
-    .select({
-      id: kolSegments.id,
-      originalText: kolSegments.originalText,
-      title: kolSegments.title,
-      bvid: kolSegments.bvid,
-    })
-    .from(kolSegments)
-    .where(
-      sql`${kolSegments.kolId} = ${kolId} AND ${kolSegments.originalText} ILIKE ${"%" + message.slice(0, 30) + "%"}`,
-    )
-    .limit(3);
+  // 2. RAG: 向量相似搜索（pgvector），过滤广告片段
+  let evidenceRows: Array<{
+    id: number;
+    originalText: string;
+    title: string;
+    bvid: string;
+  }> = [];
+
+  try {
+    // 2a. 把用户问题转成向量
+    const queryVec = await embedQuery(message);
+
+    // 2b. pgvector 余弦相似搜索（排除广告口播片段）
+    const rawRows = await db.execute(
+      sql`SELECT id, original_text, title, bvid
+          FROM kol_segments
+          WHERE kol_id = ${kolId}
+            AND embedding IS NOT NULL
+            AND (ad_label IS NULL OR ad_label != '广告口播')
+          ORDER BY embedding <=> ${JSON.stringify(queryVec)}::vector
+          LIMIT 3`,
+    ) as unknown as Array<{
+      id: number;
+      original_text: string;
+      title: string;
+      bvid: string;
+    }>;
+
+    // 规范化字段名（db.execute 返回 snake_case）
+    evidenceRows = rawRows.map((r) => ({
+      id: r.id,
+      originalText: r.original_text,
+      title: r.title,
+      bvid: r.bvid,
+    }));
+  } catch (e) {
+    // embedding 或 pgvector 查询失败 → fallback 到 ILIKE
+    console.error("向量检索失败，回退到 ILIKE:", e);
+    evidenceRows = await db
+      .select({
+        id: kolSegments.id,
+        originalText: kolSegments.originalText,
+        title: kolSegments.title,
+        bvid: kolSegments.bvid,
+      })
+      .from(kolSegments)
+      .where(
+        sql`${kolSegments.kolId} = ${kolId}
+            AND (${kolSegments.adLabel} IS NULL OR ${kolSegments.adLabel} != '广告口播')
+            AND ${kolSegments.originalText} ILIKE ${"%" + message.slice(0, 30) + "%"}`,
+      )
+      .limit(3);
+  }
 
   const evidenceContext = evidenceRows
     .map((e) => `[${e.title}] ${e.originalText.slice(0, 300)}`)
