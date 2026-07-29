@@ -8,40 +8,51 @@ import {
   GitCompare,
   Lightbulb,
   MessageCircle,
+  Search,
   Users,
 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import { api } from "@/lib/api";
 
 export function HomePage() {
   const [sessions, setSessions] = useState<(ChatSession & { personaName?: string })[]>([]);
   const [personas, setPersonas] = useState<PersonaSummary[]>([]);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
-    // 获取最近会话
-    api
-      .getChatSessions()
-      .then(setSessions)
-      .catch(() => {});
-    // 获取画像列表（用于匹配名称）
-    api
-      .listPersonas()
-      .then(setPersonas)
-      .catch(() => {});
+    api.getChatSessions().then(setSessions).catch(() => {});
+    api.listPersonas().then(setPersonas).catch(() => {});
   }, []);
 
-  // 按画像ID匹配名称
-  const sessionsWithPersona = sessions
-    .map((s) => {
-      const p = personas.find((p) => p.id === s.personaId);
-      return { ...s, personaName: p?.name };
-    })
-    .filter((s) => s.messages.length > 0)
-    .slice(0, 6); // 只显示最近 6 条
+  const sessionsWithPersona = useMemo(() => {
+    let list = sessions
+      .map((s) => {
+        const p = personas.find((p) => p.id === s.personaId);
+        return { ...s, personaName: p?.name };
+      })
+      .filter((s) => s.messages.length > 0);
+
+    if (search) {
+      const q = search.toLowerCase();
+      list = list.filter((s) => {
+        const firstMsg = (s.messages[0] as { content?: string } | undefined)?.content ?? "";
+        return (
+          (s.title ?? "").toLowerCase().includes(q) ||
+          firstMsg.toLowerCase().includes(q) ||
+          (s.personaName ?? "").toLowerCase().includes(q)
+        );
+      });
+    }
+
+    return list;
+  }, [sessions, personas, search]);
+
+  const recentThree = sessionsWithPersona.slice(0, 3);
 
   return (
     <div className="space-y-8 sm:space-y-10">
@@ -94,19 +105,40 @@ export function HomePage() {
 
       {/* 历史对话 */}
       <section className="space-y-4">
-        <h2 className="font-serif text-xl sm:text-2xl font-bold text-[--color-primary] text-center">
-          历史对话
-        </h2>
-        {sessionsWithPersona.length > 0 ? (
+        <div className="flex items-center justify-between">
+          <h2 className="font-serif text-xl sm:text-2xl font-bold text-[--color-primary]">
+            历史对话
+          </h2>
+          {sessionsWithPersona.length > 3 && (
+            <Button asChild variant="ghost" size="sm" className="text-xs">
+              <Link to="/history">
+                更多 <ArrowRight className="h-3 w-3 ml-1" />
+              </Link>
+            </Button>
+          )}
+        </div>
+
+        {sessions.length > 0 && (
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[--color-muted-foreground]" />
+            <Input
+              placeholder="搜索历史对话..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="pl-9 h-9 text-sm"
+            />
+          </div>
+        )}
+
+        {recentThree.length > 0 ? (
           <div className="space-y-2">
-            {sessionsWithPersona.map((s) => {
+            {recentThree.map((s) => {
               const firstMsg = (s.messages[0] as { content?: string } | undefined)?.content ?? "";
               const preview = s.title || firstMsg.slice(0, 40) || "新对话";
-              const msgCount = s.messages.length;
               return (
                 <Link
                   key={s.id}
-                  to={`/personas/${s.personaId}/chat?session=${s.id}`}
+                  to={`/personas/${s.personaId}/chat?session=${s.id}&from=home`}
                   className="block group"
                 >
                   <Card className="transition-all duration-200 hover:border-[--color-primary] hover:shadow-sm">
@@ -130,7 +162,7 @@ export function HomePage() {
                               minute: "2-digit",
                             })}
                           </span>
-                          <span>{msgCount} 轮对话</span>
+                          <span>{s.messages.length} 轮</span>
                         </div>
                       </div>
                       <ArrowRight className="h-4 w-4 text-[--color-muted-foreground] opacity-0 group-hover:opacity-100 group-hover:text-[--color-primary] transition-all flex-shrink-0" />
@@ -140,6 +172,13 @@ export function HomePage() {
               );
             })}
           </div>
+        ) : search ? (
+          <Card className="border-dashed">
+            <CardContent className="flex flex-col items-center justify-center py-8">
+              <Search className="h-8 w-8 text-[--color-muted-foreground] opacity-30 mb-2" />
+              <p className="text-sm text-[--color-muted-foreground]">未找到匹配的对话</p>
+            </CardContent>
+          </Card>
         ) : (
           <Card className="border-dashed">
             <CardContent className="flex flex-col items-center justify-center py-8">

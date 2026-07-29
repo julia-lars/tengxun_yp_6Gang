@@ -45,6 +45,8 @@ export function ChatRoomPage() {
   const { id } = useParams<{ id: string }>();
   const [searchParams, setSearchParams] = useSearchParams();
   const personaId = Number(id);
+  const fromParam = searchParams.get("from");
+  const backUrl = fromParam === "home" ? "/" : fromParam === "history" ? "/history" : `/personas/${personaId}`;
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [streaming, setStreaming] = useState(false);
@@ -401,7 +403,7 @@ export function ChatRoomPage() {
       {/* 顶部信息栏 */}
       <div className="flex items-center gap-3 pb-3 border-b border-[--color-border] shrink-0">
         <Link
-          to={`/personas/${personaId}`}
+          to={backUrl}
           className="text-[--color-muted-foreground] hover:text-[--color-primary] transition-colors"
         >
           <ArrowLeft className="h-4 w-4" />

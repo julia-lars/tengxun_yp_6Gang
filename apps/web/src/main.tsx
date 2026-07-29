@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from "react-router";
 import { Root } from "./root.js";
 import { ChatRoomLayout } from "./routes/chat-room.js";
 import { HomePage } from "./routes/home.js";
+import { HistoryPage } from "./routes/history.js";
 import { KolChatLayout } from "./routes/kol-chat.js";
 import { KolDetailPage } from "./routes/kol-detail.js";
 import { KolListPage } from "./routes/kol-list.js";
@@ -18,6 +19,7 @@ const router = createBrowserRouter([
     element: <Root />,
     children: [
       { index: true, element: <HomePage /> },
+      { path: "history", element: <HistoryPage /> },
       { path: "personas", element: <PersonasPage /> },
       { path: "personas/:id", element: <PersonaDetailPage /> },
       { path: "personas/:id/chat", element: <ChatRoomLayout /> },
