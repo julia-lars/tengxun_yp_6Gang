@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""清洗 respondents 的 profile 字段：去口语化，保留核心画像信息"""
+"""深度清洗 respondents profile：全中文 + 去口语词"""
 import json
 import os
 import re
@@ -12,30 +12,15 @@ FILES = [
     "respondents_美国HD端用户生态与决策链路研究.json",
 ]
 
-# 英文→中文翻译表
-EN_TO_CN = {
-    "call of duty": "使命召唤",
-    "cod": "使命召唤",
-    "overwatch": "守望先锋",
-    "apex": "Apex",
-    "valorant": "Valorant",
-    "csgo": "CSGO",
-    "cs": "CS",
-    "pubg": "绝地求生",
-    "fortnite": "堡垒之夜",
-    "tarkov": "塔科夫",
-    "eft": "逃离塔科夫",
-    "rainbow six": "彩虹六号",
-    "siege": "围攻",
-    "destiny": "命运",
-    "battlefield": "战地",
-    "halo": "光环",
-    "warframe": "星际战甲",
-    "helldivers": "绝地潜兵",
-    "the finals": "The Finals",
-    "rust": "Rust",
-    "dayz": "DayZ",
-    "rpg": "RPG",
+# 英文→中文
+EN_MAP = {
+    "game boy": "Game Boy",
+    "playstation": "PlayStation",
+    "xbox": "Xbox",
+    "nintendo": "任天堂",
+    "steam": "Steam",
+    "switch": "Switch",
+    "pc": "PC",
     "fps": "FPS",
     "pvp": "PVP",
     "pve": "PVE",
@@ -43,92 +28,236 @@ EN_TO_CN = {
     "mmorpg": "MMORPG",
     "moba": "MOBA",
     "br": "大逃杀",
-    "battle royale": "大逃杀",
-    "pc": "PC",
-    "xbox": "Xbox",
-    "playstation": "PlayStation",
+    "rpg": "RPG",
+    "csgo": "CSGO",
+    "cs": "CS",
+    "cod": "COD",
+    "pubg": "PUBG",
+    "apex": "Apex",
+    "valorant": "瓦",
+    "overwatch": "守望先锋",
+    "tarkov": "塔科夫",
+    "fortnite": "堡垒之夜",
+    "rust": "Rust",
+    "dayz": "DayZ",
+    "halo": "光环",
+    "warframe": "星际战甲",
+    "helldivers": "绝地潜兵",
+    "destiny": "命运",
+    "battlefield": "战地",
+    "rainbow six": "彩虹六号",
+    "titanfall": "泰坦陨落",
+    "splatoon": "喷射战士",
+    "deadlock": "死锁",
+    "minecraft": "我的世界",
+    "roblox": "Roblox",
+    "gta": "GTA",
+    "dota": "DOTA",
+    "lol": "LOL",
+    "wow": "魔兽世界",
+    "ff14": "FF14",
+    "dnf": "DNF",
     "ps5": "PS5",
     "ps4": "PS4",
-    "switch": "Switch",
-    "nintendo": "任天堂",
-    "steam": "Steam",
-    "game boy": "Game Boy",
-    "xbox series": "Xbox Series",
-    "steam deck": "Steam Deck",
-    "rog ally": "ROG Ally",
+    "ipad": "iPad",
+    "iphone": "iPhone",
+    "android": "安卓",
+    "ios": "iOS",
+    "cpu": "CPU",
+    "gpu": "显卡",
+    "ram": "内存",
+    "fps": "帧率",
+    "ping": "延迟",
+    "elo": "ELO",
+    "kd": "KD",
+    "ttk": "TTK",
+    "hud": "HUD",
+    "ui": "UI",
+    "p2w": "氪金变强",
+    "dlc": "DLC",
+    "mod": "MOD",
+    "ugc": "UGC",
+    "pve": "PVE",
+    "pvp": "PVP",
+    "npc": "NPC",
+    "boss": "Boss",
+    "buff": "Buff",
+    "nerf": "削弱",
+    "meta": "Meta",
+    "rank": "段位",
+    "solo": "单排",
+    "duo": "双排",
+    "squad": "组队",
+    "clan": "公会",
+    "guild": "公会",
+    "raid": "团本",
+    "quest": "任务",
+    "loot": "掉落",
+    "gear": "装备",
+    "skin": "皮肤",
+    "battle pass": "战令",
+    "season pass": "战令",
+    "loot box": "开箱",
+    "gacha": "抽卡",
+    "grind": "肝",
+    "noob": "新手",
+    "pro": "高手",
+    "carry": "带飞",
+    "feed": "送人头",
+    "afk": "挂机",
+    "gg": "GG",
+    "ez": "EZ",
+    "op": "太强",
+    "imba": "不平衡",
+    "cheater": "外挂",
+    "hacker": "外挂",
+    "bug": "Bug",
+    "glitch": "Bug",
+    "lag": "卡顿",
+    "crash": "崩溃",
+    "toxic": "不良",
+    "flame": "喷人",
+    "troll": "捣乱",
+    "smurf": "炸鱼",
+    "boost": "代练",
+    "account": "账号",
+    "server": "服务器",
+    "patch": "补丁",
+    "update": "更新",
+    "dlc": "DLC",
+    "expansion": "资料片",
+    "sequel": "续作",
+    "prequel": "前传",
+    "remake": "重制",
+    "remaster": "复刻",
+    "indie": "独立游戏",
+    "aaa": "3A",
+    "early access": "抢先体验",
+    "beta": "测试",
+    "alpha": "内测",
+    "demo": "试玩",
+    "full release": "正式版",
+    "free to play": "免费",
+    "pay to play": "付费",
+    "subscription": "订阅",
+    "microtransaction": "微交易",
+    "cosmetic": "外观",
+    "pay to win": "氪金变强",
+    "single player": "单机",
+    "multiplayer": "多人",
+    "co-op": "合作",
+    "coop": "合作",
+    "competitive": "竞技",
+    "casual": "休闲",
+    "ranked": "排位",
+    "unranked": "匹配",
+    "quick play": "快速",
+    "custom game": "自定义",
+    "private match": "私房",
+    "training": "训练",
+    "tutorial": "教程",
+    "sandbox": "沙盒",
+    "open world": "开放世界",
+    "linear": "线性",
+    "procedural": "随机生成",
+    "roguelike": "Roguelike",
+    "roguelite": "Roguelite",
+    "soulslike": "魂类",
+    "metroidvania": "类银河城",
+    "survival": "生存",
+    "horror": "恐怖",
+    "stealth": "潜行",
+    "action": "动作",
+    "adventure": "冒险",
+    "strategy": "策略",
+    "simulation": "模拟",
+    "sports": "体育",
+    "racing": "竞速",
+    "fighting": "格斗",
+    "puzzle": "解谜",
+    "platformer": "平台跳跃",
+    "shooter": "射击",
+    "rpg": "RPG",
+    "jrpg": "JRPG",
+    "arpg": "ARPG",
+    "crpg": "CRPG",
+    "tps": "TPS",
+    "rts": "RTS",
+    "tbs": "回合制",
+    "tcg": "卡牌",
+    "ccg": "卡牌",
+    "visual novel": "视觉小说",
+    "walking sim": "步行模拟",
+    "idle": "放置",
+    "clicker": "点击",
+    "gacha": "抽卡",
+    "hero shooter": "英雄射击",
+    "tactical shooter": "战术射击",
+    "battle royale": "大逃杀",
+    "extraction shooter": "搜打撤",
+    "looter shooter": "刷宝射击",
+    "arena shooter": "竞技场射击",
+    "milsim": "军事模拟",
 }
 
 
-def clean_profile(text: str) -> str:
-    """清洗 profile 文本"""
+def clean(text: str) -> str:
     t = text
 
-    # 去掉【画像】前缀（后面会重新加）
-    t = re.sub(r'^【画像】', '', t)
+    # 去掉【画像】前缀
+    t = re.sub(r'^【画像】\s*', '', t)
 
-    # 去掉自我介绍套话
-    t = re.sub(r'大家好[,，]?\s*我(的)?(名字)?(叫|是)\s*.{0,30}(?=[，。,\.\s])', '', t)
-    t = re.sub(r'我(的)?(名字)?(叫|是)\s*.{0,20}(?=[，。,\.\s])', '', t)
-    t = re.sub(r'我(今年)?\d{1,3}岁[,，]?\s*', '', t)
-    t = re.sub(r'我的兴趣爱好(就)?是[:：]?\s*', '', t)
-    t = re.sub(r'我的兴趣(爱好)?[:：]?\s*', '', t)
+    # 去掉自我介绍套话（保留游戏相关内容）
+    t = re.sub(r'大家好[,，]?\s*我(的)?(名字)?(叫|是)\s*.{2,30}(?=[,，。])', '', t)
     t = re.sub(r'大家好[,，]?\s*', '', t)
-    t = re.sub(r'^[,，\s]+', '', t)
+    t = re.sub(r'我(今年)?\d{1,3}岁[,，]?\s*', '', t)
+    t = re.sub(r'我的兴趣(爱好)?(就)?是[:：]?\s*', '', t)
 
-    # 去掉口语填充词
-    t = re.sub(r'那个[,，]?\s*', '', t)
-    t = re.sub(r'就是[,，]?\s*', '', t)
+    # 去掉纯口语填充词
+    t = re.sub(r'(?<![，。、\w])那个[,，]?\s*', '', t)
+    t = re.sub(r'(?<![，。、\w])就是[,，]?\s*', '', t)
     t = re.sub(r'怎么说呢[,，]?\s*', '', t)
     t = re.sub(r'然后[,，]?\s*', '', t)
     t = re.sub(r'反正[,，]?\s*', '', t)
-    t = re.sub(r'怎么说[,，]?\s*', '', t)
     t = re.sub(r'说白了[,，]?\s*', '', t)
     t = re.sub(r'说实话[,，]?\s*', '', t)
     t = re.sub(r'讲道理[,，]?\s*', '', t)
-    t = re.sub(r'大概[,，]?\s*', '', t)
-    t = re.sub(r'应该[,，]?\s*', '', t)
-    t = re.sub(r'可能[,，]?\s*', '', t)
-    t = re.sub(r'其实[,，]?\s*', '', t)
-    t = re.sub(r'确实[,，]?\s*', '', t)
     t = re.sub(r'基本上[,，]?\s*', '', t)
     t = re.sub(r'差不多[,，]?\s*', '', t)
     t = re.sub(r'算是[,，]?\s*', '', t)
-    t = re.sub(r'感觉[,，]?\s*', '', t)
-    t = re.sub(r'觉得[,，]?\s*', '', t)
-    t = re.sub(r'比较[,，]?\s*', '', t)
-    t = re.sub(r'还挺?[,，]?\s*', '', t)
+    t = re.sub(r'怎么说[,，]?\s*', '', t)
     t = re.sub(r'而且[,，]?\s*', '', t)
     t = re.sub(r'所以[,，]?\s*', '', t)
     t = re.sub(r'因为[,，]?\s*', '', t)
     t = re.sub(r'但是[,，]?\s*', '', t)
     t = re.sub(r'不过[,，]?\s*', '', t)
-    t = re.sub(r'嗯[,，]?\s*', '', t)
-    t = re.sub(r'啊[,，]?\s*', '', t)
-    t = re.sub(r'哦[,，]?\s*', '', t)
-    t = re.sub(r'呃[,，]?\s*', '', t)
-    t = re.sub(r'嘛[,，]?\s*', '', t)
-    t = re.sub(r'吧[,，]?\s*', '', t)
-    t = re.sub(r'呗[,，]?\s*', '', t)
-    t = re.sub(r'啦[,，]?\s*', '', t)
-    t = re.sub(r'了[,，]?\s*', '', t)
-    t = re.sub(r'嘛[,，]?\s*', '', t)
-    t = re.sub(r'哈[,，]?\s*', '', t)
-    t = re.sub(r'就[,，]?\s*', '', t)
+    t = re.sub(r'其实[,，]?\s*', '', t)
+    t = re.sub(r'确实[,，]?\s*', '', t)
+    t = re.sub(r'当然[,，]?\s*', '', t)
+    t = re.sub(r'可能[,，]?\s*', '', t)
+    t = re.sub(r'应该[,，]?\s*', '', t)
+    t = re.sub(r'大概[,，]?\s*', '', t)
+    t = re.sub(r'感觉[,，]?\s*', '', t)
+    t = re.sub(r'觉得[,，]?\s*', '', t)
 
-    # 英文→中文
-    for en, cn in EN_TO_CN.items():
-        t = re.sub(rf'\b{en}\b', cn, t, flags=re.IGNORECASE)
+    # 去掉句末语气词
+    t = re.sub(r'[啊嗯哦呃嘛呗啦哈呀呢吧]', '', t)
 
-    # 清理多余标点和空格
+    # 英文→中文（保留缩写）
+    for en, cn in sorted(EN_MAP.items(), key=lambda x: -len(x[0])):
+        t = re.sub(rf'\b{re.escape(en)}\b', cn, t, flags=re.IGNORECASE)
+
+    # 清理标点
     t = re.sub(r'[,，]{2,}', '，', t)
-    t = re.sub(r'[。！？]{2,}', '。', t)
-    t = re.sub(r'\s{2,}', ' ', t)
+    t = re.sub(r'[。]{2,}', '。', t)
+    t = re.sub(r'\s{2,}', '', t)
     t = re.sub(r'^[,，。！？\s]+', '', t)
     t = re.sub(r'[,，。！？\s]+$', '', t)
+    t = re.sub(r'（当时细糠）', '', t)
+    t = re.sub(r'[（(][^)）]{0,10}[)）]', '', t)  # 去掉括号注释
     t = re.sub(r'[,，]$', '', t)
     t = t.strip()
 
-    # 确保以句号结尾
     if t and not t.endswith('。'):
         t += '。'
 
@@ -136,97 +265,95 @@ def clean_profile(text: str) -> str:
 
 
 def extract_games(text: str) -> list[str]:
-    """从文本中提取游戏名"""
-    GAME_NAMES = [
-        "漫威争锋", "漫威争峰", "守望先锋", "CS", "CSGO", "CS2", "Valorant",
-        "Apex", "APEX", "塔科夫", "逃离塔科夫", "暗区突围", "三角洲",
+    GAMES = [
+        "漫威争锋", "漫威争峰", "守望先锋", "CS", "CSGO", "CS2", "Valorant", "瓦洛兰特",
+        "Apex", "塔科夫", "逃离塔科夫", "暗区突围", "三角洲行动", "三角洲",
         "使命召唤", "COD", "战地", "彩虹六号", "彩六", "R6",
         "命运2", "命运", "枪神纪", "绝地潜兵", "穿越火线", "CF",
         "堡垒之夜", "绝地求生", "PUBG", "The Finals", "Rust", "DayZ",
-        "英雄联盟", "LOL", "DOTA", "王者荣耀", "OW", "瓦洛兰特",
+        "英雄联盟", "LOL", "DOTA", "王者荣耀", "OW",
         "链在一起", "分手厨房", "永劫无间", "星际战甲", "全境封锁",
         "黑神话", "艾尔登法环", "只狼", "黑暗之魂", "怪物猎人", "鬼泣",
         "GTA", "无主之地", "生化危机", "地铁", "DOOM", "毁灭战士",
-        "Titanfall", "泰坦陨落", "Splatoon", "喷射战士", "战争机器",
-        "Hunt", "猎杀对决", "Roblox", "Minecraft", "我的世界",
-        "方舟", "Paladins", "枪火游侠", "Naraka", "永劫",
-        "Deadlock", "死锁", "星球大战", "战锤", "人间地狱", "Squad",
-        "战术小队", "Arma", "武装突袭", "叛乱", "坦克世界", "战争雷霆",
+        "泰坦陨落", "喷射战士", "战争机器", "猎杀对决",
+        "Roblox", "Minecraft", "我的世界", "方舟",
+        "枪火游侠", "永劫", "死锁", "星球大战", "战锤",
+        "人间地狱", "Squad", "战术小队", "Arma", "武装突袭",
+        "叛乱", "坦克世界", "战争雷霆",
         "卡拉彼丘", "尘白禁区", "原神", "崩坏", "星穹铁道", "绝区零", "鸣潮",
         "暗黑破坏神", "Diablo", "流放之路", "POE", "最终幻想", "FF14",
         "魔兽世界", "WOW", "剑网3", "天涯明月刀", "逆水寒", "DNF",
-        "炉石传说", "Hearthstone", "影之诗", "游戏王", "万智牌",
-        "文明", "Civ", "帝国时代", "星际争霸", "Starcraft",
-        "宝可梦", "Pokemon", "塞尔达", "Zelda", "马里奥", "Mario",
-        "魂", "Souls", "老头环", "环", "仁王", "Nioh", "血源",
-        "对马岛", "Ghost of Tsushima", "蜘蛛侠", "Spider-Man",
-        "战神", "God of War", "地平线", "Horizon", "最后生还者",
-        "TLOU", "死亡搁浅", "Death Stranding", "赛博朋克", "Cyberpunk",
-        "巫师", "Witcher", "上古卷轴", "Skyrim", "辐射", "Fallout",
-        "博德之门", "Baldur", "神界原罪", "Divinity", "龙腾世纪",
-        "Dragon Age", "质量效应", "Mass Effect", "刺客信条",
-        "Assassin", "看门狗", "Watch Dogs", "孤岛惊魂", "Far Cry",
-        "幽灵行动", "Ghost Recon", "全境", "Division", "彩虹六号",
-        "舞力全开", "Just Dance", "健身环", "Ring Fit",
-        "动物森友会", "动物之森", "星露谷", "Stardew", "牧场物语",
-        "泰拉瑞亚", "Terraria", "饥荒", "Don't Starve", "环世界", "Rimworld",
-        "异星工厂", "Factorio", "戴森球", "Dyson Sphere",
-        "哈迪斯", "Hades", "死亡细胞", "Dead Cells", "空洞骑士",
-        "Hollow Knight", "奥日", "Ori", "蔚蓝", "Celeste",
-        "茶杯头", "Cuphead", "以撒", "Isaac", "挺进地牢", "Gungeon",
-        "杀戮尖塔", "Slay the Spire", "怪物火车", "Monster Train",
-        "小丑牌", "Balatro", "吸血鬼幸存者", "Vampire Survivors",
-        "潜水员戴夫", "Dave the Diver", "Stray", "迷失",
-        "双人成行", "It Takes Two", "毛线小精灵", "Unravel",
-        "胡闹厨房", "Overcooked", "人类一败涂地", "Human Fall Flat",
-        "Among Us", "太空狼人杀", "鹅作剧", "Untitled Goose",
-        "糖豆人", "Fall Guys", "猛兽派对", "Party Animals",
-        "幻兽帕鲁", "Palworld", "雾锁王国", "Enshrouded",
-        "夜族崛起", "V Rising", "英灵神殿", "Valheim",
-        "森林", "The Forest", "森林之子", "Sons of the Forest",
-        "绿色地狱", "Green Hell", "深海迷航", "Subnautica",
-        "无人深空", "No Man's Sky", "星际公民", "Star Citizen",
-        "精英危险", "Elite Dangerous", "EVE",
+        "地狱老司机", "Helldivers", "暗黑", "Diablo",
+        "英雄射击", "搜打撤", "大逃杀", "大战场",
+        "手机", "PC", "主机", "Switch", "PS5", "PS4", "Xbox",
+        "Steam Deck", "ROG Ally", "iPad",
     ]
     found = set()
-    for game in GAME_NAMES:
+    for game in GAMES:
         if game.lower() in text.lower():
             found.add(game)
     return sorted(found)
 
 
-def transform(in_path: str, out_path: str):
+def clean_en(text: str) -> str:
+    """清洗英文 profile"""
+    t = text
+    t = re.sub(r'^【画像】\s*', '', t)
+    # 去掉口语套话
+    t = re.sub(r'\b(Yeah|Yep|Yay|Cool|Nice|Great|Perfect|Alright|Okay|OK|Right|Fine|Sure|Fair enough|Good|Oh|Ah|Um|Uh|Hmm|Huh|Wow|Damn|Shit|Fuck)\b[,!.]?\s*', '', t, flags=re.IGNORECASE)
+    t = re.sub(r'\b(you know|like|I mean|kind of|sort of|basically|literally|actually|honestly|pretty much|stuff like that|and stuff|or whatever|or something|and all that|you guys|guys|man|dude|bro)\b\s*', '', t, flags=re.IGNORECASE)
+    t = re.sub(r'^(Hi|Hello|Hey|My name is|I am|I\'m)\s+[A-Z][a-z]*[.,]?\s*', '', t, flags=re.IGNORECASE)
+    t = re.sub(r'I\'m \d+ years? old[.,]?\s*', '', t, flags=re.IGNORECASE)
+    t = re.sub(r'[.!]{2,}', '.', t)
+    t = re.sub(r'^[,;:.\s]+', '', t)
+    t = re.sub(r'[,;:.\s]+$', '', t)
+    t = t.strip()
+    if t and not t.endswith('.') and not t.endswith('?') and not t.endswith('!'):
+        t += '.'
+    return t
+
+
+def is_english(text: str) -> bool:
+    """判断文本是否主要为英文"""
+    ascii_chars = sum(1 for c in text if ord(c) < 128)
+    total = len(text) or 1
+    return ascii_chars / total > 0.5
+
+
+for fname in FILES:
+    in_path = os.path.join(BASE, fname)
     with open(in_path, "r", encoding="utf-8") as f:
         data = json.load(f)
 
-    for resp in data:
-        bg = resp.get("background", {})
-        profile_raw = bg.get("profile", "") or ""
+    for r in data:
+        bg = r.get("background", {})
+        raw = bg.get("profile", "") or ""
 
-        # 清洗
-        cleaned = clean_profile(profile_raw)
+        if is_english(raw):
+            cleaned = clean_en(raw)
+        else:
+            cleaned = clean(raw)
 
-        # 重新加【画像】前缀
         if cleaned and not cleaned.startswith("【画像】"):
             cleaned = f"【画像】{cleaned}"
 
         bg["profile"] = cleaned
 
-        # 更新 game_experience_summary
         games = extract_games(cleaned)
         if games:
             bg["game_experience_summary"] = "、".join(games[:10])
 
-        resp["background"] = bg
+        r["background"] = bg
 
-    with open(out_path, "w", encoding="utf-8") as f:
+    with open(in_path, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
-    print(f"  {os.path.basename(in_path)}: {len(data)} 个")
+    # 抽样
+    print(f"\n📂 {fname}: {len(data)} 个")
+    en_count = sum(1 for r in data if is_english(r["background"]["profile"]))
+    print(f"  英文: {en_count} 个, 中文: {len(data)-en_count} 个")
+    for r in data[:2]:
+        p = r["background"]["profile"]
+        print(f"  {r['speaker_id']}: {p[:120]}...")
 
-
-for fname in FILES:
-    in_path = os.path.join(BASE, fname)
-    transform(in_path, in_path)
-
-print(f"\n✅ profile 已清洗为中文画像格式")
+print(f"\n✅ 完成")
