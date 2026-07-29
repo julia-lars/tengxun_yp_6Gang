@@ -1,9 +1,33 @@
 // 项目首页 — AI 模拟用户系统
-import { Archive, ArrowRight, ClipboardCheck, GitCompare, Lightbulb, MessageCircle, Users } from "lucide-react";
+import type { ChatSession, PersonaSummary } from "@app/shared";
+import { Archive, ArrowRight, Clock, ClipboardCheck, GitCompare, Lightbulb, MessageCircle, Users } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { api } from "@/lib/api";
 
 export function HomePage() {
+  const [sessions, setSessions] = useState<(ChatSession & { personaName?: string })[]>([]);
+  const [personas, setPersonas] = useState<PersonaSummary[]>([]);
+
+  useEffect(() => {
+    // 获取最近会话
+    api.getChatSessions().then(setSessions).catch(() => {});
+    // 获取画像列表（用于匹配名称）
+    api.listPersonas().then(setPersonas).catch(() => {});
+  }, []);
+
+  // 按画像ID匹配名称
+  const sessionsWithPersona = sessions
+    .map((s) => {
+      const p = personas.find((p) => p.id === s.personaId);
+      return { ...s, personaName: p?.name };
+    })
+    .filter((s) => s.messages.length > 0)
+    .slice(0, 6); // 只显示最近 6 条
+
   return (
     <div className="space-y-8 sm:space-y-10">
       <section className="space-y-6 pt-4 text-center">
@@ -52,6 +76,57 @@ export function HomePage() {
           </Link>
         </div>
       </section>
+
+      {/* 历史对话 */}
+      {sessionsWithPersona.length > 0 && (
+        <section className="space-y-4">
+          <h2 className="font-serif text-xl sm:text-2xl font-bold text-[--color-primary] text-center">
+            历史对话
+          </h2>
+          <div className="space-y-2">
+            {sessionsWithPersona.map((s) => {
+              const firstMsg = (s.messages[0] as { content?: string } | undefined)?.content ?? "";
+              const preview = s.title || firstMsg.slice(0, 40) || "新对话";
+              const msgCount = s.messages.length;
+              return (
+                <Link
+                  key={s.id}
+                  to={`/personas/${s.personaId}/chat?session=${s.id}`}
+                  className="block group"
+                >
+                  <Card className="transition-all duration-200 hover:border-[--color-primary] hover:shadow-sm">
+                    <CardContent className="flex items-center gap-3 py-3 px-4">
+                      <Clock className="h-4 w-4 text-[--color-muted-foreground] flex-shrink-0" />
+                      <div className="flex-1 min-w-0 space-y-0.5">
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm text-[--color-foreground] truncate group-hover:text-[--color-primary] transition-colors">
+                            {preview}
+                          </span>
+                          <Badge variant="secondary" className="text-[10px] flex-shrink-0">
+                            {s.personaName ? `画像: ${s.personaName}` : `画像 #${s.personaId}`}
+                          </Badge>
+                        </div>
+                        <div className="text-xs text-[--color-muted-foreground] flex items-center gap-3">
+                          <span>
+                            {new Date(s.createdAt).toLocaleDateString("zh-CN", {
+                              month: "short",
+                              day: "numeric",
+                              hour: "2-digit",
+                              minute: "2-digit",
+                            })}
+                          </span>
+                          <span>{msgCount} 轮对话</span>
+                        </div>
+                      </div>
+                      <ArrowRight className="h-4 w-4 text-[--color-muted-foreground] opacity-0 group-hover:opacity-100 group-hover:text-[--color-primary] transition-all flex-shrink-0" />
+                    </CardContent>
+                  </Card>
+                </Link>
+              );
+            })}
+          </div>
+        </section>
+      )}
 
       {/* 使用场景 */}
       <section className="space-y-5">
