@@ -1,6 +1,7 @@
 // Tooltip 组件 — 纯 CSS 实现
-import { cn } from "@/lib/utils";
+
 import { type ReactNode, useState } from "react";
+import { cn } from "@/lib/utils";
 
 interface TooltipProps {
   children: ReactNode;
@@ -20,7 +21,11 @@ export function Tooltip({ children, content, side = "top", className }: TooltipP
   };
 
   return (
-    <div className="relative inline-flex" onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
+    <div
+      className="relative inline-flex"
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
       {children}
       {open && (
         <div

@@ -4,7 +4,7 @@
 
 import { type ChatRequest, type ChatSession, chatRequestSchema } from "@app/shared";
 import { zValidator } from "@hono/zod-validator";
-import { eq, sql, and, desc } from "drizzle-orm";
+import { and, desc, eq, sql } from "drizzle-orm";
 import { Hono } from "hono";
 import { streamSSE } from "hono/streaming";
 
@@ -140,9 +140,7 @@ chatRoute.post("/", zValidator("json", chatRequestSchema), async (c) => {
 // GET /api/chat/sessions —— 列出所有会话
 chatRoute.get("/sessions", async (c) => {
   const personaId = c.req.query("personaId");
-  const conditions = personaId
-    ? and(eq(chatSessions.personaId, Number(personaId)))
-    : undefined;
+  const conditions = personaId ? and(eq(chatSessions.personaId, Number(personaId))) : undefined;
 
   const rows = await db
     .select()

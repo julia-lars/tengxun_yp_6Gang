@@ -1,6 +1,7 @@
 // 三态标签 — 用于二级模式标签（未表态/喜欢/回避）
-import { cn } from "@/lib/utils";
+
 import { ThumbsDown, ThumbsUp } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export type TriState = "neutral" | "liked" | "disliked";
 
@@ -19,21 +20,13 @@ const STATE_CYCLE: Record<TriState, TriState> = {
 };
 
 const STATE_STYLE: Record<TriState, string> = {
-  neutral:
-    "border-[--color-border] bg-transparent text-[--color-muted-foreground]",
-  liked:
-    "border-[--color-success] bg-[--color-success]/15 text-[--color-success]",
+  neutral: "border-[--color-border] bg-transparent text-[--color-muted-foreground]",
+  liked: "border-[--color-success] bg-[--color-success]/15 text-[--color-success]",
   disliked:
     "border-[--color-destructive] bg-[--color-destructive]/10 text-[--color-destructive] line-through",
 };
 
-export function TriStateTag({
-  label,
-  value,
-  onChange,
-  disabled,
-  className,
-}: TriStateTagProps) {
+export function TriStateTag({ label, value, onChange, disabled, className }: TriStateTagProps) {
   return (
     <button
       type="button"

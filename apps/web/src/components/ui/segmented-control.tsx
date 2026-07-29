@@ -15,7 +15,9 @@ export function SegmentedControl<T extends string>({
   className,
 }: SegmentedControlProps<T>) {
   return (
-    <div className={cn("flex rounded-md border border-[--color-border] overflow-hidden", className)}>
+    <div
+      className={cn("flex rounded-md border border-[--color-border] overflow-hidden", className)}
+    >
       {options.map((opt, i) => {
         const isSelected = value === opt.value;
         const isFirst = i === 0;

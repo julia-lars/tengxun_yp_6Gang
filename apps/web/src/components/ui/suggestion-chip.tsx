@@ -1,6 +1,7 @@
 // 建议追问 — AI 回答后可选的追问提示
-import { cn } from "@/lib/utils";
+
 import { Lightbulb } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface SuggestionChipProps {
   text: string;

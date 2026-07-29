@@ -13,7 +13,11 @@ function getLevel(score: number): { label: string; filled: number; color: string
   return { label: "低", filled: 2, color: "var(--color-destructive)" };
 }
 
-export function ConfidenceIndicator({ score, showLabel = true, size = "sm" }: ConfidenceIndicatorProps) {
+export function ConfidenceIndicator({
+  score,
+  showLabel = true,
+  size = "sm",
+}: ConfidenceIndicatorProps) {
   const { label, filled, color } = getLevel(score);
   const dotSize = size === "sm" ? "w-2 h-2" : "w-2.5 h-2.5";
 
@@ -21,7 +25,7 @@ export function ConfidenceIndicator({ score, showLabel = true, size = "sm" }: Co
     <span className={cn("inline-flex items-center gap-1", size === "sm" ? "text-xs" : "text-sm")}>
       {Array.from({ length: 5 }).map((_, i) => (
         <span
-          key={i}
+          key={`confidence-dot-${i}`}
           className={cn(dotSize, "rounded-full transition-colors")}
           style={{ background: i < filled ? color : "var(--color-border)" }}
         />

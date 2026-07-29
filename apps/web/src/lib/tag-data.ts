@@ -71,10 +71,18 @@ export const TAG_DIMENSIONS: TagDimension[] = [
         label: "综合等级",
         options: [
           { value: "新手", label: "新手", description: "尚未稳定掌握规则和基础操作" },
-          { value: "入门", label: "入门", description: "能完成对局，但枪法、信息或决策仍明显不稳定" },
+          {
+            value: "入门",
+            label: "入门",
+            description: "能完成对局，但枪法、信息或决策仍明显不稳定",
+          },
           { value: "进阶", label: "进阶", description: "有稳定主玩产品和基本技巧，能自我诊断短板" },
           { value: "高手", label: "高手", description: "多项技巧稳定、理解版本和战术" },
-          { value: "专家/竞技级", label: "专家/竞技级", description: "高段位、赛事或半职业证据充分" },
+          {
+            value: "专家/竞技级",
+            label: "专家/竞技级",
+            description: "高段位、赛事或半职业证据充分",
+          },
           { value: "未知", label: "未知", description: "只有自称，没有行为、段位或他人评价支撑" },
         ],
       },

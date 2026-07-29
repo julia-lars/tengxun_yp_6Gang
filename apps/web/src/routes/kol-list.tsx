@@ -1,9 +1,8 @@
 // KOL 分身列表页
 import type { KolProfileSummary } from "@app/shared";
-import { ArrowRight, ArrowLeft, MessageCircle, Play, User, Database } from "lucide-react";
+import { ArrowLeft, ArrowRight, Database, MessageCircle, User } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { api } from "@/lib/api";
@@ -44,7 +43,8 @@ export function KolListPage() {
             <div className="text-center space-y-2">
               <p className="text-[--color-muted-foreground] font-medium">暂无 KOL 数据</p>
               <p className="text-sm text-[--color-muted-foreground] opacity-70 max-w-md">
-                KOL 分身功能将在下期上线。届时将基于 B 站 UP 主（如冷面叶星星IKGN、鬼王陆行）的公开内容构建数字孪生。
+                KOL 分身功能将在下期上线。届时将基于 B 站 UP
+                主（如冷面叶星星IKGN、鬼王陆行）的公开内容构建数字孪生。
               </p>
             </div>
             <Button asChild variant="outline" size="sm">

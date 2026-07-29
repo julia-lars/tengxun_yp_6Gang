@@ -16,9 +16,7 @@ export function ThinkingDots({ className, showText = false }: ThinkingDotsProps)
           <span className="dot" />
         </div>
       </div>
-      {showText && (
-        <span className="text-xs text-[--color-muted-foreground]">正在思考...</span>
-      )}
+      {showText && <span className="text-xs text-[--color-muted-foreground]">正在思考...</span>}
     </div>
   );
 }

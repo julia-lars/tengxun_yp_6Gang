@@ -1,22 +1,29 @@
 // 虚拟访谈室 — SSE 流式对话 · 交互设计规范 v1.0
-import { ArrowLeft, ArrowDown, Copy, Download, FileJson, FileText, RotateCw, Send, Trash2, User } from "lucide-react";
+
+import type { PersonaDetail } from "@app/shared";
+import {
+  ArrowDown,
+  ArrowLeft,
+  Copy,
+  Download,
+  FileJson,
+  FileText,
+  RotateCw,
+  Send,
+  Trash2,
+  User,
+} from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useParams, useSearchParams } from "react-router";
+import { toast } from "sonner";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet";
-import { Textarea } from "@/components/ui/textarea";
 import { EvidenceCard } from "@/components/ui/evidence-card";
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { SuggestionChip } from "@/components/ui/suggestion-chip";
+import { Textarea } from "@/components/ui/textarea";
 import { ThinkingDots } from "@/components/ui/thinking-dots";
 import { TypingCursor } from "@/components/ui/typing-cursor";
-import { toast } from "sonner";
-import type { PersonaDetail } from "@app/shared";
 import { api } from "../lib/api.js";
 
 interface Message {
@@ -61,7 +68,10 @@ export function ChatRoomPage() {
   // 加载画像信息
   useEffect(() => {
     if (!personaId || Number.isNaN(personaId)) return;
-    api.getPersona(personaId).then(setPersona).catch(() => {});
+    api
+      .getPersona(personaId)
+      .then(setPersona)
+      .catch(() => {});
   }, [personaId]);
 
   // 恢复会话
@@ -274,16 +284,19 @@ export function ChatRoomPage() {
   }, [messages, send]);
 
   // 打开证据侧栏
-  const openEvidence = useCallback(async (ids: number[]) => {
-    if (ids.length === 0) return;
-    setEvidencePanel((prev) => ({ ...prev, open: true, evidenceIds: ids }));
+  const openEvidence = useCallback(
+    async (ids: number[]) => {
+      if (ids.length === 0) return;
+      setEvidencePanel((prev) => ({ ...prev, open: true, evidenceIds: ids }));
 
-    // 获取证据详情
-    if (persona) {
-      const list = persona.evidenceList.filter((e) => ids.includes(e.id));
-      setEvidencePanel((prev) => ({ ...prev, evidenceList: list }));
-    }
-  }, [persona]);
+      // 获取证据详情
+      if (persona) {
+        const list = persona.evidenceList.filter((e) => ids.includes(e.id));
+        setEvidencePanel((prev) => ({ ...prev, evidenceList: list }));
+      }
+    },
+    [persona],
+  );
 
   // 复制回答
   const copyMessage = useCallback((content: string) => {
@@ -393,7 +406,9 @@ export function ChatRoomPage() {
           <ArrowLeft className="h-4 w-4" />
         </Link>
         <div className="flex-1 min-w-0">
-          <h2 className="font-serif text-lg font-bold text-[--color-primary] truncate">虚拟访谈室</h2>
+          <h2 className="font-serif text-lg font-bold text-[--color-primary] truncate">
+            虚拟访谈室
+          </h2>
           <p className="text-xs text-[--color-muted-foreground] truncate">
             {persona ? `${persona.name} · ${persona.sampleCount} 样本` : `画像 #${personaId}`}
           </p>
@@ -458,7 +473,10 @@ export function ChatRoomPage() {
         )}
 
         {messages.map((m, i) => (
-          <div key={i} className={`flex gap-3 ${m.role === "user" ? "justify-end" : ""} animate-fade-in-up`}>
+          <div
+            key={i}
+            className={`flex gap-3 ${m.role === "user" ? "justify-end" : ""} animate-fade-in-up`}
+          >
             {/* AI 头像 */}
             {m.role === "assistant" && (
               <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[--color-primary] flex items-center justify-center">
@@ -510,7 +528,9 @@ export function ChatRoomPage() {
                     <Copy className="h-3 w-3" />
                   </button>
                   {/* 重试（仅失败消息） */}
-                  {(m.content.startsWith("[请求失败") || m.content.startsWith("[连接失败") || m.content.startsWith("[连接中断")) && (
+                  {(m.content.startsWith("[请求失败") ||
+                    m.content.startsWith("[连接失败") ||
+                    m.content.startsWith("[连接中断")) && (
                     <button
                       type="button"
                       onClick={retry}
@@ -523,13 +543,16 @@ export function ChatRoomPage() {
               )}
 
               {/* 建议追问 */}
-              {m.role === "assistant" && m.suggestions && m.suggestions.length > 0 && !(i === messages.length - 1 && streaming) && (
-                <div className="flex flex-wrap gap-1.5 px-1 pt-1">
-                  {m.suggestions.map((s, si) => (
-                    <SuggestionChip key={si} text={s} onClick={applySuggestion} />
-                  ))}
-                </div>
-              )}
+              {m.role === "assistant" &&
+                m.suggestions &&
+                m.suggestions.length > 0 &&
+                !(i === messages.length - 1 && streaming) && (
+                  <div className="flex flex-wrap gap-1.5 px-1 pt-1">
+                    {m.suggestions.map((s, si) => (
+                      <SuggestionChip key={si} text={s} onClick={applySuggestion} />
+                    ))}
+                  </div>
+                )}
             </div>
 
             {/* 用户头像 */}
@@ -575,7 +598,9 @@ export function ChatRoomPage() {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder={streaming ? "请等待 AI 回复..." : "输入你的问题...（Enter 发送，Shift+Enter 换行）"}
+          placeholder={
+            streaming ? "请等待 AI 回复..." : "输入你的问题...（Enter 发送，Shift+Enter 换行）"
+          }
           rows={2}
           disabled={streaming}
           className="flex-1 resize-none"
@@ -591,8 +616,14 @@ export function ChatRoomPage() {
             {streaming ? (
               <div className="thinking-dots gap-1.5">
                 <span className="dot" style={{ width: 3, height: 3, background: "white" }} />
-                <span className="dot" style={{ width: 3, height: 3, background: "white", animationDelay: "0.15s" }} />
-                <span className="dot" style={{ width: 3, height: 3, background: "white", animationDelay: "0.3s" }} />
+                <span
+                  className="dot"
+                  style={{ width: 3, height: 3, background: "white", animationDelay: "0.15s" }}
+                />
+                <span
+                  className="dot"
+                  style={{ width: 3, height: 3, background: "white", animationDelay: "0.3s" }}
+                />
               </div>
             ) : (
               <Send className="h-4 w-4" />
@@ -605,7 +636,10 @@ export function ChatRoomPage() {
       </div>
 
       {/* 证据溯源侧栏 */}
-      <Sheet open={evidencePanel.open} onOpenChange={(open) => setEvidencePanel((prev) => ({ ...prev, open }))}>
+      <Sheet
+        open={evidencePanel.open}
+        onOpenChange={(open) => setEvidencePanel((prev) => ({ ...prev, open }))}
+      >
         <SheetContent side="right" className="w-[380px] sm:w-[420px] overflow-y-auto">
           <SheetHeader>
             <SheetTitle className="text-lg font-serif">证据溯源</SheetTitle>

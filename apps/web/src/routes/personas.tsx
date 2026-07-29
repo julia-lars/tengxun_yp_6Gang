@@ -1,23 +1,30 @@
 // 标签选择器 + 画像列表页面 — 交互设计规范 v1.0
 import type { PersonaSummary } from "@app/shared";
-import { ChevronDown, ChevronUp, Filter, MessageCircle, Star, Users, X, ArrowLeft } from "lucide-react";
+import {
+  ArrowLeft,
+  ChevronDown,
+  ChevronUp,
+  Filter,
+  MessageCircle,
+  Star,
+  Users,
+  X,
+} from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  Tooltip,
-} from "@/components/ui/tooltip";
 import { MatchFeedback } from "@/components/ui/match-feedback";
 import { SegmentedControl } from "@/components/ui/segmented-control";
-import { TriStateTag, type TriState } from "@/components/ui/tri-state-tag";
+import { Tooltip } from "@/components/ui/tooltip";
+import { type TriState, TriStateTag } from "@/components/ui/tri-state-tag";
 import { api } from "../lib/api.js";
 import {
   EXTENDED_DIMENSIONS,
-  TAG_DIMENSIONS,
   getDisabledTags,
   getExclusionMessage,
+  TAG_DIMENSIONS,
   type TagDimension,
 } from "../lib/tag-data.js";
 
@@ -112,7 +119,13 @@ export function PersonasPage() {
   // 获取画像数据
   const queryTags = useMemo(() => {
     // 只有简单标签值传给 API
-    const simple = activeTags.filter((t) => !t.startsWith("风格/") && !t.startsWith("平台/") && !t.startsWith("模式/二级:") && !t.startsWith("能力/"));
+    const simple = activeTags.filter(
+      (t) =>
+        !t.startsWith("风格/") &&
+        !t.startsWith("平台/") &&
+        !t.startsWith("模式/二级:") &&
+        !t.startsWith("能力/"),
+    );
     return simple.join(TAG_SEPARATOR);
   }, [activeTags]);
 
@@ -217,16 +230,22 @@ export function PersonasPage() {
         }}
         title={tag.description}
       >
-        {isActive ? (
-          <X className="h-3 w-3 mr-1" />
-        ) : null}
+        {isActive ? <X className="h-3 w-3 mr-1" /> : null}
         {tag.label}
       </Badge>
     );
 
     if (isDisabled && disabledReason) {
       return (
-        <Tooltip key={tag.value} content={<div className="max-w-[240px] text-xs"><p className="font-medium">⚠ 与已选标签冲突</p><p className="text-[--color-muted-foreground] mt-0.5">{disabledReason}</p></div>}>
+        <Tooltip
+          key={tag.value}
+          content={
+            <div className="max-w-[240px] text-xs">
+              <p className="font-medium">⚠ 与已选标签冲突</p>
+              <p className="text-[--color-muted-foreground] mt-0.5">{disabledReason}</p>
+            </div>
+          }
+        >
           {badge}
         </Tooltip>
       );
@@ -290,7 +309,11 @@ export function PersonasPage() {
                       if (isDisabled) return;
                       if (isActive) {
                         toggleTag(opt.value);
-                      } else if (plainTags.filter((t) => TAG_DIMENSIONS[0].options!.some((o) => o.value === t)).length >= 3) {
+                      } else if (
+                        plainTags.filter((t) =>
+                          TAG_DIMENSIONS[0].options!.some((o) => o.value === t),
+                        ).length >= 3
+                      ) {
                         return; // 最多3个
                       } else {
                         toggleTag(opt.value);
@@ -306,7 +329,15 @@ export function PersonasPage() {
 
                 if (isDisabled && disabledReason) {
                   return (
-                    <Tooltip key={opt.value} content={<div className="max-w-[240px] text-xs"><p className="font-medium">⚠ 与已选标签冲突</p><p className="text-[--color-muted-foreground] mt-0.5">{disabledReason}</p></div>}>
+                    <Tooltip
+                      key={opt.value}
+                      content={
+                        <div className="max-w-[240px] text-xs">
+                          <p className="font-medium">⚠ 与已选标签冲突</p>
+                          <p className="text-[--color-muted-foreground] mt-0.5">{disabledReason}</p>
+                        </div>
+                      }
+                    >
                       {badge}
                     </Tooltip>
                   );
@@ -318,9 +349,7 @@ export function PersonasPage() {
 
           {/* 能力 — 单选等级 + 多选技巧 */}
           <div>
-            <p className="text-sm font-medium text-[--color-muted-foreground] mb-2">
-              游戏能力
-            </p>
+            <p className="text-sm font-medium text-[--color-muted-foreground] mb-2">游戏能力</p>
             {/* 综合等级 */}
             <div className="mb-2">
               <span className="text-xs text-[--color-muted-foreground]">综合等级</span>
@@ -419,15 +448,14 @@ export function PersonasPage() {
             <div className="space-y-3">
               {TAG_DIMENSIONS[2].segmentedAxes!.map((axis) => (
                 <div key={axis.name}>
-                  <span className="text-xs text-[--color-muted-foreground] block mb-1">{axis.label}</span>
+                  <span className="text-xs text-[--color-muted-foreground] block mb-1">
+                    {axis.label}
+                  </span>
                   <SegmentedControl
                     options={axis.options}
                     value={styleValues[axis.name] ?? null}
                     onChange={(val) => {
-                      replaceTag(
-                        `风格/${axis.name}:`,
-                        `风格/${axis.name}:${val}`,
-                      );
+                      replaceTag(`风格/${axis.name}:`, `风格/${axis.name}:${val}`);
                     }}
                   />
                 </div>
@@ -437,9 +465,7 @@ export function PersonasPage() {
 
           {/* 平台 — 主选 + 次选 */}
           <div>
-            <p className="text-sm font-medium text-[--color-muted-foreground] mb-2">
-              平台偏好
-            </p>
+            <p className="text-sm font-medium text-[--color-muted-foreground] mb-2">平台偏好</p>
             <div className="mb-2">
               <span className="text-xs text-[--color-muted-foreground]">主选平台</span>
               <div className="flex flex-wrap gap-2 mt-1">
@@ -501,9 +527,7 @@ export function PersonasPage() {
 
           {/* 模式 — 主结构 + 二级三态 */}
           <div>
-            <p className="text-sm font-medium text-[--color-muted-foreground] mb-2">
-              模式偏好
-            </p>
+            <p className="text-sm font-medium text-[--color-muted-foreground] mb-2">模式偏好</p>
             {/* 主结构 */}
             <div className="mb-2">
               <span className="text-xs text-[--color-muted-foreground]">主结构</span>
@@ -536,7 +560,17 @@ export function PersonasPage() {
 
                   if (isDisabled && disabledReason) {
                     return (
-                      <Tooltip key={opt.value} content={<div className="max-w-[240px] text-xs"><p className="font-medium">⚠ 与已选标签冲突</p><p className="text-[--color-muted-foreground] mt-0.5">{disabledReason}</p></div>}>
+                      <Tooltip
+                        key={opt.value}
+                        content={
+                          <div className="max-w-[240px] text-xs">
+                            <p className="font-medium">⚠ 与已选标签冲突</p>
+                            <p className="text-[--color-muted-foreground] mt-0.5">
+                              {disabledReason}
+                            </p>
+                          </div>
+                        }
+                      >
                         {badge}
                       </Tooltip>
                     );
@@ -555,7 +589,9 @@ export function PersonasPage() {
                     label={opt.label}
                     value={submodeStates[opt.value] ?? "neutral"}
                     onChange={(newState) => {
-                      const filtered = activeTags.filter((t) => !t.startsWith(`模式/二级:${opt.value}:`));
+                      const filtered = activeTags.filter(
+                        (t) => !t.startsWith(`模式/二级:${opt.value}:`),
+                      );
                       if (newState !== "neutral") {
                         filtered.push(`模式/二级:${opt.value}:${newState}`);
                       }
@@ -574,7 +610,11 @@ export function PersonasPage() {
               onClick={() => setExpandedFilters(!expandedFilters)}
               className="flex items-center gap-2 text-sm text-[--color-muted-foreground] hover:text-[--color-foreground] transition-colors"
             >
-              {expandedFilters ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+              {expandedFilters ? (
+                <ChevronUp className="h-4 w-4" />
+              ) : (
+                <ChevronDown className="h-4 w-4" />
+              )}
               更多筛选
             </button>
 
@@ -589,7 +629,9 @@ export function PersonasPage() {
                       <div className="space-y-2">
                         {dim.segmentedAxes.map((axis) => (
                           <div key={axis.name}>
-                            <span className="text-xs text-[--color-muted-foreground] block mb-1">{axis.label}</span>
+                            <span className="text-xs text-[--color-muted-foreground] block mb-1">
+                              {axis.label}
+                            </span>
                             <SegmentedControl
                               options={axis.options}
                               value={styleValues[axis.name] ?? null}
@@ -604,7 +646,9 @@ export function PersonasPage() {
                       <div className="space-y-2">
                         {dim.groups.map((group) => (
                           <div key={group.name}>
-                            <span className="text-xs text-[--color-muted-foreground] block mb-1">{group.label}</span>
+                            <span className="text-xs text-[--color-muted-foreground] block mb-1">
+                              {group.label}
+                            </span>
                             <div className="flex flex-wrap gap-2">
                               {group.options.map((opt) => renderTag(opt, dim.name, group.name))}
                             </div>
@@ -627,13 +671,7 @@ export function PersonasPage() {
         previousCount={previousCountRef.current || undefined}
         noMatch={noMatch}
         lowSample={lowSample}
-        suggestions={
-          noMatch
-            ? [
-                { action: "取消最近选择的标签", expectedCount: 2 },
-              ]
-            : undefined
-        }
+        suggestions={noMatch ? [{ action: "取消最近选择的标签", expectedCount: 2 }] : undefined}
         onApplySuggestion={(action) => {
           if (action === "取消最近选择的标签" && activeTags.length > 0) {
             updateTags(activeTags.slice(0, -1));
@@ -655,14 +693,16 @@ export function PersonasPage() {
               </CardHeader>
               <CardContent className="pt-0">
                 <div className="flex flex-wrap gap-1">
-                  {Object.entries(p.tagSpec as Record<string, string | string[]>).map(([dim, val]) => {
-                    const vals = Array.isArray(val) ? val : [val];
-                    return vals.map((v) => (
-                      <Badge key={`${dim}-${v}`} variant="secondary" className="text-xs">
-                        {v}
-                      </Badge>
-                    ));
-                  })}
+                  {Object.entries(p.tagSpec as Record<string, string | string[]>).map(
+                    ([dim, val]) => {
+                      const vals = Array.isArray(val) ? val : [val];
+                      return vals.map((v) => (
+                        <Badge key={`${dim}-${v}`} variant="secondary" className="text-xs">
+                          {v}
+                        </Badge>
+                      ));
+                    },
+                  )}
                 </div>
                 <div className="flex items-center justify-between mt-3">
                   <p className="text-xs text-[--color-muted-foreground]">
@@ -682,9 +722,7 @@ export function PersonasPage() {
           </p>
         )}
         {loading && (
-          <p className="text-[--color-muted-foreground] col-span-2 text-center py-8">
-            匹配中...
-          </p>
+          <p className="text-[--color-muted-foreground] col-span-2 text-center py-8">匹配中...</p>
         )}
       </div>
     </div>

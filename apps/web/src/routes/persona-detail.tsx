@@ -1,6 +1,6 @@
 // 画像详情页面 — 交互设计规范 v1.0
 import type { ChatSession, PersonaDetail } from "@app/shared";
-import { ArrowLeft, MessageCircle, Clock, Trash2 } from "lucide-react";
+import { ArrowLeft, Clock, MessageCircle, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
 import { Badge } from "@/components/ui/badge";
@@ -53,9 +53,7 @@ export function PersonaDetailPage() {
 
       {/* 标题区 */}
       <div>
-        <h1 className="font-serif text-3xl font-bold text-[--color-primary]">
-          {persona.name}
-        </h1>
+        <h1 className="font-serif text-3xl font-bold text-[--color-primary]">{persona.name}</h1>
         <p className="text-[--color-muted-foreground] mt-1">{persona.description}</p>
       </div>
 
@@ -116,7 +114,8 @@ export function PersonaDetailPage() {
                   <span>📁 {e.sourceFile}</span>
                   {e.annotation && (
                     <span>
-                      🏷 {(e.annotation as Record<string, unknown>).iceberg
+                      🏷{" "}
+                      {(e.annotation as Record<string, unknown>).iceberg
                         ? `M1-M5 已标注`
                         : "未标注"}
                     </span>

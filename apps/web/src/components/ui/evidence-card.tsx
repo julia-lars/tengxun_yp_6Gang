@@ -1,6 +1,7 @@
 // 证据溯源卡片 — 用于侧栏展示
-import { cn } from "@/lib/utils";
+
 import { Copy, FileText, User } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { Badge } from "./badge";
 import { ConfidenceIndicator } from "./confidence-indicator";
 
@@ -26,14 +27,20 @@ export function EvidenceCard({
   onCopy,
   className,
 }: EvidenceCardProps) {
-  const iceberg = (annotation as Record<string, unknown>)?.iceberg as Record<string, string[]> | undefined;
-  const framework = (annotation as Record<string, unknown>)?.framework as Record<string, unknown> | undefined;
+  const iceberg = (annotation as Record<string, unknown>)?.iceberg as
+    | Record<string, string[]>
+    | undefined;
+  const framework = (annotation as Record<string, unknown>)?.framework as
+    | Record<string, unknown>
+    | undefined;
 
   return (
     <div
       className={cn(
         "rounded-lg border p-4 space-y-3 transition-all",
-        isActive ? "border-[--color-primary] bg-[--color-primary]/5" : "border-[--color-border] bg-[--color-card]",
+        isActive
+          ? "border-[--color-primary] bg-[--color-primary]/5"
+          : "border-[--color-border] bg-[--color-card]",
         className,
       )}
     >

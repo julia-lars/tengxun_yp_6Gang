@@ -1,6 +1,15 @@
 // 项目首页 — AI 模拟用户系统
 import type { ChatSession, PersonaSummary } from "@app/shared";
-import { Archive, ArrowRight, Clock, ClipboardCheck, GitCompare, Lightbulb, MessageCircle, Users } from "lucide-react";
+import {
+  Archive,
+  ArrowRight,
+  ClipboardCheck,
+  Clock,
+  GitCompare,
+  Lightbulb,
+  MessageCircle,
+  Users,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { Badge } from "@/components/ui/badge";
@@ -14,9 +23,15 @@ export function HomePage() {
 
   useEffect(() => {
     // 获取最近会话
-    api.getChatSessions().then(setSessions).catch(() => {});
+    api
+      .getChatSessions()
+      .then(setSessions)
+      .catch(() => {});
     // 获取画像列表（用于匹配名称）
-    api.listPersonas().then(setPersonas).catch(() => {});
+    api
+      .listPersonas()
+      .then(setPersonas)
+      .catch(() => {});
   }, []);
 
   // 按画像ID匹配名称
@@ -143,7 +158,7 @@ export function HomePage() {
             {
               icon: GitCompare,
               title: "玩法机制比较",
-              desc: '需要比较 TTK、复活机制、武器方案时，对不同画像分别提问，理解「为什么喜欢/不喜欢」而非只看偏好比例。',
+              desc: "需要比较 TTK、复活机制、武器方案时，对不同画像分别提问，理解「为什么喜欢/不喜欢」而非只看偏好比例。",
             },
             {
               icon: ClipboardCheck,
@@ -156,7 +171,10 @@ export function HomePage() {
               desc: "出现新需求时，从历史语料中检索已有证据，明确哪些结论已有支撑、哪些仍需新研究，避免重复造轮子。",
             },
           ].map(({ icon: Icon, title, desc }) => (
-            <Card key={title} className="transition-all duration-200 hover:border-[--color-primary] hover:shadow-md">
+            <Card
+              key={title}
+              className="transition-all duration-200 hover:border-[--color-primary] hover:shadow-md"
+            >
               <CardHeader className="pb-2">
                 <CardTitle className="text-base flex items-center gap-2">
                   <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-[--color-primary]/10 flex items-center justify-center">
