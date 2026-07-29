@@ -243,6 +243,59 @@ export const chatSessionsRelations = relations(chatSessions, ({ one }) => ({
   }),
 }));
 
+// -------------------- kol_profiles（KOL 画像/分身定义）--------------------
+
+export const kolProfiles = pgTable(
+  "kol_profiles",
+  {
+    id: serial("id").primaryKey(),
+    name: text("name").notNull(),
+    bilibiliUid: text("bilibili_uid"),
+    personaCard: jsonb("persona_card").$type<Record<string, unknown>>().notNull(),
+    styleProfile: jsonb("style_profile").$type<Record<string, unknown>>().notNull(),
+    sourceTexts: text("source_texts").array(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => ({
+    uidIdx: index("kol_uid_idx").on(table.bilibiliUid),
+  }),
+);
+
+// -------------------- kol_segments（KOL 语料片段）--------------------
+
+export const kolSegments = pgTable(
+  "kol_segments",
+  {
+    id: serial("id").primaryKey(),
+    kolId: integer("kol_id")
+      .notNull()
+      .references(() => kolProfiles.id, { onDelete: "cascade" }),
+    bvid: text("bvid").notNull(),
+    title: text("title").notNull(),
+    originalText: text("original_text").notNull(),
+    sourceUrl: text("source_url"),
+    embedding: vector("embedding"),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => ({
+    kolIdx: index("ks_kol_id_idx").on(table.kolId),
+    bvidIdx: index("ks_bvid_idx").on(table.bvid),
+  }),
+);
+
+// -------------------- relations --------------------
+
+export const kolProfilesRelations = relations(kolProfiles, ({ many }) => ({
+  segments: many(kolSegments),
+}));
+
+export const kolSegmentsRelations = relations(kolSegments, ({ one }) => ({
+  kol: one(kolProfiles, {
+    fields: [kolSegments.kolId],
+    references: [kolProfiles.id],
+  }),
+}));
+
 // -------------------- 便捷类型导出 --------------------
 
 export type CourseRow = typeof courses.$inferSelect;
@@ -253,3 +306,5 @@ export type SourceSegmentRow = typeof sourceSegments.$inferSelect;
 export type RespondentRow = typeof respondents.$inferSelect;
 export type PersonaRow = typeof personas.$inferSelect;
 export type ChatSessionRow = typeof chatSessions.$inferSelect;
+export type KolProfileRow = typeof kolProfiles.$inferSelect;
+export type KolSegmentRow = typeof kolSegments.$inferSelect;

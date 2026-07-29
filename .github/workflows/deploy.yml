@@ -1,11 +1,10 @@
 # --------------------------------------------------------------
-# Deploy: 构建 → 推腾讯云 TCR → self-hosted runner 在 CVM 本地部署
-# 触发：main 分支推送 + 手动触发（可选跑 seed）
+# Deploy: 构建 → 推镜像仓库 → self-hosted runner 在 CVM 本地部署
+# 触发：main 分支推送 + 手动触发
 #
-# 架构关键点：
-#   - build 用 GitHub-hosted runner（免费机器）构建镜像并推 TCR
-#   - deploy/seed 用 self-hosted runner（跑在 CVM 上）本地执行 docker compose
-#   - CVM 不对公网开 SSH，只主动出方向连 GitHub —— 安全面最小
+# 架构：
+#   - build 用 GitHub-hosted runner 构建镜像并推 GHCR/TCR
+#   - deploy 用 self-hosted runner（跑在 CVM 上）本地 docker compose up
 # --------------------------------------------------------------
 
 name: Deploy
@@ -16,7 +15,7 @@ on:
   workflow_dispatch:
     inputs:
       run_seed:
-        description: "同时重灌 seed（会清空教程内容表）"
+        description: "重灌 seed（清空并重新导入画像/KOL数据）"
         required: false
         default: "false"
         type: choice
@@ -25,13 +24,13 @@ on:
           - "true"
 
 env:
-  # 腾讯云 TCR 企业版实例登录地址
-  REGISTRY: imur-yuanpei.tencentcloudcr.com
-  # TCR 命名空间（相当于 docker hub 里的 "用户名/组织名"）
-  NAMESPACE: mur-yuanpei
+  # 镜像仓库：默认用 GHCR（GitHub Container Registry）
+  REGISTRY: ghcr.io
+  # 镜像名前缀（GitHub 用户名或组织名）
+  NAMESPACE: julia-lars
 
 jobs:
-  # ---------------- Job 1: 构建两个镜像并推到 TCR ----------------
+  # ---------------- Job 1: 构建两个镜像并推送到镜像仓库 ----------------
   build:
     name: Build & push (${{ matrix.service }})
     runs-on: ubuntu-latest
@@ -45,7 +44,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # short sha 用作 immutable 版本锚点（回滚就靠它）
       - name: Compute image tag
         id: tag
         run: echo "value=sha-$(echo ${{ github.sha }} | cut -c1-7)" >> "$GITHUB_OUTPUT"
@@ -53,21 +51,19 @@ jobs:
       - name: Setup Buildx
         uses: docker/setup-buildx-action@v3
 
-      # 登录腾讯云 TCR
-      # 凭据存在 GitHub Secrets：TCR_USERNAME（数字 UIN） + TCR_PASSWORD
-      - name: Login to TCR
+      # 登录 GHCR（GitHub Actions 自带 GITHUB_TOKEN，无需额外配置）
+      - name: Login to GHCR
         uses: docker/login-action@v3
         with:
           registry: ${{ env.REGISTRY }}
-          username: ${{ secrets.TCR_USERNAME }}
-          password: ${{ secrets.TCR_PASSWORD }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-      # docker/metadata-action 帮你生成规范的 tag 和 label
       - name: Compute image metadata
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/web-dev-tutorial-${{ matrix.service }}
+          images: ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/muru-thinktank-${{ matrix.service }}
           tags: |
             type=raw,value=${{ steps.tag.outputs.value }}
             type=raw,value=latest,enable={{is_default_branch}}
@@ -81,38 +77,19 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          # 关掉 OCI 1.1 attestation（provenance / SBOM）
-          # 原因：腾讯云 TCR 对 OCI 1.1 referrers API 支持不全，
-          # buildx 推 attestation manifest 时会返回 401 导致构建失败
           provenance: false
           sbom: false
-          # GitHub Actions 自带的缓存，per-service 隔离避免互踩
-          # mode=min：只缓存最终镜像 export 的层，不缓存所有中间层。
-          # GHA cache 有 10GB 配额，mode=max 一个 service 就能占 500MB+ 迅速被 evict；
-          # mode=min 单 service 只留 50-100MB，命中率反而更高。
           cache-from: type=gha,scope=${{ matrix.service }}
           cache-to: type=gha,scope=${{ matrix.service }},mode=min
 
   # ---------------- Job 2: 在 CVM 上直接部署（self-hosted runner） ----------------
-  # runs-on: self-hosted → GitHub 会把此 job 派发到 CVM 上的 runner 进程
-  # 命令直接在 CVM 本地执行，无需 SSH
   deploy:
     name: Deploy on CVM
     needs: build
     runs-on: self-hosted
-    if: github.event_name == 'push'  # 手动触发只用于 seed，不做部署
+    if: github.event_name == 'push'
     steps:
-      # CVM 到 GitHub 跨境链路时好时坏，checkout 常在握手阶段就卡 300s 超时。
-      # 三重加固：
-      #   1) gh-proxy.com：国内 CDN 反代 github.com，走国内节点、绕过跨境瓶颈
-      #      —— 公开仓库无 token 风险；私有仓库慎用（token 会经过第三方）
-      #   2) sparse-checkout：只拉 deploy/ 目录（这个 job 只需要 docker-compose.prod.yml）
-      #      —— 传输量从整个仓库 (含 4000+ 行教程 seed.ts) 降到几十 KB
-      #   3) nick-fields/retry：单次 3 分钟超时后自动重试，最多 3 次
-      #      —— 覆盖偶发抖动 & gh-proxy 服务临时不可用
-      # 手写 git 命令而不是直接嵌 actions/checkout，是因为 retry action
-      # 只能 wrap shell 命令，不能 wrap 另一个 GitHub Action
-      - name: Checkout deploy/（gh-proxy + sparse + 超时重试）
+      - name: Checkout deploy/（sparse + 超时重试）
         uses: nick-fields/retry@v3
         with:
           timeout_minutes: 3
@@ -121,10 +98,8 @@ jobs:
           command: |
             set -euo pipefail
             cd "${GITHUB_WORKSPACE}"
-            # 清理上一次 checkout 的残留（sparse 目录 + git 元数据）
             rm -rf .git deploy 2>/dev/null || true
             git init -b main
-            # 通过 gh-proxy 反代 github.com；本仓库公开，无 token 需求
             git remote add origin \
               "https://gh-proxy.com/https://github.com/${{ github.repository }}.git"
             git config core.sparseCheckout true
@@ -133,58 +108,65 @@ jobs:
             git fetch --depth=1 origin ${{ github.sha }}
             git checkout FETCH_HEAD
 
-      - name: Sync compose file to /opt/web-tutor
-        run: cp deploy/docker-compose.prod.yml /opt/web-tutor/
+      - name: Sync compose file to /opt/muru-thinktank
+        run: |
+          mkdir -p /opt/muru-thinktank
+          cp deploy/docker-compose.prod.yml /opt/muru-thinktank/
 
-      - name: Pull, migrate, up
-        working-directory: /opt/web-tutor
+      - name: Pull, migrate, seed, up
+        working-directory: /opt/muru-thinktank
         run: |
           set -euo pipefail
 
           IMAGE_TAG="sha-$(echo ${{ github.sha }} | cut -c1-7)"
           echo "→ 将部署到 IMAGE_TAG=${IMAGE_TAG}"
 
-          # 用 sed 修改 .env.prod 里的 IMAGE_TAG（保留 POSTGRES_PASSWORD 等其他字段）
+          # 写入 IMAGE_TAG
           if grep -q '^IMAGE_TAG=' .env.prod; then
             sed -i "s|^IMAGE_TAG=.*|IMAGE_TAG=${IMAGE_TAG}|" .env.prod
           else
             echo "IMAGE_TAG=${IMAGE_TAG}" >> .env.prod
           fi
 
-          # 1. 拉最新镜像
+          # 登录 GHCR（self-hosted runner 需要单独登录）
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+
+          # 1. 拉镜像
           docker compose --env-file .env.prod -f docker-compose.prod.yml pull
 
-          # 2. 先起 pg
+          # 2. 起 pg
           docker compose --env-file .env.prod -f docker-compose.prod.yml up -d postgres
+          sleep 5
 
-          # 3. 单独跑 migration（不塞进 api 容器 entrypoint 是有意的：
-          #    未来横向扩容多副本时避免竞争；且发布流程能显式看到"改表"这一步）
+          # 3. migration
           docker compose --env-file .env.prod -f docker-compose.prod.yml \
             run --rm api bun run apps/api/src/db/migrate.ts
 
-          # 3.5. 跑 seed —— 幂等，空库时才灌，已有数据自动跳过
+          # 4. seed（幂等：空库才灌，已有数据自动跳过）
           docker compose --env-file .env.prod -f docker-compose.prod.yml \
-            run --rm api bun run apps/api/src/db/seed.ts
+            run --rm api bun run apps/api/src/db/seed-personas.ts
+          docker compose --env-file .env.prod -f docker-compose.prod.yml \
+            run --rm api bun run apps/api/src/db/seed-kol.ts
 
-          # 4. 启动 api + web，替换旧容器
+          # 5. 启动 api + web
           docker compose --env-file .env.prod -f docker-compose.prod.yml \
             up -d --remove-orphans api web
 
-          # 5. 清理无引用的旧镜像层
+          # 6. 清理旧镜像
           docker image prune -f
 
-  # ---------------- Job 3: 手动触发时的强制重灌 seed ----------------
-  # 用途：当 seed.ts 里的教程内容有更新，想让线上同步刷新时手动触发
-  # 走 --force：即便数据库已有内容也会清空重灌
+  # ---------------- Job 3: 手动触发强制重灌 seed ----------------
   seed:
-    name: Force re-seed tutorial content
+    name: Force re-seed
     needs: build
     runs-on: self-hosted
     if: github.event_name == 'workflow_dispatch' && inputs.run_seed == 'true'
     steps:
-      - name: Run seed --force inside api container
-        working-directory: /opt/web-tutor
+      - name: Re-seed personas + kol
+        working-directory: /opt/muru-thinktank
         run: |
           set -euo pipefail
           docker compose --env-file .env.prod -f docker-compose.prod.yml \
-            run --rm api bun run apps/api/src/db/seed.ts --force
+            run --rm api bun run apps/api/src/db/seed-personas.ts --force
+          docker compose --env-file .env.prod -f docker-compose.prod.yml \
+            run --rm api bun run apps/api/src/db/seed-kol.ts --force

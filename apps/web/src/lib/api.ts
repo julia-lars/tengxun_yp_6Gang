@@ -1,5 +1,5 @@
 // 前端 API 客户端 — AI 模拟用户系统
-import type { ChatSession, PersonaDetail, PersonaSummary, TagDimension } from "@app/shared";
+import type { ChatSession, KolProfileDetail, KolProfileSummary, PersonaDetail, PersonaSummary, TagDimension } from "@app/shared";
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(path, {
@@ -16,4 +16,7 @@ export const api = {
     request<PersonaSummary[]>(`/api/personas${tags ? `?tags=${tags}` : ""}`),
   getPersona: (id: number) => request<PersonaDetail>(`/api/personas/${id}`),
   getChatSession: (id: number) => request<ChatSession>(`/api/chat/sessions/${id}`),
+  // KOL
+  listKol: () => request<KolProfileSummary[]>("/api/kol"),
+  getKol: (id: number) => request<KolProfileDetail>(`/api/kol/${id}`),
 };

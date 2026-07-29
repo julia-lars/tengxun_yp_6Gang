@@ -25,6 +25,13 @@ export function HomePage() {
               <ArrowRight className="h-4 w-4 ml-1" />
             </Link>
           </Button>
+          <Button asChild size="lg" variant="outline">
+            <Link to="/kol">
+              <MessageCircle className="h-4 w-4 mr-2" />
+              KOL 分身
+              <ArrowRight className="h-4 w-4 ml-1" />
+            </Link>
+          </Button>
         </div>
       </section>
 
@@ -45,14 +52,14 @@ export function HomePage() {
               </CardDescription>
             </CardHeader>
           </Card>
-          <Card className="opacity-50">
+          <Card>
             <CardHeader className="pb-3">
               <CardTitle className="text-lg flex items-center gap-2">
                 <MessageCircle className="h-5 w-5 text-[--color-primary]" />
                 KOL 分身
               </CardTitle>
               <CardDescription>
-                基于 B 站 UP 主内容构建数字孪生，获取专业视角的游戏评价反馈。（下一期）
+                基于 B 站 UP 主（冷面叶星星IKGN、鬼王陆行）真实内容构建数字孪生，获取专业视角的游戏评价反馈。
               </CardDescription>
             </CardHeader>
           </Card>

@@ -29,6 +29,13 @@
       "when": 1785131120819,
       "tag": "0003_handy_marten_broadcloak",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1785244681815,
+      "tag": "0004_foamy_arachne",
+      "breakpoints": true
     }
   ]
 }

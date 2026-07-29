@@ -6,6 +6,9 @@ import { createBrowserRouter, RouterProvider } from "react-router";
 import { Root } from "./root.js";
 import { ChatRoomLayout } from "./routes/chat-room.js";
 import { HomePage } from "./routes/home.js";
+import { KolChatLayout } from "./routes/kol-chat.js";
+import { KolDetailPage } from "./routes/kol-detail.js";
+import { KolListPage } from "./routes/kol-list.js";
 import { PersonaDetailPage } from "./routes/persona-detail.js";
 import { PersonasPage } from "./routes/personas.js";
 
@@ -18,6 +21,9 @@ const router = createBrowserRouter([
       { path: "personas", element: <PersonasPage /> },
       { path: "personas/:id", element: <PersonaDetailPage /> },
       { path: "personas/:id/chat", element: <ChatRoomLayout /> },
+      { path: "kol", element: <KolListPage /> },
+      { path: "kol/:id", element: <KolDetailPage /> },
+      { path: "kol/:id/chat", element: <KolChatLayout /> },
     ],
   },
 ]);

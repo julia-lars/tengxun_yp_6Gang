@@ -14,12 +14,18 @@ export function AppHeader() {
             MUR · USER THINK TANK
           </span>
         </Link>
-        <div className="ml-auto flex items-center gap-2">
+        <div className="ml-auto flex items-center gap-3">
           <Link
             to="/personas"
             className="text-xs text-[var(--color-header-muted)] hover:text-[var(--color-header-foreground)] transition-colors"
           >
-            画像系统
+            群体画像
+          </Link>
+          <Link
+            to="/kol"
+            className="text-xs text-[var(--color-header-muted)] hover:text-[var(--color-header-foreground)] transition-colors"
+          >
+            KOL 分身
           </Link>
           <ThemeToggle className="text-[var(--color-header-foreground)] hover:bg-white/10" />
         </div>

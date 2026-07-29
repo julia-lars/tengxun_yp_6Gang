@@ -91,11 +91,18 @@ const SAMPLE_PERSONAS = [
 ];
 
 async function main() {
-  const existing = await db.select().from(personas);
-  if (existing.length > 0) {
-    console.log(`已有 ${existing.length} 个画像，跳过种子数据。`);
-    console.log("如需重灌，先 TRUNCATE personas CASCADE");
-    return;
+  const force = process.argv.includes("--force");
+
+  if (force) {
+    console.log("🧹 --force: 清空现有画像数据...");
+    await db.delete(personas);
+  } else {
+    const existing = await db.select().from(personas);
+    if (existing.length > 0) {
+      console.log(`已有 ${existing.length} 个画像，跳过种子数据。`);
+      console.log("如需重灌，加 --force 参数");
+      return;
+    }
   }
 
   for (const p of SAMPLE_PERSONAS) {

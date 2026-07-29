@@ -10,7 +10,6 @@
 #     IMAGE_TAG=local IMAGE_REGISTRY=. \
 #       docker compose --env-file deploy/.env.prod \
 #         -f deploy/docker-compose.prod.yml up -d
-#     （镜像名会展开成 ".api:local" / ".web:local"，需先本地 build 打这两个 tag）
 #
 #   生产部署（GitHub Actions 从 CVM 上跑）：
 #     IMAGE_TAG=sha-abc1234 IMAGE_REGISTRY=ghcr.io/mur-yuanpei/ \
@@ -18,17 +17,15 @@
 # --------------------------------------------------------------
 
 services:
-  # ---------------- PostgreSQL ----------------
+  # ---------------- PostgreSQL (pgvector) ----------------
   postgres:
-    image: postgres:16-alpine
-    container_name: web-tutor-postgres
+    image: pgvector/pgvector:pg16
+    container_name: mu-postgres
     restart: unless-stopped
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-webtutor}
       POSTGRES_USER: ${POSTGRES_USER:-dev}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD 必须在 .env.prod 里设置}
-    # 生产环境不对外暴露 5432 —— 只在 docker 内部网络里访问，
-    # 避免公网扫描器直接怼数据库
     expose:
       - "5432"
     volumes:
@@ -41,11 +38,8 @@ services:
 
   # ---------------- Backend API ----------------
   api:
-    # ${IMAGE_REGISTRY} 只在**未定义**时用默认值；.env.prod 里显式设为空串会保留空串
-    # 生产：ghcr.io/mur-yuanpei/  → 拼出 ghcr.io/mur-yuanpei/web-dev-tutorial-api:xxx
-    # 本地自测：留空          → 拼出 web-dev-tutorial-api:local
-    image: ${IMAGE_REGISTRY-ghcr.io/mur-yuanpei/}web-dev-tutorial-api:${IMAGE_TAG:-latest}
-    container_name: web-tutor-api
+    image: ${IMAGE_REGISTRY-ghcr.io/mur-yuanpei/}muru-thinktank-api:${IMAGE_TAG:-latest}
+    container_name: mu-api
     restart: unless-stopped
     depends_on:
       postgres:
@@ -54,22 +48,19 @@ services:
       NODE_ENV: production
       API_PORT: "3000"
       DATABASE_URL: postgres://${POSTGRES_USER:-dev}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-webtutor}
-    # api 也不对外暴露端口 —— 只走 web 容器的 nginx 反代
     expose:
       - "3000"
-    # Dockerfile 里已经声明了 HEALTHCHECK，这里不重复
 
   # ---------------- Frontend (nginx) ----------------
   web:
-    image: ${IMAGE_REGISTRY-ghcr.io/mur-yuanpei/}web-dev-tutorial-web:${IMAGE_TAG:-latest}
-    container_name: web-tutor-web
+    image: ${IMAGE_REGISTRY-ghcr.io/mur-yuanpei/}muru-thinktank-web:${IMAGE_TAG:-latest}
+    container_name: mu-web
     restart: unless-stopped
     depends_on:
       - api
-    # web 是唯一对公网暴露的入口 —— 80 端口
     ports:
       - "80:80"
 
 volumes:
   pgdata:
-    name: web-tutor-pgdata
+    name: mu-pgdata

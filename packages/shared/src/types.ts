@@ -65,3 +65,29 @@ export const chatSessionSchema = z.object({
   updatedAt: z.string(),
 });
 export type ChatSession = z.infer<typeof chatSessionSchema>;
+
+// ---- KOL ----
+export const kolProfileSummarySchema = z.object({
+  id: z.number().int().positive(),
+  name: z.string(),
+  bilibiliUid: z.string().nullable(),
+  description: z.string(),
+  videoCount: z.number().int().nonnegative(),
+  sampleSegments: z.array(z.string()).optional(),
+  createdAt: z.string(),
+});
+export type KolProfileSummary = z.infer<typeof kolProfileSummarySchema>;
+
+export const kolProfileDetailSchema = kolProfileSummarySchema.extend({
+  personaCard: z.record(z.string(), z.unknown()),
+  styleProfile: z.record(z.string(), z.unknown()),
+  sourceTexts: z.array(z.string()),
+});
+export type KolProfileDetail = z.infer<typeof kolProfileDetailSchema>;
+
+export const kolChatRequestSchema = z.object({
+  kolId: z.number().int().positive(),
+  sessionId: z.number().int().positive().optional(),
+  message: z.string().min(1).max(2000),
+});
+export type KolChatRequest = z.infer<typeof kolChatRequestSchema>;
