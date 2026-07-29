@@ -78,6 +78,7 @@ COPY --from=prod-deps /app/packages/shared/node_modules ./packages/shared/node_m
 COPY package.json bun.lock ./
 COPY apps/api ./apps/api
 COPY packages/shared ./packages/shared
+COPY data ./data
 
 # oven/bun 镜像默认自带非 root 用户 "bun"
 USER bun
