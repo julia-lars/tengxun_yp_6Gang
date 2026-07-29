@@ -1,0 +1,186 @@
+[
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx#ABIvsDF",
+    "speaker_id": "P1",
+    "display_name": "卢",
+    "group_code": "G1",
+    "background": {
+      "batch": "ABIvsDF",
+      "source_sheets": ["ABIvsDF记录表", "特征诉求"],
+      "group_code_scope": "ABIvsDF批次内部编号，与 group_definitions.json 的 G1/G2/G3 定义不通用",
+      "main_game_codes": ["CS"],
+      "main_games": ["反恐精英"],
+      "attribute_raw": {
+        "ABIvsDF记录表": "G1 CS 卢",
+        "特征诉求": "G1 CS"
+      },
+      "play_order": ["DF", "ABI"],
+      "play_order_games": ["三角洲行动", "暗区突围"],
+      "test_time": "2024-08-26",
+      "test_time_raw": "2024-08-26 00:00:00",
+      "behavior_summary": "仔细学习教程；跟随队友尝试学习机制玩法；尝试复刻新手关打法，前期尽量多进行游戏内交互，习得更多新信息；会带入之前游戏的习惯行为，如peek，拉枪的习惯；会尝试持续用成功过的路线；会主动切刀，技能等防止增加跑步时间",
+      "main_needs_summary": "DF：更多详细的教学引导，如药品功能，受伤debuff，干员技能说明等；仓库一键整理（没找到，应该要明显标识）；增加PVE难度和挑战性；想尽快挑战高难部分\nABI：仓库一键整理同上；更详细的引导说明（如放了有子弹的弹匣不算放了子弹，看备弹等系统），局内引导太差，不知道进去该干嘛，仅靠局外讲解不够，也不爱看；搜索等待时间过长，匹配的队友没有起到配合作用也没有有效沟通，反而抢东西起副作用；改枪，认配件等应该有详细教学；物资价值显示；击杀反馈过差"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx#ABIvsDF",
+    "speaker_id": "P2",
+    "display_name": "袁",
+    "group_code": "G1",
+    "background": {
+      "batch": "ABIvsDF",
+      "source_sheets": ["ABIvsDF记录表", "特征诉求"],
+      "group_code_scope": "ABIvsDF批次内部编号，与 group_definitions.json 的 G1/G2/G3 定义不通用",
+      "main_game_codes": ["PUBG"],
+      "main_games": ["绝地求生"],
+      "attribute_raw": {
+        "ABIvsDF记录表": "G1 PUBG 袁",
+        "特征诉求": "G1 PUBG"
+      },
+      "play_order": ["ABI", "DF"],
+      "play_order_games": ["暗区突围", "三角洲行动"],
+      "test_time": "2024-08-27 09:00",
+      "test_time_raw": "2024/8/27/9：00",
+      "behavior_summary": "重复新手关的（部分）教学；走向对固定的路线，尝试通过声音确认战斗信息；想办法学习队友或和队友合作；会尝试使用新系统而不是学教程；不会开DF保险:；打完一个弹匣才换弹",
+      "main_needs_summary": "DF:不想和大量电脑打，增加钥匙来源说明，增加更明显的debuff提示\nABI:游戏内目标指引不够，对各个身体部位的血量，只看颜色看不明白；缺乏刺激战斗，全是AI；希望能有小地图；改枪教学"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx#ABIvsDF",
+    "speaker_id": "P3",
+    "display_name": "杨",
+    "group_code": "G2",
+    "background": {
+      "batch": "ABIvsDF",
+      "source_sheets": ["ABIvsDF记录表", "特征诉求"],
+      "group_code_scope": "ABIvsDF批次内部编号，与 group_definitions.json 的 G1/G2/G3 定义不通用",
+      "main_game_codes": ["VAL"],
+      "main_games": ["无畏契约"],
+      "attribute_raw": {
+        "ABIvsDF记录表": "G2 VAL 杨",
+        "特征诉求": "G2 VAL"
+      },
+      "play_order": ["DF", "ABI"],
+      "play_order_games": ["三角洲行动", "暗区突围"],
+      "test_time": "2024-08-27 14:00",
+      "test_time_raw": "2024/8/27/14：00",
+      "behavior_summary": "不认真看教程；不爱开镜射击；不会解锁保险；看不懂技能；不理解市场和直售的区别，不敢乱卖东西；不会在战局内切子弹，不敢一直打；注意不到甲碎了，debuff等角标提醒；",
+      "main_needs_summary": "DF:背包整理；更多游戏内容教学如货币系统，市场系统等；希望能有射击场这样的练习场地； 增加游戏内目标教学，战局内赚钱，撤离点开启等；增加物资来源查看，如子弹，任务道具等；详细药品分类教学，知道哪个药治疗什么\nABI：吃喝系统希望有引导；联络人引导；状态栏等局内细节UI引导"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx#ABIvsDF",
+    "speaker_id": "P4",
+    "display_name": "任",
+    "group_code": "G2",
+    "background": {
+      "batch": "ABIvsDF",
+      "source_sheets": ["ABIvsDF记录表", "特征诉求"],
+      "group_code_scope": "ABIvsDF批次内部编号，与 group_definitions.json 的 G1/G2/G3 定义不通用",
+      "main_game_codes": ["VAL"],
+      "main_games": ["无畏契约"],
+      "attribute_raw": {
+        "ABIvsDF记录表": "G2 VAL 任",
+        "特征诉求": "G2 VAL"
+      },
+      "play_order": ["ABI", "DF"],
+      "play_order_games": ["暗区突围", "三角洲行动"],
+      "test_time": "2024-08-28 09:00",
+      "test_time_raw": "2024/8/28/9：00",
+      "behavior_summary": "会把装备详情面板打开，比较后再换；频繁利用烟雾，治疗针等配合战斗；不知道什么情况下会摔伤，经常摔伤；对键位还不熟悉，例如b是切连发；学会了战备界面的整备上一次一样的装备；学会了长按R换子弹类型；学会了用快捷轮盘打药；暗区下图带钱；学会拆分堆叠物品；用查看武器-武器弹药买子弹",
+      "main_needs_summary": "DF：更多战斗部分；希望能获得更多战局信息，如本局有多少人\nABI：没看懂对应身体部位打药和不同药治疗不同伤的玩法；希望能增加更多游戏机制教学，很多以物易物不知道物资来源，希望游戏内可以查；希望有不同地图讲解"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx#ABIvsDF",
+    "speaker_id": "P5",
+    "display_name": "周",
+    "group_code": "G2",
+    "background": {
+      "batch": "ABIvsDF",
+      "source_sheets": ["ABIvsDF记录表", "特征诉求"],
+      "group_code_scope": "ABIvsDF批次内部编号，与 group_definitions.json 的 G1/G2/G3 定义不通用",
+      "main_game_codes": ["VAL"],
+      "main_games": ["无畏契约"],
+      "attribute_raw": {
+        "ABIvsDF记录表": "G2 Val  周",
+        "特征诉求": "G2 Val"
+      },
+      "play_order": ["DF", "ABI"],
+      "play_order_games": ["三角洲行动", "暗区突围"],
+      "test_time": "2024-08-28 14:00",
+      "test_time_raw": "2024/8/28/14：00",
+      "behavior_summary": "喜欢啥都拿，先拿满再换；新手关迷路；看不懂地图，一直在试图绕，爬过障碍；找不到口袋，不知道右侧能滑；习惯性用DF操作打暗区；不知道R旋转；到保险位置没搜保险；绕路，分不清哪来过哪没来",
+      "main_needs_summary": "DF:增加物品用途说明；增加技能说明，如视频效果等；增加物品来源说明\nABI：很多药品，道具希望增加使用说明（移上去，不用点开，或者加教程）；听声辩不了位；地图表示增加一些说明，比如红圈是危险区"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx#ABIvsDF",
+    "speaker_id": "P6",
+    "display_name": "官",
+    "group_code": "G2",
+    "background": {
+      "batch": "ABIvsDF",
+      "source_sheets": ["ABIvsDF记录表", "特征诉求"],
+      "group_code_scope": "ABIvsDF批次内部编号，与 group_definitions.json 的 G1/G2/G3 定义不通用",
+      "main_game_codes": ["CF"],
+      "main_games": ["穿越火线"],
+      "attribute_raw": {
+        "ABIvsDF记录表": "G2 CF 官",
+        "特征诉求": "G2 CF"
+      },
+      "play_order": ["ABI", "DF"],
+      "play_order_games": ["暗区突围", "三角洲行动"],
+      "test_time": "2024-08-29 09:00",
+      "test_time_raw": "2024/8/29/9：00",
+      "behavior_summary": "看教程最认真的一个；搜的道具弹挂只放俩，剩下的放背包；主动探索没升级的部门；会先跟队友熟图；进图主动接任务，虽然不知道是啥但是先探索；先追求满包再置换；没有注意到左下角debuff提示；会主动和队友交流；主动探索外部系统（改上架价格，找游戏内道具的来源，比如钥匙卡，枪，改枪系统）；大批量上架卖东西；经常卡位置拖不动东西；知道但没有压弹习惯；",
+      "main_needs_summary": "DF：需要有道具获取来源（比如钥匙卡，升级部门）；debuff提示增强\nABI：物资类型标注；不同药品用法教学；增加调按键的教学部分，吃喝，负重等系统的教学"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx#ABIvsDF",
+    "speaker_id": "P7",
+    "display_name": "李",
+    "group_code": "G1",
+    "background": {
+      "batch": "ABIvsDF",
+      "source_sheets": ["ABIvsDF记录表", "特征诉求"],
+      "group_code_scope": "ABIvsDF批次内部编号，与 group_definitions.json 的 G1/G2/G3 定义不通用",
+      "main_game_codes": ["CS", "VAL"],
+      "main_games": ["反恐精英", "无畏契约"],
+      "attribute_raw": {
+        "ABIvsDF记录表": "G1 CS最近玩瓦 李",
+        "特征诉求": "G1 CS最近玩瓦"
+      },
+      "play_order": ["DF", "ABI"],
+      "play_order_games": ["三角洲行动", "暗区突围"],
+      "test_time": "2024-08-29 14:00",
+      "test_time_raw": "2024/8/29/14：00",
+      "behavior_summary": "跳过了模式背景介绍； 点了开单人战斗；护甲换成了级别低但耐久更高的；跑了很多撤离点（不会完成局内任务）；撤离点前打烟撤离；主动看任务条件推进任务；有换弹癌；进图就标撤离点；不会打手术，只会按v但是手术不在弹挂里；大量卖战利品给商人；使用了付费撤离点；尝试了改枪",
+      "main_needs_summary": "DF:增加ai难度，精英怪等；增加局内任务说明；改枪教程\nABI：压弹，不同的药对应的伤都需要教学；改枪及配件引导；物资价值局内显示；战斗频率提高"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx#ABIvsDF",
+    "speaker_id": "P8",
+    "display_name": "王",
+    "group_code": "G1",
+    "background": {
+      "batch": "ABIvsDF",
+      "source_sheets": ["ABIvsDF记录表", "特征诉求"],
+      "group_code_scope": "ABIvsDF批次内部编号，与 group_definitions.json 的 G1/G2/G3 定义不通用",
+      "main_game_codes": ["CS", "VAL"],
+      "main_games": ["反恐精英", "无畏契约"],
+      "attribute_raw": {
+        "ABIvsDF记录表": "G1 王",
+        "特征诉求": "G1 CS VAL"
+      },
+      "play_order": ["ABI", "DF"],
+      "play_order_games": ["暗区突围", "三角洲行动"],
+      "test_time": "2024-08-30 09:00",
+      "test_time_raw": "2024/8/30/09：00",
+      "behavior_summary": "以为m开门，教学重合了；侦察箭射飞了；先满包在比较价值；主动探索局外系统；查看了装备，子弹等的详细页，比较差异；带了两把枪但在准备界面换成了一把最好的；悬停看物品价值；迷路，某些地方跳不出去；主动接局内任务；把高价值物品都卖了；主动换角色体验；工程兵切了铁丝网；没有注意过右侧UI目标，一直没搜第一个尸体；跳过弹窗教程；跟随队友探索地图；搜刮凭借现实经验搜",
+      "main_needs_summary": "DF:更对真人对战；部分地图UI没有标注，比如队友射箭的寻敌范围的白圈；\nABI：对动作系统不了解，比如有没有滑铲等，教学不够；不知道物资点，可以加地图教学（记得局外有地图，也标记了物资点）；搜刮教学不足，比如玩家不知道怎么换包；需要改枪教学（玩家想改自己的，改枪界面只能重新搞新的）"
+    }
+  }
+]
