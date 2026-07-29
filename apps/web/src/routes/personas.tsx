@@ -1,6 +1,6 @@
 // 标签选择器 + 画像列表页面 — 交互设计规范 v1.0
 import type { PersonaSummary } from "@app/shared";
-import { ChevronDown, ChevronUp, Filter, MessageCircle, Star, Users, X } from "lucide-react";
+import { ChevronDown, ChevronUp, Filter, MessageCircle, Star, Users, X, ArrowLeft } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router";
 import { Badge } from "@/components/ui/badge";
@@ -237,6 +237,12 @@ export function PersonasPage() {
 
   return (
     <div className="space-y-6">
+      <Link
+        to="/"
+        className="inline-flex items-center gap-1 text-sm text-[--color-muted-foreground] hover:text-[--color-primary] transition-colors"
+      >
+        <ArrowLeft className="h-3 w-3" /> 返回首页
+      </Link>
       <div>
         <h1 className="font-serif text-3xl font-bold text-[--color-primary]">选择目标用户</h1>
         <p className="text-[--color-muted-foreground] mt-1">

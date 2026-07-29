@@ -1,6 +1,6 @@
 // KOL 分身列表页
 import type { KolProfileSummary } from "@app/shared";
-import { ArrowRight, MessageCircle, Play, User, Database } from "lucide-react";
+import { ArrowRight, ArrowLeft, MessageCircle, Play, User, Database } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { Badge } from "@/components/ui/badge";
@@ -91,6 +91,12 @@ export function KolListPage() {
 
   return (
     <div className="space-y-6">
+      <Link
+        to="/"
+        className="inline-flex items-center gap-1 text-sm text-[--color-muted-foreground] hover:text-[--color-primary] transition-colors"
+      >
+        <ArrowLeft className="h-3 w-3" /> 返回首页
+      </Link>
       <div className="space-y-2">
         <h1 className="font-serif text-3xl font-bold text-[--color-primary]">KOL 数字孪生</h1>
         <p className="text-[--color-muted-foreground]">
