@@ -35,11 +35,13 @@
 | API 路由        | ✅   | /api/kol 列表/详情，/api/kol/chat SSE 流式对话       |
 | 前端页面          | ✅   | KOL 列表 → 详情 → 虚拟对话室                         |
 | 对话功能          | ✅   | 端到端可用，AI 以 UP 主人设回复                         |
-| **Embedding** | ⬜   | 表建好了但向量未生成                                  |
-| **RAG 升级**    | ⬜   | 当前用 ILIKE 模糊匹配，非向量搜索                        |
+| **Embedding** | ✅ | bge-large-zh-v1.5，389 条全向量化，pgvector HNSW 索引 |
+| **RAG 升级**    | ✅ | 语义向量搜索替代 ILIKE，含广告口播过滤（6条排除）         |
+| **部署上线**    | ✅ | 腾讯云 CVM http://49.232.59.125 ，deploy.sh 一键更新 |
+| **技术文档**    | ✅ | 技术实现方案 + 技术选型记录 (`docs/kol/`)              |
 | **会话管理**      | ⬜   | KOL 对话无历史持久化                                |
 | **证据溯源**      | ⬜   | 对话中无法追溯到具体视频来源                              |
-| **评测**        | ⬜   | KOL 测试题集 142 题未执行                           |
+| **评测**        | ⬜   | KOL 测试题集 80 题未执行                            |
 | **Prompt 优化** | ⬜   | System Prompt 未经系统迭代                        |
 | **数据更新**      | ⬜   | 新视频需手动重新拉取                                  |
 
@@ -60,6 +62,10 @@
 | KOL Seed     | `apps/api/src/db/seed-kol.ts`   | 数据导入 + LLM 画像提取             |
 | KOL API      | `apps/api/src/routes/kol.ts`    | 列表/详情/对话                    |
 | KOL 前端       | `apps/web/src/routes/kol-*.tsx` | 列表/详情/对话室                   |
+| Embed 脚本     | `scripts/embed_kol.py`          | 批量 bge embedding + 广告分类     |
+| Embed 服务     | `scripts/embed_server.py`       | 查询侧实时 embedding (FastAPI)    |
+| 技术实现方案   | `docs/kol/技术实现方案.md`       | 架构/数据管线/DB/模型/RAG/部署     |
+| 技术选型记录   | `docs/kol/技术选型记录.md`       | 8 个关键决策的 trade-off 分析     |
 | 群体画像系统       | 整个仓库                            | 可复用的技术栈和模式                  |
 
 
@@ -79,9 +85,9 @@
 
 - [x] **任务 3：LLM SDK 封装** — 复用群体画像的 `apps/api/src/lib/llm.ts`，支持 DeepSeek/GLM/MiniMax 切换。
 
-- [ ] **任务 4：Embedding 生成** — 对 389 条 kol_segments 调 `embed()` 生成向量，写入 `embedding` 列。产物：`scripts/embed-kol.ts`。
+- [x] **任务 4：Embedding 生成** — ✅ Python 脚本 `scripts/embed_kol.py`，bge-large-zh-v1.5 via ModelScope 本地模型，389 条全部向量化，含广告口播分类（6 条排除）。查询侧 Python embed 服务 `scripts/embed_server.py`（FastAPI，端口 8765）。
 
-- [ ] **任务 5：RAG 向量搜索** — 将 `kol.ts` 对话中的 ILIKE 模糊匹配替换为 pgvector 余弦相似搜索。需要先完成任务 4。实现方式：`ORDER BY embedding <=> query_vector LIMIT 5`。
+- [x] **任务 5：RAG 向量搜索** — ✅ 已完成。`kol.ts` ILIKE → pgvector `<=>` 余弦相似搜索，自动过滤广告片段。embed 服务不可用时 fallback ILIKE。
 
 - [ ] **任务 6：Prompt 工程优化** — 当前 System Prompt 模板在 `kol.ts` 中硬编码，基于 LLM 提取的画像字段组装。需要系统验证：画像字段是否完整？口头禅是否过于刻意？回答是否能体现 UP 主的评价体系而非泛泛而谈？产物：Prompt 版本记录 + A/B 测试日志。
 
@@ -95,7 +101,7 @@
 
 - [x] **任务 1：数据库建表** — kol_profiles + kol_segments 表已建，migration 0004 已执行。
 
-- [x] **任务 2：API 实现** — `/api/kol` 列表、`/api/kol/:id` 详情、`/api/kol/chat` SSE 流式对话。RAG 检索 + System Prompt 组装。⚠️ RAG 目前用 ILIKE，需升级为向量搜索。
+- [x] **任务 2：API 实现** — `/api/kol` 列表、`/api/kol/:id` 详情、`/api/kol/chat` SSE 流式对话。RAG 已升级为 pgvector 向量搜索 + 广告过滤。
 
 - [x] **任务 3：前端页面** — KOL 列表页 `/kol`、详情页 `/kol/:id`、对话室 `/kol/:id/chat`。⚠️ 缺少证据溯源面板和会话持久化。
 
@@ -152,7 +158,7 @@
 ## 关键依赖链
 
 ```
-AI: Embedding 生成 ──→ 后端: RAG 向量搜索 ──→ 前端: 更精准的溯源
+AI: Embedding 生成 ✅ ──→ 后端: RAG 向量搜索 ✅ ──→ 前端: 更精准的溯源 🔧
                               │
                               ▼
                     评测: 142 题评测 + 盲测
@@ -164,7 +170,7 @@ AI: Embedding 生成 ──→ 后端: RAG 向量搜索 ──→ 前端: 更精
                     用研: 画像校验 + 对话审核
 ```
 
-**当前阻塞点：Embedding 未生成 → RAG 停留在 ILIKE → 证据溯源无法高质量实现。**
+**当前阻塞点：无硬阻塞。Embedding 和 RAG 已完成，后续重点是 Prompt 优化和评测。**
 
 ---
 
@@ -179,7 +185,7 @@ AI: Embedding 生成 ──→ 后端: RAG 向量搜索 ──→ 前端: 更精
 | KOL 画像提取  | ✅   | LLM 自动提取，含口头禅和评价体系                  |
 | KOL 列表/详情 | ✅   | 前端可浏览                               |
 | 虚拟对话室     | ✅   | SSE 流式，端到端可用                        |
-| 对话引擎      | ✅   | 画像 Prompt + DeepSeek。⬜ RAG 需升级为向量搜索 |
+| 对话引擎      | ✅   | 画像 Prompt + DeepSeek + pgvector 向量搜索 + 广告过滤 |
 | 证据溯源      | ⬜   | 未实现                                 |
 | 会话历史      | ⬜   | 刷新丢失                                |
 | KOL 对比    | ⬜   | 未实现                                 |

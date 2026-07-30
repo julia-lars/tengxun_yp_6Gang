@@ -71,17 +71,16 @@ kolRoute.get("/:id", async (c) => {
 
 // ---- KOL 对话（SSE 流式） ----
 
-// GLM embedding 调用（内联，避免改 llm.ts 影响群体画像）
+// BGE embedding 服务（Python 微服务，本地端口 8765）
 async function embedQuery(text: string): Promise<number[]> {
-  const key = process.env.GLM_API_KEY ?? "";
-  const res = await fetch("https://open.bigmodel.cn/api/paas/v4/embeddings", {
+  const res = await fetch("http://127.0.0.1:8765/embed", {
     method: "POST",
-    headers: { "Content-Type": "application/json", Authorization: `Bearer ${key}` },
-    body: JSON.stringify({ model: "embedding-2", input: text.slice(0, 2000) }),
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ text }),
   });
-  if (!res.ok) throw new Error(`GLM embedding ${res.status}`);
-  const data = (await res.json()) as { data: [{ embedding: number[] }] };
-  return data.data[0].embedding;
+  if (!res.ok) throw new Error(`Embed server ${res.status}`);
+  const data = (await res.json()) as { embedding: number[] };
+  return data.embedding;
 }
 
 // POST /api/kol/chat

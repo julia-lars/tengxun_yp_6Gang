@@ -187,7 +187,7 @@ tengxun_yp_6Gang/
   4. 结果写回 `source_segments` 表
   - 产物：`scripts/label.ts` + `annotated_corpus.jsonl`
 
-- [x] **任务 5：Embedding 与向量存储** — ✅ KOL 侧已完成(scripts/embed_kol.py, bge-large-zh-v1.5 via ModelScope, 389条 kol_segments 向量化, pgvector 语义搜索替代 ILIKE, 含广告口播过滤)。⬜ 群体画像侧: 待打标完成后对 17K 条 source_segments 执行同流程。产物: scripts/embed_kol.py + scripts/embed_server.py(Python)。
+- [ ] **任务 5：Embedding 与向量存储** —— 选 bge-large-zh-v1.5，对所有标注片段调 `embed()` 生成向量，写入 `source_segments.embedding` 列。长文本按 500 字切片、overlap 100 字。产物：`scripts/embed.ts`。
 
 - [x] **任务 6：画像生成引擎** —— 当前用手写种子数据（`seed-personas.ts`）模拟了 4 个画像。🔧 真正的聚类流程未实现：标注→Embedding→HDBSCAN→提取标签+动机链+原声。实现方式：
   1. 从 `source_segments` 读已标注+Embedding 的数据

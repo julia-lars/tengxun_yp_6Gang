@@ -19,11 +19,15 @@ export const chatRoute = new Hono();
 chatRoute.post("/", zValidator("json", chatRequestSchema), async (c) => {
   const { personaId, sessionId, message } = c.req.valid("json");
 
-  // 1. 获取画像
+  // 1. 获取画像（如已删除则用通用画像兜底，旧会话仍可对话）
   const persona = await db.query.personas.findFirst({
     where: eq(personas.id, personaId),
   });
-  if (!persona) return c.json({ error: "画像不存在" }, 404);
+
+  const personaName = persona?.name ?? `画像 #${personaId}`;
+  const tagSpec = (persona?.tagSpec ?? { 诉求: ["竞技证明"], 能力: "进阶", 风格: ["主动求战刚枪"], 平台: "PC端", 模式: "PVP为主" }) as Record<string, unknown>;
+  const motivationChain = (persona?.motivationChain ?? {}) as Record<string, string>;
+  const personaDescription = persona?.description ?? "该画像已被更新或移除，以下回答基于通用玩家设定。";
 
   // 2. 获取或创建会话
   let session = sessionId

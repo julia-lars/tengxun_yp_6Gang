@@ -1,56 +1,84 @@
 // --------------------------------------------------------------
-// 种子脚本：插入示例画像数据（用于开发测试）
+// 种子脚本：8 个射击品类画像假设（来自 docs/画像假设.md v1.1）
 // 运行: bun run apps/api/src/db/seed-personas.ts
+// 重灌: bun run apps/api/src/db/seed-personas.ts --force
 // --------------------------------------------------------------
 
 import { db } from "./client.js";
 import { personas } from "./schema.js";
 
-const SAMPLE_PERSONAS = [
+const PERSONAS = [
+  // ── H1 排位证明型竞技者 ──
   {
-    name: "竞技核心 · 高能力 · PC端",
-    description:
-      "追求竞技水平提升的硬核FPS玩家，享受排位上分的成就感。PC是唯一选择，对手机射击不屑一顾。",
+    name: "排位证明型竞技者",
+    description: "把段位、排行榜和击败强者当作能力证明；可接受练习和高压力，只要竞争结果清晰且公平。",
     tagSpec: {
       诉求: ["竞技证明"],
       能力: "高手",
-      风格: ["主动求战", "本能快速反应", "个人能力取胜"],
+      风格: ["主动求战刚枪", "个人能力取胜", "本能快速反应"],
       平台: "PC端",
       模式: "PVP为主",
     },
     motivationChain: {
-      M1_motivation: "竞技证明——通过击败对手获得自我价值确认",
-      M2_expectation: "游戏应该公平、技术导向，付费不该影响竞技平衡",
-      M3_perception: "手游不算真正的射击游戏，PC端的技术天花板更高",
-      M4_feeling: "打赢有成就感，连败会复盘自己的操作问题",
-      M5_behavior: "每天固定训练枪法，关注版本更新和meta变化",
+      M1_motivation: "通过战胜他人和上升排名证明能力与价值",
+      M2_expectation: "竞技规则应公平，胜负应主要由技术决定；进步应可被段位看见",
+      M3_perception: "更高段位说明我更强；失败说明表现不够好或系统不公平",
+      M4_feeling: "获胜、晋级和压制带来强成就；连败可能带来愤怒或羞耻",
+      M5_behavior: "持续排位、刻意练习、看攻略、追排行榜；极端时对队友发火",
     },
-    sampleCount: 120,
-    clusterId: "cluster_1",
+    sampleCount: 50,
+    clusterId: "H1",
   },
+
+  // ── H2 知识成长型战术家 ──
   {
-    name: "社交陪伴 · 中等能力 · 多平台",
-    description: "玩游戏主要是为了和朋友一起，输赢在其次，重要的是大家一起玩的氛围。",
+    name: "知识成长型战术家",
+    description: "享受「理解系统—掌握地图—做出正确决策—变强」的过程，更愿意用知识和策略而非纯反应取胜。",
     tagSpec: {
-      诉求: ["社交归属", "放松逃避"],
+      诉求: ["探索收集", "角色沉浸"],
       能力: "进阶",
-      风格: ["团队协作取胜", "苟活避战"],
+      风格: ["仔细思考决策", "团队协作取胜"],
+      平台: "PC端",
+      模式: "PVP+PVE",
+    },
+    motivationChain: {
+      M1_motivation: "通过理解复杂系统和做出正确决策获得胜任与掌控",
+      M2_expectation: "知识、准备和战术应能稳定转化为优势",
+      M3_perception: "反应会下降，但地图和知识可以积累；赢应来自更好的判断",
+      M4_feeling: "破解系统和验证战术带来成就；纯反应对抗容易疲惫",
+      M5_behavior: "背地图、看攻略、复盘、规划路线、练配合",
+    },
+    sampleCount: 40,
+    clusterId: "H2",
+  },
+
+  // ── H3 社交连接型协作者 ──
+  // 内含三个子型：H3-A 熟人固定队 / H3-B 路人协作 / H3-C 公会归属
+  {
+    name: "社交连接型协作者",
+    description: "游戏首先是建立或维持关系的空间。内含熟人固定队、路人协作和公会归属三种社交结构，朋友在不在决定玩不玩。",
+    tagSpec: {
+      诉求: ["社交归属"],
+      能力: "进阶",
+      风格: ["团队协作取胜"],
       平台: "手游端",
       模式: "PVP+PVE",
     },
     motivationChain: {
-      M1_motivation: "归属感——游戏是和朋友保持联系的方式",
-      M2_expectation: "游戏应该让大家一起开心，不应该有太多压力",
-      M3_perception: "一个人打路人局没意思，开黑才是真正的游戏体验",
-      M4_feeling: "和朋友一起赢的时候最开心，自己打容易烦躁",
-      M5_behavior: "只在朋友在线时才玩，会为了迁就朋友换游戏",
+      M1_motivation: "维持关系、结识可靠伙伴或获得组织归属，共享游戏经历",
+      M2_expectation: "不同水平的人应能顺畅组队；沟通、匹配和组织机制应可靠",
+      M3_perception: "朋友不玩会失去主要价值；一个人打路人局没意思",
+      M4_feeling: "共同成功带来快乐和归属；落单、恶意队友带来失落",
+      M5_behavior: "固定组排、路人匹配、公会活动、跟随关系迁移；关系断裂后降低频率",
     },
-    sampleCount: 85,
-    clusterId: "cluster_2",
+    sampleCount: 45,
+    clusterId: "H3",
   },
+
+  // ── H4 低压休闲解压者 ──
   {
-    name: "休闲解压 · 低能力 · 手游端",
-    description: "利用碎片时间玩射击游戏放松，不追求技术提升，希望能快速获得爽快感。",
+    name: "低压休闲解压者",
+    description: "希望游戏轻松、易进入、可随时退出；高压力、长对局、强协作负担和持续挫败会迅速消耗其时间与情绪资产。",
     tagSpec: {
       诉求: ["放松逃避"],
       能力: "新手",
@@ -59,34 +87,103 @@ const SAMPLE_PERSONAS = [
       模式: "PVE为主",
     },
     motivationChain: {
-      M1_motivation: "放松解压——在碎片时间找到片刻的逃离",
-      M2_expectation: "游戏应该易上手、节奏快、不花太多时间",
-      M3_perception: "我手速不行，跟高手对抗太累",
-      M4_feeling: "打PVE杀怪有爽快感，打PVP被虐会焦虑",
-      M5_behavior: "只玩PVE模式，每天玩1-2局，不关注竞技内容",
+      M1_motivation: "从现实压力中抽离，获得轻松和可控的休息",
+      M2_expectation: "游戏应尊重时间、容易上手，不应制造额外压力",
+      M3_perception: "玩久了太累；PVE 和朋友一起更放松",
+      M4_feeling: "低压时放松，高压、连败或沟通失败时疲惫或焦虑",
+      M5_behavior: "玩短局、单排、转娱乐/PVE、累了就停、选择更低负担产品",
     },
-    sampleCount: 65,
-    clusterId: "cluster_3",
+    sampleCount: 50,
+    clusterId: "H4",
   },
+
+  // ── H5 纯战斗爽感追求者 ──
   {
-    name: "硬核拟真 · 高能力 · PC端",
-    description: "偏好战术拟真射击（如塔科夫、彩六），享受深度策略和真实感。对休闲射击无感。",
+    name: "纯战斗爽感追求者",
+    description: "由枪感、打击反馈、战斗节奏和击败反馈驱动；是否「第一时间爽到」直接影响下载、迁移和新手期留存。",
     tagSpec: {
-      诉求: ["探索收集", "角色沉浸"],
-      能力: "高手",
-      风格: ["仔细思考决策", "团队协作取胜"],
+      诉求: ["竞技证明"],
+      能力: "进阶",
+      风格: ["主动求战刚枪", "本能快速反应"],
       平台: "PC端",
       模式: "PVP+PVE",
     },
     motivationChain: {
-      M1_motivation: "掌控感——在复杂系统中做出正确决策的满足",
-      M2_expectation: "游戏应该有深度，真实感比爽快感更重要",
-      M3_perception: "主流射击游戏太简单，缺乏战术深度",
-      M4_feeling: "成功撤离的紧张感和成就感是其他游戏无法给予的",
-      M5_behavior: "花大量时间研究装备搭配和地图点位",
+      M1_motivation: "追求强烈、即时的射击与战斗回报",
+      M2_expectation: "命中、击杀、移动和受击反馈应明确，节奏应顺畅",
+      M3_perception: "战斗爽就值得入坑；枪感比包装更重要",
+      M4_feeling: "兴奋、爽快、紧张、释放",
+      M5_behavior: "因实机战斗入坑，爽感下降后冷却，活动视频可能触发短期回流",
     },
-    sampleCount: 45,
-    clusterId: "cluster_4",
+    sampleCount: 35,
+    clusterId: "H5",
+  },
+
+  // ── H6 叙事氛围沉浸者 ──
+  {
+    name: "叙事氛围沉浸者",
+    description: "希望进入一个可信、有情绪张力的游戏世界；世界观、角色、环境叙事和临场氛围比单纯击杀反馈更能决定长期记忆与体验价值。",
+    tagSpec: {
+      诉求: ["角色沉浸", "探索收集"],
+      能力: "进阶",
+      风格: ["仔细思考决策"],
+      平台: "主机端",
+      模式: "PVE为主",
+    },
+    motivationChain: {
+      M1_motivation: "进入另一个可信世界，体验角色、环境和情绪",
+      M2_expectation: "题材、美术、音效、规则和叙事应一致，不能频繁破坏代入",
+      M3_perception: "氛围使它区别于普通射击游戏；世界是否可信比纯数值更重要",
+      M4_feeling: "沉浸、紧张、好奇、敬畏、情感投入",
+      M5_behavior: "探索环境、关注故事和细节、选择剧情/氛围型模式；沉浸被破坏时退出",
+    },
+    sampleCount: 30,
+    clusterId: "H6",
+  },
+
+  // ── H7 搜撤资源博弈者 ──
+  // 内含两子型：H7-A 收藏经营型 / H7-B 击杀掠夺型
+  {
+    name: "搜撤资源博弈者",
+    description: "在搜打撤循环中通过资源获得价值。内含收藏经营型（安全撤离、积累成长）和击杀掠夺型（主动猎杀、高风险收益）两种路径。",
+    tagSpec: {
+      诉求: ["探索收集"],
+      能力: "进阶",
+      风格: ["仔细思考决策", "主动求战刚枪"],
+      平台: "PC端",
+      模式: "PVP+PVE",
+    },
+    motivationChain: {
+      M1_motivation: "收藏经营型追求积累和掌控；击杀掠夺型追求风险回报和刺激",
+      M2_expectation: "资源循环应清晰且风险收益对等；收藏型期待努力可保留",
+      M3_perception: "仓库成长比段位有价值（收藏型）；最有价值的资源应通过战斗夺取（掠夺型）",
+      M4_feeling: "成功撤离带来满足；以小博大带来兴奋；高价值损失带来剧烈挫败",
+      M5_behavior: "收藏型搜索、撤离、扩容和装饰；掠夺型主动找人、伏击、追击和夺取装备",
+    },
+    sampleCount: 35,
+    clusterId: "H7",
+  },
+
+  // ── H8 时间受限情境切换者 ──
+  {
+    name: "时间受限情境切换者",
+    description: "没有单一稳定玩法：平台、朋友是否在线、学业工作和可用时间共同决定当下选择，偏好具有明确条件性。",
+    tagSpec: {
+      诉求: ["社交归属", "放松逃避"],
+      能力: "进阶",
+      风格: ["团队协作取胜"],
+      平台: "PC端",
+      模式: "PVP+PVE",
+    },
+    motivationChain: {
+      M1_motivation: "不是单一动机，而是用不同产品满足不同场景需求",
+      M2_expectation: "产品应适配可用时间、设备和社交条件",
+      M3_perception: "某平台适合放松，另一平台适合竞技；朋友在不在决定节奏",
+      M4_feeling: "条件匹配时轻松或投入；条件不匹配时压力、疲惫",
+      M5_behavior: "跨平台、跨品类、跨节奏切换",
+    },
+    sampleCount: 40,
+    clusterId: "H8",
   },
 ];
 
@@ -105,12 +202,12 @@ async function main() {
     }
   }
 
-  for (const p of SAMPLE_PERSONAS) {
+  for (const p of PERSONAS) {
     await db.insert(personas).values(p);
     console.log(`  ✅ ${p.name}`);
   }
 
-  console.log(`\n✅ 种子数据完成: ${SAMPLE_PERSONAS.length} 个画像`);
+  console.log(`\n✅ 种子数据完成: ${PERSONAS.length} 个画像`);
 }
 
 main().catch((e) => {
