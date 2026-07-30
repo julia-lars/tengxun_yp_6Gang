@@ -61,11 +61,8 @@ chatRoute.post("/", zValidator("json", chatRequestSchema), async (c) => {
     .join("\n---\n");
 
   // 4. 构建 System Prompt
-  const tagSpec = persona.tagSpec as Record<string, unknown>;
-  const motivationChain = (persona.motivationChain as Record<string, string>) ?? {};
-
   const systemPrompt = [
-    `你是「${persona.name}」，${persona.description ?? "一位射击游戏玩家"}。`,
+    `你是「${personaName}」，${personaDescription}。`,
     "",
     "## 你的核心特征",
     `- 标签: ${JSON.stringify(tagSpec)}`,
