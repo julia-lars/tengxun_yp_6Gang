@@ -1,5 +1,8 @@
 // --------------------------------------------------------------
-// 种子脚本：8 个射击品类画像假设（来自 docs/画像假设.md v1.1）
+// 种子脚本：9 个数据驱动画像（来自 cluster_personas.py 聚类结果）
+// 基于 docs/画像假设.md v1.2 的 C1–C5 半监督框架
+// 数据来源：241 个受访者、7,225 条已标注+已嵌入片段
+//
 // 运行: bun run apps/api/src/db/seed-personas.ts
 // 重灌: bun run apps/api/src/db/seed-personas.ts --force
 // --------------------------------------------------------------
@@ -8,182 +11,244 @@ import { db } from "./client.js";
 import { personas } from "./schema.js";
 
 const PERSONAS = [
-  // ── H1 排位证明型竞技者 ──
+  // ── C1 竞技成长型（42人，2,035条语料，17来源）──
   {
-    name: "排位证明型竞技者",
-    description: "把段位、排行榜和击败强者当作能力证明；可接受练习和高压力，只要竞争结果清晰且公平。",
+    name: "竞技成长型",
+    description: "核心诉求为策略掌控、能力成长；主要行为包括休闲匹配、社交开黑；偏好PC端",
     tagSpec: {
-      诉求: ["竞技证明"],
-      能力: "高手",
-      风格: ["主动求战刚枪", "个人能力取胜", "本能快速反应"],
+      诉求: ["策略掌控", "能力成长", "竞技证明"],
+      能力: "进阶",
+      风格: ["灵活", "团队取胜", "策略", "操作", "熟人"],
       平台: "PC端",
       模式: "PVP为主",
     },
     motivationChain: {
-      M1_motivation: "通过战胜他人和上升排名证明能力与价值",
-      M2_expectation: "竞技规则应公平，胜负应主要由技术决定；进步应可被段位看见",
-      M3_perception: "更高段位说明我更强；失败说明表现不够好或系统不公平",
-      M4_feeling: "获胜、晋级和压制带来强成就；连败可能带来愤怒或羞耻",
-      M5_behavior: "持续排位、刻意练习、看攻略、追排行榜；极端时对队友发火",
+      M1_motivation: "策略掌控、能力成长、竞技证明",
+      M4_emotion: "失望失落、快乐、愤怒挫败",
+      M5_behavior: "休闲匹配、社交开黑、切换模式产品",
+      causal_paths: [
+        "M1:social_belonging→M5:social_play",
+        "M1:ability_growth→M5:deliberate_practice",
+        "M1:competitive_proof→M5:ranked_grind",
+        "M4:boredom_burnout→M5:switch_mode",
+        "M1:exploration_collection→M5:casual_play",
+      ],
     },
-    sampleCount: 50,
-    clusterId: "H1",
+    evidenceIds: [1041, 867, 1574, 884, 4119, 4364, 299, 8825, 8737, 1621],
+    sampleCount: 42,
+    clusterId: "C1-1",
   },
 
-  // ── H2 知识成长型战术家 ──
+  // ── C2-1 社交归属型 · 子型1（28人，1,725条语料，16来源）──
   {
-    name: "知识成长型战术家",
-    description: "享受「理解系统—掌握地图—做出正确决策—变强」的过程，更愿意用知识和策略而非纯反应取胜。",
+    name: "社交归属型 · 子型1",
+    description: "核心诉求为社交归属、团队协作；主要行为包括社交开黑、休闲匹配；偏好主机端",
     tagSpec: {
-      诉求: ["探索收集", "角色沉浸"],
-      能力: "进阶",
-      风格: ["仔细思考决策", "团队协作取胜"],
+      诉求: ["社交归属", "团队协作"],
+      能力: "新手",
+      风格: ["灵活", "团队取胜", "情境", "混合", "熟人"],
+      平台: "主机端",
+      模式: "PVP为主",
+    },
+    motivationChain: {
+      M1_motivation: "社交归属、团队协作",
+      M4_emotion: "失望失落、快乐、无聊倦怠",
+      M5_behavior: "社交开黑、休闲匹配、退坑休息",
+      causal_paths: [
+        "M1:social_belonging→M5:social_play",
+        "M1:relaxation_escape→M5:casual_play",
+        "M1:exploration_collection→M5:casual_play",
+        "M1:competitive_proof→M5:ranked_grind",
+        "M1:ability_growth→M5:deliberate_practice",
+      ],
+    },
+    evidenceIds: [5671, 9650, 11632, 6225, 4484, 9336, 6169, 8751, 10889, 9335],
+    sampleCount: 28,
+    clusterId: "C2-1",
+  },
+
+  // ── C2-2 社交归属型 · 子型2（16人，122条语料，6来源）──
+  {
+    name: "社交归属型 · 子型2",
+    description: "核心诉求为社交归属、团队协作；主要行为包括社交开黑、休闲匹配",
+    tagSpec: {
+      诉求: ["社交归属", "团队协作"],
+      风格: ["熟人"],
+    },
+    motivationChain: {
+      M1_motivation: "社交归属、团队协作",
+      M4_emotion: "兴奋、快乐、无聊倦怠",
+      M5_behavior: "社交开黑、休闲匹配、消费氪金",
+      causal_paths: [
+        "M1:social_belonging→M5:social_play",
+        "M1:exploration_collection→M5:casual_play",
+        "M1:competitive_proof→M5:ranked_grind",
+        "M4:boredom_burnout→M5:quit_break",
+        "M1:relaxation_escape→M5:casual_play",
+      ],
+    },
+    evidenceIds: [12974, 10352, 11550, 11187, 9583, 9552, 10354, 11280, 10767, 10355],
+    sampleCount: 16,
+    clusterId: "C2-2",
+  },
+
+  // ── C2-noise 社交归属型 · 噪声边缘（9人，667条语料，7来源）──
+  {
+    name: "社交归属型 · 噪声边缘",
+    description: "核心诉求为社交归属、团队协作；主要行为包括休闲匹配、社交开黑；偏好PC端",
+    tagSpec: {
+      诉求: ["社交归属", "团队协作"],
+      能力: "新手",
+      风格: ["灵活", "团队取胜", "本能", "操作", "熟人"],
       平台: "PC端",
-      模式: "PVP+PVE",
+      模式: "PVP为主",
     },
     motivationChain: {
-      M1_motivation: "通过理解复杂系统和做出正确决策获得胜任与掌控",
-      M2_expectation: "知识、准备和战术应能稳定转化为优势",
-      M3_perception: "反应会下降，但地图和知识可以积累；赢应来自更好的判断",
-      M4_feeling: "破解系统和验证战术带来成就；纯反应对抗容易疲惫",
-      M5_behavior: "背地图、看攻略、复盘、规划路线、练配合",
+      M1_motivation: "社交归属、团队协作",
+      M4_emotion: "快乐、失望失落、无聊倦怠",
+      M5_behavior: "休闲匹配、社交开黑、退坑休息",
+      causal_paths: [
+        "M1:social_belonging→M5:social_play",
+        "M1:competitive_proof→M5:ranked_grind",
+        "M1:team_cooperation→M4:anger_frustration",
+        "M4:anger_frustration→M5:quit_break",
+        "M3:developer_perception→M5:quit_break",
+      ],
     },
-    sampleCount: 40,
-    clusterId: "H2",
+    evidenceIds: [6338, 3774, 8820, 2573, 3706, 2425, 2622, 2426, 2315, 8718],
+    sampleCount: 9,
+    clusterId: "C2-noise",
   },
 
-  // ── H3 社交连接型协作者 ──
-  // 内含三个子型：H3-A 熟人固定队 / H3-B 路人协作 / H3-C 公会归属
+  // ── C3 低压解压型（8人，118条语料，6来源）──
   {
-    name: "社交连接型协作者",
-    description: "游戏首先是建立或维持关系的空间。内含熟人固定队、路人协作和公会归属三种社交结构，朋友在不在决定玩不玩。",
-    tagSpec: {
-      诉求: ["社交归属"],
-      能力: "进阶",
-      风格: ["团队协作取胜"],
-      平台: "手游端",
-      模式: "PVP+PVE",
-    },
-    motivationChain: {
-      M1_motivation: "维持关系、结识可靠伙伴或获得组织归属，共享游戏经历",
-      M2_expectation: "不同水平的人应能顺畅组队；沟通、匹配和组织机制应可靠",
-      M3_perception: "朋友不玩会失去主要价值；一个人打路人局没意思",
-      M4_feeling: "共同成功带来快乐和归属；落单、恶意队友带来失落",
-      M5_behavior: "固定组排、路人匹配、公会活动、跟随关系迁移；关系断裂后降低频率",
-    },
-    sampleCount: 45,
-    clusterId: "H3",
-  },
-
-  // ── H4 低压休闲解压者 ──
-  {
-    name: "低压休闲解压者",
-    description: "希望游戏轻松、易进入、可随时退出；高压力、长对局、强协作负担和持续挫败会迅速消耗其时间与情绪资产。",
+    name: "低压解压型",
+    description: "核心诉求为放松逃避；主要行为包括休闲匹配、社交开黑",
     tagSpec: {
       诉求: ["放松逃避"],
-      能力: "新手",
-      风格: ["苟活避战"],
-      平台: "手游端",
-      模式: "PVE为主",
+      风格: [],
     },
     motivationChain: {
-      M1_motivation: "从现实压力中抽离，获得轻松和可控的休息",
-      M2_expectation: "游戏应尊重时间、容易上手，不应制造额外压力",
-      M3_perception: "玩久了太累；PVE 和朋友一起更放松",
-      M4_feeling: "低压时放松，高压、连败或沟通失败时疲惫或焦虑",
-      M5_behavior: "玩短局、单排、转娱乐/PVE、累了就停、选择更低负担产品",
+      M1_motivation: "放松逃避",
+      M4_emotion: "快乐、无聊倦怠、失望失落",
+      M5_behavior: "休闲匹配、社交开黑、退坑休息",
+      causal_paths: [
+        "M1:social_belonging→M5:social_play",
+        "M1:ability_growth→M5:deliberate_practice",
+        "M3:self_limitation→M5:casual_play",
+        "M3:self_limitation→M5:switch_mode",
+        "M1:exploration_collection→M5:switch_mode",
+      ],
     },
-    sampleCount: 50,
-    clusterId: "H4",
+    evidenceIds: [5814, 3549, 5736, 5750, 5691, 5689, 6337, 5695, 3328, 5693],
+    sampleCount: 8,
+    clusterId: "C3",
   },
 
-  // ── H5 纯战斗爽感追求者 ──
+  // ── C4 战斗刺激型（21人，529条语料，10来源）──
   {
-    name: "纯战斗爽感追求者",
-    description: "由枪感、打击反馈、战斗节奏和击败反馈驱动；是否「第一时间爽到」直接影响下载、迁移和新手期留存。",
+    name: "战斗刺激型",
+    description: "核心诉求为射击爽感；主要行为包括休闲匹配、社交开黑",
     tagSpec: {
-      诉求: ["竞技证明"],
-      能力: "进阶",
-      风格: ["主动求战刚枪", "本能快速反应"],
-      平台: "PC端",
-      模式: "PVP+PVE",
+      诉求: ["射击爽感"],
+      模式: "PVP为主",
+      风格: ["刚枪", "个人取胜", "本能", "混合"],
     },
     motivationChain: {
-      M1_motivation: "追求强烈、即时的射击与战斗回报",
-      M2_expectation: "命中、击杀、移动和受击反馈应明确，节奏应顺畅",
-      M3_perception: "战斗爽就值得入坑；枪感比包装更重要",
-      M4_feeling: "兴奋、爽快、紧张、释放",
-      M5_behavior: "因实机战斗入坑，爽感下降后冷却，活动视频可能触发短期回流",
+      M1_motivation: "射击爽感",
+      M4_emotion: "失望失落、快乐、兴奋",
+      M5_behavior: "休闲匹配、社交开黑、切换模式产品",
+      causal_paths: [
+        "M1:social_belonging→M5:social_play",
+        "M1:ability_growth→M5:deliberate_practice",
+        "M4:anger_frustration→M5:quit_break",
+        "M1:stimulation→M4:excitement",
+        "M1:dominance→M4:excitement",
+      ],
     },
-    sampleCount: 35,
-    clusterId: "H5",
+    evidenceIds: [519, 13133, 13137, 13130, 2949, 1689, 1584, 1832, 13088, 1565],
+    sampleCount: 21,
+    clusterId: "C4-1",
   },
 
-  // ── H6 叙事氛围沉浸者 ──
+  // ── C5-1 沉浸探索型 · 子型1（5人，105条语料，2来源）──
   {
-    name: "叙事氛围沉浸者",
-    description: "希望进入一个可信、有情绪张力的游戏世界；世界观、角色、环境叙事和临场氛围比单纯击杀反馈更能决定长期记忆与体验价值。",
-    tagSpec: {
-      诉求: ["角色沉浸", "探索收集"],
-      能力: "进阶",
-      风格: ["仔细思考决策"],
-      平台: "主机端",
-      模式: "PVE为主",
-    },
-    motivationChain: {
-      M1_motivation: "进入另一个可信世界，体验角色、环境和情绪",
-      M2_expectation: "题材、美术、音效、规则和叙事应一致，不能频繁破坏代入",
-      M3_perception: "氛围使它区别于普通射击游戏；世界是否可信比纯数值更重要",
-      M4_feeling: "沉浸、紧张、好奇、敬畏、情感投入",
-      M5_behavior: "探索环境、关注故事和细节、选择剧情/氛围型模式；沉浸被破坏时退出",
-    },
-    sampleCount: 30,
-    clusterId: "H6",
-  },
-
-  // ── H7 搜撤资源博弈者 ──
-  // 内含两子型：H7-A 收藏经营型 / H7-B 击杀掠夺型
-  {
-    name: "搜撤资源博弈者",
-    description: "在搜打撤循环中通过资源获得价值。内含收藏经营型（安全撤离、积累成长）和击杀掠夺型（主动猎杀、高风险收益）两种路径。",
+    name: "沉浸探索型 · 子型1",
+    description: "核心诉求为探索收集；主要行为包括休闲匹配、刻意练习；偏好PC端",
     tagSpec: {
       诉求: ["探索收集"],
       能力: "进阶",
-      风格: ["仔细思考决策", "主动求战刚枪"],
+      风格: ["苟活", "个人取胜", "策略", "混合", "单人"],
       平台: "PC端",
-      模式: "PVP+PVE",
+      模式: "PVP为主",
     },
     motivationChain: {
-      M1_motivation: "收藏经营型追求积累和掌控；击杀掠夺型追求风险回报和刺激",
-      M2_expectation: "资源循环应清晰且风险收益对等；收藏型期待努力可保留",
-      M3_perception: "仓库成长比段位有价值（收藏型）；最有价值的资源应通过战斗夺取（掠夺型）",
-      M4_feeling: "成功撤离带来满足；以小博大带来兴奋；高价值损失带来剧烈挫败",
-      M5_behavior: "收藏型搜索、撤离、扩容和装饰；掠夺型主动找人、伏击、追击和夺取装备",
+      M1_motivation: "探索收集",
+      M4_emotion: "失望失落、兴奋、焦虑紧张",
+      M5_behavior: "休闲匹配、刻意练习、社交开黑",
+      causal_paths: [
+        "M1:exploration_collection→M5:casual_play",
+        "M1:strategy_mastery→M5:deliberate_practice",
+        "M1:competitive_proof→M5:ranked_grind",
+        "M1:strategy_mastery→M5:casual_play",
+        "M1:exploration_collection→M5:deliberate_practice",
+      ],
     },
-    sampleCount: 35,
-    clusterId: "H7",
+    evidenceIds: [6361, 6391, 3581, 3392, 6396, 6326, 3391, 6351, 6327, 6395],
+    sampleCount: 5,
+    clusterId: "C5-1",
   },
 
-  // ── H8 时间受限情境切换者 ──
+  // ── C5-2 沉浸探索型 · 子型2（90人，982条语料，15来源）──
   {
-    name: "时间受限情境切换者",
-    description: "没有单一稳定玩法：平台、朋友是否在线、学业工作和可用时间共同决定当下选择，偏好具有明确条件性。",
+    name: "沉浸探索型 · 子型2",
+    description: "核心诉求为探索收集；主要行为包括休闲匹配、社交开黑",
     tagSpec: {
-      诉求: ["社交归属", "放松逃避"],
-      能力: "进阶",
-      风格: ["团队协作取胜"],
-      平台: "PC端",
-      模式: "PVP+PVE",
+      诉求: ["探索收集", "叙事沉浸"],
+      风格: [],
     },
     motivationChain: {
-      M1_motivation: "不是单一动机，而是用不同产品满足不同场景需求",
-      M2_expectation: "产品应适配可用时间、设备和社交条件",
-      M3_perception: "某平台适合放松，另一平台适合竞技；朋友在不在决定节奏",
-      M4_feeling: "条件匹配时轻松或投入；条件不匹配时压力、疲惫",
-      M5_behavior: "跨平台、跨品类、跨节奏切换",
+      M1_motivation: "探索收集、叙事沉浸",
+      M4_emotion: "快乐、兴奋、失望失落",
+      M5_behavior: "休闲匹配、社交开黑、消费氪金",
+      causal_paths: [
+        "M1:social_belonging→M5:social_play",
+        "M1:social_belonging→M5:spending",
+        "M1:relaxation_escape→M5:casual_play",
+        "M2:monetization_fair→M5:spending",
+        "M1:exploration_collection→M5:spending",
+      ],
     },
-    sampleCount: 40,
-    clusterId: "H8",
+    evidenceIds: [11332, 2966, 10013, 13087, 10500, 13242, 11377, 9922, 10322, 9996],
+    sampleCount: 90,
+    clusterId: "C5-2",
+  },
+
+  // ── C5-noise 沉浸探索型 · 噪声边缘（22人，942条语料，12来源）──
+  {
+    name: "沉浸探索型 · 噪声边缘",
+    description: "核心诉求为探索收集、叙事沉浸；主要行为包括休闲匹配、社交开黑；偏好主机端",
+    tagSpec: {
+      诉求: ["探索收集", "叙事沉浸", "视听审美"],
+      风格: ["灵活", "情境", "操作", "熟人"],
+      平台: "主机端",
+      模式: "PVP为主",
+    },
+    motivationChain: {
+      M1_motivation: "探索收集、叙事沉浸、视听审美",
+      M4_emotion: "兴奋、快乐、失望失落",
+      M5_behavior: "休闲匹配、社交开黑、消费氪金",
+      causal_paths: [
+        "M1:social_belonging→M5:social_play",
+        "M1:exploration_collection→M5:casual_play",
+        "M1:exploration_collection→M5:spending",
+        "M1:narrative_immersion→M5:spending",
+        "M1:sensory_aesthetics→M5:casual_play",
+      ],
+    },
+    evidenceIds: [9397, 10720, 9795, 9656, 9020, 10674, 9367, 11855, 9184, 9160],
+    sampleCount: 22,
+    clusterId: "C5-noise",
   },
 ];
 
@@ -208,6 +273,8 @@ async function main() {
   }
 
   console.log(`\n✅ 种子数据完成: ${PERSONAS.length} 个画像`);
+  console.log("   数据来源: 241 个受访者、7,225 条已标注+已嵌入片段");
+  console.log("   聚类方法: 半监督 M1 归桶 → HDBSCAN 子型 (Gower 距离)");
 }
 
 main().catch((e) => {
