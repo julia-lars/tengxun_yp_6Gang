@@ -227,6 +227,7 @@ def main() -> int:
     parser.add_argument("--no-judge", action="store_true", help="只跑回答不自动打分")
     parser.add_argument("--limit", type=int, default=None, help="只跑前 N 题（冒烟测试）")
     parser.add_argument("--api-base", default=API_BASE_DEFAULT, help="API 地址")
+    parser.add_argument("--target-id", type=int, default=None, help="当测试用例无 target_id 时，统一指定的 personaId/kolId")
     parser.add_argument("--out-dir", default=None, help="结果输出目录（默认 data/eval/results）")
     args = parser.parse_args()
 
@@ -252,7 +253,7 @@ def main() -> int:
     for i, case in enumerate(cases, 1):
         qid = case.get("id", f"Q{i}")
         question = case["question"]
-        target_id = case.get("target_id") or case.get("personaId") or case.get("kolId")
+        target_id = case.get("target_id") or case.get("personaId") or case.get("kolId") or args.target_id
         body = {"message": question}
         if target == "kol":
             body["kolId"] = target_id
