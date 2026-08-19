@@ -169,6 +169,8 @@ export const sourceSegments = pgTable(
   (table) => ({
     sourceIdx: index("ss_source_file_idx").on(table.sourceFile),
     speakerIdx: index("ss_speaker_id_idx").on(table.speakerId),
+    // GIN 索引：加速 persona_ids 数组查询（如 WHERE persona_ids @> ARRAY[1]）
+    personaIdsGinIdx: index("ss_persona_ids_gin_idx").using("gin", table.personaIds),
   }),
 );
 

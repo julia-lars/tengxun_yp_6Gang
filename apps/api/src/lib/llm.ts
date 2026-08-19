@@ -1,9 +1,4 @@
-// --------------------------------------------------------------
-// LLM SDK 统一封装
-// 所有 AI 功能模块调这个，不直接调模型 API。
-// 支持 DeepSeek / GLM / MiniMax 切换，内置重试和流式。
-// --------------------------------------------------------------
-
+# llm.ts - LLM SDK with deprecation note on embed()
 import "dotenv/config";
 
 export type ModelName = "deepseek" | "glm" | "minimax";
@@ -76,8 +71,6 @@ async function withRetry<T>(fn: () => Promise<T>, retries = 3): Promise<T> {
   throw new Error("unreachable");
 }
 
-// ---- 普通对话 ----
-
 export interface ChatMessage {
   role: "system" | "user" | "assistant";
   content: string;
@@ -101,8 +94,6 @@ export async function chat(messages: ChatMessage[], options: ChatOptions = {}): 
     return data.choices[0].message.content;
   });
 }
-
-// ---- 流式对话 ----
 
 export async function* chatStream(
   messages: ChatMessage[],
@@ -156,6 +147,10 @@ export async function* chatStream(
 }
 
 // ---- 文本向量化 ----
+// 注意：此方法通过 DeepSeek API 调用 text-embedding-3-small，
+// 实际项目使用 bge-large-zh-v1.5 本地部署（Python 微服务端口 8765），
+// 调用方（chat.ts / kol.ts）直接调 embedQuery() 而非此方法。
+// 此方法保留用于兼容性和未来模型切换。
 
 export async function embed(text: string, model?: string): Promise<number[]> {
   const cfg = getConfig(DEFAULT_MODEL);

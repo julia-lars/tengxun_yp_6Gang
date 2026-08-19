@@ -19,6 +19,7 @@ import { MatchFeedback } from "@/components/ui/match-feedback";
 import { SegmentedControl } from "@/components/ui/segmented-control";
 import { Tooltip } from "@/components/ui/tooltip";
 import { type TriState, TriStateTag } from "@/components/ui/tri-state-tag";
+import type { TagDimension as ApiTagDimension } from "@app/shared";
 import { api } from "../lib/api.js";
 import {
   EXTENDED_DIMENSIONS,
@@ -43,6 +44,7 @@ export function PersonasPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [personas, setPersonas] = useState<PersonaSummary[]>([]);
   const [loading, setLoading] = useState(true);
+  const [apiDimensions, setApiDimensions] = useState<ApiTagDimension[]>([]);
   const [expandedFilters, setExpandedFilters] = useState(false);
   const [showTooltip, setShowTooltip] = useState<string | null>(null);
   const previousCountRef = useRef<number>(0);
@@ -134,6 +136,11 @@ export function PersonasPage() {
     );
     return simple.join(TAG_SEPARATOR);
   }, [activeTags]);
+
+  // 从 API 获取标签维度，确保前后端标签值一致
+  useEffect(() => {
+    api.getTags().then((data) => setApiDimensions(data.dimensions)).catch(() => {});
+  }, []);
 
   useEffect(() => {
     setLoading(true);

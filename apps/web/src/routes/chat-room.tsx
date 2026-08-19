@@ -50,9 +50,15 @@ export function ChatRoomPage() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [streaming, setStreaming] = useState(false);
-  const [sessionId, setSessionId] = useState<number | null>(
-    () => Number(searchParams.get("session")) || null,
-  );
+  const [sessionId, setSessionId] = useState<number | null>(() => {
+    // 优先从 URL 恢复，其次从 localStorage 恢复
+    const fromUrl = Number(searchParams.get("session")) || null;
+    if (fromUrl) return fromUrl;
+    try {
+      const stored = localStorage.getItem();
+      return stored ? Number(stored) : null;
+    } catch { return null; }
+  });
   const [persona, setPersona] = useState<PersonaDetail | null>(null);
   const [thinking, setThinking] = useState(false);
   const [evidencePanel, setEvidencePanel] = useState<{
@@ -90,10 +96,12 @@ export function ChatRoomPage() {
           bottomRef.current?.scrollIntoView({ behavior: "auto" });
         }, 100);
       })
-      .catch(() => {
+      .catch((err) => {
+        console.error("会话恢复失败:", err);
         toast.error("会话恢复失败，将开始新对话");
         setSessionId(null);
         setSearchParams({});
+        try { localStorage.removeItem(); } catch { /* */ }
       });
   }, [sessionId]);
 
@@ -120,10 +128,13 @@ export function ChatRoomPage() {
     }
   }, [messages, isNearBottom, thinking]);
 
-  // 更新 sessionId 到 URL
+  // 更新 sessionId 到 URL 和 localStorage
   useEffect(() => {
     if (sessionId) {
       setSearchParams({ session: String(sessionId), ...(fromParam ? { from: fromParam } : {}) });
+      try {
+        localStorage.setItem(, String(sessionId));
+      } catch { /* localStorage 不可用 */ }
     }
   }, [sessionId]);
 
@@ -399,7 +410,7 @@ export function ChatRoomPage() {
   );
 
   return (
-    <div className="flex flex-col h-[calc(100vh-8rem)]">
+    <div className="flex flex-col h-[calc(100vh-8rem)] max-sm:h-[calc(100vh-6rem)] max-sm:px-2">
       {/* 顶部信息栏 */}
       <div className="flex items-center gap-3 pb-3 border-b border-[--color-border] shrink-0">
         <Link
@@ -494,7 +505,7 @@ export function ChatRoomPage() {
             )}
 
             {/* 气泡 */}
-            <div className="max-w-[80%] space-y-1.5">
+            <div className="max-w-[80%] max-sm:max-w-[90%] space-y-1.5">
               <div
                 className={`rounded-lg px-4 py-2.5 text-sm whitespace-pre-wrap leading-relaxed ${
                   m.role === "user"
@@ -601,7 +612,7 @@ export function ChatRoomPage() {
       </div>
 
       {/* 输入区域 */}
-      <div className="border-t border-[--color-border] pt-3 flex gap-2 shrink-0">
+      <div className="border-t border-[--color-border] pt-3 flex gap-2 shrink-0 max-sm:flex-col max-sm:gap-1.5">
         <Textarea
           ref={inputRef}
           value={input}

@@ -15,6 +15,103 @@ import { chatStream } from "../lib/llm.js";
 
 export const chatRoute = new Hono();
 
+// BGE embedding 服务（Python 微服务，本地端口 8765）
+async function embedQuery(text: string): Promise<number[]> {
+  const res = await fetch("http://127.0.0.1:8765/embed", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ text }),
+  });
+  if (!res.ok) throw new Error(`Embed server ${res.status}`);
+  const data = (await res.json()) as { embedding: number[] };
+  return data.embedding;
+}
+
+// ---- System Prompt 构建器（从 persona 字段动态生成）----
+
+function buildSystemPrompt(
+  personaName: string,
+  personaDescription: string,
+  tagSpec: Record<string, unknown>,
+  motivationChain: Record<string, string>,
+  evidenceContext: string,
+): string {
+  const parts: string[] = [
+    `你是「${personaName}」，${personaDescription}。`,
+    "",
+    "## 你的核心特征",
+    `- 标签: ${JSON.stringify(tagSpec)}`,
+  ];
+
+  if (motivationChain.M1_motivation) {
+    parts.push(`- 核心动机: ${motivationChain.M1_motivation}`);
+  }
+  if (motivationChain.M3_perception) {
+    parts.push(`- 认知框架: ${motivationChain.M3_perception}`);
+  }
+  if (motivationChain.M5_behavior) {
+    parts.push(`- 行为模式: ${motivationChain.M5_behavior}`);
+  }
+  if (motivationChain.M4_emotion) {
+    parts.push(`- 典型情绪: ${motivationChain.M4_emotion}`);
+  }
+
+  // 动机因果路径
+  if (motivationChain.causal_paths) {
+    const paths = Array.isArray(motivationChain.causal_paths)
+      ? motivationChain.causal_paths
+      : [motivationChain.causal_paths];
+    parts.push(`- 动机因果链: ${paths.join("; ")}`);
+  }
+
+  parts.push(
+    "",
+    "## 规则",
+    "1. 始终以第一人称回答，语气口语化，像真人在聊天。",
+    "2. 回答必须符合你的角色设定，不能前后矛盾。",
+    "3. 被问到不了解的事（超出你的游戏经验），就说不知道。",
+    "4. 不要使用'作为一个人工智能'、'根据我的训练数据'等表述。",
+    "",
+    "## 你可能知道的背景信息",
+    evidenceContext || "(暂无相关背景信息)",
+  );
+
+  return parts.join("\n");
+}
+
+// ---- 对话摘要压缩（防止历史消息过长）----
+
+const MAX_HISTORY_MESSAGES = 12;
+const COMPRESS_THRESHOLD = 16;
+
+function compressHistory(
+  history: Array<{ role: string; content: string }>,
+): Array<{ role: string; content: string }> {
+  if (history.length <= COMPRESS_THRESHOLD) {
+    return history.slice(-MAX_HISTORY_MESSAGES);
+  }
+
+  const recentCount = 6;
+  const olderMessages = history.slice(0, -recentCount);
+  const recentMessages = history.slice(-recentCount);
+
+  const summary = olderMessages
+    .filter((m) => m.role === "user" || m.role === "assistant")
+    .map((m) => {
+      const prefix = m.role === "user" ? "Q" : "A";
+      const text = (m.content ?? "").slice(0, 100);
+      return `${prefix}: ${text}`;
+    })
+    .join("; ");
+
+  return [
+    { role: "system", content: `[对话历史摘要] ${summary}` },
+    ...recentMessages,
+  ];
+}
+
+// ---- 对话路由 ----
+
 // POST /api/chat —— SSE 流式对话
 chatRoute.post("/", zValidator("json", chatRequestSchema), async (c) => {
   const { personaId, sessionId, message } = c.req.valid("json");
@@ -25,9 +122,16 @@ chatRoute.post("/", zValidator("json", chatRequestSchema), async (c) => {
   });
 
   const personaName = persona?.name ?? `画像 #${personaId}`;
-  const tagSpec = (persona?.tagSpec ?? { 诉求: ["竞技证明"], 能力: "进阶", 风格: ["主动求战刚枪"], 平台: "PC端", 模式: "PVP为主" }) as Record<string, unknown>;
+  const tagSpec = (persona?.tagSpec ?? {
+    诉求: ["竞技证明"],
+    能力: "进阶",
+    风格: ["主动求战刚枪"],
+    平台: "PC端",
+    模式: "PVP为主",
+  }) as Record<string, unknown>;
   const motivationChain = (persona?.motivationChain ?? {}) as Record<string, string>;
-  const personaDescription = persona?.description ?? "该画像已被更新或移除，以下回答基于通用玩家设定。";
+  const personaDescription =
+    persona?.description ?? "该画像已被更新或移除，以下回答基于通用玩家设定。";
 
   // 2. 获取或创建会话
   let session = sessionId
@@ -42,51 +146,72 @@ chatRoute.post("/", zValidator("json", chatRequestSchema), async (c) => {
       .returning();
     session = newSession;
   }
-  // Ensure session is defined
   const currentSession = session!;
 
-  // 3. RAG: 基于用户问题检索相关原文
-  const evidenceRows = await db
-    .select({
-      id: sourceSegments.id,
-      originalText: sourceSegments.originalText,
-      sourceFile: sourceSegments.sourceFile,
-    })
-    .from(sourceSegments)
-    .where(sql`${sourceSegments.originalText} ILIKE ${"%" + message.slice(0, 30) + "%"}`)
-    .limit(3);
+  // 3. RAG: pgvector 向量相似搜索（fallback 到 ILIKE）
+  let evidenceRows: Array<{
+    id: number;
+    originalText: string;
+    sourceFile: string;
+  }> = [];
+
+  try {
+    const queryVec = await embedQuery(message);
+
+    const rawRows = (await db.execute(
+      sql`SELECT id, original_text, source_file
+          FROM source_segments
+          WHERE embedding IS NOT NULL
+            AND (annotation->'meta'->>'rs' IS NULL OR annotation->'meta'->>'rs' != 'skip')
+          ORDER BY embedding <=> ${JSON.stringify(queryVec)}::vector
+          LIMIT 3`,
+    )) as unknown as Array<{
+      id: number;
+      original_text: string;
+      source_file: string;
+    }>;
+
+    evidenceRows = rawRows.map((r) => ({
+      id: r.id,
+      originalText: r.original_text,
+      sourceFile: r.source_file,
+    }));
+  } catch (e) {
+    console.error("向量检索失败，回退到 ILIKE:", e);
+    evidenceRows = await db
+      .select({
+        id: sourceSegments.id,
+        originalText: sourceSegments.originalText,
+        sourceFile: sourceSegments.sourceFile,
+      })
+      .from(sourceSegments)
+      .where(
+        sql`${sourceSegments.originalText} ILIKE ${"%" + message.slice(0, 30) + "%"}`,
+      )
+      .limit(3);
+  }
 
   const evidenceContext = evidenceRows
     .map((e) => `[来源: ${e.sourceFile}] ${e.originalText.slice(0, 300)}`)
     .join("\n---\n");
 
-  // 4. 构建 System Prompt
-  const systemPrompt = [
-    `你是「${personaName}」，${personaDescription}。`,
-    "",
-    "## 你的核心特征",
-    `- 标签: ${JSON.stringify(tagSpec)}`,
-    motivationChain.M1_motivation ? `- 核心动机: ${motivationChain.M1_motivation}` : "",
-    motivationChain.M3_perception ? `- 认知框架: ${motivationChain.M3_perception}` : "",
-    motivationChain.M5_behavior ? `- 行为模式: ${motivationChain.M5_behavior}` : "",
-    "",
-    "## 规则",
-    "1. 始终以第一人称回答，语气口语化，像真人在聊天。",
-    "2. 回答必须符合你的角色设定，不能前后矛盾。",
-    "3. 被问到不了解的事（超出你的游戏经验），就说不知道。",
-    "4. 不要使用'作为一个人工智能'、'根据我的训练数据'等表述。",
-    "",
-    "## 你可能知道的背景信息",
-    evidenceContext || "(暂无相关背景信息)",
-  ]
-    .filter(Boolean)
-    .join("\n");
+  // 4. 构建 System Prompt（动态生成）
+  const systemPrompt = buildSystemPrompt(
+    personaName,
+    personaDescription,
+    tagSpec,
+    motivationChain,
+    evidenceContext,
+  );
 
-  // 5. 构建对话历史
-  const history = (currentSession.messages as Array<{ role: string; content: string }>) ?? [];
+  // 5. 构建对话历史（含摘要压缩）
+  const history =
+    (currentSession.messages as Array<{ role: string; content: string }>) ?? [];
+  const compressedHistory = compressHistory(history);
+
   const llmMessages: ChatMessage[] = [
     { role: "system", content: systemPrompt },
-    ...history.slice(-12).map((m) => ({
+    ...compressedHistory.map((m) => ({
       role: (m.role === "assistant" ? "assistant" : "user") as "user" | "assistant",
       content: m.content,
     })),
@@ -133,7 +258,11 @@ chatRoute.post("/", zValidator("json", chatRequestSchema), async (c) => {
 
     // 发送 evidence_ids
     await stream.writeSSE({
-      data: JSON.stringify({ type: "evidence", ids: evidenceIds, sessionId: currentSession.id }),
+      data: JSON.stringify({
+        type: "evidence",
+        ids: evidenceIds,
+        sessionId: currentSession.id,
+      }),
     });
   });
 });
@@ -141,7 +270,9 @@ chatRoute.post("/", zValidator("json", chatRequestSchema), async (c) => {
 // GET /api/chat/sessions —— 列出所有会话
 chatRoute.get("/sessions", async (c) => {
   const personaId = c.req.query("personaId");
-  const conditions = personaId ? and(eq(chatSessions.personaId, Number(personaId))) : undefined;
+  const conditions = personaId
+    ? and(eq(chatSessions.personaId, Number(personaId)))
+    : undefined;
 
   const rows = await db
     .select()

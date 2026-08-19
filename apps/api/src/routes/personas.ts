@@ -2,8 +2,8 @@
 // 标签 + 画像 路由
 // --------------------------------------------------------------
 
-import type { PersonaDetail, PersonaSummary, TagDimension } from "@app/shared";
-import { eq, sql } from "drizzle-orm";
+import type { PersonaDetail, PersonaSummary } from "@app/shared";
+import { and, eq, sql } from "drizzle-orm";
 import { Hono } from "hono";
 
 import { db } from "../db/client.js";
@@ -11,87 +11,44 @@ import { personas, sourceSegments } from "../db/schema.js";
 
 export const personasRoute = new Hono();
 
-// ---- 标签维度 ----
+// ---- 画像列表 ----
 
-// 初期硬编码，后续可从配置表读取
-const _TAG_DIMENSIONS: TagDimension[] = [
-  {
-    name: "诉求",
-    label: "游戏诉求",
-    values: [
-      { value: "竞技证明", label: "竞技证明" },
-      { value: "社交归属", label: "社交归属" },
-      { value: "放松逃避", label: "放松/逃避" },
-      { value: "探索收集", label: "探索/收集" },
-      { value: "角色沉浸", label: "角色沉浸" },
-    ],
-  },
-  {
-    name: "能力",
-    label: "游戏能力",
-    values: [
-      { value: "新手", label: "新手" },
-      { value: "进阶", label: "进阶" },
-      { value: "高手", label: "高手" },
-      { value: "职业级", label: "职业级" },
-    ],
-  },
-  {
-    name: "风格",
-    label: "游戏风格",
-    values: [
-      { value: "主动求战刚枪", label: "主动求战/刚枪" },
-      { value: "苟活避战", label: "苟活避战" },
-      { value: "本能快速反应", label: "本能快速反应" },
-      { value: "仔细思考决策", label: "仔细思考/决策" },
-      { value: "个人能力取胜", label: "个人能力取胜" },
-      { value: "团队协作取胜", label: "团队协作取胜" },
-    ],
-  },
-  {
-    name: "平台",
-    label: "平台偏好",
-    values: [
-      { value: "PC端", label: "PC端" },
-      { value: "主机端", label: "主机端" },
-      { value: "手游端", label: "手游端" },
-    ],
-  },
-  {
-    name: "模式",
-    label: "游戏模式",
-    values: [
-      { value: "PVP为主", label: "PVP为主" },
-      { value: "PVE为主", label: "PVE为主" },
-      { value: "PVP+PVE", label: "PVP+PVE都玩" },
-    ],
-  },
-];
-
-// ---- 画像 ----
-
-// GET /api/personas
+// GET /api/personas?tags=...&limit=20&offset=0
 personasRoute.get("/", async (c) => {
   const tagsParam = c.req.query("tags");
+  const limit = Math.min(Number(c.req.query("limit")) || 50, 100);
+  const offset = Number(c.req.query("offset")) || 0;
 
-  const query = db.select().from(personas).orderBy(sql`${personas.sampleCount} DESC`);
+  const conditions = [];
 
-  const rows = await query;
-
-  // 如果有标签筛选，做简单的 jsonb 匹配
-  let filtered = rows;
+  // 标签筛选：使用 PostgreSQL jsonb 操作符，避免全量拉取后 JS 字符串匹配
   if (tagsParam) {
     const tags = tagsParam
       .split(",")
       .map((t) => t.trim())
       .filter(Boolean);
-    filtered = rows.filter((row) => {
-      const spec = row.tagSpec as Record<string, unknown>;
-      return tags.every((tag) => JSON.stringify(spec).includes(tag));
-    });
+
+    for (const tag of tags) {
+      conditions.push(
+        sql`EXISTS (
+          SELECT 1 FROM jsonb_each_text(${personas.tagSpec}) AS kv
+          WHERE kv.value ILIKE ${"%" + tag + "%"}
+        )`,
+      );
+    }
   }
 
-  const result: PersonaSummary[] = filtered.map((r) => ({
+  const where = conditions.length > 0 ? and(...conditions) : undefined;
+
+  const rows = await db
+    .select()
+    .from(personas)
+    .where(where)
+    .orderBy(sql`${personas.sampleCount} DESC`)
+    .limit(limit)
+    .offset(offset);
+
+  const result: PersonaSummary[] = rows.map((r) => ({
     id: r.id,
     name: r.name,
     description: r.description ?? "",
@@ -102,6 +59,8 @@ personasRoute.get("/", async (c) => {
 
   return c.json(result);
 });
+
+// ---- 画像详情 ----
 
 // GET /api/personas/:id
 personasRoute.get("/:id", async (c) => {
