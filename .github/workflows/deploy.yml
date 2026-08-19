@@ -29,6 +29,11 @@ env:
   # 镜像名前缀（GitHub 用户名或组织名）
   NAMESPACE: julia-lars
 
+# GHCR 推送需要 packages: write 权限（fork 仓库默认受限）
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   # ---------------- Job 1: 构建两个镜像并推送到镜像仓库 ----------------
   build:
