@@ -8,4 +8,6 @@
 !sheets_processed/*.json
 !kol/
 !kol/*.json
+!群体画像/
+!群体画像/*.json
 !README.md

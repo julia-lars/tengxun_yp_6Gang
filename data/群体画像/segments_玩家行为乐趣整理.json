@@ -1,0 +1,6572 @@
+[
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 1,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【洞察】清空背包——装枪/子弹——整理安全箱/口袋\n\n【行为】【配装】移除T2*MK16弹匣，1*Esmarch，2*humpbacK，清空backpack，查看pouch里面的wallet，放入仓库，取下holster和副枪，unload onsling枪，unload下来的弹匣load ammo，装回枪，安全箱换上了满的calok-b，口袋装了AI-2",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装顺序",
+      "session_order": 1,
+      "round_label": "EFT - PVE - R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 2,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【交互】弹匣/枪拖拽，其余小东西点击， unload/load 子弹右键选drop down menu",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装交互方式",
+      "session_order": 1,
+      "round_label": "EFT - PVE - R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 3,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】alu splint，anaigin，IFAK，CMS，calok-b",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "安全箱内物品",
+      "session_order": 1,
+      "round_label": "EFT - PVE - R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 4,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【配装】开局前场外配装，开始后没有再确认直接点next\n【访谈】【策略】先会考虑出生点环境特征；然后是budget，平衡得失；\n\n\n\n\n工厂小，树林大，去树林的话就带长距离的武器，工厂就带machine gun类似的",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "EFT - PVE - R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 5,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】直接开始搜索红色背包，没有其他特殊行为\n【访谈】进入战局先快速观察环境（因为塔科夫没有地图可看）然后了解npc可能会出生的点",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "出生点行为",
+      "session_order": 1,
+      "round_label": "EFT - PVE - R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 6,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】出生在Street of Tarkov剧院广场前的楼，搜楼，出门左右看，跑到蓝列车，经过剧院广场， 进邪教宿舍搜（搜前先看了一圈，关门），离开，到厂房搜，出拱门，进了房子，出门，进邪教房搜，出门，遇到PMC打死，遇到Scav，打死，搜PMC，进交易所搜，遇到Scav打死，出门，遇到Scav打死，污水河撤离",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "路线选择",
+      "session_order": 1,
+      "round_label": "EFT - PVE - R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 7,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【洞察】保守型 ：拿到目标物品就撤\n\n【行为】【撤离】看了眼背包再撤离，全程游玩约15分钟；\n【访谈】【撤离】如果有任务物品，拿到了就撤，其次如果有藏身处所需物品，找到了就一般会撤了",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "撤离时机&行为",
+      "session_order": 1,
+      "round_label": "EFT - PVE - R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 8,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【设置】【00:29】开局以后切到了设置， FOV从0拉到75；\n【行为】【物品使用】【00:32】跑到喘气时吃止疼药\n【行为】【物品使用】【00:35】满状态喝饮料（可能是为了腾位置）\n\n【观察】总得来说，听到枪响没有很影响搜物资，比较淡定从容；谨慎，会先熟悉周围环境后行动；对路线比较熟悉",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "EFT - PVE - R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 9,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【战斗】搜寻路上，不必要不战斗",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗发生时机（POI？撤离途中？）",
+      "session_order": 1,
+      "round_label": "EFT - PVE - R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 10,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【战斗】【00:40】先后击杀两名敌人，通过Scav的叫声确认周围有敌人，通过视觉发现PMC",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗结果",
+      "session_order": 1,
+      "round_label": "EFT - PVE - R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 11,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【LOOT】1*MDR，1*弹匣（out of 2），1*手雷（out of 2)，1*水（立刻用）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "搜刮结果",
+      "session_order": 1,
+      "round_label": "EFT - PVE - R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 12,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【洞察】价值型 ：高价值物品放入保险箱 + Scav不搜刮\n\n【行为】【搜刮】【00:41】搜刮了PMC，没有搜Scav，搜索完后直接去金融小房间继续搜刮\n【洞察】【搜刮】【第一局】基本为藏身处t建材和食物，单格价值高的物品（钥匙、古董书、充电宝等）和药品放入了保险箱；拿到钥匙的时候有情绪正反馈",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "搜了什么",
+      "session_order": 1,
+      "round_label": "EFT - PVE - R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 13,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【洞察】价值型 + 中度仓鼠型 ：前期基本都拿，后期价值置换\n\n【行为】【搜刮】【00:36】Strike没有拿？\n【行为】【搜刮】【00:37】扔掉caps和tape，拿krasavch和plexglass，没拿SPlug\n【行为】【搜刮】【00:39】没拿油桶，USB，电池（可能因为背包满）\n【行为】【搜刮】【00:41】扔掉巧克力，拿狗牌，扔掉manual拿1*弹匣（out of 2）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "物品价值判断行为",
+      "session_order": 1,
+      "round_label": "EFT - PVE - R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 14,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【整理】【00:40】搜刮PMC，武器黄DT拖拽到副枪槽位；狗牌本来想放到背包中，但是发现自己背包已经满了，于是转而放入胸挂的空位，但是此时单格位的狗牌占用了2格位的空间，于是玩家扔掉了胸挂中的巧克力，将单格狗牌放过去从而保证2连格位空间；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "物品落位行为",
+      "session_order": 1,
+      "round_label": "EFT - PVE - R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 15,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【洞察】【搜刮】基本不会搜刮Scav，尤其在准备撤离前；结算界面扫了一眼，没有细看",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "EFT - PVE - R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 16,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【整理】【第一局】结束以后把一些食品，药，小配件先拖到了仓库最下面",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局外管理",
+      "category_l3": "带出整理行为",
+      "session_order": 1,
+      "round_label": "EFT - PVE - R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 17,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【洞察】轻 - 中整理型：没有特别需求/不满时不整理，整理时会使用自动排序 + 手动微调\n\n【洞察】【整理】局内没有特别需求时不整理；局外多次整理出售，精细思考逐渐加深；一般先稍微调整，其余靠自动排序进行初步整理，根据排序完的情况再微调以及初步出售；安全箱会在一次整理结束以后再二次整理，二次自动排序后再进行二次出售；然后进行精细整理，特别的物品有自己的摆放想法，此时会看一眼message，然后再会思考筛选物件（主要看枪的耐久）进行三次出售；最后微调仓库后进入hideout\n\n\n\n\n\n\n\n\n【行为】【初步整理】再把一些配件从身上胸挂和仓库再拖到了仓库里的（MBSS），包括对讲机，情报文件，hose，helix，HMatches，poxeram，螺丝刀和NIXXOR，直到装满。 然后在仓库里套包，卸下了MK16的枪尾，清空身上所有背包（有拖有点），把背上枪拖入仓库，自动排序，扫视一遍（点开看了一眼MDR）；\n【行为】【初步出售】【01:06】商人交易（一开始点错了交易对象（目标item灰）），卖MDR（中耐久）。\n【行为】【二次整理】回到仓库，清理安全箱，把书拖入仓库，powerbank，楼梯钥匙拖入仓库AVS，之后把弹匣和手雷一个一个拖入AVS，仓库再次自动排序，剩余弹匣和card？拖入commando。继续套包，把背心头盔耳机等放入大套包，直到几个都装满，仓库再次自动排序，\n【行为】【二次出售】商人交易（螺丝刀，书，gun glue，车钥匙）\n【行为】【精细整理】回仓库精细调位，背包一竖列，钥匙从AVS拖回仓库（钥匙圈？）,空位给Krasavch；理完包看了message，receive all，再回去看仓库； 回仓库点开scar枪看了耐久（60.2/74）\n【行为】【三次出售】商人交易（scar枪耐久（60.2/74）\n【行为】【最后微调】回仓库，看了身上的枪，拖住转了一圈（required research？）。把AVS里的弹匣拖入背包，换入眼镜；去hideout，想建workbench，差钳子，商人内试图购买multitool但是少物件， auto-fill，construct。商人内购买AKS-74UN\n【行为】开始改枪，receiver选pillgram（01:15:17）瞄准选hexgaon，bolt选RP-1；PK-06，握把选MOE AK",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局外管理",
+      "category_l3": "物资整理行为",
+      "session_order": 1,
+      "round_label": "EFT - PVE - R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 18,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【洞察】中研究型：会看攻略研究改枪等，对资源囤积有一定理解\n【洞察】重实用型：比起有趣/酷炫，更注重手感以及实用性\n\n【访谈】【改枪】改枪注重ergonomics，一般50以上\n【访谈】【藏身处】一般不咋弄hideout，但是比较focus在：1st) work bench 因为可以改枪；2nd) lavaratory and Medstation 因为 the amount of effort ot needs to build not worth my time；不prioritize food，usually stockpile很多因为是常见barter items；知道hidden workout area可以build strength，觉得挺有意思，局内总是蜷缩消耗人物会有小劣势，every play session会去workout; 八月中档结束，现在开始stockpile track ends，single fire type\n\n\n\n\n\n\n\n【行为】选了SE-5，（感觉是角落狙击型的？），便宜一点的话就选RK-4前期也还行；选了TBL",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局外管理",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "EFT - PVE - R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 19,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【洞察】危机意识型：始终紧张度高，撤离后才会放松\n\n【访谈】【情绪】总是有危机感（尤其是战局内需要整理包时）直到撤离，（情绪变化趋势是，紧张感——放松——快乐，打死一个不会立马感觉很激动，放松是快乐的先决条件），搜刮只要回本就感觉relief，如果打死人没啥值钱东西会有点失落，但觉得ok，能理解其真实设定\n【访谈】【BOSS】enjoy 稀有enemy，但是太稀有，也太难打",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "乐趣评价",
+      "category_l2": "战斗乐趣",
+      "category_l3": "过程&结果",
+      "session_order": 1,
+      "round_label": "EFT - PVE - R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 20,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【访谈】【乐趣】looting is intense becasue you stop defending yourself, eariler stage you need to discover items first while risk being killed",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "乐趣评价",
+      "category_l2": "搜刮乐趣",
+      "category_l3": "过程&结果",
+      "session_order": 1,
+      "round_label": "EFT - PVE - R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 21,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【洞察】重策略轻战斗型：更喜欢思考策略，不必要不打架，打死了正反馈也不会特别强烈\n【洞察】个性型：觉得游戏应该鼓励玩家specialize化\n【洞察】轻养成型：觉得养成对于长期目标有帮助，但感受一般\n【洞察】探索型：每次删档有可能会尝试不同玩法/策略\n\n【访谈】【印象】认为塔科夫是硬核逃离枪战类，重策略轻战斗，学习成本非常高，入门了以后觉得非常好玩，但是对新手不友好，很难，甚至会劝退；紧张感和progression觉得有意思；喜欢organizing of resource, limited resources, selling, calculator这个体系\n【访谈】【策略】觉得声音很重要，（不仅拟真）还非常实用，如听声辩位/敌人情况等；Positioning也很重要\n【访谈】【乐趣】中彩票感觉很棒，显卡啥的，高级物品\n【访谈】【RPG】RPG还有很多提升空间，对于赛季中途加入的人来说有点不友好 some of the skills you can not feel the tangible benefit of progressing the skills - the game meant to be played openly；希望游戏能奖励玩家specialize化；目前机制有些devalues 多样的playstyles to both 玩家自己和其他玩家（讨厌那种守株待兔的人）\n【访谈】【删档】删档是posiitive的因为每次可以换种玩法而不费资源\n【访谈】【藏身处】觉得hideout不错，被动收益也能让玩家focus在更加重要的地方\n【访谈】【商人任务】商人任务也不错，不知道做啥的时候给目标感\n【访谈】【角色】Scav是捡陋的，不太想打架；PVE是为了loot\n【访谈】Inertia is controversial\n【访谈】【阶段】通过物价波动来区分phase；锁item不是最好的solution（discourage）最好还是靠削弱\n【访谈】【阶段】【乐趣】开荒期是核心乐趣，因为大家都一样，公平性强；后期目标都达成了，钱也不缺，就玩得少，玩也会稍微多combat（担risk能力强)\n\n\n\n\n\n\n\n\n\n【访谈】【印象】organize item 感觉像 puzzle game；\n【访谈】【策略】听见枪声不是直接去打人，得结合自己情况看；声音很重要，脚步声轻重等声音能知道旁边人的装备甚至loot，health的一些hint，proximity voice chatting很常用，use that to your advantage，beg them to do sth you want them to do；不知道子弹还剩多少所以总是reload，被打中不同部位会发出不同响声/有不同效果（咳嗽等\n【访谈】【体验】真实感强（而不是那种打死谁都超多奖励，（可能有点假））；打死boss 一定有好东西（保底是个好机制？\n【目标】大部分时间进游戏是为了找东西；\n\n\n【访谈】【模式】The opportunities for PVE is super engaging and super fun, scav-if you can collab you can become friends for the moment, you can decide to help,which is the secod social aspect",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "乐趣评价",
+      "category_l2": "（若有）新手体验评价",
+      "category_l3": "有效性目标感吸引力",
+      "session_order": 1,
+      "round_label": "EFT - PVE - R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 22,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【洞察】未进行任何装备改动和配置\n\n【行为】  查看了当前角色的基本信息，包括了血量，成就，游戏时间\n【配装】未进行配装，跑刀下图",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装顺序",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 23,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】未进行配装，跑刀下图",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装交互方式",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 24,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】未进行配装，跑刀下图",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "安全箱内物品",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 25,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】直接选择中心区下图，连续NEXT",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 26,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】先熟 悉基本操作手感，包括行动，攻击，探头等",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "出生点行为",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 27,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】在地图摩天楼下方复活，经过酒吧，从窗口跳入逛了一圈但并未搜索，一路绕楼到信号弹撤离点，听道有人踩雷区停顿了一下，继续前进越出地图被狙击手打死",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "路线选择",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 28,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】全程无目的跑地图，由于不清楚机制，被地图边缘狙击手打死",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "撤离时机&行为",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 29,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【策略】无目的性，也未进行搜索，全程处于摸索状态",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 30,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【洞察】由于提示并不明显，玩家多次拖动物品时多次失败；由于没有目的性和了解玩家并不清楚自己需要做什么准备\n\n【行为】在主界面首次打开藏身处-打开仓库-拖动berkut背包、两把  pp19、Triton弹挂到角色身上，向第一把pp19的枪膛中拖入了一发pts，将4个pp19弹匣、2颗F1、放在背包中，向弹挂中装入了7组pst和一个乌鸦手枪弹匣，向角色身上拖入一把MP443乌鸦、一件PACA甲，试图拖入第二件弹挂和耳机但是失败，将bear帽子拖进角色，将伏特加拖入弹挂，将蓝油桶拖入背包，向弹挂拖入3个乌鸦弹匣，期间又试图拖入耳机，弹挂和第二把MP443但是失败，将两颗闪光弹拖入背包，将耳机拖入角色\n漫无目的的点了几下后回到了主界面",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局外管理",
+      "category_l3": "物资整理行为",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 31,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】查看了升级仓库方式（升版本）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局外管理",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 32,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【洞察】无目的的配装，多半为尝试自己是否可以装的上该物品\n【行为】Gssh-01耳机、bear帽子、PACA甲、两把PP19、MP443、Triton弹挂：弹挂内包含伏特加、7组pst、mp443弹匣、口袋内包括250000卢布、150000卢布、bear帽子、mp443弹匣、Berlut背包：背包内包含4个pp19弹匣、两颗F1、两颗闪光弹、蓝油桶、安全箱里放了一个Gssh-01耳机",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装顺序",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 33,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】全部为拖拽",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装交互方式",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 34,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】Gshh-01",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "安全箱内物品",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 35,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】在主界面发现角色血量过低时尝试了多种方式恢复，包括商人买血包（点了400包兑换配方），修甲，把甲拽人身上，但是无功而返，所以直接残血下图",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 36,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】挂机了一会，和空气斗智斗勇了一会，应该是在熟悉环境",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "出生点行为",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 37,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】检查点复活，开局挂机了一会，然后在帐篷里peek，出帐篷后在路上朝车开了几枪，按了下骂人触发了残血喘息，向绿超后走，听见绿超里打架向绿超方向跑，一路上莫名奇妙的peek，开枪，吸引了scav，和scav边打边骂，由于夜图无法索敌，没打过被喷子打死",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "路线选择",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 38,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】没打过scav，死亡",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "撤离时机&行为",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 39,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【策略】无目的性，哪里有信息朝哪里跑",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 40,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【战斗】朝信息源赶去途中",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗发生时机（POI？撤离途中？）",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 41,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【战斗】【19:00】听到scav叫声发觉有敌人，通过枪口火光确定位置，但是没打过",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗结果",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 42,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【洞察】使用默认配装，没有根据自身情况更换，也没有添加战局内可能使用的道具",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装顺序",
+      "session_order": 1,
+      "round_label": "COD DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 43,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】装模做样的选了地图和配装，查看了各种系统但是没有有效操作",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "COD DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 44,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】查看了地图，想标注去高危区路径但是不会，直到被打了开始逃跑",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "出生点行为",
+      "session_order": 1,
+      "round_label": "COD DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 45,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】在地图中无目的的乱转，没有做任务或抢资源点的规划， 有枪就换（中间有一次开地图标了去轰炸区的路线？）出生后被两波AI围攻使用自活后战胜-在去轰炸区路线上被AI突袭并碰到刷新的AI潮，逃跑过程中被玩家击败并救起加入队伍，后续随队伍走又被AI打死并放弃",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "路线选择",
+      "session_order": 1,
+      "round_label": "COD DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 46,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】标轰炸区，朝轰炸区跑",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "COD DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 47,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【战斗】遇到就打遇不到就转",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗发生时机（POI？撤离途中？）",
+      "session_order": 1,
+      "round_label": "COD DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 48,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【23:28】突脸扫掉第一波两个AI，但是操作失误换枪，未找到第二波开枪位置，被第二波打死，使用自活打掉第二波AI【25:25】在去轰炸区路上击杀了一名AI，在查看AI掉落物时被另两名AI攻击，将其反杀后碰到了大批AI刷新，途中遇到玩家被榴弹炸死但被救起【29:00】在和队伍下车后频繁与AI战斗1分钟后被AI打死并放弃",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗结果",
+      "session_order": 1,
+      "round_label": "COD DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 49,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】AI凋落物",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "搜了什么",
+      "session_order": 1,
+      "round_label": "COD DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 50,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】有就换，啥都看，不知道什么值得捡，也不搜物资",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "物品价值判断行为",
+      "session_order": 1,
+      "round_label": "COD DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 51,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【洞察】有注意观察配枪时的各项数据，并以此为依据改枪，但明显经验不足\n\n【行为】选择地图：海狮岛-配装：枪械1霍姆洛克camo迷彩+枪屏（配件：枪管series4-mr微调+0.5lb-0.4in、握把ftac ripper56微调+0.8oz-0.4gr、弹药高压弹微调-0.7g -9gr、瞄具cronmen mini pro微调-3oz、手枪握把sakin zx grip微调+1oz +0.29in）枪械2 已配好的5配威尔46\n道具：急救针+飞镖+悄无声息",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装顺序",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 52,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】观察了设置内的各项目，但未进行更改",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 53,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】在出生点附近开关镜、跑动、跳跃、开火、使用道具，应该是在熟悉手感",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "出生点行为",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 54,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】首先前往出生点前的要塞附近的建筑内，途中击杀两名AI，赶去刷AI的直升机旁打AI，之后前往就近的建筑碰到了玩家并被扫瞄，之后在附近建筑内搜刮但未拿取有用资源，之后去楼顶接取了武器保险箱任务，在前往任务地点途中击杀两名AI，后被玩家击杀并救起，之后随小队一起的战斗中被AI围攻击杀",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "路线选择",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 55,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】调整了鼠标灵敏度8-99-50.7，在地图上主动找任务目标（战局内），有其他游戏遗留习惯（杀完人扔飞镖、莫名其妙用急救针和技能）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 56,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【战斗】做任务途中战斗",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗发生时机（POI？撤离途中？）",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 57,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【9:20】击杀两名复活点前的AI【11:00】试图击杀直升机刷新的AI未果且受伤，后被玩家扫描但未战斗【13:10】在去任务地点途中击杀两名AI【13:40】听到玩家脚步试图偷袭但被贴脸近战击败【14:50】击杀一名AI【15:10】击杀一名AI后被另外两名AI击败",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗结果",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 58,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】自动拾取道具和子弹",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "搜刮结果",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 59,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】柜子、AI掉落物、自然生成物",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "搜了什么",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 60,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】枪械会与自己的比较、道具靠自动拾取",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "物品价值判断行为",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 61,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】只拿战斗物资，不拿赚钱的",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 62,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】选择地图：阿玛兹拉-装配：枪械1M4、枪械2EBR-14（全部为违禁品）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装顺序",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 63,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】查看了角色、皮肤、任务界面，并将地图换成了阿玛兹拉",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 64,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】在出生点附近开关镜、跑动、跳跃、开火",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "出生点行为",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 65,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【洞察】避战型：主动避免被动战斗，即使是AI\n\n【行为】大略熟悉环境之后标记了任务，并朝接任务点跑去，途中击杀两名AI，接取任务后（保护核装置）在前往途中被一队AI缠住，击杀三人后被最后一人近战击杀",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "路线选择",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 66,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】明显有射击基础，且有开镜精确瞄准习惯，相较于前两组G1操作要好很多",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 67,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【战斗】做任务途中战斗",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗发生时机（POI？撤离途中？）",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 68,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【22:25】在接任务途中与两名AI战斗击杀一人后离开，紧接着又击杀一名AI【23:40】在去任务地点途中遇到AI小队，击杀3人后被最后一人近战击败",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗结果",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 69,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】自动拾取道具和子弹",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "搜刮结果",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 70,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】选择地图冯德尔，配装：枪械1 霍姆洛克（之前玩家配好的）枪械二无，闪光弹，地雷，便携式雷达",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装顺序",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 71,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】查看了大菜单（应该是看看和本体的区别），查看了任务界面但是没看详情，配装时查看了角色皮肤界面",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 72,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】观察了周围环境，尝试了各种按键绑定在哪",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "出生点行为",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 73,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】直接朝出生点最近的建筑跑去，并搜刮了连着的两栋房子，出房屋后被AI小队包围，击杀4个AI后被剩余AI击杀",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "路线选择",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 74,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】开局见到敌人未开火，【42:10】使用地雷辅助击杀（看起来像误触了，歪打正着）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 75,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【战斗】搜索途中战斗",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗发生时机（POI？撤离途中？）",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 76,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【41：07】搜刮完出房门后被AI小队包围，击杀四名AI后死亡",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗结果",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 77,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】自动拾取道具和子弹",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "搜刮结果",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 78,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】工具箱、战利品袋、自然生成点",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "搜了什么",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 79,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】只拿金底高价值物品",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "物品价值判断行为",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 80,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】选择地图阿玛兹拉，配装：枪械1拉克曼762枪械二威尔46（全部为违禁品），闪光弹，手雷，便携式雷达",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装顺序",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 81,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】选图后查看了任务，查看了角色皮肤，查看了回保，选枪犹豫了很久",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 82,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】观察了周围环境",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "出生点行为",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 83,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】开局出生在灯塔，尝试往陆地走时被AI拦路，没有在远处打，在近点使用便携式雷达发现敌人，用手雷炸，无果后用枪击杀一名AI，被另一AI的燃烧瓶击败",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "路线选择",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 84,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【战斗】开局离开出生点时",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗发生时机（POI？撤离途中？）",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 85,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】击杀一名AI后死亡",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗结果",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 86,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】选择地图阿玛兹拉，配装：枪械1拉克曼762枪械二无（全部为违禁品），闪光弹，手雷，便携式雷达",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装顺序",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 87,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】查看了任务面板和详细任务，地图更改为海狮岛又改回阿玛兹拉（轮换了），查看了准备界面的各种ui，查看了商店和收藏界面",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 88,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】观察周围环境，开关镜",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "出生点行为",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 89,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】在出生点右侧建筑击杀两名AI，前往出生点前方的撤离点，在撤离点击杀AI小队（先拼抢杀死三个后被打残然后使用便携式雷达辅助击杀最后一个）后，有一名玩家跳伞在旁边的广告牌上，先手打残玩家后补甲，第二次交火没打过，死亡",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "路线选择",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 90,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【57:40】捡枪时F按成G扔了个雷然后走了",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 91,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】选择地图冯德尔，配装equip free loadout，闪光弹，手雷，便携式雷达",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装顺序",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R4"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 92,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】查看人物列表，反复点击回保，背包，道具的选择界面",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R4"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 93,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】观察环境发现和第一把出生点一样，看了自己什么枪",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "出生点行为",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R4"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 94,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】选择了和第一把一样的路线，进第一个房间搜索后出来身后刷新AI小队，击杀两人后阵亡",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "路线选择",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R4"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 95,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】在房间内突然扔了个雷，应该是误触或是和自己设置不同",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R4"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 96,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【战斗】搜素途中战斗",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗发生时机（POI？撤离途中？）",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R4"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 97,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】搜刮完第一间房后身后出现AI小队，击杀两名AI后死亡",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗结果",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R4"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 98,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】工具箱、战利品袋",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "搜了什么",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R4"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 99,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】和之前一样，不是金不拿（不拿道具和装甲？？）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "物品价值判断行为",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R4"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 100,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【1:04:50】反复打开第一个容器，可能因为没看清有啥，高级甲和新的道具都没有拿，是因为战区把基础甲删了之后入坑的不认识所以都当普通物资了？",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "COD-DMZ-R4"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 101,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【洞察】看任务——装枪/子弹——清空背包——整理安全箱/口袋——特殊槽位\n\n【行为】【配装】【第一局】副枪拖入仓库，看完任务后从箱子里拖出MCX .300放入仓库，想装AK-12但是又放回去了，改枪，弹匣选了AR-15 F1 St2, 瞄准一开始想选XPS3-0，最后选了FF3，花156$买完部件，拖入主武器；卸下holster；仓库内M700转90度，为了放下整个背包（拖入）；胸挂内两个弹匣拖入仓库；胸挂内和安全箱内子弹右击（胸挂清空）；安全箱内钥匙包拖入仓库，看了一圈仓库里其他钥匙包里的钥匙，最后回到一开始拖入的钥匙包里把工厂钥匙拖入安全箱（调整摆放位置）；看了一眼安全箱里injectors包，看了仓库里甲耳机头盔的箱子，还有T H I C C，然后是弹匣箱，MAG 5-60 5.56拖入胸挂，load preset 300 M62 x BCP，【插入00:22特殊行为】；仓库箱子里找弹匣，拖入胸挂，load preset满子弹；仓库箱子里点击了两个手雷进口袋；【插入00:23特殊行为】；胸挂里的BCP FMJ想拖回仓库，但没找到合适的地方，拖入胸挂一个GEN M3弹匣，load满子弹，把剩下M62和BCP FMJ子弹放入安全箱子；特殊槽位脱下两个camera；装备完毕",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装顺序",
+      "session_order": 1,
+      "round_label": "EFT - PVP - R1 + R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 102,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【交互】基本上拖拽，很少点击，子弹选择load present",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装交互方式",
+      "session_order": 1,
+      "round_label": "EFT - PVP - R1 + R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 103,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【第一局】第一排两个子弹，空格；第二排工厂钥匙，空格，Alu splint；第三排CMS，injectors包",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "安全箱内物品",
+      "session_order": 1,
+      "round_label": "EFT - PVP - R1 + R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 104,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【任务】【第一局】【00:19】选枪前先看了一眼任务，选择做The huntsman Path - Factory Chief （没选一开始看的The Punisher - Part 4）\n【行为】【配装】【00:22】load preset 300 M62 x BCP，拖向枪但又拖回，unload了所有子弹，右键其中一个M62子弹，filter by item，跳蚤市场，买了74个；回到胸挂，想拖入一个子弹进弹匣，但是又放弃，最终使用load present，然后弹匣拖入枪\n【行为】【配装】【00:22】满的60个子弹一个拖入安全箱，split成两个30，top-up其中一个到60，又top-up另一个到60（此时剩下的一个变成42）\n【行为】【设置】【00:23】调整了设置里面postFX但是又disable\n【行为】【配装】没有带背包",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "EFT - PVP - R1 + R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 105,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【保险】【第一局】选择出生在工厂，Insure了耳机，头，甲，枪，胸挂，眼镜，facecover；【00:23】Create group又放弃了？\n\n【行为】【保险】【第二局】选择出生在森林（时间选前半场），Insure其他不变，多加了 个背包，回仓库拿了iskra和hot rod（点开看了眼效果）放进背包，然后又拿了瓶水，放回去又拿出来，进入游戏",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "出生点行为",
+      "session_order": 1,
+      "round_label": "EFT - PVP - R1 + R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 106,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【第一局】出生在0号门广场隧道，走到尽头进两个房间，下楼梯，去地堡口看了一眼，返回隧道，转了一圈到地下大厅，到三柱下看了一眼，回到地下大厅（为了找BOSS），检查侧面坡，又看了两个坡，然后走隧道里的楼梯上楼（觉得2 players spawn here），开前面门看了一眼，【00:29】看到人，开枪，回到地下，扎黄针，在隧道看了一眼Health，把AFAK拖到了头上，用医疗包（腿）；回到坡看了一眼；听到背后声音；回到隧道楼梯看了一眼，背后冲出来两个人，打死一个Scav；回坡看；侧边又来Scav，打死，回隧道看，上隧道楼梯，补子弹（背包内拖拽），拖了一个弹匣到胸挂上层，试了下灯，出门看了一眼，回到隧道，从坡来到楼上，听到叫声，从隧道回地下，拐角碰见Boss，回头扎针，返回打死，显示任务完成，成就Call your Brother（有正反馈“here we go”），背包界面扎绿针；回坡搜刮Boss；补子弹换弹夹，回到地下大厅，从侧面坡上楼，来到帐篷后面走道，医疗帐篷门撤离\n\n\n【行为】【第二局】出生在地图最左上角树林，跑了一会儿听见scav的声音，在石头旁开镜【51:00】打死，爬上石头背面补子弹到背包弹匣，到另一块石头旁边，搜索，到大营地，先开镜检查四周，喝大果汁（哪里来的好像没看见），继续检查四周，到小营地，检查四周，搜刮，拿了地上的Lion，走了一圈，听到枪声在帐篷躲了一下，然后跑来跑去检查；【00:57】被打中腹部？扎黄针；瞄到石头上的USEC，被打中手臂，但是打死对方；跑到树林里打绷带；回去搜尸体，按部位治疗自己，吃了Iskra，喝水（回状态读条时补子弹），扎蓝针，（腹部恢复满，手臂恢复了一半，又跑了一会儿就满了）；跑回小营地附近石头，搜索；一路沿着电线塔路到了小石，扔掉了副枪；准备撤离，绕过了scav小屋和狙击石； 有点害怕extract camping（stressful），郊区成功撤离，走前还被人开了两枪",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "路线选择",
+      "session_order": 1,
+      "round_label": "EFT - PVP - R1 + R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 107,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【洞察】保守型 ：完成任务就撤，撤离时也很谨慎\n\n【行为】【撤离】【第一局】【00:34】完成任务就撤离，撤离读条时面对门，打开背包补子弹\n【行为】【撤离】【第二局】打死了两个以后撤离？",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "撤离时机&行为",
+      "session_order": 1,
+      "round_label": "EFT - PVP - R1 + R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 108,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【洞察】认真型：退出游戏前还不忘记关generator\n\n【行为】【配装】【第一局】【00:27】uninstall MBUS RS和MBUS FS\n【行为】【战斗】【第一局】【00:29】看见人，开枪，但没有打死，也没回头确认\n【行为】【恢复】【第一局】【00:34】结算界面补满health\n【行为】【藏身处】【第二局】退出游戏前还不忘关掉hideout的generator避免消耗物资",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "EFT - PVP - R1 + R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 109,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【战斗】【第一局】任务途中\n【行为】【战斗】【第二局】路上",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗发生时机（POI？撤离途中？）",
+      "session_order": 1,
+      "round_label": "EFT - PVP - R1 + R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 110,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【战斗】【第一局】1*对枪（未知身份），3*击杀（2*scav，1*boss）\n【行为】【战斗】【第二局】2*击杀（1*scav， 1*USEC）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗结果",
+      "session_order": 1,
+      "round_label": "EFT - PVP - R1 + R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 111,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【LOOT】【第一局】1*facecover，1*Saiga-12k，1*selva，4*手雷，1*L1\n【行为】【LOOT】【第二局】1*狗牌，1*LPS子弹，Mosin Infantry枪（拖入副枪), 肩挂里拿了PM II 3-1，急救包（直接用，剩下的拿走），1*Cond milk，1*humpbac （直接用）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "搜刮结果",
+      "session_order": 1,
+      "round_label": "EFT - PVP - R1 + R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 112,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【洞察】价值型 ：医疗物品放入安全箱 + Scav不搜刮\n【洞察】实用型 ：搜的物品能用就用\n\n【行为】【LOOT】【第一局】仅搜刮了boss\n【行为】【LOOT】【第二局】NaCi，灯泡，bear鸭舌帽（放回决定不拿），K-1S（放回决定不拿），洗发水，苹果汁， 42罐头?",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "搜了什么",
+      "session_order": 1,
+      "round_label": "EFT - PVP - R1 + R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 113,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【整理】【第一局】facecover（先拖入胸挂再search），Saiga-12k（拖入副枪），selva，手雷（点击进入胸挂），L1（先点击放入胸挂，再拖入安全包injectors小包）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "物品落位行为",
+      "session_order": 1,
+      "round_label": "EFT - PVP - R1 + R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 114,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【整理】【第一局】【00:39】L1拖入标签为first-aid的箱子里，又从箱子里拖出一黄针一绿针放入保险箱的药包里；卸下主枪弹匣，卸下弹匣内子弹，卸下安全包内子弹，右键弹匣load子弹，剩下子弹拖回保险箱；Destroy了B10M + B19，DVL-10 M2，MK12， AKM 308， Hydra，WD-40, Wires，Caps，Tube，Horse，2*PCB，Augmentin，Sodium；把药物放进first aid箱子，把主枪拖入仓库，发现gorilla放不下，又把主枪拖回身上，把gorilla拖入背包，尝试拖入副枪但发现还是放不下，又进行微调，然后才放进去；点开副枪看了眼配件；商人交易，卖掉副枪和gorilla",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局外管理",
+      "category_l3": "带出整理行为",
+      "session_order": 1,
+      "round_label": "EFT - PVP - R1 + R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 115,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【洞察】重整理型：经常微调，测试期间没有使用自动排序（但据说平时会用），箱子都有标签，华容道式整理基本都塞满不留空格\n\n\n【行为】【整理】【第一局】主枪换成M1A，右键清空一些子弹和弹匣（胸挂）和（安全箱），钥匙拖入docs；【00:41】主枪unload弹匣，弹匣unload子弹，子弹又装入弹匣，弹匣箱子里找了一圈发现没有多余的，于是买了三个，回到仓库发现其实原来还有一个，【00:42】拖入胸挂，又把新买的拖一个到胸挂，装一个到枪上，把一个子弹unload，子弹放进保险箱，topup，split成两个，分别topup，再把原来空弹匣load满；右键拿走一个手雷，微调胸挂摆放；装上了大背包，清空背包内所有物品；看了眼主枪（拖拽视角）；修复甲；把alu splint拖回仓库，拖入grizzly到保险箱，把salewa放回仓库first aid箱",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局外管理",
+      "category_l3": "物资整理行为",
+      "session_order": 1,
+      "round_label": "EFT - PVP - R1 + R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 116,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【洞察】任务型：会接很多任务，也会有所挑选\n\n\n【行为】【任务】【第一局】【00:35】左右拖动GP和AFAK （感觉像是思考时的小动作），点开大仓库里大背包看了一眼，来到hideout；商人，交任务，看了一眼别的任务，接受了大部分新任务，除了Skier仅接受了Easy money - Part 1和Safe Corridor；限时任务基本都没接受；然后清空了消息，Destroy了AKS-74，MP-153，从Showcase里面把6B43甲和Kiver-M头拖回仓库，微调了小部件的位置以后，再把M4A1拖入仓库\n【行为】【藏身处】【第二局】【00:43】回到设置，revert了，aim改成continuous；去到hideout，开灯，开generator，打靶，又看了一眼设置，revert，打靶，开瞄准试手感，准备排第二局\n【洞察】【整理】仓库箱子有使用标签，物资分门别类放在箱子里，钥匙包里钥匙按地图分",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局外管理",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "EFT - PVP - R1 + R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 117,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【洞察】危机意识型：始终紧张度高，撤离后才会放松",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "乐趣评价",
+      "category_l2": "战斗乐趣",
+      "category_l3": "过程&结果",
+      "session_order": 1,
+      "round_label": "EFT - PVP - R1 + R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 118,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【洞察】重策略轻战斗型：一般不PVP，直奔任务点/目标，求稳\n\n【访谈】【行为】四月以后就没玩过了，因为感觉蓝边有点cash grab/pay to win，瞬间下头\n【访谈】【印象】觉得这类游戏的共性是：都有pvpve；都是任务导向；都很紧张刺激；都有成长体系；觉得这类游戏每一局都有unique的体验，能拿到不同的东西；有挑战性，所以感觉reward正反馈强；能和朋友们一起玩\n【访谈】【习惯】【乐趣】喜欢SOLO，也和朋友玩，满载而归的感觉好\n【访谈】【习惯】不喜欢随机匹配\n【访谈】【机制】【乐趣】喜欢搜刮的随机性，但不好的地方是如果非常明确想要的东西但是一直搜不到\n【访谈】【模式】觉得pvpve挺好，有真人noise感觉essential\n【访谈】【RPG】觉得RPG挺好，但是more fun to unlock better equipment因为人物stats成长太慢感觉不值得grind，有时候升级武器就能弥补不足\n【闲聊】【声音】听说很多人抱怨spatial audio有时候buggy\n【闲聊】【策略】【第二局】【01:04】一开始打算继续的，后来想想还是missed play it safe， next step is playing a ritual for that\n【访谈】【配装】 不喜欢用现有的equip preset，觉得clunky，想要faster and easier re-equip character的功能\n【访谈】【整理】尝试不经常整理，除非没空间或者特别乱，会使用自动排序+container\n【访谈】【习惯】一般PVPVE，很少PVP（除非任务需要），play the game with my own routes avoid PVP，go straight to 目标（因为不然很容易死）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "乐趣评价",
+      "category_l2": "（若有）新手体验评价",
+      "category_l3": "有效性目标感吸引力",
+      "session_order": 1,
+      "round_label": "EFT - PVP - R1 + R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 119,
+    "speaker_id": "P7",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【访谈】【配装】枪/子弹——配件/药物",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装顺序",
+      "session_order": 1,
+      "round_label": null
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 120,
+    "speaker_id": "P7",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【访谈】【对比】【配装】比起塔科夫，DMZ开局前需要准备的东西比较少，也不像塔科夫那样realism\n【访谈】【对比】【机制】DMZ就是打架，而塔科夫玩法/策略更多，所以感觉没有塔科夫好玩",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "乐趣评价",
+      "category_l2": "（若有）新手体验评价",
+      "category_l3": "有效性目标感吸引力",
+      "session_order": 1,
+      "round_label": null
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 121,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】很熟练的速开了白图海关",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装顺序",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R1-SCAV"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 122,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】进游戏先改了设置",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R1-SCAV"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 123,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】检查弹药，把背包物品放进口袋，手雷设置快捷键，改画面设置（两次）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "出生点行为",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R1-SCAV"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 124,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】zb1011上复活，检查装备后从外侧跑进显卡房后门，上二楼从后往前搜，搜完后直接出楼，没有搜另一侧，在楼前油罐区转了一圈，准备从围墙缺口出去时被打死",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "路线选择",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R1-SCAV"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 125,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】搜显卡楼时扎了SJ12？",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R1-SCAV"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 126,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】转点过程中",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗发生时机（POI？撤离途中？）",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R1-SCAV"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 127,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【6：15】转点时被玩家scav偷袭死亡",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗结果",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R1-SCAV"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 128,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】啥都不拿",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "物品价值判断行为",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R1-SCAV"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 129,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【】不搜容器",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R1-SCAV"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 130,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】PACA甲，bear帽子，triton弹挂，AK74M，2个AK弹匣（弹挂），一组BP，berkuk背包，一瓶水（背包），止血带，车包（弹挂），止痛药，手雷，选择地图工厂白图",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装顺序",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 131,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】全部为快捷键",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装交互方式",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 132,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】医疗用品全绑了快捷键",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 133,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】检查弹药",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "出生点行为",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 134,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】1号门出生，从右手小门下地，在左手斜坡观察了1号门外的情况，回头在地下右侧遇到敌人，打死，治疗后搜刮， 继续向中场走发现一名玩家打死了大锤且正在搜刮于是偷袭击败敌人，治疗后搜刮，检查弹药后向3号门地下继续深入走，从工厂出口上来，在维修通道被敌人打死",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "路线选择",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 135,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【16：55】搜第二个包时扔出了一个400包，想捡别的腾地方，但是最后没捡",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 136,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】3次遭遇战",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗发生时机（POI？撤离途中？）",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 137,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】击杀两名PMC（有运气成分）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗结果",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 138,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【搜索】【第一次】ak103*1，razor耳机*1，bastion头盔（戴上），death shadow面具（带上），6B5-15弹挂（戴上）：包含F1*2，AK弹匣*2，AFAK*1，止血剂*1，狗牌\n【第二次】SA58（换下ak74m），bagarly弹挂，SA58弹匣*3，F1，RGD-5，止血带*2，T20背包：狗牌，AKS74UN，大锤头甲（未检视）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "搜刮结果",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 139,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】死亡后用了恢复服务",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局外管理",
+      "category_l3": "带出整理行为",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 140,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】PACA甲，PP19，triton弹挂：pp19弹匣*2，车包，bear帽子，Gssh-01耳机，止血带，夹板，安乃近止痛药，berkut背包，地图选择工厂白图，无AI无boss",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装顺序",
+      "session_order": 1,
+      "round_label": "EFT-TRAINING-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 141,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】全部为快捷键，部分东西本来在背包里被拖到了弹挂里",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装交互方式",
+      "session_order": 1,
+      "round_label": "EFT-TRAINING-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 142,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】凡士林",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "安全箱内物品",
+      "session_order": 1,
+      "round_label": "EFT-TRAINING-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 143,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】医疗用品全绑了快捷键，补了吃喝（绿军粮，水），使用了使用部分物品",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "EFT-TRAINING-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 144,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】检查弹药，观察环境，查看背包",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "出生点行为",
+      "session_order": 1,
+      "round_label": "EFT-TRAINING-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 145,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】医疗帐篷出生，从医疗帐篷前下地，一路跑到地下scav撤离点，又从办公楼外平台下上地上，随后进二楼浴室，发先没东西上三楼办公室搜， 然后从连廊跳蓝箱下一楼进3号门，没撤离，又折返进维修通道从一号门下地下撤离点但是没钥匙，然后从大厅回3号门撤离",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "路线选择",
+      "session_order": 1,
+      "round_label": "EFT-TRAINING-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 146,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【25：00】第一次没撤，转了一圈，啥也没干撤了",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "撤离时机&行为",
+      "session_order": 1,
+      "round_label": "EFT-TRAINING-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 147,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】保险箱",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "搜了什么",
+      "session_order": 1,
+      "round_label": "EFT-TRAINING-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 148,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】就搜了一样东西还没拿，不好判断",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "物品价值判断行为",
+      "session_order": 1,
+      "round_label": "EFT-TRAINING-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 149,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】配装和上把一样，选择地图中心区白图",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装顺序",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 150,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】凡士林",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "安全箱内物品",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 151,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】查看了中心区任务，游戏途中查了网页的中心区地图【31.50】",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 152,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】检查弹药，检查出生点周围",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "出生点行为",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 153,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】机枪楼出生，直接开门去对面酒店，在酒店门口大略检查之后直接窗口 进楼过闸机上二楼，开二楼走廊门后在二楼窗口架枪（地下侧），之后去另一面架枪（主路侧），没什么收获之后原路返回从左侧出楼 ，在斜坡上听到枪声，从右侧下主路到酒吧外围，检查摩天楼外围及大厅，到医疗中心侧时听到scav叫，挨打，但是没找到人，从正门逃进摩天楼内，从右侧下地下（厕所侧），过工具通道到后门，在后门大厅击杀一名SCAV，上外侧楼梯到医疗中心侧，沿医疗中心朝泰拉停车场方向走 ，进停车场转了一圈后沿主路左侧到黑车撤离点前被远处scav打，在机枪楼侧面听声音击杀了一名scav，随后进机枪楼，在自动扶梯处击杀一名scav，又从侧门出来被scav打，转而从正门出来，被多名scav包围，边打药边跑回二楼，扛铁丝网到二楼机枪台，朝泰拉楼门口开了几枪，搜刮了一下房间后在主路侧窗口架枪，检查了一下之后直接从二楼跳下，跑向泰拉楼，找了AI自杀",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "路线选择",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 154,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】做完任务就撤",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "撤离时机&行为",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 155,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】检查了很多莫名其妙的点位如【39：50】，地图熟悉度不高\n【41：25】重调单发/全自动【41：50】瞄了很多楼顶区域，不可能有人的地方\n【42：30】检查时静步但又很快取消【43：08】开枪破玻璃【43：25】下地下时颈部【44：45】击杀scav出后门后检查任务进度【45：30】看到很多尸体但是没搜【49：55】开机枪前查看任务进度【51：20】跳楼，吃止痛药 ，找AI自杀",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 156,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】撤离途中",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗发生时机（POI？撤离途中？）",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 157,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【战斗】【44：00】摩天楼后门击杀一名scav【45：55】停车场门口击杀一名scav【47：30】机枪楼侧门击杀一名scav【47：45】机枪楼自动扶梯处击杀一名scav",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗结果",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 158,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】AI2",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "搜刮结果",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 159,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】尸体，物资刷新点",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "搜了什么",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 160,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】只拿对战用的到的",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "物品价值判断行为",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 161,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】背包第一格，角色身上",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "物品落位行为",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 162,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】死亡后用了恢复服务",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局外管理",
+      "category_l3": "带出整理行为",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 163,
+    "speaker_id": "P9",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【洞察】装枪/子弹——清空背包——整理安全箱/口袋——装枪/子弹\n\n【行为】【第二局】【配装】买的子弹拖入安全箱，原来的子弹拖回仓库\n【行为】【第三局】【配装】脱下VPO，装上SKS，清空背包，胸挂上放入SKS弹匣，想要load到枪上，但是发现枪有internal弹匣，卸下，装上胸挂里的SKS弹匣，带上绿头盔；急救包，AI-2，Carlok拖入安全箱；unload弹匣，unload子弹（可能是想补满，但是又没有选项，看了一眼商店也放弃），装回弹匣，弹匣拖入背包；又装到枪上，开始游戏",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装顺序",
+      "session_order": 1,
+      "round_label": "EFT - PVP - SCAV R1 + PMC R2 + R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 164,
+    "speaker_id": "P9",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【交互】主要拖拽",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装交互方式",
+      "session_order": 1,
+      "round_label": "EFT - PVP - SCAV R1 + PMC R2 + R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 165,
+    "speaker_id": "P9",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【整理】1*子弹，1*急救包，1*calok B",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "安全箱内物品",
+      "session_order": 1,
+      "round_label": "EFT - PVP - SCAV R1 + PMC R2 + R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 166,
+    "speaker_id": "P9",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【物品使用】想买头盔但是没买（可能知道新手会送？）\n【行为】【00:48】配装的时候回时不时切到主界面（有时候甚至点开始游戏）然后再切回配装调整（不知道这是小动作还是真的忘了拿什么东西）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "EFT - PVP - SCAV R1 + PMC R2 + R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 167,
+    "speaker_id": "P9",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【第二局】Insure了耳机，甲，hoster枪，胸挂；看了一眼message，Receive all（Prapor给的胸挂，头盔和2*急救包，拖入仓库）；回到仓库界面，穿戴好，再次进入游戏\n\n【行为】【第三局】Insure头枪甲",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "出生点行为",
+      "session_order": 1,
+      "round_label": "EFT - PVP - SCAV R1 + PMC R2 + R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 168,
+    "speaker_id": "P9",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【第一局】【路线】选择出生在Reserve（后半场），出生在青青草原，跑到白马楼，搜索，出楼，到黑马楼继续搜，出楼；帐篷扫了一眼，回到大排档，看了一圈；跑到检查点围墙撤离\n\n【行为】【第二局】【路线】选择出生在Reserve（前半场，有风），我感觉他出生在邪教楼然后走地下去的皇后楼但是不确定，到皇后楼，开门上楼（走路慢而无声音，非常谨慎），在楼里搜，房间门口瞄了一会儿，搜；北门看了一眼，绕到西门出，进黑马楼搜，门口对战Scav，打死，搜刮，听到声音，跑到加油站，inspect枪，拿起枪看门口，被打中，躲起来医疗，埋伏了一会儿开了一枪，回头跑向大排档，下水道撤离\n\n【行为】【第三局】【路线】选择出生在Reserve（前半场，觉得7:53和19:53是shittime），出生在机头楼里，一直在楼里搜；到医疗楼，看了一圈，出门，对枪，被打死",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "路线选择",
+      "session_order": 1,
+      "round_label": "EFT - PVP - SCAV R1 + PMC R2 + R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 169,
+    "speaker_id": "P9",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【洞察】保守型 ：背包装得差不多满了/自己目标达成了就撤\n\n【行为】【撤离】环顾四周",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "撤离时机&行为",
+      "session_order": 1,
+      "round_label": "EFT - PVP - SCAV R1 + PMC R2 + R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 170,
+    "speaker_id": "P9",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【设置】【00:35】出生后不久打开设置enable了PostFX，调高了saturatio\n【行为】【设置】【00:36】打开设置，FOV拉到了75\n【行为】【00:59】看到尸体但是没搜",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "EFT - PVP - SCAV R1 + PMC R2 + R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 171,
+    "speaker_id": "P9",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【战斗】在搜索-撤离路上见到",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗发生时机（POI？撤离途中？）",
+      "session_order": 1,
+      "round_label": "EFT - PVP - SCAV R1 + PMC R2 + R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 172,
+    "speaker_id": "P9",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【战斗】1*击杀",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗结果",
+      "session_order": 1,
+      "round_label": "EFT - PVP - SCAV R1 + PMC R2 + R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 173,
+    "speaker_id": "P9",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【搜索】1* VPO-209（On Sling），1*TK FAST MT（戴上），1*AK ribbed（口袋）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "搜刮结果",
+      "session_order": 1,
+      "round_label": "EFT - PVP - SCAV R1 + PMC R2 + R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 174,
+    "speaker_id": "P9",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【洞察】价值型 ：高价值物品放入安全箱 + Scav不搜刮\n【洞察】实用型 ：搜的物品能用就用\n\n\n【行为】【第一局】【搜索】（衣服和箱子）1*Hose， 2*tape，1*Screws，1*bolts，1*Mustache（直接戴），1*wires，1*lamp，1*plexiglass，1*PRS，1*US，1*Hexagon SKS\n\n【行为】【第二局】【搜索】1*MTube，1*AA电池（胸挂），2*HotRod（一个直接喝），1*R电池（胸挂），1*EWR（胸挂）， 1*MCB，1*NaCi（胸挂），1*GoldChain（胸挂），1*Hose，1*firesteel，1*WD-40，1*Bolts，1*PP\n\n【行为】【第三局】【搜索】1*6B34眼镜（戴上），1*VKBO包（背包，搜了以后扔掉），1*Disk（胸挂-背包）1*Battle Gri （背包），1*门禁卡（保险箱），1*Meds（背包-胸挂），1*Hawk（背包），1*Shroud（背包-戴上）；2*Hose （背包-胸挂）；1*胶带（背包），1*Wrench（背包），1*RK-0（背包），1*AFG -D（背包-口袋）, 1*Vityaz （背包），1*RPK-16 tube （背包），1*Mcable（背包-保险箱）；1*苹果汁，1*42罐头？（背包），1*peas（背包，inspect了以后吃了一些），1*EWR（背包），1*cond milk（背包），1*iskra（胸挂，吃了一些），1*mayo（背包）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "搜了什么",
+      "session_order": 1,
+      "round_label": "EFT - PVP - SCAV R1 + PMC R2 + R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 175,
+    "speaker_id": "P9",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【洞察】高价值物品 （紫色）> 医疗物品 > 普通配件/食物\n\n【行为】【第二局】【搜索】【价值】inspect对比了自己身上的甲和MF-UN，拿了UN\n\n【行为】【第三局】【搜索】【价值】没拿emela，strike，malboro和crackers",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "物品价值判断行为",
+      "session_order": 1,
+      "round_label": "EFT - PVP - SCAV R1 + PMC R2 + R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 176,
+    "speaker_id": "P9",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【洞察】价值替换\n\n【行为】【第二局】【整理】【价值】1*Mtube放进保险箱，2*电池放进口袋；急救包从保险箱拿出放进口袋，腾出位置给1*MCB和1*EWR；EWR移出安全箱，替换goldchain；子弹放入胸挂，替换firesteel；扔掉了AAbattery，拿了Bolts；扔掉了WD-40；扔掉了R电池，拿了PP\n\n【行为】【第三局】【整理】【价值】急救包拖入胸挂，让保险箱空位给门禁卡，calok放入口袋，Disk放入口袋；AI-2移到口袋，让位给Mcable；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "物品落位行为",
+      "session_order": 1,
+      "round_label": "EFT - PVP - SCAV R1 + PMC R2 + R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 177,
+    "speaker_id": "P9",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【整理】搜索读条时会整理背包\n【行为】【整理】inspect了一下shroud，还跟主持人介绍\n【行为】【00:55】对着桌子开了一枪（不知道为啥，是手滑了？）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "EFT - PVP - SCAV R1 + PMC R2 + R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 178,
+    "speaker_id": "P9",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【洞察】轻整理型：先清空后整理，一次性交易完成\n\n【行为】【第一局】【整理】把胸挂，背包，口袋物品，耳机，holster枪，全部拖入仓库，把身上剩下的帽子和面具卖了，买了50发子弹和1*绿头盔\n\n【行为】【第二局】【整理】撤下所有东西，背上背包，枪，卸下弹匣，看了眼有的弹匣",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局外管理",
+      "category_l3": "带出整理行为",
+      "session_order": 1,
+      "round_label": "EFT - PVP - SCAV R1 + PMC R2 + R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 179,
+    "speaker_id": "P9",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【第二局】【整理】商人交易，想买把SKS枪，然后先把耳机（可能因为有两个一样的），送的胸挂，和搜的战利品头盔卖了",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局外管理",
+      "category_l3": "物资整理行为",
+      "session_order": 1,
+      "round_label": "EFT - PVP - SCAV R1 + PMC R2 + R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 180,
+    "speaker_id": "P9",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【洞察】重战斗型：喜欢战斗\n【洞察】地图仙人型：常玩某个特定地图\n【洞察】轻养成型：觉得养成对于长期目标有帮助，但感受一般\n\n【访谈】【乐趣】紧张刺激的杀人，搜刮，满载而归，尤其是枪（贵）；中彩票的心态；杀人过后拿狗牌也enjoy\n【访谈】【习惯】觉得自己是综合型的玩家（3条都符合），觉得搜刮成就感高，其次是战斗；习惯组队，觉得一个人玩太吓人，不安全感会降低乐趣；跟认识的人玩（还玩CSGO，Valorant，rust），don't trust random people\n【访谈】【模式】【乐趣】更喜欢PVP；PVE也还行，但是感觉BOSS太难打，又有aim bot\n【访谈】【RPG】【乐趣】喜欢任务（获得奖励），商人等级变高，更多武器\n【闲聊】【00:36】\"I like gets scared\"\n【闲聊】valorant从来不solo\n【洞察】【乐趣】当玩家第二轮满载而归的时候他正向反馈比较强 ”I’ve got a lot of staff ha ha“\n【闲聊】”The joke about tarkov is like usually you load up your character for like an hour and then you‘ll just die within like 10 min.“\n【闲聊】觉得工厂风险高回报少因为大家进去都是带烂装备\n【闲聊】wipe之后一般会先收集quest item，progress on the traders\n【闲聊】【第二局】【死亡】被打死之后说”This unpredictable is kind of annoying.\"",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "乐趣评价",
+      "category_l2": "（若有）新手体验评价",
+      "category_l3": "有效性目标感吸引力",
+      "session_order": 1,
+      "round_label": "EFT - PVP - SCAV R1 + PMC R2 + R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 181,
+    "speaker_id": "P10",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】comtac2耳机，bear帽子，PACA甲，CF面罩，AK74m，MP443手枪，Triton弹挂：ak弹夹*3，ai2，口袋：夹板，安乃近止痛药，军用绷带，绷带，Berkut背包：水，绿军粮，30发545ps，30发545bp，mp443弹匣*2，绷带，IFAK，选图森林夜图，无AI【第二局】海关夜图",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装顺序",
+      "session_order": 1,
+      "round_label": "EFT-Training-R1+R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 182,
+    "speaker_id": "P10",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【交互】主要拖拽",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装交互方式",
+      "session_order": 1,
+      "round_label": "EFT-Training-R1+R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 183,
+    "speaker_id": "P10",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】原本想直接开，然后又回去整理，查看技能，保存预设，任务，成就，商店，接取任务界面，第一次排不进去改成了练习模式",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "EFT-Training-R1+R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 184,
+    "speaker_id": "P10",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】夜图看不见，直接退了",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "出生点行为",
+      "session_order": 1,
+      "round_label": "EFT-Training-R1+R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 185,
+    "speaker_id": "P11",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】m32耳机，钢板头，death shadow面具，SR25，MP443，鱼鹰甲：400包，20发弹匣，25发弹匣，口袋：M67，F1，军用绷带，止血剂，PILLBOX背包：保温杯，MRE，400包，选图：街区白图（全投保）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装顺序",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 186,
+    "speaker_id": "P11",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【交互】主要拖拽",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装交互方式",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 187,
+    "speaker_id": "P11",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】5000卢布，骨折环，40发762X51fmj，熊包，小手术包",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "安全箱内物品",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 188,
+    "speaker_id": "P11",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】进游戏先检查设置变没变（应该是用的自己的号），市场里购买一半的熊包，接任务",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 189,
+    "speaker_id": "P11",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】检查物资，设定快捷键，改声音设置",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "出生点行为",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 190,
+    "speaker_id": "P11",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】出生在拱门右侧，向右跑进学校右侧后门，听到跳跃原地架枪，然后跟脚步找人，双方都找到对方，但是没打过",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "路线选择",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 191,
+    "speaker_id": "P11",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】开局出生点附件",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗发生时机（POI？撤离途中？）",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 192,
+    "speaker_id": "P11",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【战斗】【13：10】无掩体架枪，被拉出来秒了",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗结果",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 193,
+    "speaker_id": "P11",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】查看了击杀者的主页，被秒了想看看是不是开子",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局外管理",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 194,
+    "speaker_id": "P11",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】sordin耳机，6b47头盔，CF面罩，AK74，鱼鹰甲：ak弹匣*2，400包，口袋：AFAK,止血剂，attack2背包：水。鲑鱼罐头，选图：海关白图",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装顺序",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 195,
+    "speaker_id": "P11",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【交互】主要拖拽",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装交互方式",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 196,
+    "speaker_id": "P11",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】5000卢布，骨折环，60发545ps，熊包，小手术包",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "安全箱内物品",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 197,
+    "speaker_id": "P11",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】市场多次购买物品，多次直接出售杂物，本来有一套sr25的6套，然后换了",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 198,
+    "speaker_id": "P11",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】观察位置，移动到安全位置，查看撤离点",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "出生点行为",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 199,
+    "speaker_id": "P11",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】出生在新加油站右侧围栏缺口，朝铁路方向走，在铁路右侧听到玩家脚步，但是没打死，架了一会枪后在铁路左侧击杀了一名AI，从山坡后绕到新加油站左侧哨塔，，发现下方没人后，经过围栏缺口进油罐区，击杀了一名显卡房后门的AI，随后上显卡房在楼里听到脚步后静步架楼梯，等不住出去杀了，整理状态后，下楼被AI包围，击杀多4名AI后点掉了厂房上狙击手，又清理了附近的AI，在铁路边打好状态后，翻墙进二场，在二场架枪击杀了两名AI,从老加油站过新烂尾楼到路障撤离",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "路线选择",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 200,
+    "speaker_id": "P11",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】他似乎就没想着搜，好像就想给我们表演杀人撤离",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "撤离时机&行为",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 201,
+    "speaker_id": "P11",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】频繁查看时间和撤离点",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 202,
+    "speaker_id": "P11",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】撤离途中",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗发生时机（POI？撤离途中？）",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 203,
+    "speaker_id": "P11",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】全部为AI，全部击败",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗结果",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 204,
+    "speaker_id": "P11",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】hk416，mask面具",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "搜刮结果",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 205,
+    "speaker_id": "P11",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】尸体",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "搜了什么",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 206,
+    "speaker_id": "P11",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】上完带的子弹，拆战利品枪配件并比较价格最后出售给商人",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局外管理",
+      "category_l3": "物资整理行为",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 207,
+    "speaker_id": "P11",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】查看对战详细数据",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局外管理",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 208,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】选图：白图储备站",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装顺序",
+      "session_order": 1,
+      "round_label": "EFT-SCAV-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 209,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】收回保用拖",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装交互方式",
+      "session_order": 1,
+      "round_label": "EFT-SCAV-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 210,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】先收了回保，部分物品放进背包省空间（会叠包）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "EFT-SCAV-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 211,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】直奔右侧油罐车，沿油罐车去红砖楼",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "出生点行为",
+      "session_order": 1,
+      "round_label": "EFT-SCAV-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 212,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】出生在车站后警亭，过油罐区，在红砖前舔了scav尸体，然后从黑白马中间去白马途中被打死",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "路线选择",
+      "session_order": 1,
+      "round_label": "EFT-SCAV-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 213,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【6:28】开关手电",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "EFT-SCAV-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 214,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】搜索途中",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗发生时机（POI？撤离途中？）",
+      "session_order": 1,
+      "round_label": "EFT-SCAV-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 215,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】死亡",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗结果",
+      "session_order": 1,
+      "round_label": "EFT-SCAV-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 216,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】尸体",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "搜了什么",
+      "session_order": 1,
+      "round_label": "EFT-SCAV-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 217,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】比自己好的装备，可能用的上的物资（吃喝），钥匙",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "物品价值判断行为",
+      "session_order": 1,
+      "round_label": "EFT-SCAV-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 218,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】PACA甲，pp19，安保背心：pp19弹匣*2，Gssh-01耳机，PILLBOX背包）：红牛，士力架，水，口袋：止血带，绷带，选图：白图储备站",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装顺序",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 219,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】拖动",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装交互方式",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 220,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】AI2，车包，1发545PS（没清的）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "安全箱内物品",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 221,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】先用了Triton弹挂，并且先清空了弹挂和背包原本的东西",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 222,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】熟悉了周围环境，查看了时间和撤离点",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "出生点行为",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 223,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】出生在车站右侧油罐区，直奔白马楼后门，车库搜索无果后跳进二楼缺口，二楼搜索后原路返回，从白马正门进三楼，搜索一圈后进入房顶平台搜索，之后在三楼来会观察外围，听到脚步后走下一楼，发现人在外围后尝试寻找枪位未果，主动到围墙发现是scav并击杀，整理后去舔包，在一楼厕所整理后被scav堵门，击杀三名scav（期间卡壳，换枪），搜刮后听到枪声然后捡了第一次没捡到的mcx弹匣回来继续搜刮，去正门搜刮后回到三楼架枪，想翻窗未果，前往三楼平台和BOSS小弟对枪被雷炸死",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "路线选择",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 224,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【18：33】踹门找枪位，【19：10】问主持人怎么查看弹药，未果，【19：35】比较护甲然后更换【20：35】枪卡壳不会修，退弹好了之后又卡，然后问主持人怎么修（只会退单，不会用检查）还喊了枪坏的语音，然后主持人帮了一把 【22：10】尝试用545子弹给556弹匣装【24：28】查看撤离点，想翻有沙袋的窗子卡了一下bug",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 225,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】搜索途中",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗发生时机（POI？撤离途中？）",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 226,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【18：43】发现scav并击杀【20：24】被AI堵门，击杀3名scav【24：57】在3楼平台被BOSS小弟发现，对枪途中被雷炸死",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗结果",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 227,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【第一轮】.300mcx，Zhuk3甲，mcx弹匣【第二轮】mcx弹匣，炼乳，纸，果汁（直接喝），饼干",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "搜刮结果",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 228,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】绿木箱，资源刷新点，抽屉，武器箱，尸体，工具箱",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "搜了什么",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 229,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】卖的贵的物资，吃喝，比自己好的装备",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "物品价值判断行为",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 230,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】按顺序顺着放",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "物品落位行为",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 231,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】似乎看不懂武器耐久",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 232,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】PACA甲，PP19（后取消），Triton弹挂：pp19弹匣*2（后取消），AK弹匣*3，bear帽子（后取消），AK103（后取消），AK105,AK弹匣",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装顺序",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 233,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】全拖动",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装交互方式",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 234,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】AI2，车包，夹板",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "安全箱内物品",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 235,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【26：10】先准备进图才发现没起装备，起了AK103发现不是545口径（上不了弹匣）【27：40】去看商店啥也没买【28：25】 从弹匣中拆除30发545BP，然后点了查看关联（应该是点错了，估计想买子弹）【29：00】手动全投保",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 236,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】改了全自动又改回单发，查看撤离点，转了一圈",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "出生点行为",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 237,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】出生在大圆球警亭后，进入未上锁警亭，搜索后去大圆球后撤离点，发现撤不了，然后从左侧下山从铁丝网进哨站搜索，然后进坦克房，在坦克房转了一圈后想从白马缺口出，被架住，然后检查了后缺口，从正门出去过集装箱到加油站，从黑马后窗进黑马，上黑马二楼架枪，抽12连抽（只抽了3个），回到1楼从正门出来架黑马的人，没打过",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "路线选择",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 238,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【35：00】切换单/连发【35：42】搜索时检查弹药【36：40】查看撤离点【36：48】误触开枪(应该是鼠标不跟手点了一下)【37：27】准备迎战前切单/连发【39；45】查看撤离点",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "其他/特殊行为",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 239,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】搜索途中",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗发生时机（POI？撤离途中？）",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 240,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【37：25】逃离【41：25】死亡",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗结果",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 241,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】柜子，资源刷新点，衣服，抽屉",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "搜了什么",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 242,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】随心所欲拿",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "物品价值判断行为",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 243,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】没看出规律，随便摆的",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "物品落位行为",
+      "session_order": 1,
+      "round_label": "EFT-PVP-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 244,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】不顾一切先向前冲，被AI打了之后才停下",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "出生点行为",
+      "session_order": 2,
+      "round_label": "Arena Breakout-新手教程"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 245,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【策略】没有明确的目标，在经过新手指引后在新手对局依旧不清晰该干嘛，不会主动找资源点或打架",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "路线选择",
+      "session_order": 2,
+      "round_label": "Arena Breakout-新手教程"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 246,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【洞察】对于纯新手玩家依旧过于硬核，应该适当增加新手引导量；尤其是对操作面板的引导\n【特点】【行为】小心，步步跟随引导，甚至慢于引导；操作流畅度、连贯性极差，反应慢，定位差；由于对手游不熟悉且没有自定义按键，经常出现误触，操作失误；在新手引导后依然没有明确游戏目标，引导不出现就不知道该干嘛，来敌人就打，没敌人就转",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "其他/特殊行为",
+      "session_order": 2,
+      "round_label": "Arena Breakout-新手教程"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 247,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】跑动中被AI发现",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗发生时机（POI？撤离途中？）",
+      "session_order": 2,
+      "round_label": "Arena Breakout-新手教程"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 248,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】在引导下击败AI，由于操作问题打到没有子弹用刀击杀了最后一个AI特遣",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗结果",
+      "session_order": 2,
+      "round_label": "Arena Breakout-新手教程"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 249,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】MP133",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "搜刮结果",
+      "session_order": 2,
+      "round_label": "Arena Breakout-新手教程"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 250,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】中级武器箱、尸体",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "搜了什么",
+      "session_order": 2,
+      "round_label": "Arena Breakout-新手教程"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 251,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【策略】没有价值判断依据，乱捡",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "物品价值判断行为",
+      "session_order": 2,
+      "round_label": "Arena Breakout-新手教程"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 252,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】40发AR弹匣；用提示按键捡，操作能力极差【52:30】跟随引导想要挪动弹匣，第一次重叠挪动失败，第二次又打开了背包，从背包（打开的界面）挪到了背包（人物界面）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "物品落位行为",
+      "session_order": 2,
+      "round_label": "Arena Breakout-新手教程"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 253,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】未配装，直接下图（有默认配装在）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装顺序",
+      "session_order": 2,
+      "round_label": "EFT-TRAINING-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 254,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】调了离线参数（全中等），打的训练模式灯塔",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "其他/特殊行为",
+      "session_order": 2,
+      "round_label": "EFT-TRAINING-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 255,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】开着镜在出生点附近晃了一会，然后开始沿着马路走",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "出生点行为",
+      "session_order": 2,
+      "round_label": "EFT-TRAINING-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 256,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】出生在北部撤离点，沿着右侧滨海公路一直走，在前方t字路口遇到两个SCAV，被打死",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "路线选择",
+      "session_order": 2,
+      "round_label": "EFT-TRAINING-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 257,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】经常性开着镜子走",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "其他/特殊行为",
+      "session_order": 2,
+      "round_label": "EFT-TRAINING-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 258,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【战斗】遭遇战",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗发生时机（POI？撤离途中？）",
+      "session_order": 2,
+      "round_label": "EFT-TRAINING-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 259,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【42:30】沿公路走途中遇到两名AI被打出多处debuff，repeek被打死",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗结果",
+      "session_order": 2,
+      "round_label": "EFT-TRAINING-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 260,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】未配装，看了一下角色和总览，直接下图（有默认配装在）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装顺序",
+      "session_order": 2,
+      "round_label": "EFT-TRAINING-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 261,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】调了离线参数（低+中）游戏时间（白图），打的训练模式灯塔",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "其他/特殊行为",
+      "session_order": 2,
+      "round_label": "EFT-TRAINING-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 262,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】在出生点山上转了一会然后就下山朝公路走去",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "出生点行为",
+      "session_order": 2,
+      "round_label": "EFT-TRAINING-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 263,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】出生在蓝顶别墅山上，在山上小转了一会后下到匝道又走上了滨海主路，然后走了一会儿主动退了",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "路线选择",
+      "session_order": 2,
+      "round_label": "EFT-TRAINING-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 264,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【策略】【行为】没有主观探索动力，只愿意被动战斗，不清楚目标没有目的，所以经常愿意在主路上晃",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "其他/特殊行为",
+      "session_order": 2,
+      "round_label": "EFT-TRAINING-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 265,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【第一遍】PACA甲-AK74M-Triton弹挂-Berkut背包-MP443-背包内：两袋绿军粮、两瓶水、两个车包、一个AI2、一个安乃近止痛药、一个无菌绷带、一个夹板、两个高牛肉罐头、一个尼龙布，弹挂内：两组PST、一组545bp、一组545ps、4个mp443弹匣、两个pp19弹匣、95879卢布，口袋空-选择地图：工厂白图\n【第二遍】卸下卢布，安装Captain头套-工厂白图",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装顺序",
+      "session_order": 2,
+      "round_label": "EFT-TRAINING-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 266,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】整理用拖动，装备用右键-装备，背包内装物品用拖动",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装交互方式",
+      "session_order": 2,
+      "round_label": "EFT-TRAINING-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 267,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】Gssh-01（未清空，上个玩家留下的）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "安全箱内物品",
+      "session_order": 2,
+      "round_label": "EFT-TRAINING-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 268,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】先去商店-在仓库中将一把mp443拖到顶格-用物品分类标签查看仓库-将4个MP443弹匣排列到第三行-将pp19弹匣平移到左侧-购买了一个sks枪托-在仓库使用快捷装备查看每个部分有什么装备可以装（配装期间一直没关打开过的窗口）-查看了各种物品右键选项，【8:00】投保界面犹豫了很久，然后返回看了一会商店（俄商-大妈-黑商 ）查看了摩托车头盔，购买了captain头套-开始二次配装",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "其他/特殊行为",
+      "session_order": 2,
+      "round_label": "EFT-TRAINING-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 269,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】发呆-熟悉环境-出出生点后发现一件3m甲但是没捡",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "出生点行为",
+      "session_order": 2,
+      "round_label": "EFT-TRAINING-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 270,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】出生在休息室阁楼，出来朝左侧走到2号门右侧（尝试进左侧小门【13:15】），下地到对侧（帐篷后水箱区），上来后被PMC打死",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "路线选择",
+      "session_order": 2,
+      "round_label": "EFT-TRAINING-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 271,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】熟图途中",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗发生时机（POI？撤离途中？）",
+      "session_order": 2,
+      "round_label": "EFT-TRAINING-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 272,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】死亡",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗结果",
+      "session_order": 2,
+      "round_label": "EFT-TRAINING-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 273,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【12：55】看见东西了，但没搜",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "其他/特殊行为",
+      "session_order": 2,
+      "round_label": "EFT-TRAINING-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 274,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】看商店发现没什么想买的-开scav-街区白图",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装顺序",
+      "session_order": 2,
+      "round_label": "EFT-TRAINING-R2-SCAV"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 275,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】玩家似乎没有打开仓库的做法，而是打开商人两边一起看",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "其他/特殊行为",
+      "session_order": 2,
+      "round_label": "EFT-TRAINING-R2-SCAV"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 276,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】在出生点前后移动，静步，开镜，然后朝血色楼走去",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "出生点行为",
+      "session_order": 2,
+      "round_label": "EFT-TRAINING-R2-SCAV"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 277,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】出生在学校左侧下方，尝试进假门未果，跑向血色楼左侧，在左侧停顿并查看了装备，之后跑进血色楼（后门）从右侧通道进主楼梯，在尸体机箱哪里停下搜索尸体，上楼，在一楼右侧死角转了一圈，然后出门朝二号楼后门去，后门进不去，朝金店检查点走 ，路过路口时停下，被btr打死",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "路线选择",
+      "session_order": 2,
+      "round_label": "EFT-TRAINING-R2-SCAV"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 278,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【19：28】在血色楼左侧通道查看装备时多次误触控制台，并且查看了地图（空的）【20：20】朝尸体开枪，反复在尸体上跑跳才开始搜，玩家什么门都想尝试进",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "其他/特殊行为",
+      "session_order": 2,
+      "round_label": "EFT-TRAINING-R2-SCAV"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 279,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】被BTR锁定",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗发生时机（POI？撤离途中？）",
+      "session_order": 2,
+      "round_label": "EFT-TRAINING-R2-SCAV"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 280,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】死亡",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗结果",
+      "session_order": 2,
+      "round_label": "EFT-TRAINING-R2-SCAV"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 281,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "尸体",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "搜了什么",
+      "session_order": 2,
+      "round_label": "EFT-TRAINING-R2-SCAV"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 282,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】啥都拿",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "物品价值判断行为",
+      "session_order": 2,
+      "round_label": "EFT-TRAINING-R2-SCAV"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 283,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】高价值放口袋其他的从背包右下方开始叠",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "物品落位行为",
+      "session_order": 2,
+      "round_label": "EFT-TRAINING-R2-SCAV"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 284,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】查看了藏身处",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局外管理",
+      "category_l3": "其他/特殊行为",
+      "session_order": 2,
+      "round_label": "EFT-TRAINING-R2-SCAV"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 285,
+    "speaker_id": "P7",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【洞察】甲/头盔/配件——装枪/子弹——清空背包——整理安全箱/口袋——补给\n\n【行为】开始时身上什么都没有，先穿甲，然后胸挂，胸挂中耳机拖到身上，放回仓库三个急救包，AFAK，把morphine和vaseline移到最下层；拖入大背包，把套包放回仓库【04:47】操作问题，一开始拖不动；拿手雷到口袋；尝试拖枪VPO-101到身上，又没成功【04:47】BUG，inspect了一下枪，也没看出什么问题。点了一下保存了preset，又×掉，点进list of equipment kits看了一眼，尝试拖PP-91 Kedr和Saiga-9，但是又松手，然后拖成功了VPO-101，修枪，又放回背包，换成M4A1；拖入四个弹匣，拖子弹到安全箱；把安全箱里CMS放回仓库；穿面具；把罐头和水拖入背包；准备完毕",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装顺序",
+      "session_order": 2,
+      "round_label": "EFT - PVP - R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 286,
+    "speaker_id": "P7",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【交互】多数拖拽，少数小物件/快捷的通过右键",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装交互方式",
+      "session_order": 2,
+      "round_label": "EFT - PVP - R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 287,
+    "speaker_id": "P7",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【整理】1*子弹，1*PUB",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "安全箱内物品",
+      "session_order": 2,
+      "round_label": "EFT - PVP - R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 288,
+    "speaker_id": "P7",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【04:47】操作问题(应该是bug）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "其他/特殊行为",
+      "session_order": 2,
+      "round_label": "EFT - PVP - R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 289,
+    "speaker_id": "P7",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【物品使用】跑了两步，用了个vaseline",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "出生点行为",
+      "session_order": 2,
+      "round_label": "EFT - PVP - R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 290,
+    "speaker_id": "P7",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【路线】出生在Customs（前半场）的哨站门口，一路跑到电塔，搜索，然后往铁路跑，进入二层楼/三层楼外围草地上搜，简单搜完走，来到废弃帐篷继续搜，二层楼外听到枪声，想进厕所，但是有枪声，退回，开镜检查身后草地，又试探了一下厕所，决定离开，跑到旁边的草地，趴着，过了一会儿又冲回二层楼，往二楼楼梯口扔手雷，上楼梯试探，有枪响，退回，对枪，被打死",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "路线选择",
+      "session_order": 2,
+      "round_label": "EFT - PVP - R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 291,
+    "speaker_id": "P7",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【恢复】结算界面恢复满状态",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "撤离时机&行为",
+      "session_order": 2,
+      "round_label": "EFT - PVP - R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 292,
+    "speaker_id": "P7",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【路线】一开始选的Ground Zero（后半场）后来改主意",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "其他/特殊行为",
+      "session_order": 2,
+      "round_label": "EFT - PVP - R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 293,
+    "speaker_id": "P7",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【战斗】战斗发生在POI",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗发生时机（POI？撤离途中？）",
+      "session_order": 2,
+      "round_label": "EFT - PVP - R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 294,
+    "speaker_id": "P7",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【战斗】被打死",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗结果",
+      "session_order": 2,
+      "round_label": "EFT - PVP - R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 295,
+    "speaker_id": "P7",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【搜索】1*MK17（放进了胸挂又拿出来），1*SBA3（进背包），1*K-21KS，1*UTG，1*Old firesteel，1*Tetriz，1*waterfilter",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "搜了什么",
+      "session_order": 2,
+      "round_label": "EFT - PVP - R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 296,
+    "speaker_id": "P7",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【洞察】高价值物品 （紫色）> 医疗物品/子弹 > 普通配件/食物\n\n【行为】没拿弹匣和面具",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "物品价值判断行为",
+      "session_order": 2,
+      "round_label": "EFT - PVP - R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 297,
+    "speaker_id": "P7",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【整理】【04:57】把vaseline拖入保险箱，把LPS子弹拖入口袋，拿了tetriz发现放不进保险箱，把Rub拖入背包，腾出位置给tetriz",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "物品落位行为",
+      "session_order": 2,
+      "round_label": "EFT - PVP - R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 298,
+    "speaker_id": "P7",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【整理】搜索读条时会整理背包，把水放入胸挂\n【行为】【物品使用】【04:59】满状态用了vaseline？\n【行为】【结算】看了结算界面，开了12枪",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "其他/特殊行为",
+      "session_order": 2,
+      "round_label": "EFT - PVP - R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 299,
+    "speaker_id": "P7",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【整理】把Tetriz放入仓库（点击），把CMS放回安全箱，戴上耳机，背上背包和胸挂，清空，看了眼message（好像看到quest reward out of time），",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局外管理",
+      "category_l3": "带出整理行为",
+      "session_order": 2,
+      "round_label": "EFT - PVP - R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 300,
+    "speaker_id": "P7",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【洞察】轻整理型：没有特别需求/不满时不整理，整理时使用自动排序 + 手动微调\n\n【行为】【整理】【05:03】又想拖入VPO-101，但又不行，只能右键On Sling然后选（Bug）；\n【行为】【整理】然后AFAK拖入口袋，急救包拖入胸挂（转了90度）；3*bandage拖入口袋；2*Analgin、2*Esmarch拖入胸挂；\n【行为】【整理】跳蚤市场买3*弹匣，拖入胸挂；想load子弹发现没有，跳蚤市场买60个，load到弹匣",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局外管理",
+      "category_l3": "仓库整理行为",
+      "session_order": 2,
+      "round_label": "EFT - PVP - R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 301,
+    "speaker_id": "P7",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【整理】【05:05】想拖入钥匙到背包，但是放弃；开始整理套包，然后自动排序；\n【行为】【交易】【05:05】商人交易，卖出loot （ref还没解锁）\n【行为】【整理】交易完后返回仓库，带USEC上鸭舌帽；回到交易，买了paca甲，绿头盔，和面具；回到仓库戴上买的东西\n【行为】【整理】【05:06】发现耳机和头盔不compatible，卸下耳机\n【行为】【交易】商人交易，本来想在traders界面买，后来还是去跳蚤市场买了GHHS-01耳机；然后装备完毕",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局外管理",
+      "category_l3": "其他/特殊行为",
+      "session_order": 2,
+      "round_label": "EFT - PVP - R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 302,
+    "speaker_id": "P7",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【访谈】【乐趣】喜欢塔科夫的真实感；感觉Arena breakout和它很像；他们不太一样的地方是塔科夫的真实感有点punishing，其他游戏要更自由一点，输的少\n【访谈】【习惯】觉得自己是仓鼠型玩家（没有看出来/程度不高）；经常玩也更喜欢solo，因为对抢占loop非常competitive；solo时玩得仓鼠一点，之后跟朋友玩或者play hard的话负担小，更have fun\n【访谈】【模式】喜欢PVPVE结合，觉得这makes the game really good；\n【访谈】【RPG】喜欢progressing，任务focus（尤其在版本初期）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "乐趣评价",
+      "category_l2": "（若有）新手体验评价",
+      "category_l3": "有效性目标感吸引力",
+      "session_order": 2,
+      "round_label": "EFT - PVP - R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 303,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】选择地图：阿玛兹拉，配枪1：4配m4，配枪2：5配威尔46（全部为违禁品），道具：闪光弹，粘雷，便携雷达",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装顺序",
+      "session_order": 2,
+      "round_label": "DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 304,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】进游戏检查了键位，改了设置，4排",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "其他/特殊行为",
+      "session_order": 2,
+      "round_label": "DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 305,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】感受灵敏度，跟随队友，捡队友杀的AI凋落物，调灵敏度",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "出生点行为",
+      "session_order": 2,
+      "round_label": "DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 306,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】出生后跟随队友往建筑群走，路上击杀了三名AI然后跟随2号到制高点上开伞飞到河对岸，跟队友在楼顶架枪打开载具的玩家和AI的直升机，下楼舔包后去前方楼下舔了另一个队友打的包，然后回2号的楼坐电梯到楼顶，帮二号打死一人后打残楼对面的人，利用烟镜补掉，搜包补甲后架枪并捡了队友的弹药箱，回到第二个包的楼和队友一起搜，出门后救起第二个包的玩家，回到上个战场和队友舔包，下楼后打死三个AI，上了队友的车，在车上击杀一名AI，发现敌人后下车被玩家击杀（油厂），【1：11：35】被队友救起，救起后击杀三名附近的AI，上楼顶救队友时和玩家对战被击杀【1：15：35】被队友救起，打到一名敌人后被击杀",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "路线选择",
+      "session_order": 2,
+      "round_label": "DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 307,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【1：00：50】经常性切枪，跑跳滑铲蹲 （时机很怪）【1：01：10】改设置【1：05：40】改设置【1：07：10】救起路人【1：04：05】使用便携式雷达捡起弹药箱【1：08：40】为队友标记战利品，然后在楼顶打鸟？",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "其他/特殊行为",
+      "session_order": 2,
+      "round_label": "DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 308,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】遭遇战，主动蹲人，协助队友",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗发生时机（POI？撤离途中？）",
+      "session_order": 2,
+      "round_label": "DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 309,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【战斗】【1：00：00】在出生点附近击杀三名AI【1：02：55】助攻队友【1：04：45】击杀两名和队友打架的玩家【1：09：10】击杀三名AI【1：12：00】击杀3名AI【1：12：40】为救队友和玩家对打，同时倒地但对手有自救针，被反杀【1:15:45】被救起后打倒一名敌人后被其队友灭队",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗结果",
+      "session_order": 2,
+      "round_label": "DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 310,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【1：03：25】拉克曼556（玩家配装），精确空袭，甲板粘雷*2，子弹【1：04：00】夹板，弹药箱【1：05：10】sp-x80（先换了scar然后用拉克曼556换了狙），子弹【1：08：30】把spx80换成威尔46（玩家的）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "搜刮结果",
+      "session_order": 2,
+      "round_label": "DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 311,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【搜刮】尸体，抽屉",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "搜了什么",
+      "session_order": 2,
+      "round_label": "DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 312,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】配件更多更好的枪，对战用道具",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "物品价值判断行为",
+      "session_order": 2,
+      "round_label": "DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 313,
+    "speaker_id": "P8",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】不拿任何有价值的物资，只拿对战用的",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "其他/特殊行为",
+      "session_order": 2,
+      "round_label": "DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 314,
+    "speaker_id": "P10",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】自定义M4（配好的，看不了配件），威尔46（5配违禁品），医疗针，粘雷，弹药箱，三级包，三级甲，防毒面具，自救器，选图：冯德尔",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装顺序",
+      "session_order": 2,
+      "round_label": "DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 315,
+    "speaker_id": "P10",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】换了一个装备好的角色，并切给了另一个角色，查看了任务，在开始前又仔细看了战局任务",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "其他/特殊行为",
+      "session_order": 2,
+      "round_label": "DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 316,
+    "speaker_id": "P10",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】沿着河边边跑边架枪，在地图上标了目标点",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "出生点行为",
+      "session_order": 2,
+      "round_label": "DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 317,
+    "speaker_id": "P10",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】先按地图标点去自己标点的地方，路上碰到AI，利用屋内掩体拆分打，但敌人过多，倒后用自活继续战斗，搜索时遇到玩家并击败，清理完房屋AI朝箱子跑，但发现是装甲车没打，去河边接了找核材料任务，拿到盖格计数器后朝目标点河里找，找了一圈没找到（应该是看不懂），回岸上找，又下水找到了任务物品 ，上岸后朝反方行走，开了一辆装甲皮卡，并标记了撤离点，在车里点附近消灭了很多刷新的AI，最后撤离",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "路线选择",
+      "session_order": 2,
+      "round_label": "DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 318,
+    "speaker_id": "P10",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】任务做完就撤（局内任务）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "撤离时机&行为",
+      "session_order": 2,
+      "round_label": "DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 319,
+    "speaker_id": "P10",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【42：20】想接别的任务接不上【43：50】扔雷换物品炸到自己",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "其他/特殊行为",
+      "session_order": 2,
+      "round_label": "DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 320,
+    "speaker_id": "P10",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】遭遇战，撤离途中",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗发生时机（POI？撤离途中？）",
+      "session_order": 2,
+      "round_label": "DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 321,
+    "speaker_id": "P10",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【战斗】【35：20】去标点前碰到一名玩家击倒后进屋子里与大批AI对战【36：33】玩家在屋内第一时间没看到他，击杀第二名玩家并清理屋子【44：45】撤离时击杀大批刷新的AI",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗结果",
+      "session_order": 2,
+      "round_label": "DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 322,
+    "speaker_id": "P10",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】没搜尸体，只自动拾取夹板，子弹",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "搜刮结果",
+      "session_order": 2,
+      "round_label": "DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 323,
+    "speaker_id": "P10",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】箱子，柜子，任务，物资袋，医疗箱",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "搜了什么",
+      "session_order": 2,
+      "round_label": "DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 324,
+    "speaker_id": "P10",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】对对战有用，高价值优先",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "物品价值判断行为",
+      "session_order": 2,
+      "round_label": "DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 325,
+    "speaker_id": "P10",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】钥匙，玩家尸体，高级物品箱都没搜",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "其他/特殊行为",
+      "session_order": 2,
+      "round_label": "DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 326,
+    "speaker_id": "P11",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】选图：阿玛兹拉3排，配装：m4，瓦兹涅夫9k，烟雾弹，燃烧瓶，弹药箱，防毒面具",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装顺序",
+      "session_order": 2,
+      "round_label": "DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 327,
+    "speaker_id": "P11",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】开局先查看了各个大系统，包括配装，皮肤，任务等，匹配途中改了设置",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "其他/特殊行为",
+      "session_order": 2,
+      "round_label": "DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 328,
+    "speaker_id": "P11",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】改声音设置，跟队友跑",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "出生点行为",
+      "session_order": 2,
+      "round_label": "DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 329,
+    "speaker_id": "P11",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】跟队友跑进房区开始搜刮，尝试买东西但是没钱，然后和队友在要塞附近架枪，队友标记了警局，和队友一同前往，路上击杀了两名AI，清理并搜刮了警局后，查看了地图上的钥匙位置，分完物资后和队友开车去要塞，在打完要塞并搜刮完后标记了任务，途中被AI群围攻，倒下一次并用自救复活，任务完成后叫直升机，击败刷新的AI后撤离",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "路线选择",
+      "session_order": 2,
+      "round_label": "DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 330,
+    "speaker_id": "P11",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】任务做完就撤",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "撤离时机&行为",
+      "session_order": 2,
+      "round_label": "DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 331,
+    "speaker_id": "P11",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【1：02：10】从开局就一直在调声音【1：18：45】任务接了不做，都是队友在做",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "其他/特殊行为",
+      "session_order": 2,
+      "round_label": "DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 332,
+    "speaker_id": "P11",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】搜索途中，撤离途中",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗发生时机（POI？撤离途中？）",
+      "session_order": 2,
+      "round_label": "DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 333,
+    "speaker_id": "P11",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【战斗】【1：08：45】和队友一起打警局【1：13：25】和队友一起打要塞【1：16：25】任务途中被AI围攻，倒了一次，自活后杀完【1：18：35】撤离前杀完了撤离点前刷新的AI，全程基本都在打AI，就倒了一次",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗结果",
+      "session_order": 2,
+      "round_label": "DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 334,
+    "speaker_id": "P11",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】没搜尸体，只自动拾取夹板，子弹",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "搜刮结果",
+      "session_order": 2,
+      "round_label": "DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 335,
+    "speaker_id": "P11",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】高级物资箱，物资袋，尸体",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "搜了什么",
+      "session_order": 2,
+      "round_label": "DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 336,
+    "speaker_id": "P11",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】对战物品，高价值物品优先",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "物品价值判断行为",
+      "session_order": 2,
+      "round_label": "DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 337,
+    "speaker_id": "P11",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】查看了战利品",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局外管理",
+      "category_l3": "带出整理行为",
+      "session_order": 2,
+      "round_label": "DMZ-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 338,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】选图哥布林巢穴普通，美西，配装，默认配装",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装顺序",
+      "session_order": 2,
+      "round_label": "DAD-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 339,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】等待玩家时一直在射箭",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "其他/特殊行为",
+      "session_order": 2,
+      "round_label": "DAD-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 340,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】转头搜复活点旁的两个宝箱，然后开门",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "出生点行为",
+      "session_order": 2,
+      "round_label": "DAD-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 341,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】出生在哥布林房间，出门后沿隧道直走开右手门，弓箭击杀一只骷髅，搜索后去左边山洞引出一只骷髅，击杀并搜索后去右边洞穴，击杀一只骷髅和两只哥布林，继续向右探索，又击杀两名哥布林（第二只是远程），搜索后搜挂房间，继续往右探索，在‘哥布林强盗地区’碰到真人，被击杀",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "路线选择",
+      "session_order": 2,
+      "round_label": "DAD-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 342,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】战斗只射箭，不近战",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "其他/特殊行为",
+      "session_order": 2,
+      "round_label": "DAD-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 343,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】AI怪物量大，全程都在战斗",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗发生时机（POI？撤离途中？）",
+      "session_order": 2,
+      "round_label": "DAD-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 344,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【战斗】AI战斗全部胜利【55：35】真人战斗失败",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗结果",
+      "session_order": 2,
+      "round_label": "DAD-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 345,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】宝箱，尸体",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "搜了什么",
+      "session_order": 2,
+      "round_label": "DAD-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 346,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】战斗，职业相关优先",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "物品价值判断行为",
+      "session_order": 2,
+      "round_label": "DAD-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 347,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】快捷键自动落位",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "物品落位行为",
+      "session_order": 2,
+      "round_label": "DAD-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 348,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "不懂这游戏啊，可以把搜索再看一下（太快了看不清物品名）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "其他/特殊行为",
+      "session_order": 2,
+      "round_label": "DAD-R1"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 349,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】选图寒霜山脉普通，美西，配装，默认配装（似乎是死了就会发一套基础的）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装顺序",
+      "session_order": 2,
+      "round_label": "DAD-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 350,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】看见远处有哥布林，直接射击，没打到，被包围",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "出生点行为",
+      "session_order": 2,
+      "round_label": "DAD-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 351,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】出生在双子洞穴右下角，开局被3只远程哥布林包围，直接跳下二楼往左上角开门跑，到金字塔后又向上开四方路门，回头试图击杀金字塔内怪物，最后只击杀一个骷髅，跑回双子洞穴，被真人追杀，失败",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "路线选择",
+      "session_order": 2,
+      "round_label": "DAD-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 352,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】AI怪物量大，全程都在战斗",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗发生时机（POI？撤离途中？）",
+      "session_order": 2,
+      "round_label": "DAD-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 353,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【战斗】【58：20】和哥布林战斗未果【59：35】击杀一只骷髅【1：00：10】被玩家追杀，失败",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗结果",
+      "session_order": 2,
+      "round_label": "DAD-R2"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 354,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】选图哥布林巢穴普通，美西，配装，默认配装",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "开局配装",
+      "category_l3": "配装顺序",
+      "session_order": 2,
+      "round_label": "DAD-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 355,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】打复活点前的哥布林",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "出生点行为",
+      "session_order": 2,
+      "round_label": "DAD-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 356,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】出生在洞穴隧道，击杀附近敌人并搜刮了附近箱子，击杀了一个宝箱怪后，开门前往石坟B，碰到蜘蛛怪后逃跑，又在复活点附近遇到蜘蛛怪，无奈返回石坟与蜘蛛怪打，击败并搜索周边后遇到大批蜘蛛，跑进一个封闭房间搜索后去反方向的小房间，上二楼被蜘蛛包围，解决后洞穴震动，边打边退到隔壁，用祭坛回满血，与哥布林群战斗，通过机关后到三楼被砸死",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "路线选择",
+      "session_order": 2,
+      "round_label": "DAD-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 357,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【1：05：10】碰到宝箱怪，在陷阱附近溜怪【1：10：22】查看开关箱子的UI【1：11：25】开到了什么快关，有声音没画面【1：12：15】站在箱子上规避蜘蛛攻击，打蚊子，然后逐一解决蜘蛛【1：14：00】洞穴震动，停止搜刮，开始打怪逃跑跑【1：14：35】利用祭坛回满血",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "宏观路线",
+      "category_l3": "其他/特殊行为",
+      "session_order": 2,
+      "round_label": "DAD-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 358,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】AI怪物量大，全程都在战斗",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗发生时机（POI？撤离途中？）",
+      "session_order": 2,
+      "round_label": "DAD-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 359,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【战斗】AI战斗全部胜利【1：12：15】与大批蜘蛛战斗，利用地形获取优势",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内战斗",
+      "category_l3": "战斗结果",
+      "session_order": 2,
+      "round_label": "DAD-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 360,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】宝箱，尸体",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "搜了什么",
+      "session_order": 2,
+      "round_label": "DAD-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 361,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】战斗，职业相关优先（开始拿红物品，与职业无关）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "物品价值判断行为",
+      "session_order": 2,
+      "round_label": "DAD-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 362,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】快捷键自动落位",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "物品落位行为",
+      "session_order": 2,
+      "round_label": "DAD-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 363,
+    "speaker_id": "P12",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "不懂这游戏啊，可以把搜索再看一下（太快了看不清物品名）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "录像回溯",
+      "category_l2": "局内搜刮",
+      "category_l3": "其他/特殊行为",
+      "session_order": 2,
+      "round_label": "DAD-R3"
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 364,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【访谈】【DMZ】觉得DMZ是市面上最弱的extraction shooter，不好玩， 没用心做，感觉就是为了蹭热度，跟warzone基调不搭。更喜欢（像塔科夫这样的）slower pace，因为牵涉到 risk，希望玩得更有策略和方法；塔科夫还是同品类做得最好的；Division和这个游戏感受也有点像，也不错；最近玩 finals arena shooter (因为easy going);\n\n\n\n\n\n【访谈】给DMZ的评价：“The game mode was put together to ride the train, wasn't put togehter in mind, they could do better like where you will find enemies, the twitchy fast gameplay of COD doesn't match with the extraction shooter genre”；“playing war zone with extra steps”",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "其他访谈内容",
+      "category_l2": null,
+      "category_l3": null,
+      "session_order": null,
+      "round_label": null
+    }
+  },
+  {
+    "source_file": "枪战类长线新手体验研究/用户记录表.xlsx",
+    "segment_index": 365,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": null,
+    "original_text": "【行为】【体验】抱怨游戏loading太慢",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "玩家行为&乐趣整理",
+      "category_l1": "其他访谈内容",
+      "category_l2": null,
+      "category_l3": null,
+      "session_order": null,
+      "round_label": null
+    }
+  }
+]
