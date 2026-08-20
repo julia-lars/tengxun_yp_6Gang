@@ -40,4 +40,10 @@ ssh ${SERVER} "cd ${REMOTE_DIR} && \
   docker image prune -f"
 
 echo ""
+echo "🌱 5/5 种子数据（画像）..."
+ssh ${SERVER} "cd ${REMOTE_DIR} && \
+  docker compose --env-file .env.prod -f docker-compose.prod.yml \
+    run --rm --pull never api bun run apps/api/src/db/seed-personas.ts --force"
+
+echo ""
 echo "✅ 部署完成！访问 http://49.232.59.125"
