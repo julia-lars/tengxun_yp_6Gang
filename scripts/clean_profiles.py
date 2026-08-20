@@ -4,7 +4,7 @@ import json
 import os
 import re
 
-BASE = os.path.expanduser("~/projects/tengxun_yp_6Gang/data/sheets_processed")
+BASE = os.path.expanduser("~/projects/tengxun_yp_6Gang/data/群体画像")
 
 FILES = [
     "respondents_漫威争锋中美用户洞察研究.json",

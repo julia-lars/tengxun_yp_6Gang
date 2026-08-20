@@ -96,7 +96,7 @@ for row in table.rows:
     seg_idx += 1
 
 # Write first 3 segments to file for review
-outpath = os.path.join(r'data\sheets_data', '_sample_output.json')
+outpath = os.path.join(r'data\群体画像', '_sample_output.json')
 with open(outpath, 'w', encoding='utf-8') as f:
     json.dump(segments[:3], f, ensure_ascii=False, indent=2)
 print(f'Written to {outpath}')

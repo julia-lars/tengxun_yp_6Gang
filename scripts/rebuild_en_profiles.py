@@ -2,7 +2,7 @@
 """英文 respondents 用 segments 提取关键信息，生成中文 profile"""
 import json, os, re
 
-BASE = os.path.expanduser("~/projects/tengxun_yp_6Gang/data/sheets_processed")
+BASE = os.path.expanduser("~/projects/tengxun_yp_6Gang/data/群体画像")
 
 RESP_FILES = [
     "respondents_漫威争锋中美用户洞察研究.json",

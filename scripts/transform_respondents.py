@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""将 sheets_processed 的 respondents 格式对齐 sheets_data 规范"""
+"""将 群体画像 的 respondents 格式对齐规范"""
 import json
 import os
 import re
 
-BASE = os.path.expanduser("~/projects/tengxun_yp_6Gang/data/sheets_processed")
+BASE = os.path.expanduser("~/projects/tengxun_yp_6Gang/data/群体画像")
 
 FILES = [
     "respondents_漫威争锋中美用户洞察研究.json",

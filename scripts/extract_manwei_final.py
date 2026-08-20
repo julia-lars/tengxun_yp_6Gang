@@ -2,7 +2,7 @@
 import docx, re, os, json
 
 base = r'C:\Users\鸢尾\Desktop\腾讯-模拟用户\资料\虚拟用户-笔录 for 元培\虚拟用户-笔录 for 元培\漫威争锋中美用户洞察研究'
-outdir = r'data\sheets_data'
+outdir = r'data\群体画像'
 
 NOISE = re.compile(
     r'^[对是嗯好行可可以]+[，,。.]?$|'

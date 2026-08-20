@@ -81,6 +81,6 @@ sample = {
     'segment_sample': segments[0],
     'stats': f'{len(respondents)} respondents, {len(segments)} segments'
 }
-with open(r'data\sheets_data\_sample_v4.json', 'w', encoding='utf-8') as f:
+with open(r'data\群体画像\_sample_v4.json', 'w', encoding='utf-8') as f:
     json.dump(sample, f, ensure_ascii=False, indent=2)
 print('Done')

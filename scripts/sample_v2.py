@@ -120,7 +120,7 @@ out = {
     'total_respondents': len(respondents),
     'total_segments': len(segments)
 }
-outpath = os.path.join(r'data\sheets_data', '_sample_v2.json')
+outpath = os.path.join(r'data\群体画像', '_sample_v2.json')
 with open(outpath, 'w', encoding='utf-8') as f:
     json.dump(out, f, ensure_ascii=False, indent=2)
 print(f'Written to {outpath}')

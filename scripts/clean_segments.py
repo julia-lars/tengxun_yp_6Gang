@@ -1,7 +1,7 @@
 """Clean all 3 segments files: remove non-game, very short, or meaningless content."""
 import json, re, os
 
-indir = r'data\sheets_data'
+indir = r'data\群体画像'
 files = [
     'segments_漫威争锋中美用户洞察研究.json',
     'segments_美国HD端射击市场用户细分研究.json',

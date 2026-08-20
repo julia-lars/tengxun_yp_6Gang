@@ -51,8 +51,8 @@ MAX_TOKENS = 16000
 WORKERS = 4             # 并发线程数（太大可能触发代理限流）
 TEMP = 0.0
 SRC_DIRS = [
-    os.path.join(BASE_DIR, "data", "sheets_processed"),
-    os.path.join(BASE_DIR, "data", "sheets_data"),
+    os.path.join(BASE_DIR, "data", "群体画像"),
+    os.path.join(BASE_DIR, "data", "群体画像"),
 ]
 OUT_DIR = os.path.join(BASE_DIR, "data", "annotated")
 CKPT_DIR = os.path.join(OUT_DIR, ".checkpoint")

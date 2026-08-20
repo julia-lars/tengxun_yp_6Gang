@@ -1,7 +1,7 @@
 """Merge all 漫威争锋 outputs into 2 files: respondents + segments."""
 import json, os, glob
 
-indir = r'data\sheets_data'
+indir = r'data\群体画像'
 prefix = '漫威争锋中美用户洞察研究'
 
 # ---- Merge respondents ----

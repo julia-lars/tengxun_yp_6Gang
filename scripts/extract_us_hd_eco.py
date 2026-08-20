@@ -2,7 +2,7 @@
 import docx, re, os, json
 
 base = r'C:\Users\鸢尾\Desktop\腾讯-模拟用户\资料\虚拟用户-笔录 for 元培\虚拟用户-笔录 for 元培\美国HD端用户生态与决策链路研究'
-outdir = r'data\sheets_data'
+outdir = r'data\群体画像'
 prefix = '美国HD端用户生态与决策链路研究'
 
 FILE_INTRO_END = {
