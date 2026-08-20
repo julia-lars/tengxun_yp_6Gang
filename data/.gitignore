@@ -2,6 +2,8 @@
 *.json
 !segments_cleaned/
 !segments_cleaned/*.json
+!annotated/
+!annotated/*.json
 !sheets_data/
 !sheets_data/*.json
 !sheets_processed/
