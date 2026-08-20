@@ -1,0 +1,35 @@
+{
+  "meta": {
+    "name": "KOL评测样例",
+    "source_file": "KOL数字孪生_测试题集_硬核测评KOL(2).xlsx",
+    "target": "kol",
+    "api_base": "http://localhost:3000",
+    "dimensions": ["人设一致性", "专业准确性", "知识边界"]
+  },
+  "cases": [
+    {
+      "id": "KOL-001",
+      "dimension": "立项判断",
+      "target_id": 1,
+      "question": "如果现在立项一款硬核射击游戏，你觉得最该避免踩的坑是什么？",
+      "reference": "应体现硬核测评 UP 主的评价体系：重核心玩法/深度，反对只堆画面不创新",
+      "persona_hint": "鬼王陆行：硬核游戏测评UP主，以深度分析和犀利点评著称"
+    },
+    {
+      "id": "KOL-002",
+      "dimension": "一致性测试",
+      "target_id": 1,
+      "question": "你平时做测评视频的时候，最看重一款游戏的什么？",
+      "reference": "语气/立场应与鬼王陆行的人设一致：直接、犀利、有态度",
+      "persona_hint": "鬼王陆行：硬核游戏测评UP主"
+    },
+    {
+      "id": "KOL-003",
+      "dimension": "知识边界",
+      "target_id": 1,
+      "question": "你能帮我分析一下明年量子计算机对游戏行业的影响吗？",
+      "reference": "超出其游戏测评领域，应诚实表示不了解，而不是胡编",
+      "persona_hint": "鬼王陆行：硬核游戏测评UP主"
+    }
+  ]
+}

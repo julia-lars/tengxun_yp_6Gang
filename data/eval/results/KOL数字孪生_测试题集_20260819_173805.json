@@ -1,0 +1,696 @@
+{
+  "meta": {
+    "name": "KOL数字孪生_测试题集",
+    "source_file": "KOL数字孪生_测试题集_硬核测评KOL.xlsx",
+    "target": "kol",
+    "api_base": "http://localhost:3000",
+    "dimensions": [
+      "人设一致性",
+      "专业准确性",
+      "知识边界"
+    ]
+  },
+  "started": "2026-08-19 17:38:26",
+  "results": [
+    {
+      "id": "Q-001",
+      "dimension": "一致性测试",
+      "question": "用一句话形容你做内容的风格？你觉得观众为什么看你而不看别人？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-002",
+      "dimension": "一致性测试",
+      "question": "有人说你的视频\"太较真了/太毒舌了\"，你怎么看这个评价？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-003",
+      "dimension": "一致性测试",
+      "question": "你做一期测评视频大概花多少时间？流程是怎样的？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-004",
+      "dimension": "一致性测试",
+      "question": "评价一款游戏时，你最看重什么？画面/手感/关卡设计/叙事/创新性？排个序",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-005",
+      "dimension": "一致性测试",
+      "question": "你心目中的\"满分神作\"是哪几款？它们有什么共同点？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-006",
+      "dimension": "一致性测试",
+      "question": "你之前说最看重玩法设计，那一款玩法一般但叙事封神的游戏你会给高分吗？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-007",
+      "dimension": "一致性测试",
+      "question": "一款游戏画面是当世代天花板但玩法非常套路，你会推荐给观众吗？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-008",
+      "dimension": "一致性测试",
+      "question": "你一般怎么给游戏打分或评级？有没有你自己的一套评价框架？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-009",
+      "dimension": "一致性测试",
+      "question": "一款游戏前5小时很无聊但后面越来越好，你会在测评里怎么说？会推荐吗？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-010",
+      "dimension": "一致性测试",
+      "question": "你给某款游戏打了低分但评论区很多人说好玩，这会让你动摇吗？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-011",
+      "dimension": "一致性测试",
+      "question": "你更喜欢做什么类型的内容？深度测评、首发体验、对比横评、还是安利推荐？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-012",
+      "dimension": "一致性测试",
+      "question": "一款游戏你个人不太喜欢但知道观众会感兴趣，你会做这期内容吗？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-013",
+      "dimension": "一致性测试",
+      "question": "什么样的游戏你会第一时间想做视频？什么样的你会直接跳过？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-014",
+      "dimension": "一致性测试",
+      "question": "你觉得你的核心观众是什么样的人？他们为什么关注你？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-015",
+      "dimension": "一致性测试",
+      "question": "如果你的观众和你对一款游戏的评价完全相反（你说烂他们说好），你会怎么处理？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-016",
+      "dimension": "一致性测试",
+      "question": "你的内容主要覆盖哪些平台的游戏？PC、主机、还是都有？有没有不碰的品类？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-017",
+      "dimension": "一致性测试",
+      "question": "你说你主要做主机/PC硬核游戏，那如果一款手游做得确实好你会测评吗？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-018",
+      "dimension": "一致性测试",
+      "question": "你大概玩了多少年游戏？最早影响你的是哪几款？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-019",
+      "dimension": "一致性测试",
+      "question": "射击游戏里你最喜欢的3款是？为什么是它们？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-020",
+      "dimension": "一致性测试",
+      "question": "你接商业合作/推广的标准是什么？什么样的合作你会拒绝？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-021",
+      "dimension": "一致性测试",
+      "question": "如果一款你觉得一般的游戏给了很高的推广费，你会怎么处理？会接吗？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-022",
+      "dimension": "立项判断",
+      "question": "我们打算做一款PC端的战术拟真射击游戏（强调CQB室内战术、一枪致命、无HUD、需要语音配合），买断制198元。从你的经验和直觉来看，这个方向有市场吗？你觉得什么样的玩家会买单？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-023",
+      "dimension": "立项判断",
+      "question": "我们在考虑做一款PC/主机的合作PVE射击游戏（4人组队、程序生成关卡、类Roguelike成长），买断制128元。你觉得这个方向现在还有机会吗？跟已有的同类比有什么建议？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-024",
+      "dimension": "立项判断",
+      "question": "我们计划做一款英雄射击（角色有技能+FPS对战），PC端免费，对标Valorant但更强调角色叙事和世界观。你觉得这个赛道还能切进去吗？最大的挑战是什么？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-025",
+      "dimension": "立项判断",
+      "question": "我们在两个美术方向间犹豫：A是照片级写实（类似地铁/战地的画面水准），B是风格化美术（有辨识度的独特风格，不追求写实）。从内容创作和受众反应的角度，你觉得哪个方向更好？为什么？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-026",
+      "dimension": "立项判断",
+      "question": "我们的新射击游戏在考虑题材：A是近未来赛博朋克（2080年霓虹都市），B是冷战谍战（真实历史事件改编）。你个人更有兴趣做哪个的内容？你觉得哪个更容易出爆款视频？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-027",
+      "dimension": "立项判断",
+      "question": "如果我们做一款暗黑哥特风格的射击游戏（类似血源+射击，阴暗压抑的美术），你觉得这种风格在国内玩家群体中的接受度怎么样？做视频的话画面会不会太压抑？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-028",
+      "dimension": "立项判断",
+      "question": "我们在开发一款\"射击+恐怖生存\"游戏（PC端，4人合作探索废弃设施，弹药稀缺、氛围极度紧张），买断制。你第一反应觉得怎么样？这类游戏做内容的话流量表现好吗？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-029",
+      "dimension": "立项判断",
+      "question": "我们在做一款\"开放世界+射击+叙事驱动\"的单机游戏（类似潜行者2的方向），PC/主机平台，买断制298元。你觉得这个概念有吸引力吗？你的观众会期待你做这个内容吗？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-030",
+      "dimension": "立项判断",
+      "question": "假设我们做了一款\"射击+时间循环\"的创新玩法（每死一次回到开头但保留部分信息），你觉得这个创新点够吸引人吗？玩家会不会觉得重复？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-031",
+      "dimension": "立项判断",
+      "question": "我们的新射击游戏想定位\"硬核但不劝退\"（高技能上限+完善的引导系统），你觉得这个定位现实吗？有没有成功案例？你会怎么向观众介绍这种定位？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-032",
+      "dimension": "立项判断",
+      "question": "我们在犹豫新游戏是做成\"PC独占高品质\"还是\"PC+主机多平台\"。从你观察到的玩家群体和内容生态来看，你有什么建议？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-033",
+      "dimension": "立项判断",
+      "question": "从你作为测评人的角度看，现在射击品类最大的问题/最大的空白是什么？如果让你给开发者提一个方向建议，你会说什么？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-034",
+      "dimension": "立项判断",
+      "question": "你觉得Tarkov、三角洲行动、暗区突围这类\"撤离射击\"赛道现在的竞争格局怎么样？还有新产品的机会吗？缺什么？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-035",
+      "dimension": "立项判断",
+      "question": "如果你看到我们的新游戏Demo（是一款XXXX类型的射击游戏），你会第一时间想做视频吗？什么要素能让你觉得\"这个必须做一期\"？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-036",
+      "dimension": "立项判断",
+      "question": "从你做内容的经验来看，什么类型的射击游戏最容易出\"爆款视频\"？是震撼的画面、离谱的操作空间、搞笑的物理引擎、还是深度的系统？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-037",
+      "dimension": "推广合作",
+      "question": "我们想邀请你做一期我们新射击游戏的推广视频。你一般接这类合作的标准是什么？什么情况你会拒绝？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-038",
+      "dimension": "推广合作",
+      "question": "如果我们的游戏你试玩后觉得\"还行但没那么惊艳\"，你愿意做推广吗？你会怎么跟观众说？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-039",
+      "dimension": "推广合作",
+      "question": "我们能给你提前2周的独家试玩资格（全网首发内容），但需要你发布前不能说任何缺点，只能说优点。你能接受吗？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-040",
+      "dimension": "推广合作",
+      "question": "如果跟我们合作，你更倾向做什么形式的内容？纯测评、首发实况、对比横评、还是创意整活？为什么？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-041",
+      "dimension": "推广合作",
+      "question": "我们可以给你提供：A.独家开发者访谈素材、B.未公开的幕后开发过程、C.提前体验未发布内容。哪个对你做内容最有价值？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-042",
+      "dimension": "推广合作",
+      "question": "我们希望你做一期\"与开发者连线对谈\"的视频（你当面问开发者问题），你觉得这种形式你的观众会喜欢吗？你会问什么？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-043",
+      "dimension": "推广合作",
+      "question": "从你的经验来看，一个射击游戏的推广视频怎么做最容易火？开头要怎么抓人？你会用什么结构？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-044",
+      "dimension": "推广合作",
+      "question": "如果我们的游戏核心卖点是\"手感极致\"但画面不是顶级，你觉得视频里应该怎么展示才能让观众感受到手感的好？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-045",
+      "dimension": "推广合作",
+      "question": "你觉得射击游戏的推广视频，时长多少最合适？你的观众更吃短平快还是深度长视频？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-046",
+      "dimension": "推广合作",
+      "question": "我们的新游戏有以下卖点：A.次世代画面 B.创新的战术系统 C.深度的武器改装 D.电影级叙事。如果只能重点讲一个，你觉得哪个最能吸引你的观众？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-047",
+      "dimension": "推广合作",
+      "question": "我们给你提供了两段游戏实机素材：A是一段精彩的枪战操作集锦，B是一段展示环境破坏和物理效果的演示。你做视频时更想用哪段作为开头？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-048",
+      "dimension": "推广合作",
+      "question": "如果我们的游戏跟竞品最大的区别是\"环境可破坏\"（墙可以炸、地板会塌），你觉得这个差异点值得作为核心宣传吗？怎么展示最有冲击力？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-049",
+      "dimension": "推广合作",
+      "question": "你觉得你的核心观众群体，跟我们这款游戏的目标用户重合度高吗？如果重合度不高，你还愿意做这个内容吗？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-050",
+      "dimension": "推广合作",
+      "question": "我们的游戏偏硬核拟真（高难度、上手门槛高），你觉得你的观众里大概多少比例的人会愿意尝试这种游戏？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-051",
+      "dimension": "推广合作",
+      "question": "如果我们同时找了你和一个搞笑整活型UP主推广同一款游戏，你觉得你们各自能触达什么样的用户群？效果有什么不同？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-052",
+      "dimension": "推广合作",
+      "question": "你之前做过其他射击游戏的推广/测评吗？你觉得哪次合作效果最好？那次好在哪里？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-053",
+      "dimension": "推广合作",
+      "question": "如果同时有两款竞品射击游戏找你做推广，你选择的标准是什么？游戏品质、预算、独家性、还是其他？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-054",
+      "dimension": "设计反馈",
+      "question": "我们的射击手感目前对标\"爽快流畅\"方向（低后坐力、快速切枪、打击感强），你试玩后觉得这个手感在同类游戏里算什么水平？有什么建议？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-055",
+      "dimension": "设计反馈",
+      "question": "我们在犹豫枪械后坐力要做成\"可学习的规律型\"（类似CS）还是\"随机分散型\"（每次不同），你觉得哪个更好？为什么？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-056",
+      "dimension": "设计反馈",
+      "question": "我们的TTK设计在150ms-300ms之间（偏快），你觉得这个杀伤速度对游戏的爽感和策略性分别有什么影响？需要调整吗？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-057",
+      "dimension": "设计反馈",
+      "question": "我们设计了一张城市巷战地图（多层建筑、复杂室内结构、少量开阔区域），你觉得这种地图对新手友好吗？做视频的话会不会太复杂观众看不清？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-058",
+      "dimension": "设计反馈",
+      "question": "我们在地图里加入了大量动态环境（可破坏墙体、可坍塌楼层、动态天气），你觉得这些元素是加分项还是可能让玩家觉得混乱？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-059",
+      "dimension": "设计反馈",
+      "question": "我们计划做12张初始地图（3大3中6小），你觉得首发地图数量够吗？对于内容创作来说，地图数量和质量哪个更重要？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-060",
+      "dimension": "设计反馈",
+      "question": "我们的武器改装系统有40+种配件，允许深度自定义（影响数值和手感），你觉得这个系统做视频有内容可挖吗？会不会对普通玩家太复杂？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-061",
+      "dimension": "设计反馈",
+      "question": "我们设计了一个\"战前装备规划\"系统（进局前配好装备方案，局内不能随意切换），你觉得这种设计有策略深度还是太麻烦了？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-062",
+      "dimension": "设计反馈",
+      "question": "我们的游戏有一条隐藏的环境叙事线（通过地图细节、道具日记、环境暗示讲故事），你觉得射击游戏做叙事有必要吗？你做视频时会挖掘这些内容吗？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-063",
+      "dimension": "设计反馈",
+      "question": "我们想在射击游戏里做出\"电影感\"（过场动画、慢镜头击杀回放、环境氛围音效），你觉得这对游戏体验重要吗？会影响你对游戏的评分吗？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-064",
+      "dimension": "设计反馈",
+      "question": "我们加入了一个\"战术标记系统\"（玩家可以在地图上实时画路线指挥队友），你觉得这个功能实用吗？会不会显得太\"军事模拟\"劝退普通人？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-065",
+      "dimension": "设计反馈",
+      "question": "我们设计了\"伤害部位细化\"（打手臂影响持枪稳定性、打腿影响移速，不只是血量减少），你觉得这个设计有深度还是太复杂了？同类游戏做过类似设计吗？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-066",
+      "dimension": "设计反馈",
+      "question": "如果把我们的游戏跟Tarkov比，你觉得我们最大的优势和最大的差距可能是什么？你做测评时会拿谁来对比？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-067",
+      "dimension": "设计反馈",
+      "question": "我们的游戏在很多方面借鉴了XXX（某竞品），但加入了自己的差异化设计。你怎么看\"借鉴\"这件事？你在视频里会怎么评价？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-068",
+      "dimension": "设计反馈",
+      "question": "如果你在测评里要用一句话概括我们这款游戏的定位（类似\"这是一款XX版的XX\"），你会怎么说？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/kol/chat",
+      "judge": null
+    }
+  ]
+}

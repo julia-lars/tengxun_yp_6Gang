@@ -10,6 +10,10 @@
 !sheets_processed/*.json
 !kol/
 !kol/*.json
+!eval/
+!eval/results/
+!eval/results/*.json
+!eval/*.json
 !群体画像/
 !群体画像/*.json
 !README.md

@@ -1,0 +1,46 @@
+{
+  "meta": {
+    "name": "群体画像测试题集",
+    "source_file": "AI模拟用户画像_测试题集_射击类用户.xlsx",
+    "target": "persona",
+    "api_base": "http://localhost:3000",
+    "dimensions": [
+      "人设一致性",
+      "专业准确性",
+      "知识边界"
+    ]
+  },
+  "started": "2026-08-19 17:37:37",
+  "results": [
+    {
+      "id": "Q-001",
+      "dimension": "一致性测试",
+      "question": "你生活的环境是大城市还是小城市？周围玩射击游戏的人多吗？整体氛围怎么样？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-002",
+      "dimension": "一致性测试",
+      "question": "你平时一般在什么场景下玩游戏？是有固定的电脑桌还是随时掏手机来一把？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/chat",
+      "judge": null
+    },
+    {
+      "id": "Q-003",
+      "dimension": "一致性测试",
+      "question": "你感觉你周围的人一般玩什么类型的射击游戏？大家是PC多还是手机多？",
+      "reference": "",
+      "target_id": null,
+      "answer": "",
+      "error": "400 Client Error: Bad Request for url: http://localhost:3000/api/chat",
+      "judge": null
+    }
+  ]
+}
