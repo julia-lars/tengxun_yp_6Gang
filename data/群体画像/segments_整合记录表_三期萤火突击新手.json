@@ -1,0 +1,1645 @@
+[
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 1,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "开场",
+    "original_text": "感觉这个游戏是大逃杀之类饿，个人理解不确定",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "开场",
+      "sub_question": null,
+      "guide_design_notes": "加载读取一镜式，沉浸感更强，最终画面定格满地武器来凸显收集武器目标"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 2,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "恢复道具（搜寻、使用）",
+    "original_text": "没有搜寻更多",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡一",
+      "sub_question": "恢复道具（搜寻、使用）",
+      "guide_design_notes": "复习搜寻拾取，医疗包恢复教学，使用后恢复跑步\n仅通过文字来强调骨折、流血等健康状态，未针对健康度小人和debuff图标做延伸引导；"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 3,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "战斗场景（近距离敌人、舔包、击杀、换弹）",
+    "original_text": "“突然血扣了这么多优点疑问”",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡一",
+      "sub_question": "战斗场景（近距离敌人、舔包、击杀、换弹）",
+      "guide_design_notes": "首场战斗场景设计为连续战斗，刻画安全状态下拾取的游戏情景，同时制造紧张感"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 4,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "背包（背包剩余空间、丢弃）",
+    "original_text": "没有点击全部拾取，手动选择拾取，没有对背包有特别关注",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡一",
+      "sub_question": "背包（背包剩余空间、丢弃）",
+      "guide_design_notes": "持续给予“拾取全部”的操作指引\n当背包满时会自动触发背包引导，虽然有丢弃引导，但仅通过“通过拖动可以丢弃物品”的文字描述",
+      "feature_design_notes": "击杀敌人后弹出搜刮价值信息，能够在搜刮前有个基础的价值预判，左上角的搜集评分和金额可以快速"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 5,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "任务行进（远距离敌人、投掷武器）",
+    "original_text": "遭遇非常密集的战斗，连续遭遇三个敌人\n这个血条到底了应该没了呀，什么状况，是不是新手教程有那个\n“这个手枪能丢的吗？”",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡一",
+      "sub_question": "任务行进（远距离敌人、投掷武器）",
+      "guide_design_notes": "虽然路线指引提示很醒目，但并不强制玩家按路线行径，给予玩家一定探索空间来感受和适应搜刮玩法，期间战斗体验较为密集投掷武器的引导也只提供位置指引"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 6,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "任务道具（拾取、高价值物品）",
+    "original_text": "手动“背包在哪里？”自己发现背包“没有找到手枪，因为我想把手枪丢了”“管钳在哪里”手动拾取一开始没有捡起来管钳，后来再回去找似乎对于撤离点追击有",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡一",
+      "sub_question": "任务道具（拾取、高价值物品）",
+      "guide_design_notes": "任务设计上以拾取“工具”为任务目标，但是拾取列表中存在的“纪念金币”很难被玩家所忽视，搜集高价值道具的目标很容易形成整体流程基本上都是“先战斗后拾取”的节奏设定",
+      "feature_design_notes": "拾取里表中根据不同类型物品提供不同的快捷操作手段：弹夹-安装、武器/装备-替换、背包-整包"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 7,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "行动引导（角色控制）",
+    "original_text": "在行动引导前完成操作，没有提",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "安全屋教学一",
+      "sub_question": "行动引导（角色控制）",
+      "guide_design_notes": "背景镜头与场景融合度很高，发现是可活动的场景会有一定的惊喜感"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 8,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "游戏意愿度评分",
+    "original_text": "4分：不流畅扣分，感觉动作有点，和平精英玩多了就觉得这个流畅度不够",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "游戏意愿度评分",
+      "sub_question": null
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 9,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "战斗场景",
+    "original_text": "一直沿着任务路线行进，持续遭遇激烈战斗",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡二",
+      "sub_question": "战斗场景",
+      "guide_design_notes": "相同地图再次体验，玩家对于场景记忆还是比较清晰的，特别是工厂地图会比开放空间场景更易记忆\n熟悉的资源位置也在提示玩家固定资源点的存在"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 10,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "任务2（拾取KEL-8红点）",
+    "original_text": "被攻击后较快发现敌人位置捡东西依然保持手动拾取（拾取物资和捡战斗道具的观念转换）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡二",
+      "sub_question": "任务2（拾取KEL-8红点）",
+      "guide_design_notes": "设定远距离敌人攻击，来凸显瞄准镜的重要性"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 11,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "任务2（拾取KEL-8红点）",
+    "original_text": "拾取时物品栏满了，玩家一直想要拾取这个枪托“这个枪托要怎么捡起来？”“后来把东西丢了可以捡到了”",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡二",
+      "sub_question": "任务2（拾取KEL-8红点）",
+      "guide_design_notes": "任务点附近有大量配件，建立固定资源点认知\n基本到这里背包满载，需要进行背包管理，但是没有教学，完全靠玩家自己摸索"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 12,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "任务2（前往撤离点）",
+    "original_text": "玩家被击倒，选择了重返战场“重返战场我看看，哇重返战场什么东西都没了，就是有点穷”",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡二",
+      "sub_question": "任务2（前往撤离点）",
+      "guide_design_notes": "设计逃兵偷袭的桥段，给予玩家在场景中小心观察"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 13,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "任务2（前往撤离点）",
+    "original_text": "重返后就直接跟随任务路线到达撤离点，没有去捡自己\n“给人击杀了，我的东西全部给那个抢了”",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡二",
+      "sub_question": "任务2（前往撤离点）",
+      "guide_design_notes": "设计撤离点埋伏桥段，给予玩家在撤离点需要小心埋伏的情景建立\n整个关卡流程战斗密集"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 14,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "结算界面（快捷转移、前往避难所）",
+    "original_text": "这个游戏怎么跟逃离塔科夫一样呢，有看过一个主播经常玩这种，相当于把这些东西捡回来，撤离的时候，击杀的时候可以从别人身上扒装备来卖这种，感觉到和TKV玩法一样的“",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡二",
+      "sub_question": "结算界面（快捷转移、前往避难所）",
+      "guide_design_notes": "在教学关卡二结束后增加了快捷转移的引导教学内容",
+      "feature_design_notes": "价值结算很大程度上简化了玩家单局收益的判断负担，同时强化玩家的搜刮目标感"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 15,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "行动引导（）",
+    "original_text": "玩家不知道可以角色场景移动，一度找不到仓库在哪里",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "安全屋教学二",
+      "sub_question": "行动引导（）"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 16,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "改枪（任务入口进入、前往）",
+    "original_text": "先去交易所买了把，然后进入改枪完成任务，中间忘记改枪配件又返回任务去查看，多次往返后完成任务改枪条件",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "安全屋教学二",
+      "sub_question": "改枪（任务入口进入、前往）",
+      "guide_design_notes": "通过任务入口进入“提交”和“跟踪任务”同时出现，手指提示容易被忽略，更容易点击提交，可能导致场景中改枪区域未被引导"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 17,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "仓库（批量出售）",
+    "original_text": "“那我现在是要去买个枪啦，刚才我没抢了，交易市场在哪里？点开背包仓库，没有注意到到仓库升级的提示引导，查看不同物品”",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "安全屋教学二",
+      "sub_question": "仓库（批量出售）",
+      "guide_design_notes": "只引导出售按钮位置，没有针对具体卖什么怎么卖做后续引导，需要玩家自己摸索"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 18,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "仓库（升级）",
+    "original_text": "多次从任务界面进入到仓库都没有注意到仓库升级，3次后终于发现",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "安全屋教学二",
+      "sub_question": "仓库（升级）",
+      "guide_design_notes": "第二次仓库升级，流程和第一次一样，引导阶段给予两次升级可以建立短期目标感，对于局内收集资源的消耗方式建立认知"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 19,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "任务系统（接取关卡任务）",
+    "original_text": "发现出售物品任务，回到仓库进行物品出售\n【根据任务主线来推进游戏】“一般看到那个主线我都会做，我一般都会做完，看到有那个主线就有点强迫症，看着不舒服”",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "安全屋教学二",
+      "sub_question": "任务系统（接取关卡任务）",
+      "guide_design_notes": "强调携带背包的重要性"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 20,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "备战（携带背包）",
+    "original_text": "弹出携带背包提示没有理会，就该是匹配游戏",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "安全屋教学二",
+      "sub_question": "备战（携带背包）",
+      "guide_design_notes": "再次复习一遍携带背包和医疗物品的引导流程"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 21,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "游戏意愿度评分",
+    "original_text": "2分：意愿度不大，背包那些找半天都找不到，人也过来就没了，死得很快",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "游戏意愿度评分",
+      "sub_question": null
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 22,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "战斗场景",
+    "original_text": "玩家再次进入对局，因为没有携带背包，什么都不能捡起\n“背包在哪里？背包找不到”这游戏在局内没有办法捡到背包？-有但是比较少掉落",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡三",
+      "sub_question": "战斗场景",
+      "guide_design_notes": "更换了登场入口"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 23,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "战斗场景",
+    "original_text": "又被人背后偷袭打掉\n“从别人身上捡到了背包，现在就是不能死回到那个点”",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡三",
+      "sub_question": "战斗场景",
+      "guide_design_notes": "再次出现逃跑NPC，此时引导逃跑NPC可能会招来更多AI敌人（基于NPC的规则教学）"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 24,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "任务1（厂长钥匙）",
+    "original_text": "“又满了天呐”想捡物资没有捡起来，没有做",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡三",
+      "sub_question": "任务1（厂长钥匙）"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 25,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "任务2（开门取物）",
+    "original_text": "“剧情还是挺可以的，指引度如果不高的话就有点麻烦”\n捡到一把枪，觉得上海很高，怎么想到换枪的“刚才看到一个价值十一万多吧”“捡到紫色道具赚翻了赚翻了，赶紧跑”",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡三",
+      "sub_question": "任务2（开门取物）",
+      "guide_design_notes": "设计两个房间解锁，来突出钥匙的重要性，和锁住物资点高价值物品的认知建立"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 26,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "任务3（撤离且受伤小于1200）",
+    "original_text": "“子弹还是有些疑问，不知道要用什么子弹？”",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡三",
+      "sub_question": "任务3（撤离且受伤小于1200）",
+      "guide_design_notes": "根据任务要求，提示玩家不要惊动楼下的人，貌似想要玩家利用声音系统注意脚步声\n途中仍有伏击"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 27,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "任务3（撤离且受伤小于1200）",
+    "original_text": "“好像这把赚翻了，34万一次回来，还升级了，可以”",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡三",
+      "sub_question": "任务3（撤离且受伤小于1200）",
+      "guide_design_notes": "此次到达撤离点既没有追击，也没有埋伏，但可以看玩家自己有没有形成小心躲避的意识"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 28,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "属性成长（身体抗性）",
+    "original_text": "现在还是找不到我的仓库在哪里（非场景入口进入，不知道场景入口在哪里）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡三",
+      "sub_question": "属性成长（身体抗性）",
+      "guide_design_notes": "结合教学关卡三中要求玩家控制受伤的任务要求，弹出受伤累积的身体抗性的属性变化；没有提供专门的引导内容较为隐晦，要看下玩家能否感知到"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 29,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "任务系统（出售物品）",
+    "original_text": "卖东西还有点不理解，卖东西的时候有些枪啊，还能维修，我可以继续用这把枪\n背包里要自己去获取的，在游戏里面，然后把东西带回来，然后卖掉，还是有点懵，玩过去之后估计会好一点",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡三",
+      "sub_question": "任务系统（出售物品）",
+      "guide_design_notes": "复习出售，无引导"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 30,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "5等级解锁（签到、排位、新地图x2）",
+    "original_text": "在背包界面",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡三",
+      "sub_question": "5等级解锁（签到、排位、新地图x2）"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 31,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "游戏意愿度评分",
+    "original_text": "5分：找到人之后，东西又回来了，跟随任务在藏宝室拿到了，最后成功逃离还带回来了。但是有些功能还是不熟悉，如果自己玩过逃离塔科夫的话，可能很快就能上手",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "游戏意愿度评分",
+      "sub_question": null
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 32,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "开场",
+    "original_text": "下载界面：对比和平精英的话，和平的更加鲜艳一点吧看起来就是射击类游戏，感觉还是挺喜欢萤火突击，名字感觉一般，萤火会不会太弱了，萤火虫啊这种\n加载界面：末日生存的感觉，比较孤独吧",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "开场",
+      "sub_question": null,
+      "guide_design_notes": "加载读取一镜式，沉浸感更强，最终画面定格满地武器来凸显收集武器目标"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 33,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "世界观输入",
+    "original_text": "有一个开场动画，我自己体验没有看到，新更新的？",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "世界观输入",
+      "sub_question": null,
+      "guide_design_notes": "纯文字，较易理解"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 34,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "搜寻（打开、拾取全部）",
+    "original_text": "点击全部获取",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡一",
+      "sub_question": "搜寻（打开、拾取全部）",
+      "guide_design_notes": "搜寻仅提供操作指引，并没有强调或解释需要时间搜查，刻意淡化让玩家接受设定",
+      "feature_design_notes": "将TKV式“打开-搜寻-拾取”转变为了“搜寻-打开-搜寻-拾取”的方式，看起来步骤多了，但实际上是对搜集过程做了简化：用更短的时间允许玩家进行拾取操作，此时玩家可以选择全部拾取，也可以选择手动拾取，但手动拾取需要二次检索的时间，1次较长的检索拆分成2次，玩家感受上就会轻体验很多"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 35,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "恢复道具（搜寻、使用）",
+    "original_text": "主动打开背包，没有立刻跟随任务去领取恢复道具",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡一",
+      "sub_question": "恢复道具（搜寻、使用）",
+      "guide_design_notes": "复习搜寻拾取，医疗包恢复教学，使用后恢复跑步\n仅通过文字来强调骨折、流血等健康状态，未针对健康度小人和debuff图标做延伸引导；"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 36,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "恢复道具（搜寻、使用）",
+    "original_text": "没有跟随任务指示，从自己来的路上折回，后来发现开始跟随任务路线没有做沿途的自行探索",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡一",
+      "sub_question": "恢复道具（搜寻、使用）",
+      "guide_design_notes": "强引导路线之外设计可探索恢复道具内容，从指引变探索，复习搜集和恢复教学（包含两种拾取情景：舔包、场景搜集）",
+      "feature_design_notes": "拾取列表会展示物品价值以及栏位占用格数等信息\n拾取列表中的背包会有“整包”的功能（连包带走）"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 37,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "战斗场景（近距离敌人、舔包、击杀、换弹）",
+    "original_text": "近距离射击瞄不太到人\n舔包时是手动拾取，没有点击全部获取\n自己上2楼并跳了下来，没有发现腿部受损\n击杀敌人后舔包没有捡起来铭牌等价值物品\n多次射击战斗失利后开始更改自己的键位，调整为和平5指操作时的键位（把背包放到了，右手射击键 放到中间靠右区域，对拾取列表有一定遮挡）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡一",
+      "sub_question": "战斗场景（近距离敌人、舔包、击杀、换弹）",
+      "guide_design_notes": "首场战斗场景设计为连续战斗，刻画安全状态下拾取的游戏情景，同时制造紧张感"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 38,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "任务道具（拾取、高价值物品）",
+    "original_text": "开始拾取非战斗物资，但没有全部拾取，背包有空位状态下离开\n在撤离点被伏击后说怎么伤害这么高",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡一",
+      "sub_question": "任务道具（拾取、高价值物品）",
+      "guide_design_notes": "任务设计上以拾取“工具”为任务目标，但是拾取列表中存在的“纪念金币”很难被玩家所忽视，搜集高价值道具的目标很容易形成整体流程基本上都是“先战斗后拾取”的节奏设定",
+      "feature_design_notes": "拾取里表中根据不同类型物品提供不同的快捷操作手段：弹夹-安装、武器/装备-替换、背包-整包"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 39,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "任务结束（撤离点）",
+    "original_text": "没有拿到管钳就来到撤离点，撤离点会有NPC语音反馈提醒这里有点不理解，这个条件不足指的是我需要找这个管钳是吧，然后自己跟随引导拿到，并成功撤离",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡一",
+      "sub_question": "任务结束（撤离点）",
+      "guide_design_notes": "在撤离点处增加了敌人追击，给予玩家在撤离点需要小心追击的情景建立",
+      "feature_design_notes": "撤离点设计了警报系统，再次强化给玩家“警惕偷袭者”的提示"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 40,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "行动引导（角色控制）",
+    "original_text": "发现场景可移动自己点开角色查看，看到成长属性又开始调整按键布局灵敏度不是很适应，转向还有移动边走这里会很快，这个初始灵敏度给的太高，如果有射击类经验玩家会觉得很不习惯，太高了，我调低了一点",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "安全屋教学一",
+      "sub_question": "行动引导（角色控制）",
+      "guide_design_notes": "背景镜头与场景融合度很高，发现是可活动的场景会有一定的惊喜感"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 41,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "仓库（位置）",
+    "original_text": "没有跟随路线引导前往仓库在任务中看到要把仓库升到二级才跳转进入，把自己月球回收箱放进仓库后来发现升级入口把自己仓库升到了2级，然后把仓库中的弹药都放入到背包里",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "安全屋教学一",
+      "sub_question": "仓库（位置）",
+      "guide_design_notes": "安全屋内的路线引导全都采用了清晰的路线指引方式",
+      "feature_design_notes": "场景中会有区域文字提示，且各区域划分结构清晰，容易形成区域记忆"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 42,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "任务系统（界面入口）",
+    "original_text": "“我不知道接下来要干嘛，所以就跟着这个主线任务走吧”跳过仓库等路线上的引导，直接点击任务\n在任务中完成升级仓库后，找到仓库的任务还是没有完成？“找到仓库设施我刚才不是都找到了吗？”“他说我去仓库，但是点了跟踪后但没有指引，（过了很久发现地面指引）刚才没有注意到这个指引”后来主动发现交易中心“原来是在这里买的”",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "安全屋教学一",
+      "sub_question": "任务系统（界面入口）"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 43,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "出发（位置）",
+    "original_text": "在场景中转了很久去找任务中的巴夫工厂入口，后来有发现",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "安全屋教学一",
+      "sub_question": "出发（位置）",
+      "guide_design_notes": "玩家如果通过任务中点击“前往”，自身角色也会被移动到地图出发的场景位置中去"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 44,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "出发（身体检查）",
+    "original_text": "没有做任何操作",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "安全屋教学一",
+      "sub_question": "出发（身体检查）",
+      "feature_design_notes": "点击“出发”时弹出“身体检查”"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 45,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "游戏意愿度评分",
+    "original_text": "4分：觉得这人物操作有点笨重不是那么灵敏，不知道是不是因为我…（回答时被敌人击杀）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "游戏意愿度评分",
+      "sub_question": null
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 46,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "战斗场景",
+    "original_text": "开场没走几步就被击杀，犹豫了一下点击了重返战场，拾取了复活点位置的部分燃料物资，发现工厂二楼未解锁的门，了解了需要的钥匙\n结果在工厂中再次被击杀，这次没有选择复活，“哦，原来还会掉武器和装备的啊，可以寻回，因为看到它刚才有提示我死亡之后携带的材料和武器会遗留在里面”\n回到局外后再次开始设置调整灵敏度",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡二",
+      "sub_question": "战斗场景",
+      "guide_design_notes": "相同地图再次体验，玩家对于场景记忆还是比较清晰的，特别是工厂地图会比开放空间场景更易记忆\n熟悉的资源位置也在提示玩家固定资源点的存在"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 47,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "任务1（拾取AKS-74UN）",
+    "original_text": "跳过后面的安全屋引导（可能是闯关失败导致后续引导未能触发）直接开始战局，这次携带装备比较好（上场失败后的反应）\n瞄准射击时对于自己弹药不足发现较弱\n自己没血后，就一直逃跑并再次死亡，“他这个听声辩位，听得不清楚，我以为蓝色的那个是加血加能量的，但是使用了用不了，我以为是左下角那个夹雪加能量的，使用后提示我不足以XXX，没有仔细看”重新进入备战给自己弄了一身装备，再次进入对局（又花了100000+）“上把没有血包嘛，这次买了血包再次进入，上次只有一把枪，所以这次买了两把进来”\n不怎么进行拾取操作\n这个线是干什么呢？我室友看见有个门，我看到这里有个门，去办公二楼找一个什么，然后再找个钥匙，它好想要进入这个门，每次打开门都需要一个钥匙，包括上一把的时候看到小标识门的时候，猜测的。没有注意到自己，我记得这个2楼任务找到一把AKS的枪，在局外看到的任务要求获得，但是在局内只看到那个线下不知道要做什么。”回到局外后查看任务发现在局内没有完成\n应该要把主线任务和指引完成，一般游戏时都是这样吧包括主线任务会教你怎么去玩这个游戏\n目前为止我知道他的，整个游戏的历史背景包括要完成什么并不是很清楚，它的画风比较偏暗吧",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡二",
+      "sub_question": "任务1（拾取AKS-74UN）",
+      "guide_design_notes": "击倒玩家后可以选择救援，但是并没有相关的引导，玩家很容易感到困惑（可能会怀疑是不是误杀了友军）",
+      "feature_design_notes": "击倒敌人后具有救援功能，自动组队"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 48,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "任务1（拾取AKS-74UN）",
+    "original_text": "第4次进入这个教学关卡但是又很快被击倒，点击重返战场再次复活复活后击杀一个敌人又再次被击杀",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡二",
+      "sub_question": "任务1（拾取AKS-74UN）",
+      "guide_design_notes": "任务道具？/武器？点击拾取全部不会直接放入背包，需要玩家手动拾取？还是因为背包满了无法完成自动拾取？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 49,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "任务2（拾取KEL-8红点）",
+    "original_text": "第五次进入（这回清楚目标是带导轨的AKS，之前只知道AKS）途中看到配件物资不会捡一路跑到撤离点“这个门，这个左上角有写，之前都没看到，但我知道有这个任务，我现在跟着这个线去找”终于成功拾取到，路上的物资理由钱也没有捡这回走到撤离点\n主要他有个音效不是很适应",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡二",
+      "sub_question": "任务2（拾取KEL-8红点）",
+      "guide_design_notes": "设定远距离敌人攻击，来凸显瞄准镜的重要性"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 50,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "结算界面（快捷转移、前往避难所）",
+    "original_text": "终于进入到成功逃离的结算界面，看到自动整理，“这个界面就不知道是什么意思，自动整理还有这个转移，还是我每次拾取到的东西可以直接卖出去的“，把仓库里的装备跟自身做了替换，“仓库的可以和携带的做替换，把好的和坏的替换了一下，然后把坏的给卖了”",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡二",
+      "sub_question": "结算界面（快捷转移、前往避难所）",
+      "guide_design_notes": "在教学关卡二结束后增加了快捷转移的引导教学内容",
+      "feature_design_notes": "价值结算很大程度上简化了玩家单局收益的判断负担，同时强化玩家的搜刮目标感"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 51,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "任务系统（领取奖励）",
+    "original_text": "第五次终于领取奖励",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "安全屋教学二",
+      "sub_question": "任务系统（领取奖励）"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 52,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "改枪（解锁改枪系统）",
+    "original_text": "看到可以改装枪械",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "安全屋教学二",
+      "sub_question": "改枪（解锁改枪系统）",
+      "guide_design_notes": "指引领取任务后解锁改枪系统"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 53,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "改枪（任务入口进入、前往）",
+    "original_text": "又到主线任务中去跟随任务改装，进入改枪界面后又忘了具体要改造什么重新返回任务查看，在提交枪械界面弹窗中没有获取到有效的改装信息，这回成功提交了任务",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "安全屋教学二",
+      "sub_question": "改枪（任务入口进入、前往）",
+      "guide_design_notes": "通过任务入口进入“提交”和“跟踪任务”同时出现，手指提示容易被忽略，更容易点击提交，可能导致场景中改枪区域未被引导"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 54,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "改枪（装配、快捷购买）",
+    "original_text": "发现有很多任务，接下来做出售任务进入仓库又返回任务查看，确定20000要求后再次任务进入仓库，选择一些用不了的子弹进行出售（前面几轮体验下来没见到什么售卖的物资）接取厂长钥匙任务",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "安全屋教学二",
+      "sub_question": "改枪（装配、快捷购买）",
+      "guide_design_notes": "任务设计3个改装配件，其中弹匣设计成快捷购买形式，玩家可以体验到配件不足时直接购买的流程"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 55,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "备战（携带背包）",
+    "original_text": "第五次进入前基本的头甲、包括主武器，每一次需要新的钱，会选自动步枪，对整个操作不太熟悉的话，带自动步枪会稳妥点，甲我一开始发现是要钱的，我就选的低一点，现在看不需要钱就选高的（仓库里有自己不清楚），枪会带两把枪进去，看到初始的子弹，我会买扩容（我不提示就完了），刚才没配好\n点击使用方案配装后会点保存配置，提醒后不保存了",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "安全屋教学二",
+      "sub_question": "备战（携带背包）",
+      "guide_design_notes": "再次复习一遍携带背包和医疗物品的引导流程"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 56,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "备战（携带医疗道具）",
+    "original_text": "进入教学关卡3前，在备战",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "安全屋教学二",
+      "sub_question": "备战（携带医疗道具）",
+      "guide_design_notes": "携带医疗物品引导师，首次强调“战败会丢失身上所有资源”"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 57,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "出发",
+    "original_text": "跳过上面所有引导，再次开始对局，在备战界面选择上阵武器，“感觉有点乱，我现在应该还是新手指引的阶段吧，就是死得太快了，第一把刚进去的时候，跟那个人射击感觉自己瞬间就是没有，前两把感觉游戏体验不是很好”\n在备战中选择了“新手配装”，“个十百千万，十多万，我要看下我有多少钱，我现在有多少钱呢？刚才我看到自己的身价感觉不是，我现在要去找我有多少钱”最后在仓库里看到自己的金额，回到备战，又调整为当前配装，手动更换了头盔、背包什么的，每个部位都有花费，并保存了自己的配装方案，开始游戏（花费140000+，自己只有230000）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "安全屋教学二",
+      "sub_question": "出发",
+      "guide_design_notes": "投保、出发、身体检查、组队房间不再提供引导"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 58,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "游戏意愿度评分",
+    "original_text": "（4次进入工厂完成任务失败）3分：不太会了，他整个虽然有主线任务，但是指引比较低，作为新手玩家去玩怎么射击，仓库的意义，每次进去拿那把枪这些指引，这些都没有，上手难度还是挺高的哦，死了之后装备会掉落，上一局的受伤害还要治疗，还有枪声 分辨敌人找不太到，不知道携带的原因，现在这个场景里我都不知道要做些什么，只能看到这边的看到的主线任务 ，只知道跟着这个任务走，刚才领取奖励提示我仓库满了，所以仓库里还是丢掉的，而且每一次死了都要重新买就很麻烦。\n3分：感觉整个击杀的射击感，包括游戏进程，包括游戏界面，游戏里面的地图啊包括里面布局，局内，很暗不太鲜艳，色系偏暗，在里面发现敌人比较难，但是枪声提示和语音提示没有帮助我不快速的判断敌人在哪里，局外也是乱乱的我觉得。",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "游戏意愿度评分",
+      "sub_question": null
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 59,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "战斗场景",
+    "original_text": "这次跟随任务线路行进来到办公室寻找钥匙，但是没有看到守卫，找了半天发现在柜子里",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡三",
+      "sub_question": "战斗场景",
+      "guide_design_notes": "更换了登场入口"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 60,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "任务1（厂长钥匙）",
+    "original_text": "这次跟随任务线路行进来到办公室寻找钥匙，但是没有看到守卫，找了半天发现在柜子里",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡三",
+      "sub_question": "任务1（厂长钥匙）"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 61,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "任务2（开门取物）",
+    "original_text": "跟随任务找到门并领取物资在领取更多物资的任务没完成时就开始进行撤离且受伤小于的任务“没有注意到更换了任务描述”以为已经完成了",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡三",
+      "sub_question": "任务2（开门取物）",
+      "guide_design_notes": "设计两个房间解锁，来突出钥匙的重要性，和锁住物资点高价值物品的认知建立"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 62,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "任务3（撤离且受伤小于1200）",
+    "original_text": "路上盒子箱子都不捡，“感觉里面都是没有用的 物资，因为我现在主要目的是撤离不被敌人打到”",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡三",
+      "sub_question": "任务3（撤离且受伤小于1200）",
+      "guide_design_notes": "根据任务要求，提示玩家不要惊动楼下的人，貌似想要玩家利用声音系统注意脚步声\n途中仍有伏击"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 63,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "任务3（撤离且受伤小于1200）",
+    "original_text": "“又到这个界面了，不太理解，这个界面太多了好乱，也没有很具体的告诉我干什么，我只能自己摸索，这里可以替换，可以换到钱，这里可以卖不知道会不会对后续进程也，不敢卖”\n战利品转移，这个转移我又按过一次，我不能理解具体是什么意思，不敢动它，（要求下完成）“感觉我已装备的东西都放入仓库里，比如我的3级护甲血包、我的扩容，包括我的子弹，都放进去了”又给装了回来“我已装备的我的理解是说，如果全都放到仓库，我下一局进入对局就什么都没有”",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡三",
+      "sub_question": "任务3（撤离且受伤小于1200）",
+      "guide_design_notes": "此次到达撤离点既没有追击，也没有埋伏，但可以看玩家自己有没有形成小心躲避的意识"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 64,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "任务系统（领取奖励）",
+    "original_text": "出来后优先领取奖励",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡三",
+      "sub_question": "任务系统（领取奖励）"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 65,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "任务系统（出售物品）",
+    "original_text": "接着做出售，看到任务说要去，进到仓库又不知道要卖什么，我还是不知道我到底要什么时候卖点，现在卖掉会不会对之后有影响，我现在有个多的 三级头和子弹，这些可以卖，但是不知道这些卖了会对我后面有啥影线，我发现了可以把同质化产品卖掉，比如两个背包把低等的那个卖掉”\n“卖东西时我会优先考虑装备的更换，枪的话我可能会考虑留着，因为不知道什么时候会替换它，因为我看他们参数是不一样的，一个7一个6，还有百分比，不懂枪械上数值是什么意思，有的这边高有的那边高，不知道哪个更差劲一些，维修还要花钱”\n为了卖够五万选择了2背包“背包有更好的，头是换回下来的，帧数项链看他描述没什么用，就是可以售卖它，在这个界面我无法判断这么卖是不是卖低了，就不敢在这里卖掉”取消了本来打算卖掉的项链等出售",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡三",
+      "sub_question": "任务系统（出售物品）",
+      "guide_design_notes": "复习出售，无引导"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 66,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "5等级解锁（签到、排位、新地图x2）",
+    "original_text": "有看到有排位的东西重启后看到信息速爆发的界面",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡三",
+      "sub_question": "5等级解锁（签到、排位、新地图x2）"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 67,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "游戏意愿度评分",
+    "original_text": "3分：首先是整个游戏里面的画风我不是特别喜欢，它的指引包括主线任务，包括各种游戏界面（场景），这个场景没有那么简洁，比如这个门是可以开的，然后觉得人物的操作没有那么灵敏，有点迟缓，我可能玩惯了和平精英这种，在场景里打我转头跳这种没有那么连贯。包括在游戏里面我判断敌人位置，一开始进去的射击体验感，一开始护甲低了一点，我感觉都打中了他们血量很高，一开始以为倒了等队友救，后来发现可以复活，但是复活后只给把手枪，感觉没什么用，还不如死掉，还要制定区域复活再走回来拿自己，音效这些还行，包括脚步移动也还行，就是我不能很快发现敌人的位置",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "游戏意愿度评分",
+      "sub_question": null
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 68,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "开场",
+    "original_text": "下载界面：还行吧，看起来还有一点想玩的意愿，枪战游戏，里面应该都是纯英文\n有看到过暗区突围，但是对玩法不了解，自己也没有时间去玩一个新游戏。",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "开场",
+      "sub_question": null,
+      "guide_design_notes": "加载读取一镜式，沉浸感更强，最终画面定格满地武器来凸显收集武器目标"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 69,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "世界观输入",
+    "original_text": "开场动画看了一点被玩家关掉",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "世界观输入",
+      "sub_question": null,
+      "guide_design_notes": "纯文字，较易理解"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 70,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "健康值（腿部中弹）",
+    "original_text": "她这个是指引的吗？",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡一",
+      "sub_question": "健康值（腿部中弹）",
+      "guide_design_notes": "制造危机情景，玩家从受伤状态接入角色控制，只能步行的体验，对于健康值受损带来的Debuff影响感知更明确"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 71,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "搜寻（打开、拾取全部）",
+    "original_text": "跟随点击没有拾取武器",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡一",
+      "sub_question": "搜寻（打开、拾取全部）",
+      "guide_design_notes": "搜寻仅提供操作指引，并没有强调或解释需要时间搜查，刻意淡化让玩家接受设定",
+      "feature_design_notes": "将TKV式“打开-搜寻-拾取”转变为了“搜寻-打开-搜寻-拾取”的方式，看起来步骤多了，但实际上是对搜集过程做了简化：用更短的时间允许玩家进行拾取操作，此时玩家可以选择全部拾取，也可以选择手动拾取，但手动拾取需要二次检索的时间，1次较长的检索拆分成2次，玩家感受上就会轻体验很多"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 72,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "恢复道具（搜寻、使用）",
+    "original_text": "主动搜索",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡一",
+      "sub_question": "恢复道具（搜寻、使用）",
+      "guide_design_notes": "复习搜寻拾取，医疗包恢复教学，使用后恢复跑步\n仅通过文字来强调骨折、流血等健康状态，未针对健康度小人和debuff图标做延伸引导；"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 73,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "战斗场景（近距离敌人、舔包、击杀、换弹）",
+    "original_text": "感觉操作有点不熟悉拾取到全部物资，但是好像不是电视的全部获取他这个还要走到他身边才能把他杀死，有点不适特别方便在第一关被远程击杀了（有血包的时候没有恢复）原地复活他这个要走到他身边把他杀掉不方便，不能远距离补枪“需要调一下设置”目前其他的体验感觉还可以，除了要上去补枪",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡一",
+      "sub_question": "战斗场景（近距离敌人、舔包、击杀、换弹）",
+      "guide_design_notes": "首场战斗场景设计为连续战斗，刻画安全状态下拾取的游戏情景，同时制造紧张感"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 74,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "背包（背包剩余空间、丢弃）",
+    "original_text": "拾取了大部分东西",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡一",
+      "sub_question": "背包（背包剩余空间、丢弃）",
+      "guide_design_notes": "持续给予“拾取全部”的操作指引\n当背包满时会自动触发背包引导，虽然有丢弃引导，但仅通过“通过拖动可以丢弃物品”的文字描述",
+      "feature_design_notes": "击杀敌人后弹出搜刮价值信息，能够在搜刮前有个基础的价值预判，左上角的搜集评分和金额可以快速"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 75,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "任务道具（拾取、高价值物品）",
+    "original_text": "拾取全部",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡一",
+      "sub_question": "任务道具（拾取、高价值物品）",
+      "guide_design_notes": "任务设计上以拾取“工具”为任务目标，但是拾取列表中存在的“纪念金币”很难被玩家所忽视，搜集高价值道具的目标很容易形成整体流程基本上都是“先战斗后拾取”的节奏设定",
+      "feature_design_notes": "拾取里表中根据不同类型物品提供不同的快捷操作手段：弹夹-安装、武器/装备-替换、背包-整包"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 76,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "任务结束（撤离点）",
+    "original_text": "这是干嘛用的？他这个是要怎么过的呢？哦是这样子，是拾取到一定装备才能开门吧这种，刚开始没看清楚",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡一",
+      "sub_question": "任务结束（撤离点）",
+      "guide_design_notes": "在撤离点处增加了敌人追击，给予玩家在撤离点需要小心追击的情景建立",
+      "feature_design_notes": "撤离点设计了警报系统，再次强化给玩家“警惕偷袭者”的提示"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 77,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "行动引导（角色控制）",
+    "original_text": "没有跟随行动指引，直接点出发，在备战里，想要卖掉手枪，跳转到仓库里，找到出售\n从备战出来后站起身，在避难所里四处跑，找到安保，查看升级条件，“它这里要过这里是要一定东西的，需要一些材料，但是不够，在想要怎么凑齐，需要20个铁零件但这里只有7个过不去，为什么想过去，因为它指引的就是让我从这里过去”（看错指引线路，以为要去安保）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "安全屋教学一",
+      "sub_question": "行动引导（角色控制）",
+      "guide_design_notes": "背景镜头与场景融合度很高，发现是可活动的场景会有一定的惊喜感"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 78,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "仓库（位置）",
+    "original_text": "随后重新跟随任务路线找到仓库找到仓库后去查看子弹信息“它那个枪的子弹要点进去，点那个枪是什么类型的才知道它是用什么子弹的，然后要干嘛呢？有点迷茫”找到地图打开看到巴夫工厂，选中后说我又不知道要干嘛了有点迷茫，看到要通关的，暗示我不知道从哪里去，感觉是通关的类型，要一关接一关的。刚才我看到有指引的我觉得应该是要一关一关接下去，在局内让你去拿点东西，让我去哪里，就感觉是个要通关的感觉，感觉又好像不是，不知道在干什么，通关了就来这来了，也不知道这里是做什么的”在避难所四处跑，不知道做什么，后来发现任务，知道了，要找XXX，要撤离，哎？我怎么进不去呢，在地图找到巴夫工厂选中后进不去，又跳回到这里来了“",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "安全屋教学一",
+      "sub_question": "仓库（位置）",
+      "guide_design_notes": "安全屋内的路线引导全都采用了清晰的路线指引方式",
+      "feature_design_notes": "场景中会有区域文字提示，且各区域划分结构清晰，容易形成区域记忆"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 79,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "交易中心（位置）",
+    "original_text": "没接触",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "安全屋教学一",
+      "sub_question": "交易中心（位置）"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 80,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "交易中心（购买 ）",
+    "original_text": "没接触",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "安全屋教学一",
+      "sub_question": "交易中心（购买 ）",
+      "guide_design_notes": "点选箱包的引导提示滞后，容易被提交道具按钮吸引"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 81,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "任务系统（接受任务、跟踪任务）",
+    "original_text": "嘴里说着转向2级仓库的任务，但是进到了前往了。”“看到这个任务，刚刚点了一个什么寻回，自动进来这个关卡了，我也有点迷惑”",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "安全屋教学一",
+      "sub_question": "任务系统（接受任务、跟踪任务）",
+      "guide_design_notes": "引导提示并不太强，且非强制，玩家在接取任务后可以直接点击前往"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 82,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "游戏意愿度评分",
+    "original_text": "4分：刚开始有点迷惑，就刚刚有点迷惑不知道怎么继续玩这个游戏，但是进来了肯定想玩下去看下是怎么个样子的",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "游戏意愿度评分",
+      "sub_question": null
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 83,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "战斗场景",
+    "original_text": "————第二次进入发现自己没子弹了（在备战时没有带满弹药）上局背包内没有清理，这局直接带了进来场景中的箱子漏掉很多看到铁零件也没有拾取\n“而且我感觉这个背包容量不是特别明白，不知道这个背包容量怎么弄才能，我现在是想拿点东西但是我包满了，只能丢了才能拿”“还有这个跑久了要听一下，就比较不方便，有点限制的感觉”\n只能丢一把才能捡一把，不能点击直接换掉（和平经验）\n撤离被追击身亡，“原来它撤离了被别人打了也不能撤离的”\n出来后想去交任务，但是没发现自己撤离失败后，物资全部遗失，但是自己在交易中心重新购买了一把AKS，进行改造后总算完成任务",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡二",
+      "sub_question": "战斗场景",
+      "guide_design_notes": "相同地图再次体验，玩家对于场景记忆还是比较清晰的，特别是工厂地图会比开放空间场景更易记忆\n熟悉的资源位置也在提示玩家固定资源点的存在"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 84,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "任务1（拾取AKS-74UN）",
+    "original_text": "背包满了，看到对讲机，打开背包看了下没有拾取“好像捡了吧”",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡二",
+      "sub_question": "任务1（拾取AKS-74UN）",
+      "guide_design_notes": "击倒玩家后可以选择救援，但是并没有相关的引导，玩家很容易感到困惑（可能会怀疑是不是误杀了友军）",
+      "feature_design_notes": "击倒敌人后具有救援功能，自动组队"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 85,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "任务2（拾取KEL-8红点）",
+    "original_text": "领取红点的时候，有钞票没有领取",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡二",
+      "sub_question": "任务2（拾取KEL-8红点）",
+      "guide_design_notes": "设定远距离敌人攻击，来凸显瞄准镜的重要性"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 86,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "任务2（前往撤离点）",
+    "original_text": "左上角有这个任务，我做一个就消失一个，它地上有这个是指引，我跟着这个跑出去就行了每次打死一个人要过来杀了他，要想捡一把枪需要先把身上的丢掉才可以（背包拖拽丢弃）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡二",
+      "sub_question": "任务2（前往撤离点）",
+      "guide_design_notes": "设计逃兵偷袭的桥段，给予玩家在场景中小心观察"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 87,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "结算界面（快捷转移、前往避难所）",
+    "original_text": "B评价点了自动整理，第一次玩不知道这些装备怎么搞，感觉这些装备每次打完会累积下来，这种感觉，就比如你现在有的这些装备，在别人那里拿到的药物、钞票啥的会一直累积下来“",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡二",
+      "sub_question": "结算界面（快捷转移、前往避难所）",
+      "guide_design_notes": "在教学关卡二结束后增加了快捷转移的引导教学内容",
+      "feature_design_notes": "价值结算很大程度上简化了玩家单局收益的判断负担，同时强化玩家的搜刮目标感"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 88,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "任务系统（领取奖励）",
+    "original_text": "好像是要完成它那个任务，仓库扩充到2级，跟随任务进入到改装界面，这个是要换弹匣，它又个要装红点的但是我不知道要到那里装，没有看到瞄准镜，不知道该去哪里做这个任务",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "安全屋教学二",
+      "sub_question": "任务系统（领取奖励）"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 89,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "改枪（任务入口进入、前往）",
+    "original_text": "改枪缺少瞄具解锁的栏位，\n这里显示仓库缺失所需物品，应该就是没有，它的提示是我缺少这个东西需要获取才行。\n任务完成不了的原因可能是枪被卖了，在交易中心买了个红点，又回到任务去改造，但是并没有准镜的改造栏位（局内拾取的枪被卖掉了？）任务卡住不知道要做什么重新选择巴夫工厂出发进入（它是要寻回之后我要去找一把那个枪）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "安全屋教学二",
+      "sub_question": "改枪（任务入口进入、前往）",
+      "guide_design_notes": "通过任务入口进入“提交”和“跟踪任务”同时出现，手指提示容易被忽略，更容易点击提交，可能导致场景中改枪区域未被引导"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 90,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "仓库（批量出售）",
+    "original_text": "点开子弹查看信息，“这个要卖东西的话，就是不知道这些装备是什么样什么等级的，就有点不明白什么是该卖的，什么是不该卖的，装备是指这些医疗箱子弹这些的”",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "安全屋教学二",
+      "sub_question": "仓库（批量出售）",
+      "guide_design_notes": "只引导出售按钮位置，没有针对具体卖什么怎么卖做后续引导，需要玩家自己摸索"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 91,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "仓库（升级）",
+    "original_text": "仓库的任务我也不知道要去那里找，站起来找到场景中的仓库进入仓库里找不到升级（录制中遮挡）完成升级",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "安全屋教学二",
+      "sub_question": "仓库（升级）",
+      "guide_design_notes": "第二次仓库升级，流程和第一次一样，引导阶段给予两次升级可以建立短期目标感，对于局内收集资源的消耗方式建立认知"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 92,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "任务系统（接取关卡任务）",
+    "original_text": "卡任务解决后接取到“做完了才会出下一个任务，感觉是一个任务接一个任务这样子的模式，要找够一定的东西才行”。接取钥匙任务“他要把任务的目标都达到了，如果一次不行就多去几遍才行”\n接收任务后进入备战，在枪械里选择装备了两把仓库里的武器和背包，背包里来回比较了半天“还要装备医疗的东西哪些，医疗手雷那些都要自己装备的”给自己穿上3级头盔和3级甲，再次进入",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "安全屋教学二",
+      "sub_question": "任务系统（接取关卡任务）",
+      "guide_design_notes": "强调携带背包的重要性"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 93,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "游戏意愿度评分",
+    "original_text": "4分：感觉挺迷惑的，就是感觉能玩，虽然有点疑惑，但是还是可以玩；感觉这个图有点模糊不是特别清楚，不是特别容易看（敌人之类的）感觉有点偏灰色那种，不是很容易看清敌人位置\n任务被卡，只能重新进入工厂完成任务\n\n（卡任务解决后）5: 感觉可以给又不到5分，感觉这种类型，每次做任务，一直做任务不是很符合我的胃口，一直做任务找东西的这种，目前给我的感觉就是这种",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "游戏意愿度评分",
+      "sub_question": null
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 94,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "战斗场景",
+    "original_text": "“这里太黑了吧我都看不到”（近身阴影里的敌人）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡三",
+      "sub_question": "战斗场景",
+      "guide_design_notes": "更换了登场入口"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 95,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "战斗场景",
+    "original_text": "“这么高伤害的嘛？”玩家被击中后",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡三",
+      "sub_question": "战斗场景",
+      "guide_design_notes": "引导提示玩家注意掩体、躲避敌人的战斗方式"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 96,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "任务1（厂长钥匙）",
+    "original_text": "跟随任务来到指引位置，不知道干嘛了，要拿这些东西，要去守卫那里拿钥匙，就去杀人“他有提示是要去守卫那里去拿钥匙，不知道去哪个守卫那里呢”“他说的那个什么钥匙还没有找到”“线路现在才出来的，刚刚是没有的”（总消失）找了半天才找到",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡三",
+      "sub_question": "任务1（厂长钥匙）"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 97,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "任务2（开门取物）",
+    "original_text": "捡了个手雷，它有个很值钱的提示\n拾取了两个项链",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡三",
+      "sub_question": "任务2（开门取物）",
+      "guide_design_notes": "设计两个房间解锁，来突出钥匙的重要性，和锁住物资点高价值物品的认知建立"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 98,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "任务3（撤离且受伤小于1200）",
+    "original_text": "他这个路线不是做完任务立刻给你，好想要你走一段路才会出现的，它感觉你找不到这地方它就会给你这个提示",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡三",
+      "sub_question": "任务3（撤离且受伤小于1200）",
+      "guide_design_notes": "根据任务要求，提示玩家不要惊动楼下的人，貌似想要玩家利用声音系统注意脚步声\n途中仍有伏击"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 99,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "任务3（撤离且受伤小于1200）",
+    "original_text": "结算界面，收集的东西好像可以卖钱的，可以卖钱了去买厉害点的枪，目前给我的感觉就是这样的出现战利品转移界面没有做什么操作（弹出物品空间没有开放的反馈）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡三",
+      "sub_question": "任务3（撤离且受伤小于1200）",
+      "guide_design_notes": "此次到达撤离点既没有追击，也没有埋伏，但可以看玩家自己有没有形成小心躲避的意识"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 100,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "任务系统（领取奖励）",
+    "original_text": "提交继续做任务",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡三",
+      "sub_question": "任务系统（领取奖励）"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 101,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "任务系统（出售物品）",
+    "original_text": "卖够五万，但是不知道什么是该卖的什么事不该卖的，只能凭感觉了查看作业箱，也看了医疗包，去看物品的作用，看什么是该卖的，不知道作业箱是用来干嘛的，买不知道是干嘛的，看了铁零件，最后把作业箱卖了就是为了完成任务就把作业箱卖掉",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡三",
+      "sub_question": "任务系统（出售物品）",
+      "guide_design_notes": "复习出售，无引导"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 102,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "5等级解锁（签到、排位、新地图x2）",
+    "original_text": "然后就是又要开始做任务，找一把AK的枪领取活动奖励在",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "教学关卡三",
+      "sub_question": "5等级解锁（签到、排位、新地图x2）"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】萤火突击新手",
+    "segment_index": 103,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "游戏意愿度评分",
+    "original_text": "3分：这种游戏我觉得有点枯燥无味，我不喜欢这种一直在任务，做了在做，就是有点束缚的感觉。就是单纯为了做任务而玩的感觉。而且它这个地图感觉没有特别大的变化的感觉，一直就是这么几个地方，一直在重复这样的事情。（重复它这个任务）虽然任务都是不一样，但是都是去捡什么东西，杀什么人，然后离开，如果正常的话玩到这里就会差不多了\n好像可以复活的，如果放弃行动就会死掉，如果时间到了还能复活，因为刚才死的时候就是这样复活的，我就想看看会不会死了可以复活（第一关时到底原地复活没有时间等待），“这个走完好像直接死掉的，这个可以重返战场，它是由三个选项的，它可以免费复活一次，但是什么都没有，就只有一把手枪，免费复活就是什么东西都没有，要让你自己杀完人抢他们武器之类的拾取列表中看到项链复活后背包容量很小，什么都捡不了，一个",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】萤火突击新手",
+      "main_topic": "游戏意愿度评分",
+      "sub_question": null
+    }
+  }
+]

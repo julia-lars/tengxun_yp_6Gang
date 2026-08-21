@@ -1,0 +1,1728 @@
+[
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 1,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "创建角色",
+    "original_text": "选择“我是新兵”",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "创建角色",
+      "sub_question": null,
+      "guide_design_notes": "缺少世界观引入，直接进入角色创建",
+      "feature_design_notes": "无女性角色可选"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 2,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "动作教学（转向、移动、跳、蹲、爬、跑）",
+    "original_text": "调整设置，画质调流畅冲刺跳过去没有跟随引导，从右侧跑过去的",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "基本操作教学关卡",
+      "sub_question": "动作教学（转向、移动、跳、蹲、爬、跑）",
+      "guide_design_notes": "从基本的动作教学切入，设计动作任务情景\n（竞品未针对动作操作进行教学）"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 3,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "拾取",
+    "original_text": "对准步枪犹豫了下",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "基本操作教学关卡",
+      "sub_question": "拾取",
+      "guide_design_notes": "无检索体验"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 4,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "枪械换弹流程（检查弹匣、背包、弹挂、装填子弹、换弹）",
+    "original_text": "有去阅读，没有第一时间关闭",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "基本操作教学关卡",
+      "sub_question": "枪械换弹流程（检查弹匣、背包、弹挂、装填子弹、换弹）",
+      "guide_design_notes": "图文形式，强制浏览（新手阶段较多引导采用该形式）",
+      "player_test_notes": "新手玩家对上弹的整套流程是否易掌握？\n图文的可读性如何？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 5,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "射击练习（瞄准、射击）",
+    "original_text": "第一发跟随引导用右手，后面射击剩余用左手",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "基本操作教学关卡",
+      "sub_question": "射击练习（瞄准、射击）",
+      "guide_design_notes": "箭头指引：瞄准+射击位置未针对瞄准转向操作和左手射击键进行指引教学",
+      "player_test_notes": "玩家在局内定点射击采用左射击键还是右射击键？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 6,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "投掷武器练习（拾取、投掷）",
+    "original_text": "对准手雷有点犹豫",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "基本操作教学关卡",
+      "sub_question": "投掷武器练习（拾取、投掷）",
+      "guide_design_notes": "再次练习拾取场景"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 7,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "基本概念规则",
+    "original_text": "快速跳过",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "基本概念规则",
+      "sub_question": null,
+      "guide_design_notes": "引导角色讲解“站前备战”和“淘汰遗失”的核心规则\n引出让玩家整理装备的后续任务"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 8,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "游戏意愿度评分",
+    "original_text": "跟吃鸡差不多是一样的吧，装枪这些，觉得动画做的挺好看的\n4分：界面挺好看的，但第一人称不太习惯，平时打的不是第一人称",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "游戏意愿度评分",
+      "sub_question": null
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 9,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "战利品搜索（打开、搜索、携带、弹挂页签、弹挂功能）",
+    "original_text": "调整C手键位",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "实战教学关卡",
+      "sub_question": "战利品搜索（打开、搜索、携带、弹挂页签、弹挂功能）",
+      "guide_design_notes": "点开箱子后弹出图文引导弹窗"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 10,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "战利品搜索（打开、搜索、携带、弹挂页签、弹挂功能）",
+    "original_text": "跟随引导",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "实战教学关卡",
+      "sub_question": "战利品搜索（打开、搜索、携带、弹挂页签、弹挂功能）",
+      "guide_design_notes": "手把手教玩家的整体搜刮流程“点击敌人弹挂-搜索-点击自己弹挂-放入”\n引导操作步骤本身是否在强调敌人物资携带位置与自身携带位置保持一致？还是仅引导快捷操作步骤？",
+      "player_test_notes": "玩家在后续拾取物资时的操作步骤是怎样的？是否与引导方式相同，通过页签切换来完成拾取？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 11,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "战利品搜索（打开、搜索、携带、弹挂页签、弹挂功能）",
+    "original_text": "“它这个装的这个有点麻烦，捡东西的这个”",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "实战教学关卡",
+      "sub_question": "战利品搜索（打开、搜索、携带、弹挂页签、弹挂功能）",
+      "guide_design_notes": "明明是捡了止痛药，但是弹出“弹匣放到弹挂里才能换弹”的图文弹窗引导"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 12,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "物资搜索（检视）",
+    "original_text": "大金停留了一下，不知道有没有注意价格",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "实战教学关卡",
+      "sub_question": "物资搜索（检视）",
+      "guide_design_notes": "情景设计上暗区情报是主要拾取目标，大金似乎是个附赠品，体现不出大金的价值感",
+      "player_test_notes": "玩家对于捡到大金本身是否有明确的价值感？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 13,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "战斗&搜索复习",
+    "original_text": "“它拾取这个好像有个范围，好像得靠近一定范围才行”",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "实战教学关卡",
+      "sub_question": "战斗&搜索复习",
+      "guide_design_notes": "设计了11点方向有埋伏的剧情，练习射击和战利品拾取没有提供引导，玩家自行完成拾取",
+      "player_test_notes": "观察玩家这时的物资拾取行为弹挂页签弹匣是否放入弹挂"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 14,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "恢复道具教学（止痛药）",
+    "original_text": "看到提示说装弹匣，打开背包看了2下，没做任何操作",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "实战教学关卡",
+      "sub_question": "恢复道具教学（止痛药）",
+      "guide_design_notes": "玩家被炸晕醒后弹出止痛药说明书图文弹窗弹窗结束后如果玩家直接服用止痛药，可能感受不到身体Debuff的效果，从而影响对药品作用的感知",
+      "player_test_notes": "玩家是否在使用药物后再进行移动？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 15,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "地图标记（撤离点标记）",
+    "original_text": "在靠近撤离点位置才想起来标记",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "实战教学关卡",
+      "sub_question": "地图标记（撤离点标记）",
+      "guide_design_notes": "同样存在图文和实际地图的两次教学，是否有重复的必要？",
+      "player_test_notes": "玩家在地图标记后是直接前往标记点位置，还是在附近进行探索搜寻？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 16,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "战斗&搜索复习",
+    "original_text": "击杀后没有第一时间点检索，犹豫了一下才开始检索“它每个都要搜一遍，不应该直接拾取就好了么，每个都要检索一遍，有点鸡肋”\n战利品中看到枪械念出N96多次，两侧点击想要交换没有注意到左下角的确认，最后丢弃了副武器拾取了枪械（此时背包有空位可以放置）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "实战教学关卡",
+      "sub_question": "战斗&搜索复习",
+      "guide_design_notes": "较多1格小物品掉落",
+      "player_test_notes": "途中遭遇敌人有1格物资大量掉落，玩家在进行这些物资拾取的操作行为是怎样的？- 拾取按钮是否使用？   - 各物资放置位置"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 17,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "撤离点遇袭",
+    "original_text": "出现使用医疗用品提示很久才使用“我怎么看到我的血量值？刚才看到提示我要打药，我就打了”“我现在走的好慢啊，是什么原因？听他发出来的声音应该是受伤了”点开建康值，使用了止痛药恢复了移动速度，但是再次点开健康说：“我有点不明白，像我现在的左腿要怎么去治疗，没看懂”",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "实战教学关卡",
+      "sub_question": "撤离点遇袭",
+      "guide_design_notes": "虽然在撤离点预设了NPC，但是没有传达出埋伏或者追击的情景感受",
+      "player_test_notes": "玩家对于到达撤离点需要注意什么是否形成意识？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 18,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "物资整理",
+    "original_text": "有阅读引导文字",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "实战教学关卡",
+      "sub_question": "物资整理"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 19,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "战前准备（弹挂使用说明）",
+    "original_text": "完整观看弹挂视频",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "实战教学关卡",
+      "sub_question": "战前准备（弹挂使用说明）",
+      "guide_design_notes": "视频形式讲解弹挂使用规则“弹夹只有放在弹挂中才能快速换弹”下面小字“只有口袋和弹挂中的…”,难以发现"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 20,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "战前准备（弹匣子弹规则）",
+    "original_text": "在图文弹窗停留",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "实战教学关卡",
+      "sub_question": "战前准备（弹匣子弹规则）",
+      "guide_design_notes": "弹出图文指引，细化讲解子弹放入弹匣装在枪械的规则说明重复的教学内容太多了",
+      "player_test_notes": "通过这段新手引导玩家在战前整套携带枪械、弹匣、弹药的整套玩法和规则是否能够清晰掌握？冗长的引导流程玩家是否能耐下心来跟随？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 21,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "战前准备（背包更换）",
+    "original_text": "中速跟随引导",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "实战教学关卡",
+      "sub_question": "战前准备（背包更换）",
+      "guide_design_notes": "引导玩家背包替换背包的方式，是否有意引导玩家采用这种方式来备战？而不是清空已装备背包物资的方式？",
+      "player_test_notes": "玩家在后续上阵前处理背包物资时，采用的是清空还是替换背包？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 22,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "任务系统（入口、接取）",
+    "original_text": "中速跟随引导接取任务",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "实战教学关卡",
+      "sub_question": "任务系统（入口、接取）",
+      "guide_design_notes": "引导玩家任务推进并引导任务接取的操作流程"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 23,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "新手必看（生存指南、专属法则）",
+    "original_text": "先完整观看专属法则后完整观看暗区生存指南“哦，它不是以打人为目的”",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "实战教学关卡",
+      "sub_question": "新手必看（生存指南、专属法则）",
+      "guide_design_notes": "弹出视频讲解生存指南：基础游戏规则、游戏目标、游戏方式说明专属法则：推荐不同类型游戏方式"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 24,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "游戏意愿度评分",
+    "original_text": "3分：没有我想要的，我确实本来喜欢杀人打人的那种快感，我在和平精英里也没有舔人扫屋很久的，这种搜集为目的不太符合我的需求，没有很勾起我想要玩它的欲望，而且它有些东西我也没有看懂如果是自己玩的时候，玩到这里可能就放弃了，但是它的界面很好看，脚步声音效很逼真。",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "游戏意愿度评分",
+      "sub_question": null
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 25,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "温暖局",
+    "original_text": "和队友拿刀对砍，试一下发现没用脚步声我都听不懂，队友和敌人的都是混合的发现相同的战利品，多人同时拾取，等到玩家时已经没什么东西了感觉是在找人在打（不确定是任务还是习惯）“有人在打我，没看到啊”，“枪声也看不到，听出来，和平里是有个箭头的指示，主要还是听的”检索完直接拾取，没有检视的也直接放入，使用拾取按键，并没有左手滑动背包位置双手点击拾取，队友的手好快啊，都被捡走了弹匣弹药空的时候哎了一声，随后检查弹匣亮起就跟随点击（可能并不清楚查看弹匣的作用），“还有那个子弹多少发我也看不到，可能是我没发现吧”后面拾取时有左手拖动背包查看（可能空位不足时才能注意）弹药都用尽了，用刀去打人，但是弹挂里有子弹不知道要往空弹匣里放入“没子弹了，我不知道该捡什么，哪个枪配哪个子弹我都不清楚”“不知道这把枪怎么装子弹，也不知道有没有这把枪的子弹，有点蒙”后来换了霰弹枪（不用弹匣，有子弹就能用）背包满了看见头盔问“不知道捡它有用嘛？”后来搜索到AK74的弹匣，拿着霰弹枪打人突然没子弹了换了雷出来又换了刀才成功击杀（）背包空间不足？为什么？我应该怎么捡？想捡AK74的子弹”在背包里卸下其他枪弹匣的子弹，后来用自己背包和弹挂里空的弹匣和战利品的满弹匣做了更换，没有丢弃，而是把不想要的东西都转移到战利品（不知道怎么丢弃？）“没玩懂，右边好像是拾取”“大概知道了，背包界面下，对应看”“我不是有四个队友吗，为什么现在只剩我跟4号？”打开地图看了一眼说“危险区，我现在打算去我标得这个点去看一下，想去试一下”点开地图标记了汽车旅馆似乎清楚要把弹药弹匣放入弹挂里；自己背包里装了一个空的弹挂突然打开地图说“这里是我的撤离点，看一下我的任务，我应该已经完成了，现在可以撤离了”“枪没子弹了为什么打了两枪就没子弹了，不明白，非常的不懂”\n背包满了，看到一个？的物品一开始想捡，最终没捡起来“看了下价格”点开健康使用了急救包",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "温暖局",
+      "sub_question": null
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 26,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "详细数据（行动收获）",
+    "original_text": "没有弹出引导，在解锁界面长时间停留",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "结算界面",
+      "sub_question": "详细数据（行动收获）"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 27,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "建立购买场景",
+    "original_text": "快速跳过对话",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "联络人购买",
+      "sub_question": "建立购买场景"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 28,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "联络人（商人）",
+    "original_text": "长时间停留，",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "联络人购买",
+      "sub_question": "联络人（商人）",
+      "guide_design_notes": "引导玩家去购买对应武器的子弹和弹匣"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 29,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "商人（关联可用说明）",
+    "original_text": "有观看弹窗",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "联络人购买",
+      "sub_question": "商人（关联可用说明）",
+      "guide_design_notes": "玩家在点击弹匣页签时自动弹出图文“关联可用说明”",
+      "player_test_notes": "玩家能否理解关联可用的形式？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 30,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "商人（子弹型号说明）",
+    "original_text": "有观看弹窗",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "联络人购买",
+      "sub_question": "商人（子弹型号说明）",
+      "guide_design_notes": "完成子弹购买后，再次弹出图文“子弹型号说明”",
+      "player_test_notes": "玩家能否理解子弹对应的关系？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 31,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "赛季解锁（规则说明）",
+    "original_text": "有观看赛季解锁介绍",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "赛季信息",
+      "sub_question": "赛季解锁（规则说明）",
+      "player_test_notes": "玩家是否查看赛季规则说明信息？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 32,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "游戏意愿度评分",
+    "original_text": "3分：玩到现在也还没玩懂，它的捡东西很麻烦，那个子弹我也看不到自己打了多少发，它不需要你装很多子弹，AK一个弹匣就30个，我的背包就2个弹匣，60发打完，打人不是必要的，捡东西才是必要的，它子弹本来就少嘛。",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "游戏意愿度评分",
+      "sub_question": null
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 33,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "伪装者",
+    "original_text": "观看完整视频游荡者，不太理解，玩家以为和派遣队员是两个对立的角色“我选伪装者就是派遣队员的敌人的意思吗？”",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "仓库",
+      "sub_question": "伪装者"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 34,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "伪装者",
+    "original_text": "弧形是指跑久了之后，能理解体力条。就是知道了而已。进到游戏不知道自己该做什么一开始有点不知道怎么从伪装者模式下退出，后来有发现退出队伍",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "仓库",
+      "sub_question": "伪装者"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 35,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "派遣队员",
+    "original_text": "点到物资整备，查看点到弹药整备，但是什么都没做就出来了\n“我想把杀虫剂什么东西卸掉，卸不掉，怎么放回我的仓库里面？”后来自己摸索出来拖拽和单点的形式\n“还有就是我怎么辨别我右边这个弹挂和左边这个弹挂哪个更好，只能放入仓库，换一个进去装备才能看出来”\n带了5个弹匣进入局内“想要试一下把现有的子弹都带进去，打完之后我就捡东西”出发前弹出提示医疗装备不足“我觉得不需要，我搜别人的就好了”",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "仓库",
+      "sub_question": "派遣队员"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 36,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "派遣队员",
+    "original_text": "弹匣不足提示出现时，两个都点了一下，再进入背包中查看“不清楚上下两个换弹的按键有什么区别”\n“我是几号？看不到自己的标记”打开地图后发出了疑问，后来反应过来是1号\n标记了危险区，询问玩家目的“我是为了打人，不是为了搜集更高价值的物品” “危险区”\n“啥也不管，有什么就捡什么，因为现在背包是是比较空的”“没看到有什么人可以打的话，就去看下有什么东西可以捡”\n看到7.62的子弹深叹一口气“不知道有没有用，子弹也很便宜，看到弹匣里面是0，也不会去见捡”\n看到电池捡一个，“看到枪械零件但是价格是100”捡到更贵的卖点，之后再去买就好\n自己把镜头面向红点提示的位置，但是也找不到人，（受击提示）“这个就挺鸡肋的”\n途中会点开背包看一下子弹的情况，在和平里的情况是在不打人的情况下会去点一下换弹，但是我不知道在这里是好是坏的\n“没有任务就有点没有目标，和平里面没有任务但是我会给自己设定个任务（杀人），这个游戏就没有那么强烈，我的话可能就是在这里找人打”\n“真实感挺好，之前说的动画也是表达增额意思”\n玩家还是点击拾取按键进行拾取\n在检索过程中如果是很多物资的剪影时还是有点期待感\n队友什么时候撤离的感知不到，如果看到队友都撤离了，自己一个人就没什么意思了，也会跟着撤离。“组队体验对于游戏意愿度也没有什么影响，也没有感觉到跟队友一起做了什么”\n看到背包有空位“我再捡一些东西就会撤离了，这个香皂我先捡着，之后又更好的我就给换掉”\n想捡弹挂，看起来像是4格的弹挂，特意\n这个标记只在罗盘上显示，在和平里都是场景里出现，他为什么不直接给我，这个不会让我有真实感，可能我习惯了和平那种\n进入详情引导，解锁联络人“现在我可以出售了”\n“现在我想把我的东西给卖了，选择不同的出售方式，有哪两种？”想卖项链，但是项链不能在联络人卖“想要卖钥匙和枪，然后甲，背包，两个相同的装备没有同时存在的必要，而且不清楚我要怎么去卖”点开出售后发现背包不能卖“而且不能卖呦”\n弹挂、杀虫剂、手枪、UMP45、弹匣寄售方式进行上架“这些枪没什么用，至少我不会用，在和平里就很少用这两类枪械”\n去商人买枪，看了眼“P90”在和平里挺厉害的，觉得好贵啊\n“哎，仓库在哪里？”玩家从联络人退出后找不到仓库入口了",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "仓库",
+      "sub_question": "派遣队员"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 37,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "派遣队员",
+    "original_text": "和",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "仓库",
+      "sub_question": "派遣队员"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 38,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": "创建角色",
+    "original_text": "开场动画：有世界观展示很逼真，开场以为是纪录片什么，看到后面是动画才发现不是真人，可能像CF那种特种兵和猎人，可能是两国交战，没有感受到什么特别的信息。",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "创建角色",
+      "sub_question": null,
+      "guide_design_notes": "缺少世界观引入，直接进入角色创建",
+      "feature_design_notes": "无女性角色可选"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 39,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": "动作教学（转向、移动、跳、蹲、爬、跑）",
+    "original_text": "没有弹出这部分的教学内容，直接从拾取开始",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "基本操作教学关卡",
+      "sub_question": "动作教学（转向、移动、跳、蹲、爬、跑）",
+      "guide_design_notes": "从基本的动作教学切入，设计动作任务情景\n（竞品未针对动作操作进行教学）"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 40,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": "枪械换弹流程（检查弹匣、背包、弹挂、装填子弹、换弹）",
+    "original_text": "有定没注意到左下角换弹确认",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "基本操作教学关卡",
+      "sub_question": "枪械换弹流程（检查弹匣、背包、弹挂、装填子弹、换弹）",
+      "guide_design_notes": "图文形式，强制浏览（新手阶段较多引导采用该形式）",
+      "player_test_notes": "新手玩家对上弹的整套流程是否易掌握？\n图文的可读性如何？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 41,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": "射击练习（瞄准、射击）",
+    "original_text": "在指引前开镜",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "基本操作教学关卡",
+      "sub_question": "射击练习（瞄准、射击）",
+      "guide_design_notes": "箭头指引：瞄准+射击位置未针对瞄准转向操作和左手射击键进行指引教学",
+      "player_test_notes": "玩家在局内定点射击采用左射击键还是右射击键？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 42,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": "射击练习（瞄准、射击）",
+    "original_text": "使用左手射击键攻击靶子",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "基本操作教学关卡",
+      "sub_question": "射击练习（瞄准、射击）",
+      "guide_design_notes": "提供射击练习的标靶场景练习时子弹可能出现不足提示，未提供换弹条件和任务"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 43,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": "投掷武器练习（拾取、投掷）",
+    "original_text": "对准手雷不是太精确，准心没有太聚集",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "基本操作教学关卡",
+      "sub_question": "投掷武器练习（拾取、投掷）",
+      "guide_design_notes": "再次练习拾取场景"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 44,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": "投掷武器练习（拾取、投掷）",
+    "original_text": "投掷后自己又去捡了一个，但是引导结束直接退出",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "基本操作教学关卡",
+      "sub_question": "投掷武器练习（拾取、投掷）",
+      "guide_design_notes": "投掷抛物线不是很清晰"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 45,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": "角色（携带枪械）",
+    "original_text": "引导跟随较快",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "角色（上阵准备）",
+      "sub_question": "角色（携带枪械）",
+      "guide_design_notes": "点击进入“角色”后会弹出快速整理完成的提示\n通过提示光标完成点击枪械装备的操作流程"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 46,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": "角色（携带弹挂）",
+    "original_text": "引导跟随较快",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "角色（上阵准备）",
+      "sub_question": "角色（携带弹挂）",
+      "guide_design_notes": "弹挂携带引导时左侧自动跳到弹挂栏位区域，玩家可能对于左侧装备结构理解不清晰"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 47,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": "出发流程（对局入口）",
+    "original_text": "稍微找了一下",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "出发流程",
+      "sub_question": "出发流程（对局入口）",
+      "guide_design_notes": "仅操作位置指引，过程中未对模式、地图等环节进行讲解"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 48,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": "出发流程（开始匹配）",
+    "original_text": "全程跟随",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "出发流程",
+      "sub_question": "出发流程（开始匹配）"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 49,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": "游戏意愿度评分",
+    "original_text": "4分：就是也没有玩到什么，就是操作好难受啊，可能有点复杂（哪里复杂？）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "游戏意愿度评分",
+      "sub_question": null
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 50,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": "开场剧情",
+    "original_text": "剧情结束后调整设置开镜按钮开启调整键位但没保存",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "实战教学关卡",
+      "sub_question": "开场剧情",
+      "guide_design_notes": "开场莫名其妙的剧情，不明所以",
+      "player_test_notes": "是否会误导玩家对于局内玩法的理解？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 51,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": "战利品搜索（打开、搜索、携带、弹挂页签、弹挂功能）",
+    "original_text": "简单停留",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "实战教学关卡",
+      "sub_question": "战利品搜索（打开、搜索、携带、弹挂页签、弹挂功能）",
+      "guide_design_notes": "一边图文播放内容，另一边强提示点击返回，纠结；且关闭弹窗后同样提供点击操作引导，二次引导的必要性是否存在？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 52,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": "战利品搜索（打开、搜索、携带、弹挂页签、弹挂功能）",
+    "original_text": "跟随引导快速点击",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "实战教学关卡",
+      "sub_question": "战利品搜索（打开、搜索、携带、弹挂页签、弹挂功能）",
+      "guide_design_notes": "手把手教玩家的整体搜刮流程“点击敌人弹挂-搜索-点击自己弹挂-放入”\n引导操作步骤本身是否在强调敌人物资携带位置与自身携带位置保持一致？还是仅引导快捷操作步骤？",
+      "player_test_notes": "玩家在后续拾取物资时的操作步骤是怎样的？是否与引导方式相同，通过页签切换来完成拾取？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 53,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": "战利品搜索（打开、搜索、携带、弹挂页签、弹挂功能）",
+    "original_text": "稍微犹豫了一下",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "实战教学关卡",
+      "sub_question": "战利品搜索（打开、搜索、携带、弹挂页签、弹挂功能）"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 54,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": "战利品搜索（打开、搜索、携带、弹挂页签、弹挂功能）",
+    "original_text": "弹窗语音念完就关闭",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "实战教学关卡",
+      "sub_question": "战利品搜索（打开、搜索、携带、弹挂页签、弹挂功能）",
+      "guide_design_notes": "明明是捡了止痛药，但是弹出“弹匣放到弹挂里才能换弹”的图文弹窗引导"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 55,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": "引导跟随",
+    "original_text": "主动换刀，跟随角色",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "实战教学关卡",
+      "sub_question": "引导跟随",
+      "guide_design_notes": "实战关卡有指定的跟随NPC，虽然提供了行进指引，但是是否会影响到玩家对于地图的感知？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 56,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": "物资搜索（检视）",
+    "original_text": "检索较快“好东西，但是我们要活着撤离”的语音不知道有没有听到",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "实战教学关卡",
+      "sub_question": "物资搜索（检视）",
+      "guide_design_notes": "情景设计上暗区情报是主要拾取目标，大金似乎是个附赠品，体现不出大金的价值感",
+      "player_test_notes": "玩家对于捡到大金本身是否有明确的价值感？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 57,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": "战斗&搜索复习",
+    "original_text": "拾取敌人护甲，检索口袋和弹挂，拾取了UMP弹匣，看了自己背包和弹挂，再搜索了敌人背包。",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "实战教学关卡",
+      "sub_question": "战斗&搜索复习",
+      "guide_design_notes": "设计了11点方向有埋伏的剧情，练习射击和战利品拾取没有提供引导，玩家自行完成拾取",
+      "player_test_notes": "观察玩家这时的物资拾取行为弹挂页签弹匣是否放入弹挂"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 58,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": "恢复道具教学（止痛药）",
+    "original_text": "停留了一会去看，没有返回刷新后立刻点击再次进入设置调整键位和部分设定还是基于4指操作进行调整，默认的有点难受\n设置时出现枪声，保存自定义后，也没有返回主界面，继续在设置里做其他调整",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "实战教学关卡",
+      "sub_question": "恢复道具教学（止痛药）",
+      "guide_design_notes": "玩家被炸晕醒后弹出止痛药说明书图文弹窗弹窗结束后如果玩家直接服用止痛药，可能感受不到身体Debuff的效果，从而影响对药品作用的感知",
+      "player_test_notes": "玩家是否在使用药物后再进行移动？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 59,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": "地图标记（撤离点标记）",
+    "original_text": "打开地图的引导没有立刻反应，找了一下有发现，跟随引导完成标记",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "实战教学关卡",
+      "sub_question": "地图标记（撤离点标记）",
+      "guide_design_notes": "同样存在图文和实际地图的两次教学，是否有重复的必要？",
+      "player_test_notes": "玩家在地图标记后是直接前往标记点位置，还是在附近进行探索搜寻？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 60,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": "战斗&搜索复习",
+    "original_text": "反复在更换子弹，我不知道，不知道为什么不能\n腰射打空子弹，换枪继续射击\n枪声四起的情况下拾取，不紧不慢，有把UMP的弹匣放入弹挂\n突然自己查看背包，有枪声后立刻关闭，跟随引导角色，没有主动查找敌人\n一直打开背包，“想看子弹”\n战利品出出现7.62子弹，查看子弹详情\n看到果汁没有拾取直接喝掉\nNPC一直喊“这里很危险快走”，战利品内物资没有全部拾取\n状态变差后能够反应过来吃药\n“侦查小屋安全”还是会对小屋有些观察\n会查看物品的详情，拾取后在自己背包里点来点去“我想看看子弹在哪里，也没有捡着”\n经常在主界面更换子弹捡到霰弹枪和没有子弹的UMP做了更换，拾取了对应霰弹和手雷，也拾取了螺母再次点开背包，拖动AK弹匣几下“它这个弹挂不是很理解，刚才说要把子弹放到弹挂，是要把子弹放上面去吗？不是很懂”",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "实战教学关卡",
+      "sub_question": "战斗&搜索复习",
+      "guide_design_notes": "较多1格小物品掉落",
+      "player_test_notes": "途中遭遇敌人有1格物资大量掉落，玩家在进行这些物资拾取的操作行为是怎样的？- 拾取按钮是否使用？   - 各物资放置位置"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 61,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": "撤离点遇袭",
+    "original_text": "快到撤离点时，玩家主动找敌人将其杀死，并没有直接跑向撤离点\n走路变慢开始使用恢复道具，显示什么用什么",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "实战教学关卡",
+      "sub_question": "撤离点遇袭",
+      "guide_design_notes": "虽然在撤离点预设了NPC，但是没有传达出埋伏或者追击的情景感受",
+      "player_test_notes": "玩家对于到达撤离点需要注意什么是否形成意识？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 62,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": "物资整理",
+    "original_text": "“”",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "实战教学关卡",
+      "sub_question": "物资整理"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 63,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": "战前准备（弹挂使用说明）",
+    "original_text": "认真阅读弹窗",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "实战教学关卡",
+      "sub_question": "战前准备（弹挂使用说明）",
+      "guide_design_notes": "视频形式讲解弹挂使用规则“弹夹只有放在弹挂中才能快速换弹”下面小字“只有口袋和弹挂中的…”,难以发现"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 64,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": "战前准备（弹匣子弹规则）",
+    "original_text": "停留阅读图文内容跟随引导快速完成流程",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "实战教学关卡",
+      "sub_question": "战前准备（弹匣子弹规则）",
+      "guide_design_notes": "弹出图文指引，细化讲解子弹放入弹匣装在枪械的规则说明重复的教学内容太多了",
+      "player_test_notes": "通过这段新手引导玩家在战前整套携带枪械、弹匣、弹药的整套玩法和规则是否能够清晰掌握？冗长的引导流程玩家是否能耐下心来跟随？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 65,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": "战前准备（背包更换）",
+    "original_text": "跟随更换",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "实战教学关卡",
+      "sub_question": "战前准备（背包更换）",
+      "guide_design_notes": "引导玩家背包替换背包的方式，是否有意引导玩家采用这种方式来备战？而不是清空已装备背包物资的方式？",
+      "player_test_notes": "玩家在后续上阵前处理背包物资时，采用的是清空还是替换背包？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 66,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": "任务系统（入口、接取）",
+    "original_text": "快速跟随进入任务，阅读任务后，点接受",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "实战教学关卡",
+      "sub_question": "任务系统（入口、接取）",
+      "guide_design_notes": "引导玩家任务推进并引导任务接取的操作流程"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 67,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": "新手必看（生存指南、专属法则）",
+    "original_text": "点开视频没刷新出来，就关掉了",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "实战教学关卡",
+      "sub_question": "新手必看（生存指南、专属法则）",
+      "guide_design_notes": "弹出视频讲解生存指南：基础游戏规则、游戏目标、游戏方式说明专属法则：推荐不同类型游戏方式"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 68,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": "游戏意愿度评分",
+    "original_text": "4分：我有点懵逼，可能吃鸡太过简单了，这个换弹好复杂，我没子弹了按换弹他会一直换。满弹了它的换弹还可以交互（吃鸡不可以？）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "游戏意愿度评分",
+      "sub_question": null
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 69,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": "温暖局",
+    "original_text": "再次打开设置，调整了右手射击按键的透明度\n一直在大路加速跑，中间有换刀你在做什么？：“我也不是很清楚，我跟着这个2号在走”“因为我不知道他的任务是做什么，要把红圈大了吗？没有很明确的我需要做什么？或者怎样才能通关，因为刚上来就看到2号在前面跑啊，就跟着了，好迷路啊它这个地图点开才能看到”\n进入马脚区域，进入房间搜过武器配件，点拾取键拾取，拾取后在自己背包看了下这个握把，想看下能不能直接装备\n“这是不是端游复刻吧？因为他给的这些提示比较少，对于玩过的人才知道，我是这么觉得，任务什么的没有明确说我要做什么，就有点漫无目的的。”\n再次击杀敌人拾取手枪，搜索到弹匣拾取（点拾取会自动装到弹挂里）\n搜刮到AK配件2个再次查看自己背包里的配件，点击和拖动其中一个配件，但最后什么也没做又放回背包里\n再次无敌时更换子弹\n打开地图查看汽车旅馆区域，“有个队友退了”查看地图中南部封锁线条件撤离点信息，并进行标记\n在旅馆2楼房间里搜索时错过很多地面上的箱子\n“我不知道这个要怎么通关，想去那个红色的撤离点去看一下，因为我不知道要干什么，想去看一下过去的话是会结束还是怎样”\n听到枪声后似乎想要去找枪声的位置，刚刚看到任务要淘汰两个敌人，所以想去杀人，但是找不到敌人在哪\n弧形一个是体力，一个是扛枪的\n场景太花了，撞到我脸上我都没发现\n上面有个红色的标，然后在远处发现屋顶上的敌人并击杀\n击杀后开始跑向自己之前标记的条件撤离点，通过提示知道无法撤离的原因\n之后打开地图跑向红圈区域（旅馆）“他这个红圈应该是任务点吧，就跑过来看下”看到墙上玻璃有弹孔就换手枪击碎玻璃想要跳窗失败“有点好奇队友搜到的东西，自己能不能搜到”捡到了很多枪械配件，背包格位所剩无几\n开始一边滑动左边，一边滑动右边检索，胶带也会带走，不会想着把敌人的装备带走\n在旅馆四处搜刮，洗发水什么都会捡，搜刮也挺仔细的，衣服收银机都会找到并搜索（）\n还在使用“拾取”按键捡\n看到旅馆被锁的门需要钥匙\n手枪和配件出现时没有空间未拾取，玩家点击拾取就走，不知道有没有感知到没有捡走\n现在有点懵，我到现在我还不知道它结束的要求是什么？应该是走到，但是有附加条件，看了下条件撤离点，有看到说每个门有不同的要求，我现在就想退出去，真的不知道要干嘛，进来也没有说让你做任务”\n最后找到需要丢弃背包的撤离点，手动把背包里的东西都扔掉，最后丢掉背包退出游戏",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "温暖局",
+      "sub_question": null
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 70,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": "详细数据（行动收获）",
+    "original_text": "换耳机没有在结算界面啥操作（也没咋看到结算界面），就退出了游戏，重新进入",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "结算界面",
+      "sub_question": "详细数据（行动收获）"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 71,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": "建立购买场景",
+    "original_text": "快速跟随，没有弹出指引之前没有点购买",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "联络人购买",
+      "sub_question": "建立购买场景"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 72,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": "商人（关联可用说明）",
+    "original_text": "短暂停留",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "联络人购买",
+      "sub_question": "商人（关联可用说明）",
+      "guide_design_notes": "玩家在点击弹匣页签时自动弹出图文“关联可用说明”",
+      "player_test_notes": "玩家能否理解关联可用的形式？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 73,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": "商人（购买流程）",
+    "original_text": "跟随引导流程快速跳过",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "联络人购买",
+      "sub_question": "商人（购买流程）",
+      "guide_design_notes": "指引购买按钮位置"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 74,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": "商人（子弹型号说明）",
+    "original_text": "这里停留很长时间去观看",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "联络人购买",
+      "sub_question": "商人（子弹型号说明）",
+      "guide_design_notes": "完成子弹购买后，再次弹出图文“子弹型号说明”",
+      "player_test_notes": "玩家能否理解子弹对应的关系？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 75,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": "赛季解锁（规则说明）",
+    "original_text": "没看直接关闭\n这里点开新手必看看新手视频开始看生存指南，看完后说“一开始以为是教学什么的，原来是广告”，没有看另一个\n点开伤人找到艾薇塔，在增益状态说明弹窗中仔细查看。看了很久迪克：",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "赛季信息",
+      "sub_question": "赛季解锁（规则说明）",
+      "player_test_notes": "玩家是否查看赛季规则说明信息？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 76,
+    "speaker_id": "P5",
+    "speaker_role": "interviewee",
+    "preceding_question": "游戏意愿度评分",
+    "original_text": "4分：上手太难了，对新手不太友好，我不知道我要做什么，如果我进到局里有个弹窗，你需要完成以下条件，每局进去探索，搜到东西能继续使用，要离开的话要满足逃生通道的需求，如果我只为了搜集东西，搜集完就离开，就感觉自己没做什么？里面穿插些故事线还能理解，我跟着剧情还能做什么，顺路去搜集下物资，走着走着也不知道要干嘛，有点单调，可能是我没玩过这个类型的有点远。有可能是为了搜集而搞得这个地图",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "游戏意愿度评分",
+      "sub_question": null
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 77,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": "创建角色",
+    "original_text": "类似和平精英的射击类游戏，感觉画质会比和平精英要好，装备的画风风格有点像使命召唤\n硬核应该就是很真实，装备要自己捡的这种。CG，是游戏画面还是真实画面，感觉很真实，是游戏画面，感觉很像使命召唤，玩法应该类似使命召唤那种的吧，普通的经典玩法，5v5在一个地图两个阵营对打的感觉。\n5分：想试一下真实的枪战游戏，感觉很好玩，进游戏之后再感受一下吧，目前看画面的感受还是挺真的，会有一些期待，CG中的文字有看到过，和平精英那样吧敌人打败可以搜敌人装备。“失败一无所有”输了的话就会（不引导玩家看文字玩家可能会忽视），吃鸡+使命这样子吧",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "创建角色",
+      "sub_question": null,
+      "guide_design_notes": "缺少世界观引入，直接进入角色创建",
+      "feature_design_notes": "无女性角色可选"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 78,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": "动作教学（转向、移动、跳、蹲、爬、跑）",
+    "original_text": "这个安卓新下载就有这部分教学四处张望冲刺没有完成，只是跑过去跳，没用到左手冲刺",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "基本操作教学关卡",
+      "sub_question": "动作教学（转向、移动、跳、蹲、爬、跑）",
+      "guide_design_notes": "从基本的动作教学切入，设计动作任务情景\n（竞品未针对动作操作进行教学）"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 79,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": "拾取",
+    "original_text": "对准较快",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "基本操作教学关卡",
+      "sub_question": "拾取",
+      "guide_design_notes": "无检索体验"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 80,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": "枪械换弹流程（检查弹匣、背包、弹挂、装填子弹、换弹）",
+    "original_text": "查看弹匣",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "基本操作教学关卡",
+      "sub_question": "枪械换弹流程（检查弹匣、背包、弹挂、装填子弹、换弹）",
+      "guide_design_notes": "新手关卡中展示的是完全空弹匣的情况（反馈消息弹匣已空），对于仍有一定存量的弹匣的检查判断依据是什么？对新手前期体验而言可能会产生困惑",
+      "player_test_notes": "新手玩家从检查弹匣的动作是否能获得有效信息？在弹匣未空的情况下怎么对自己弹匣情况做判断？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 81,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": "枪械换弹流程（检查弹匣、背包、弹挂、装填子弹、换弹）",
+    "original_text": "查看背包，顺利填弹",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "基本操作教学关卡",
+      "sub_question": "枪械换弹流程（检查弹匣、背包、弹挂、装填子弹、换弹）",
+      "guide_design_notes": "通过点击“弹挂”完成上子弹操作，补充引导语“千万别忘了，弹匣一定要放到弹挂里，这样才能快速换弹”的形式进行教学",
+      "player_test_notes": "新手玩家是否清楚“弹挂”的作为快捷使用的功能作用？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 82,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": "枪械换弹流程（检查弹匣、背包、弹挂、装填子弹、换弹）",
+    "original_text": "略微停留观看弹窗教学",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "基本操作教学关卡",
+      "sub_question": "枪械换弹流程（检查弹匣、背包、弹挂、装填子弹、换弹）",
+      "guide_design_notes": "图文形式，强制浏览（新手阶段较多引导采用该形式）",
+      "player_test_notes": "新手玩家对上弹的整套流程是否易掌握？\n图文的可读性如何？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 83,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": "基本概念规则",
+    "original_text": "快速跳过引导对话",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "基本概念规则",
+      "sub_question": null,
+      "guide_design_notes": "引导角色讲解“站前备战”和“淘汰遗失”的核心规则\n引出让玩家整理装备的后续任务"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 84,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": "角色（携带弹挂）",
+    "original_text": "快速跟随点击",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "角色（上阵准备）",
+      "sub_question": "角色（携带弹挂）",
+      "guide_design_notes": "弹挂携带引导时左侧自动跳到弹挂栏位区域，玩家可能对于左侧装备结构理解不清晰"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 85,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": "出发流程（对局入口）",
+    "original_text": "快速跟随点击",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "出发流程",
+      "sub_question": "出发流程（对局入口）",
+      "guide_design_notes": "仅操作位置指引，过程中未对模式、地图等环节进行讲解"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 86,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": "游戏意愿度评分",
+    "original_text": "5分：因为有点不懂，换子弹还要去背包里换，比和平精英要求操作，没那么方便，跟PUBG很像，要自己去背包里面",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "游戏意愿度评分",
+      "sub_question": null
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 87,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": "战利品搜索（打开、搜索、携带、弹挂页签、弹挂功能）",
+    "original_text": "手动换弹，较晚发现游荡者，有参与射击",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "实战教学关卡",
+      "sub_question": "战利品搜索（打开、搜索、携带、弹挂页签、弹挂功能）",
+      "guide_design_notes": "点开箱子后弹出图文引导弹窗"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 88,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": "战利品搜索（打开、搜索、携带、弹挂页签、弹挂功能）",
+    "original_text": "稍微停留",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "实战教学关卡",
+      "sub_question": "战利品搜索（打开、搜索、携带、弹挂页签、弹挂功能）",
+      "guide_design_notes": "一边图文播放内容，另一边强提示点击返回，纠结；且关闭弹窗后同样提供点击操作引导，二次引导的必要性是否存在？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 89,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": "战利品搜索（打开、搜索、携带、弹挂页签、弹挂功能）",
+    "original_text": "快速跟随点击",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "实战教学关卡",
+      "sub_question": "战利品搜索（打开、搜索、携带、弹挂页签、弹挂功能）",
+      "guide_design_notes": "手把手教玩家的整体搜刮流程“点击敌人弹挂-搜索-点击自己弹挂-放入”\n引导操作步骤本身是否在强调敌人物资携带位置与自身携带位置保持一致？还是仅引导快捷操作步骤？",
+      "player_test_notes": "玩家在后续拾取物资时的操作步骤是怎样的？是否与引导方式相同，通过页签切换来完成拾取？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 90,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": "战利品搜索（打开、搜索、携带、弹挂页签、弹挂功能）",
+    "original_text": "没有查看特效药介绍跟随引导",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "实战教学关卡",
+      "sub_question": "战利品搜索（打开、搜索、携带、弹挂页签、弹挂功能）"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 91,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": "战利品搜索（打开、搜索、携带、弹挂页签、弹挂功能）",
+    "original_text": "能返回后久点返回",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "实战教学关卡",
+      "sub_question": "战利品搜索（打开、搜索、携带、弹挂页签、弹挂功能）",
+      "guide_design_notes": "明明是捡了止痛药，但是弹出“弹匣放到弹挂里才能换弹”的图文弹窗引导"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 92,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": "物资搜索（检视）",
+    "original_text": "检视后有看了下大金信息",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "实战教学关卡",
+      "sub_question": "物资搜索（检视）",
+      "guide_design_notes": "情景设计上暗区情报是主要拾取目标，大金似乎是个附赠品，体现不出大金的价值感",
+      "player_test_notes": "玩家对于捡到大金本身是否有明确的价值感？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 93,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": "战斗&搜索复习",
+    "original_text": "只拾取武器到副武器，没有下滑右侧检索弹挂、背包",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "实战教学关卡",
+      "sub_question": "战斗&搜索复习",
+      "guide_design_notes": "设计了11点方向有埋伏的剧情，练习射击和战利品拾取没有提供引导，玩家自行完成拾取",
+      "player_test_notes": "观察玩家这时的物资拾取行为弹挂页签弹匣是否放入弹挂"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 94,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": "恢复道具教学（止痛药）",
+    "original_text": "较少停留，基本返回可以后久返回",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "实战教学关卡",
+      "sub_question": "恢复道具教学（止痛药）",
+      "guide_design_notes": "玩家被炸晕醒后弹出止痛药说明书图文弹窗弹窗结束后如果玩家直接服用止痛药，可能感受不到身体Debuff的效果，从而影响对药品作用的感知",
+      "player_test_notes": "玩家是否在使用药物后再进行移动？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 95,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": "地图标记（撤离点标记）",
+    "original_text": "稍微停留一下，弹窗关闭后？但是没有完成标记？",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "实战教学关卡",
+      "sub_question": "地图标记（撤离点标记）",
+      "guide_design_notes": "同样存在图文和实际地图的两次教学，是否有重复的必要？",
+      "player_test_notes": "玩家在地图标记后是直接前往标记点位置，还是在附近进行探索搜寻？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 96,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": "战斗&搜索复习",
+    "original_text": "战利品箱子上会有搜索提示箭头，玩家打开战利品后没有做任何操作就关闭，没有拾取到什么\n主动使用恢复道具\n终于下滑开始搜索，发现霰弹枪弹药没有拾取，捡了螺母\n小心房屋时真的会四处探查，蹲着走之类的\n过程中有点换弹\n剪刀检视拾取\n击倒敌人查看战利品手枪，但是也没拾取或者更换，下方依旧不去检索\n弹出医疗类道具恢复时立即使用，医疗包、止痛药",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "实战教学关卡",
+      "sub_question": "战斗&搜索复习",
+      "guide_design_notes": "较多1格小物品掉落",
+      "player_test_notes": "途中遭遇敌人有1格物资大量掉落，玩家在进行这些物资拾取的操作行为是怎样的？- 拾取按钮是否使用？   - 各物资放置位置"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 97,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": "撤离点遇袭",
+    "original_text": "撤离点前先发现敌人并击毙，这次开始搜索下面了，饮料搜索到了但是没有捡起",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "实战教学关卡",
+      "sub_question": "撤离点遇袭",
+      "guide_design_notes": "虽然在撤离点预设了NPC，但是没有传达出埋伏或者追击的情景感受",
+      "player_test_notes": "玩家对于到达撤离点需要注意什么是否形成意识？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 98,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": "任务系统（入口、接取）",
+    "original_text": "简单阅读任务目标，引导对话跳的较快",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "实战教学关卡",
+      "sub_question": "任务系统（入口、接取）",
+      "guide_design_notes": "引导玩家任务推进并引导任务接取的操作流程"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 99,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": "新手必看（生存指南、专属法则）",
+    "original_text": "新手必看犹豫了一下，点开了生存指南，但是没看就关掉了",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "实战教学关卡",
+      "sub_question": "新手必看（生存指南、专属法则）",
+      "guide_design_notes": "弹出视频讲解生存指南：基础游戏规则、游戏目标、游戏方式说明专属法则：推荐不同类型游戏方式"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 100,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": "游戏意愿度评分",
+    "original_text": "6分：感觉玩法挺有意思，那些东西你要自己组装自己收集，比较贴近现实比较真实，子弹放入弹匣，弹匣再装入枪这种，很接近现实生活",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "游戏意愿度评分",
+      "sub_question": null
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 101,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": "温暖局",
+    "original_text": "出生地似乎看到敌人，瞄了半天选择上三楼阁楼躲避加瞄准，点开设置，回来后瞄到了敌人并击杀\n跑到盒子处听到枪声没有立刻拾取，而是抬头找敌人，消灭后点开拾取了手枪，搜索空没再管去舔下一个包，路上又杀了个人，检索了口袋和弹挂，发现配件但是没有拾取，再次消灭拾取将药物和弹匣都进行了拾取，但是头盔没有选择检视\n开始调整按键位置，调成吃鸡的键位，四指，这个就随便挑一下\n“他现在没有明确告诉我现在该干嘛，现在有点很迷茫，也没有很明确的目标”“我现在就是搜东西，找房子看有什么东西可以搜，看下哪里有敌人”\n点开地图看了眼\n剪刀、口服液都拾取\n“这个游戏对操作有要求，任务会受伤要用固定的药品来补充它，还有耐久，耐久掉了就跑不了了，挺真实的，不像和平精英一直跑，它有耐久度。”\n检视配件并拾取，手枪没有拾取\n“它没有地图，他不是像和平精英显示在右上角，它是在左下角不展开，有地图会好一些，这样可以看见哪里有房子之类的，不用反复打开地图，打开会容易给敌人发现来不及还手”\n弹匣少一半的提示引导似乎没看到，一直没点\n有人打我找不到他，敌人枪声位置的标识，有点小\n杀死后检索弹挂、口袋，口袋弹匣拿走了\n绷带拾取，基本上都是按照引导先检视再拾取，但拾取时不会去看物资的详情介绍\n地图大一点加入能开车的元素会好一点\n换不了弹，打开背包看自己的弹挂和口袋，弹匣都放在了背包里，把弹匣转移到了弹挂里\n一直点查看弹匣按钮，”这个是能一直换弹吗？我在试它“\n进房间杀死，战利品下滑搜索，只搜索了口袋没搜索弹挂（没等搜索完就退出）\n出门击杀搜索快捷使用容器\n想去表店的地方看一下，因为那里显示2号出口，打完要去杀别人才能捡子弹，敌人还未必有这个子弹，可能对于我这种没玩过的可能有点难玩",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "温暖局",
+      "sub_question": null
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 102,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": "详细数据（行动收获）",
+    "original_text": "没看",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "结算界面",
+      "sub_question": "详细数据（行动收获）"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 103,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": "商人（购买流程）",
+    "original_text": "以上很快速跳过",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "联络人购买",
+      "sub_question": "商人（购买流程）",
+      "guide_design_notes": "指引购买按钮位置"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 104,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": "商人（子弹型号说明）",
+    "original_text": "没看",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "联络人购买",
+      "sub_question": "商人（子弹型号说明）",
+      "guide_design_notes": "完成子弹购买后，再次弹出图文“子弹型号说明”",
+      "player_test_notes": "玩家能否理解子弹对应的关系？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 105,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": "赛季解锁（规则说明）",
+    "original_text": "略微停留",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "赛季信息",
+      "sub_question": "赛季解锁（规则说明）",
+      "player_test_notes": "玩家是否查看赛季规则说明信息？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 106,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": "游戏意愿度评分",
+    "original_text": "5分：因为还没玩明白，挺复杂的这个游戏",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "游戏意愿度评分",
+      "sub_question": null
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【三期】暗区新手",
+    "segment_index": 107,
+    "speaker_id": "P6",
+    "speaker_role": "interviewee",
+    "preceding_question": "仓库扩容",
+    "original_text": "进入仓库触发一堆引导都跟随完成开始ba",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【三期】暗区新手",
+      "main_topic": "仓库",
+      "sub_question": "仓库扩容",
+      "guide_design_notes": "再次打开仓库触发扩大仓库容量的引导\n之前引导中"
+    }
+  }
+]

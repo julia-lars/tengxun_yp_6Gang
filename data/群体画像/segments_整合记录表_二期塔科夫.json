@@ -1,0 +1,2354 @@
+[
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 1,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "关注玩家日常游戏路径（先做什么、再做什么、为什么）",
+    "original_text": "先去藏身处，左下角显示，建造东西，升级物品；\n之后简单的整理仓库，这个档不是很整理，之前的档都是很清晰的整理；仓库里整理的话需要买比较大型的收集箱子；比较麻烦的时候；\n3X4这个保险箱就是最终任务，感觉就是任务完成",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "暖场 & 信息甄别 & 初步了解",
+      "main_topic": "日常路径",
+      "sub_question": "关注玩家日常游戏路径（先做什么、再做什么、为什么）"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 2,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "仓库的物资丰富度、分类、排列方式",
+    "original_text": "【仓库的摆放逻辑】仓鼠型玩家；\n-上部 垃圾箱——流动品、高操作频率\n-中间  医疗\n-下部  武器——单次拖动\n【填满过程】\n-没有箱子的状态：从上往下填满\n-有箱子之后：从两端向中间填满\n\n两个垃圾箱存放交易类物品，每次打完都可以直接扔进垃圾箱里，放进最上面；\n弹夹子弹医疗箱都是常用物品，都是习惯性放在上面；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "暖场 & 信息甄别 & 初步了解",
+      "main_topic": "仓库介绍",
+      "sub_question": "仓库的物资丰富度、分类、排列方式"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 3,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "局前",
+    "original_text": "【第一局】SCAV；搜索各个彩蛋点；中间出现\n【第二-4局】工厂刚枪做任务：想进去刚枪；没有用钱修复自身组昂呗；之前没把套包的东西拿出来\n【第5局】森林S CAV，搜到东西撤退\n【第六局】灯塔无装备（只带耳机狙击枪）进入（猜测为做任务）；\n\n\n组队进入灯塔\n\n一直玩工厂，是为了完成商人的“歼灭任务”，完成任务后开始进行SCAV进入森林地图；\n在第二次灯塔局的时候，给耳机、头盔都上保险，应该是要扔掉；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试",
+      "main_topic": "第一局",
+      "sub_question": "局前"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 4,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "局中",
+    "original_text": "选择灯塔；开局后前往疗养院；寻求高风险高回报；立即进入楼内（携带AK便于近距离作战）\n击杀AI、补充子弹；在搜索的同时装填子弹；搜物资时只选择高价值物品；采用钥匙进入310；持续搜集高价值资源；随后开始架点；与队友集合后同时向风险点转移；击杀真人玩家后；舔包；跳包同时进行套包行为（将物资转移至敌人包内，然后拾起敌人的包裹）；确认没有风险后继续搜寻物资；搜寻物资的整体较为控制，只捡拾最有价值的物品；发现高价值物品且背包没有空间后，会主动分享给队友；完成疗养院的搜集后；与队友一同决策前往下一高密度资源点；发现已被搜索；决策进行撤退；搜索撤退路线上的彩蛋填补背包内的空间；进入撤离点；成功撤离",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试",
+      "main_topic": "第一局",
+      "sub_question": "局中"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 5,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "局后",
+    "original_text": "对局后将不同的散装物品整理至相应的垃圾箱；将套包内的物品进行整理，完成整理后将套包放入最下方；出售一定数量的针；整理的过程中；倾向于将同样种类的酒放入同一储藏区域；\n\n整理弹夹 - 卖掉不需要的 - 使用整理空间把杂物放进去 - 之后左右拖动（左右信息固定，东西都在这里）-之后还是会把暂时能使用到的消耗物品堆放在上面（玩家有流动仓库和储物仓库的诉求）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试",
+      "main_topic": "第一局",
+      "sub_question": "局后"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 6,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "局中",
+    "original_text": "单独开一局海岸线SCAV；\n\n【2、3】工厂，第一次死了，找回场子再去；\n【选择灯塔】进入局内查看任务，看了两个能够做标记的任务（玩家提前购买了特殊物品）\n进入房子，清理，打死AI，感觉AI身上没有好东西了；\n在编辑预设中进行改枪，直接购买配件；\n\n【小地图做任务】杀了AI，看了下对方的东西，没捡起；把身上状态都打到100%；提前吃药；换甲，舔包；非常见好就收；\n【4森林】玩SCAV的时候仿佛不太在意搜索时朝后看，可能是觉得不会被打；找到了手电筒，想了想没有直接安装到枪上；撤离时趴下；\n【灯塔】杀人后有什么舔什么（一些装备没有拿，比如眼镜和帽子）；杀了两个人后策略发生了变化，把狙击枪扔掉骗保，开始带上捡来的装备搜刮附近，之后查看了撤离点，准备撤退；\n【森林】局内查看任务，没完成，被老六杀掉；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试",
+      "main_topic": "第二局",
+      "sub_question": "局中"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 7,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "局后",
+    "original_text": "复活后立即前往高资源点；进行搜索物资；观察撤离位置与时间后选择搜索新的撤离点；最后按照时间规划完成撤离行动",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试",
+      "main_topic": "第二局",
+      "sub_question": "局后"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 8,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "局中",
+    "original_text": "局后物品分类放置；卸下全部装备；进入藏身处收菜；向商人交易物品；不同的物品卖给不同的商人；查询剩余任务；根据任务要求选择地图；根据任务需求配置装备、子弹、弹夹、背包\n\n【第一局SCAV】\n丢下两个弹夹，拿上配件；\n拿不了边捡边整理，随时替换掉自身价值低的物品，\n刚才是拖动，进行换包；\n衣服一定会搜索，因为里面可能出钥匙；\n【灯塔】看到倍镜，没拿\n\n从安全箱里把子弹上到弹夹中；（安全箱塞满-保底）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试",
+      "main_topic": "第三局",
+      "sub_question": "局中"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 9,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "局后",
+    "original_text": "选择地图-实验室；按照固有路线行进；一人架点一人搜索物资；搜索重点物资点；获得高价值物资（显卡）放入安全箱；由于对地图不熟悉；行动偏向于向队友靠近；打掉高等级AI后重点关注AI'子弹、倍镜；卸出子弹；扔掉弹夹；空出格子以获得更多的空间；完成各个资源点搜集后；前往撤退路线；成功撤离；\n\n先整理了，看了任务有没有完成，然后去藏身处；（看是能生产什么生产什么，还是特意能拿什么拿什么；）\n\n卸装同时补充 - 商人任务上交 - 有时去藏身处升级或生产 - 调整设备；\n\n套包，把胸挂拿下来，通过快捷键把各个不需要物品的都拿回仓库；\n去了商人，卖掉了刚才搜到的不需要的物品；\n上交任务物品；\n\n【灯塔】把不需要的枪拿下来-和另一个不需要的一起卖掉 - 去藏身处试了下枪，感觉不错就留着了 - 卸下物品，感觉枪又不好了，一起卖掉了 - 在胸挂中整理弹夹和弹药 - 想留下的放进弹药箱，不想留下的卸除弹药后放进仓库 - 然后从特定商人处卖掉；（没法一键卖掉）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试",
+      "main_topic": "第三局",
+      "sub_question": "局后"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 10,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "局中",
+    "original_text": "成功撤离后，将不同的物品分类如不同的垃圾箱中（不同垃圾箱之间的分类标准为物品的颜色；）多余的需要出售的物品会放入仓库的中部；更偏向于携带胸挂甲，会有更轻的重量；和更多的空间",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试",
+      "main_topic": "第四局",
+      "sub_question": "局中"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 11,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "局后",
+    "original_text": "拿出冲锋枪，换了倍镜；把之前仓库里的东西拿出来，买了弹夹；\n去藏身处了，来试枪（场景）\n【森林后】被老六杀掉，",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试",
+      "main_topic": "第四局",
+      "sub_question": "局后"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 12,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "局外养成线路理解、历史目标、及其存在对游戏的整体作用",
+    "original_text": "【整体回顾】\n第一局海岸线做任务\n第二局scav等待队友\n第三局实验室（没有心痛的感觉；因为不总打实验室；物资比较分散；很难分到比较好的东西；其他图的话没有这么大的风险；也可以有同样的回报；）\n\n人物升级需要10w经验，我正常对局游玩的话可能才1w多一点，所以升级可能非常久，但是作案一个任务可能直接奖励一两万，可以快速获得经验值，以及金钱和道具的奖励；前期甚至到后期，在做每日任务的同时就顺便一起把这个任务做了；做任务解锁背景故事；\n\n一个是建造一个是生产，一个是练枪；\n\n让玩家感觉这不仅是一个射击游戏，这挺重要的，我一开始玩塔科夫我感觉这种游戏模式很熟悉后来又感觉塔科夫像二次元手游，收集资源-培养角色-再进行战斗；塔科夫也是这样的；二次元手游重点在培养，而塔科夫在于收集；一个朋友主要玩藏身处，他经常打枪打不过别人，他就后面就最主要的玩法就是低价物品生产之后卖出去；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试后访谈",
+      "main_topic": "开放式提问",
+      "sub_question": "局外养成线路理解、历史目标、及其存在对游戏的整体作用"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 13,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "局外仓库整理策略、操作障碍点及技巧、分类策略及意识",
+    "original_text": "【游玩阶段】\n-前期  箱子储备还没有完成的时候；捡垃圾时期\n-中期  仓库处理好；能够正常的打架的时候\n-后期  40级；商人好感度满级；处于养老阶段\n\n【仓库整理障碍】对于装备的处理（在不同武器、装备的选择上；需要去进行细致的选择）\n【私酒、伏特加】私酒更加的贵重，所以放到了更加深处的地方\n\n不希望有用的物品被不小心卖掉，所以都放进啦进香；\n仓库比较乱我会用页签找，但是位置不够了；新手更不会，什么东西都留着；\n当时的想法是最上面的东西最上面和最下面的东西填满；从上下往中间填；\n智能整理是填满；上面的东西是经常取用的，而上方的东西是经常流动取用的；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试后访谈",
+      "main_topic": "开放式提问",
+      "sub_question": "局外仓库整理策略、操作障碍点及技巧、分类策略及意识"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 14,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "局外配装策略、与其他因素的相关性、配装场景下的需求、投保思路",
+    "original_text": "【装备选择】\n- 依据要完成的任务\n- 依据自己的心情\n【投保行为】实验室无法进行投保；保险商人进不去；\n\n选择不好的装备，选性价比比较中高的装备；\n主要是看这局的主要目标；工厂任务是做任务杀人，所以起好枪，不搜东西，想法就是不搜，除非把其他人杀掉；\n做任务的话不知道会遭遇什么，不知道为什么，所以只要任务做完了就是OK；\n没有什么目的，我就中级的物品；耳机必带；\n投保的意义是首先它不会被人捡才会回来；比如我进去打架，被人捡走了我就需要投保了；投保要确认它能回来；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试后访谈",
+      "main_topic": "开放式提问",
+      "sub_question": "局外配装策略、与其他因素的相关性、配装场景下的需求、投保思路"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 15,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "局内战略决策流程（走哪条路、打还是苟、捡垃圾还是刚Boss、撤不撤离）",
+    "original_text": "【SCAR中的地点选择逻辑】确认出生点-查看时间-根据时间规划搜索的资源点和撤离路线；为了赶时间深圳丢弃了主武器为了减轻重量\n【不减钱】因为游戏中的钱面值都比较少，不值得去捡拾；\n\n这种首先看出生点，离目标近的话优先做任务，目标离着远的话可能在我撤离点的方向上，这样我可能先去搜物资；打男团比较少，刚才就主动打了一次，打完把身上东西全丢了；\n撤离看急不急，要是任务要求我活着撤离的话我就直接撤离；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试后访谈",
+      "main_topic": "开放式提问",
+      "sub_question": "局内战略决策流程（走哪条路、打还是苟、捡垃圾还是刚Boss、撤不撤离）"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 16,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "局内物资搜刮策略（感知-认识-决策-行为）\n物资诉求（怎么判断需要什么/去哪里得到它/目标是什么）\n局内物资整理场景探讨、出现过的障碍与爽点；\n局内物资整理策略（什么时候整理？ 什么时候检视？整理后的好处）\n回忆与再认（新手期的物资管理诉求/行为/目标/决策）\n核心乐趣（枪战 or 物资 / 详细解读和讨论该乐趣“盲盒/积累等”）\n物资对局内外游戏的驱动力",
+    "original_text": "【物资拾取】判断物品的单格价值；\n【资源点选择】\n-时间充裕的情况下，搜取全部物资\n-时间不充裕的情况下，搜去重点物资\n\n什么地方出什么物品都有数，保证安全的情况能搜就搜；不安全就尽可能快优先高价值；\n高级物品》任务物品〉需求度比较高；我基本不吃不喝；胃部被打黑基本会缺水；\n最高价值的东西放在第四个，因为检视顺序；\n我觉得华容道还比较好玩，一开始感觉比较有意思，但是到后面玩多感觉挺烦的，因为整理起来真的很麻烦；但是兴趣变成工作就会这样；后来东西太多了就不得不去整理；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试后访谈",
+      "main_topic": "开放式提问",
+      "sub_question": "局内物资搜刮策略（感知-认识-决策-行为）\n物资诉求（怎么判断需要什么/去哪里得到它/目标是什么）\n局内物资整理场景探讨、出现过的障碍与爽点；\n局内物资整理策略（什么时候整理？ 什么时候检视？整理后的好处）\n回忆与再认（新手期的物资管理诉求/行为/目标/决策）\n核心乐趣（枪战 or 物资 / 详细解读和讨论该乐趣“盲盒/积累等”）\n物资对局内外游戏的驱动力"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 17,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "局内物资交换场景探讨、同队竞争情况探讨",
+    "original_text": "【物资交换】\n-甲 队友前期需要的物品\n-石雕 背包的重量、格子较少\n-花瓶 队友的背包空间不够\n-血包和食物的交换\n\n有的时候带朋友做任务，帮帮忙；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试后访谈",
+      "main_topic": "开放式提问",
+      "sub_question": "局内物资交换场景探讨、同队竞争情况探讨"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 18,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "成功撤离后干什么？配装的调整/保持/补充？",
+    "original_text": "下一局目标如果还是这样子的话，那就不变了，比如是实验室卡了，那就出去；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试后访谈",
+      "main_topic": "开放式提问",
+      "sub_question": "成功撤离后干什么？配装的调整/保持/补充？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 19,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "撤离失败后的重新配装与栏位整理",
+    "original_text": "最主要还是买，除非上头了拿自己的好枪；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试后访谈",
+      "main_topic": "开放式提问",
+      "sub_question": "撤离失败后的重新配装与栏位整理"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 20,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "特殊场景【基于直播现场形成问题】",
+    "original_text": "流动仓库与储物仓库\n\n骗保行为（灯塔标记任务给耳机头盔都上保险）\n\n有时SCAV有时PMC，怎么决定的，PMC的时候不太捡AI东西；\n\n前期完全任务驱动型\n\n拿到一把新枪后会去藏身处试枪的场景",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试后访谈",
+      "main_topic": "特殊场景【基于直播现场形成问题】",
+      "sub_question": null
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 21,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "局前",
+    "original_text": "整理仓库；观察每日任务；和朋友沟通今日到游玩计划；为了等待朋友；开始了一局SCAV；\n\n打开游戏进入藏身处-查看可以收集的生产物品，收取保险-整理仓库-卖出一些仓库物品（因为想把昨天玩的卸下来发现没空间了）-开始讲各个身上的物品进行放置-稍微调整仓库空间-卸除和检查弹夹即子弹-想把身上的物品放入垃圾箱，但是发现垃圾箱满了，检查了下垃圾箱里的东西，把能卖的卖掉了，为把个人配装的物品卸下来热热身；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试",
+      "main_topic": "第一局",
+      "sub_question": "局前"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 22,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "局中",
+    "original_text": "通过对出生位置和剩余搜寻时间的判断；确定了大致的搜寻路线；在搜寻途中精确搜集各资源点；资源点捡拾习惯为；会尤为注重单格价值；在拾起前就有所筛选；不会存在先捡起来再扔到情况；在搜寻途中通过资源点到预期资源量和实际资源量的对比；判断是否被其他玩家搜集过；\n\nSCAV，打了一把，搜彩蛋点，撤出",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试",
+      "main_topic": "第一局",
+      "sub_question": "局中"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 23,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "局后",
+    "original_text": "局后将局内物品全部放入仓库；随后和朋友们开始了一局TDM；\n\n面具头卖掉（不需要吗？）卸除身上物资；查看任务-携带标记物资，投保枪械-进入局内；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试",
+      "main_topic": "第一局",
+      "sub_question": "局后"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 24,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "局中",
+    "original_text": "【立交桥 TMD】\n确定出生位置后立即与队友前往高物资到密集战斗地区；到达后未进行资源搜集行为；开始占据有利地点；搜寻敌人信息；以击杀敌人为第一目标；发现并击杀两名敌人后，并未进行舔包行为；持续关擦环境敌人状况；通过绕后再次发现残余敌人；击杀敌人；确定周边没有危险后开始舔包；舔包时只去舔取高价值物品（如狗牌）任务书；舔包时会拆除敌人弹夹内的子弹，确认子弹后再决定是否失去弹夹；当背包内空间不足时；会进行套包行为（将自身的高价值物品放入敌人弹挂；并整体捡拾敌人弹挂）；队友被击杀后试图进行报仇行为；试图击杀敌人后将队友的装备重新入保；确认自身装备的负重；负重后，撤离高资源地点，准备逃脱；在舔包时，临走时拾取物资丙烷；后续撤离过程中发现负重超过预期；随后丢弃丙烷；在撤离路上，发现未将队友背包丢弃；随后折返试图，帮助队友进行装备投保；完成投保后迅速撤离；\n\n主要做任务，中途死亡",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试",
+      "main_topic": "第二局",
+      "sub_question": "局中"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 25,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "局后",
+    "original_text": "批量卖出局内物品，拆出每个弹夹中的弹药，并将弹药单独存放；\n\n继续携带相同物品，检查弹药，补充任务物品，继续进行；（优先填满安全箱）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试",
+      "main_topic": "第二局",
+      "sub_question": "局后"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 26,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "局中",
+    "original_text": "【立交桥 TMD 任务】\n开局判断位置；即前往任务地点，前往任务地点途中被高级AI击杀\n\n继续进行任务，死亡",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试",
+      "main_topic": "第三局",
+      "sub_question": "局中"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 27,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "局后",
+    "original_text": "重新配装；继续任务\n\n治疗，查看任务，分别查看了海岸线的行动任务和主线任务，调整装备；最后选择scav去海关；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试",
+      "main_topic": "第三局",
+      "sub_question": "局后"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 28,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "局中",
+    "original_text": "【立交桥 TDM 任务】\n与多名队友共同重新进行任务；在前往任务地点的过程中，由于队友过多；行进全程充斥着队友的脚步声，对敌人信息的发现形成了严重的干扰；后续遭受敌人偷袭，全军覆没\n\n有选择的进行携带物资（眼镜就没有拿）；森林Scav路线很清晰；在森林仓库，拿到好多东西，开始抉择（紫色底的，日记，钱）最后扔掉身上一些东西，带走价值高的；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试",
+      "main_topic": "第四局",
+      "sub_question": "局中"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 29,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "局后",
+    "original_text": "放下潜入收回来的物品，稍微检查装备后进入海岸线；去养老院-完成一个任务-死亡（问一下完成任务和死亡掉落东西的对比）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试",
+      "main_topic": "第四局",
+      "sub_question": "局后"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 30,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "局中",
+    "original_text": "尝试任务，成功，死亡",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试",
+      "main_topic": "第五局",
+      "sub_question": "局中"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 31,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "局后",
+    "original_text": "检查任务，看到要拿SCAV背心击杀，所以进行了装备调整，又因为任务要求杀人，所以带了对枪也进行了调整，试图杀人；卸下一把枪的弹夹，查看里面的子弹；前往藏身处-实验改装后的枪支（场景：从自己仓库中拿出来的枪会进行子弹检查看是不是自己需要的，之后改装枪支，去藏身处试枪）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试",
+      "main_topic": "第五局",
+      "sub_question": "局后"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 32,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "局中",
+    "original_text": "继续任务，把用过的弹夹放入背包作区分，爬到安全的草里上子弹；压实后弹夹放回胸挂；完成一个小任务，感觉差不多，决定撤离；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试",
+      "main_topic": "第六局",
+      "sub_question": "局中"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 33,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "局后",
+    "original_text": "打了一把Scav",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试",
+      "main_topic": "第六局",
+      "sub_question": "局后"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 34,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "局中",
+    "original_text": "按照相同的路线进行搜索，在撤离点还没来得及搜索完就撤离了；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试",
+      "main_topic": "第七局",
+      "sub_question": "局中"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 35,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "平常会经常整理自己的仓库吗？按照什么逻辑进行的整理分类的？有没有什么技巧可以帮助你整理仓库？（自动整理/整理缓冲区/套包）哪些是你经常在局内使用的物品？哪些是纯收藏品？摆放位置有何不同？每次从身上卸下或从仓库装备的时候有没有什么困难？（顶头没有空格所以需要下拉/多物品放入容器箱）如何快速找到你需要的某个物品？（页签、容器箱或其他玩家自行分类）",
+    "original_text": "【游戏历程】\n- 完成任务（到特定地点寻找物品）\n【队友较多】队友较多时存在过多的信息交流、脚步声等信息干扰；因此会影响到对敌人的发现\n【以多打少-csgo】基本上是必胜；有较大的优势\n【以多打少-塔可夫】人数多时很难分清自己和敌人；因此优势相对较少。\n【战场信息】\n- 枪声 （听到枪声后会很快速的听到敌人的位置，从而进行反打）\n- 脚步声（通过脚步声识别是否处于危险状态）\n- 人物状态（自身的受伤状态与应对策略）\n- 镜头晃动、红色边框\n- 希望能提示的是游戏角色本人能感受到的信息，而不是额外的其它信息；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试后访谈",
+      "main_topic": "结合直播情况抛场景",
+      "sub_question": "平常会经常整理自己的仓库吗？按照什么逻辑进行的整理分类的？有没有什么技巧可以帮助你整理仓库？（自动整理/整理缓冲区/套包）哪些是你经常在局内使用的物品？哪些是纯收藏品？摆放位置有何不同？每次从身上卸下或从仓库装备的时候有没有什么困难？（顶头没有空格所以需要下拉/多物品放入容器箱）如何快速找到你需要的某个物品？（页签、容器箱或其他玩家自行分类）"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 36,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "有没有一把自己精心改装的枪支可以展示一下？都做了哪些改装？怎么获得这些配件的？有没有特意为某个配件去攒钱或者去局内针对性的找？带它进局内会害怕丢失吗？现在还有这种精心改装一把枪的目标吗？",
+    "original_text": "【游戏历程】\n- 第一阶段：兴趣趋势的摸索成长期；去探索地图，资源，场景\n- 第二阶段：渐渐摸清了地图的情况与资源分布，能有较多的收获\n- 第三阶段： 起一些强力装备；与敌人对决；去杀死更多的敌人\n- 第四阶段： 专门起一些比较差的装备，从而享受刺激\n\n【藏身处】主要是试枪、捏脸、抽枪什么的；没有什么太多的养成的感觉；\n\n【配件】有很多不同的枪械类型、配件、枪械参数；有很多研究的空间，如何通过选择配件以更低的性价比；去配枪\n\n【仓库整理】：套包整理空间；将贵重的物品放置于深处的背包里，进行储存；捡到好的枪可以卖掉（仓库和个人的负重比较低）\n\n【箱子的购买顺序】垃圾箱（容量更大、物资搜集数量多）食物箱（储存吃吃喝喝）医疗物品（储存较多的医疗物品）\n\n【武装突袭&塔可夫】武装突袭更像是一个真实的军事模拟\n\n【精心改装的枪】枪械的养成不同与其它的养成；但是游戏中很多枪械的养成后，会不太敢使用，因此养成的反馈不强；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试后访谈",
+      "main_topic": "结合直播情况抛场景",
+      "sub_question": "有没有一把自己精心改装的枪支可以展示一下？都做了哪些改装？怎么获得这些配件的？有没有特意为某个配件去攒钱或者去局内针对性的找？带它进局内会害怕丢失吗？现在还有这种精心改装一把枪的目标吗？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 37,
+    "speaker_id": "P1",
+    "speaker_role": "interviewee",
+    "preceding_question": "如何决定本局的物资搜索路线？为什么？有哪些因素影响你做出此决策？",
+    "original_text": "【搜寻路线的选择】参考时间、物资点的危险度、物资点的富裕程度\n【物资的选择】物资的重量、单格价值",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试后访谈",
+      "main_topic": "结合直播情况抛场景",
+      "sub_question": "如何决定本局的物资搜索路线？为什么？有哪些因素影响你做出此决策？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 38,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "关注玩家日常游戏路径（先做什么、再做什么、为什么）",
+    "original_text": "【日常路径】藏身处（建造、升级）——仓库（整理）——进图\n还没毕业的时候进来先进藏身处；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "暖场 & 信息甄别 & 初步了解",
+      "main_topic": "日常路径",
+      "sub_question": "关注玩家日常游戏路径（先做什么、再做什么、为什么）"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 39,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "仓库的物资丰富度、分类、排列方式",
+    "original_text": "【整理习惯变化】之前一直精心整理仓库、现在没有整理，因为收集箱（1000万）很贵，新号，想用资源去做其他的事情（为了收集3X4保险箱）\n\n【仓库习惯】 在下边选武器背包——在上边选配件钥匙——进图\n最上边 交易类物品、日常消耗物品（弹夹、手雷、钥匙）\n最下边 背包武器（战斗前根据不同目的进行配装）\n\n【长线养成】总等级、技能等级、抢等级\n1.关注人物总等级（为了解锁物品）\n2.小技能等级如耐力、力量（能跑的更久）感知（提升听力范围）\n3.狙击枪等级（为了解锁任务）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "暖场 & 信息甄别 & 初步了解",
+      "main_topic": "仓库介绍",
+      "sub_question": "仓库的物资丰富度、分类、排列方式"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 40,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "局前",
+    "original_text": "询问队友打什么图-确认养老院-和队友讨论要打什么图-携带上装备-拉队友-之后开始聊天；\n社交行为：讨论之前在上一张地图看到朋友了，互相认出了对方；说宿舍楼的报点就很难，讨论改卡位；讨论上一把打死一个6级满改M4；讨论上一把怎么死掉的，以及打boss的经验；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试",
+      "main_topic": "第一局",
+      "sub_question": "局前"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 41,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "局中",
+    "original_text": "【第一局 潜入模式 捡垃圾 海关】\n- 局内：丢弃消耗品，替换为高价值物品\n- 局内：在换包前采用拖拽交互，快速移动物品\n- 局后：将收获整理至仓库\n- 局后：卖掉部分不需要的物品\n\n确认出生点，和队友决定要去的资源点，打到一队，开始搜索-队友经常根据脚步判断有没有人；\n队友搜索资源，玩家楼顶架枪；已经决策出下一个要去的资源点，提前把窗户打碎；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试",
+      "main_topic": "第一局",
+      "sub_question": "局中"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 42,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "局后",
+    "original_text": "死了；查看保险任务-把保险箱的子弹放入各个箱子，自动整理容器箱；判断自己上一把死掉是因为没带倍镜，所以带了一把狙击，重新在仓库里拿上了装备-调整了配件；互相在仓库里调整装备的时候，开始复盘；收取保险-拿出来了下一把需要用的，没全部拿；\n卸下弹夹-卸下子弹-查看子弹合适不合适-找到该子弹的箱子携带更多子弹；\n安全箱里的东西直接销毁，不要了，懒得收拾；\n进入藏身处试枪-感觉点射扫射都OK，就进入战局；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试",
+      "main_topic": "第一局",
+      "sub_question": "局后"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 43,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "局中",
+    "original_text": "【第二局 PMV 刚枪掠夺 工厂】\n- 局前-仓库：套甲、带胸挂并卸下物品、拿冲锋枪、带配件、买弹夹\n- 居前-藏身处：试枪\n- 局中-击杀后：快速拾取大件物品\n- 局中-击杀后：快速更换弹挂——先捡后整\n\n确认自己复活在比较远的地方，所以打了一根蓝针，决定跑过去；\n听枪声位置，知道敌人在什么地方打什么东西；\n对方占领了楼，攻楼困难，准备撤退下一把；被外挂一枪头；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试",
+      "main_topic": "第二局",
+      "sub_question": "局中"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 44,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "局后",
+    "original_text": "有点生气，起了面具头大甲；去了藏身处，生产物品；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试",
+      "main_topic": "第二局",
+      "sub_question": "局后"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 45,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "局中",
+    "original_text": "【第三局 SCRV 森林】\n- 局中：先理后捡\n- 局后：物品放到仓库——出售无用物品——选择任务—\n\n开局看到出生点判断出自己队伍第一位置，决定搜楼；玩家前往楼顶架枪，对于物资的需求度不高；判断出敌人位置，队友报点，一个人负责一个敌人，杀人后也懒得捡（懒得捡可能是感觉那个人的装备不好）；\n队友说刚才打死的人身上有白甲，玩家回复一会去捡；\n队友询问要不要去东楼，另一队友回复东楼物资没东西不用去；\n一个队友架点尸体钓鱼；\n下枪收尸体，匍匐舔包；白甲套包，搜另一个尸体的时候换包；把本来存放在胸挂里的耳机和头盔放进背包，把背包丢在楼上；\n感觉附近已经安全，所以下三楼搜索一下物资，优先携带可消耗品和高价值物品；存在把保险箱都填满的行为；队友开钥匙进房，自己就不进去了；\n从尸体的AK上拆卸倍镜；\n从野地上分战利品，一人拿一个狗牌，说一人杀一个；\n讨论下次用满改M4，说自己不在乎人机功效，主要是后座；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试",
+      "main_topic": "第三局",
+      "sub_question": "局中"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 46,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "局后",
+    "original_text": "决定这把带点M61子弹，开始判断自己需要做哪个任务，发现这个任务有点难，所以决定另一个人子弹也OK，不去做这个任务了；基本就是把自身的装备配一下，没有太大的改造，补充了下子弹；\n决定去灯塔，说展示一下灯塔白嫖，带点钱说方便撤退；本来想带白甲，但是想了想，又去投保的暂存里换了个垃圾的甲；这次带了吃的；不带头；队友带了突击步枪，所以起了头甲包；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试",
+      "main_topic": "第三局",
+      "sub_question": "局后"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 47,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "局中",
+    "original_text": "【第四局 SCRV 灯塔 】\n-局前：选择任务—配齐装备—补充弹夹、药品—未带背包\n-局中：击杀两名敌人；先确认安全再舔包；舔包顺序—枪械、头盔、替换弹夹、详细整理装备\n- 局后：卸枪—卖枪—试枪—感觉枪不好—卖枪\n\n感觉出生点位置好远，开始判断这局的思路；玩家决定先架点2分钟，架1、2号点位；架点没看到人，所以往队友方向靠拢；通过脚步和声音判断敌人在干嘛，和队友确认是不是敌人；知道敌人在头顶，玩家不敢开镜，怕敌人听到；发现和队友弄乌龙了；\n把枪埋进草里，开始分仓库舔包，玩家说这把舔个枪就行；\n换了甲，拿到了美军的枪和装备，灯塔白嫖任务完成；搜物资的时候会给队友说，我在哪里从哪里搜起来；\n拿上枪，甲，弹夹，在弹夹详情页面查看弹夹剩余子弹数量；\n查看弹夹内的子弹；被外挂打死，感觉这个人有问题；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试",
+      "main_topic": "第四局",
+      "sub_question": "局中"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 48,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "局后",
+    "original_text": "【仓库整体】\n- 弹夹整理：卸下子弹—收集需要的子弹，将不需要的子弹和弹夹一起买掉\n\n死后开始选枪，决定带好枪出来，想维修头盔发现护甲维修包没了，去黑商卖掉，拿上满改AK；决定打森林，带上好枪，检查弹夹和子弹，带上小包，补充了药品，补一下吃喝；发现自己没状态全满，于是回到仓库进行补血；去藏身处试枪，感觉AK101在射击场还是飘；顺便在藏身处生产和收菜；看了队友的装备，说绿头比较显眼；玩家自述枪已经埋了，不算太亏，自嘲都帮敌人打包好了；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试",
+      "main_topic": "第四局",
+      "sub_question": "局后"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 49,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "局中",
+    "original_text": "确认复活点位置，说应该去后山，知道彩蛋位置但是没拿；说抓人了，判断了敌人位置，去看了敌人位置；照顾队友，让大叔队友先舔；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试",
+      "main_topic": "第五局",
+      "sub_question": "局中"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 50,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "局外养成线路理解、历史目标、及其存在对游戏的整体作用",
+    "original_text": "【局外任务】“做任务会有额外的经验值、好感度、物品的解锁；所以前期甚至到后期任务都作为主要的游玩目标”\n【任务选择】“它每天都有每日任务，我会优先把限时的这些任务做完，然后会在对应的地图里看看有没有其他任务可以顺便做一下”\n【藏身处-价值】“去藏身处的目的主要是两个：一个是造东西嘛；另一个是练枪”\n【商人-藏身处】“让塔可夫不只是射击游戏，塔可夫的主要乐趣就是收集，商人和藏身处给了收集更多的反馈，有养成的感觉”\n【主玩藏身处】“有一个朋友，局内垃圾佬；局外藏身处，通过低买高卖发家致富”\n\n三把海岸线为了演示打架，我们三个人都是耐力满级；对于我来说楼里就是打架的地方，资源物资虽然有但是我感觉我的脸不是很好；\n来海岸线的楼里就是打架，想赚钱的话是去灯塔， 去灯塔；\n看复活点，如果复活点，如果周围有玩家的话我们就先清掉敌人；海岸线资源点舔的差不多了；\n\n个人属性慢慢来，商人的好感度也够了，还是挺重要的；实际上不是像我这种仓储型玩家，对于",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试后访谈",
+      "main_topic": "开放式提问",
+      "sub_question": "局外养成线路理解、历史目标、及其存在对游戏的整体作用"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 51,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "局外仓库整理策略、操作障碍点及技巧、分类策略及意识",
+    "original_text": "【仓库整理】“我不希望把一些高价值物品卖出去，所以会把高价值的东西放到箱子里“：\n”新手会更加倾向于把所有东西都留着，所以东西会比较乱\n【仓库分区】”我一般把固定的东西放到最顶上和最底下“（这样整理的过程就不会大规模移动）\n【上下分类依据】”上边的东西是经常调整、存取、取用的；而大件一般放到下边“",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试后访谈",
+      "main_topic": "开放式提问",
+      "sub_question": "局外仓库整理策略、操作障碍点及技巧、分类策略及意识"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 52,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "局外配装策略、与其他因素的相关性、配装场景下的需求、投保思路",
+    "original_text": "【按照捡东西场景】“捡垃圾的时候，会带一个很大的包，然后带一个中等左右配置”\n【把东西都装到安全箱里】“这样的话有一个保底的作用，就算死了也不会完全丢掉”（会放能用很久的物品、高价值物品）局内发现高价值物品后可以置换；\n【投保选择】“不会被人捡的东西才能回来，所以针对一些特别好的东西，才会投保；要确认东西能不能卷走”\n\n一个是队友需要什么，跑外围是打遭遇战，也会用中距离的镜子，带一个冲锋枪；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试后访谈",
+      "main_topic": "开放式提问",
+      "sub_question": "局外配装策略、与其他因素的相关性、配装场景下的需求、投保思路"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 53,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "局内战略决策流程（走哪条路、打还是苟、捡垃圾还是刚Boss、撤不撤离）",
+    "original_text": "【局内决策】“出生点离目标距离进的话，会首先做任务”“如果任务点旁边有资源点会顺便稍微拿一下”\n\n复活点决定，有两次是复活在后山，所以就能看到疗养院，所以要去西楼；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试后访谈",
+      "main_topic": "开放式提问",
+      "sub_question": "局内战略决策流程（走哪条路、打还是苟、捡垃圾还是刚Boss、撤不撤离）"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 54,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "局内物资搜刮策略（感知-认识-决策-行为）\n物资诉求（怎么判断需要什么/去哪里得到它/目标是什么）\n局内物资整理场景探讨、出现过的障碍与爽点；\n局内物资整理策略（什么时候整理？ 什么时候检视？整理后的好处）\n回忆与再认（新手期的物资管理诉求/行为/目标/决策）\n核心乐趣（枪战 or 物资 / 详细解读和讨论该乐趣“盲盒/积累等”）\n物资对局内外游戏的驱动力",
+    "original_text": "【物品的搜集逻辑】\n- 一定搜集：“具有普遍意义的高级物资；现阶段需要的东西（任务、材料）”\n- 尽可能快：“确认里周边安全才会搜；尽可能的多拿一些”\n\n【检视与否的决策标准】\n“如果周边安全的话会先检视一下；如果还没有安全的话，会先拿着”\n【食物诉求】“战前补充，局内不会补充较多的食物”\n【物品摆放】：“最高价值的物品放到格子的最后一格；这样的话敌人搜集的时候有可能会忽略掉”\n【捡垃圾乐趣】“最初探索的时候有乐趣，熟悉了之后就比较模式化，就没有什么乐趣了”\n【物品摆放的乐趣】“物品摆放可能是一个比较好玩的地方，最初就是决定这个有意思才来玩的；但是后期也会觉得很烦的；因为它的过程真的很麻烦”\n【装备变更策略】“跟玩图的目标有关：比如说做任务、捡垃圾、刚枪时的搭配会不一样”\n\n现在属于只要疗养院楼里都可以高价值，但是有些地方的保险柜；\n单格价值；\n商人等级高了后的倾销；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试后访谈",
+      "main_topic": "开放式提问",
+      "sub_question": "局内物资搜刮策略（感知-认识-决策-行为）\n物资诉求（怎么判断需要什么/去哪里得到它/目标是什么）\n局内物资整理场景探讨、出现过的障碍与爽点；\n局内物资整理策略（什么时候整理？ 什么时候检视？整理后的好处）\n回忆与再认（新手期的物资管理诉求/行为/目标/决策）\n核心乐趣（枪战 or 物资 / 详细解读和讨论该乐趣“盲盒/积累等”）\n物资对局内外游戏的驱动力"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 55,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "局前",
+    "original_text": "初次进入游戏后进入避难处搜菜；查看前日中成功投保的物品；循环多次整理背包与出售行为；检查不同弹夹中的弹药情况；并出售弹夹；会将背包中的全部物品收置完成后再放入背包；\n\n打了一把Scav，卖东西，倒腾各种物品，上架-售卖-生产，卖东西， 根据队友的倾向、每日行动任务等来进行地图选择，根据地图选择进行装备选择（森林带消音）；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试",
+      "main_topic": "第一局",
+      "sub_question": "局前"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 56,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "局中",
+    "original_text": "进入潜入模式；判断位置后搜选附近彩蛋点；在彩蛋点中对物品价值有明确判断；仅捡拾部分高价值物品；背包满后立即寻求撤出；不去寻求更多的收获；以资源的积累为主；\n\n出生点判断-决定卡旁边出生点的玩家-通过枪声判断有任务佬-前往狙击山-通过睡袋区域只剩下一个马来判断这里有玩家来过；从狙击山查验红房，打死敌人后查验子弹（弹夹的上下两部分，玩家会优先将强穿甲的子弹放入，之后放入稍微弱点的子弹）；清点后开始进行舔包；同时稍微进行了物资预分配，将队友需要的任务物资留下；把自己投保的枪子弹扣掉，然后把装备埋掉，再把队友的装备带出去；问要埋什么装备不；丢地上的物品别的玩家就不舔了；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试",
+      "main_topic": "第一局",
+      "sub_question": "局中"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 57,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "局后",
+    "original_text": "进行战利品评估，将需要保留的放入各个分类的容器中，并将下一把需要使用的枪械进行改装，并且将无需使用的物品放入各个容器箱，优先填满容器箱；补充和更换消耗品；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试",
+      "main_topic": "第一局",
+      "sub_question": "局后"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 58,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "局中",
+    "original_text": "接受任务后，进入任务特定场景；黑夜环境SCAV模式；精准判断方向后前往任务地点；到达点位后使用狙击枪架点；期间不进行资源搜集行为；优先完成任务；在到达任务地点后收到其他玩家伏击后死亡；\n\n打死敌人后，判断敌人也是打狙打，拿起敌人武器（本来想直接拿光拿个倍镜走人）；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试",
+      "main_topic": "第二局",
+      "sub_question": "局中"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 59,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "局后",
+    "original_text": "局中死亡后，进行治疗；补充任务所需的装备，继续进行任务；\n\n边整理战利品边跟队友讨论要去打什么地图，自述玩的久的就知道什么枪值钱然后卖一下；玩家给队友说“手术包还是得靠你了”；开局前给武器进行改装；玩家自述“自己最富都是一点一点省出来的，不用的东西就不带，一般子弹带好一点，带个倍镜、以及必需的消耗品”询问有没有带大蓝针（跑步用），想起来没补吃喝；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试",
+      "main_topic": "第二局",
+      "sub_question": "局后"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 60,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "局中",
+    "original_text": "夜晚灯塔\n确认出生地后继续前往任务地点；期间不进行资源搜集（因为完成任务的过程中风险较高；没有过多的资源诉求，以完成任务为核心目的）；\n\n局内直奔养老院，队友架枪玩家开始搜，搜索中拿到高价值物品显卡，很高兴（今天第一章显卡到手）；将不需要的物品（头盔）扔进容器箱里；把高价值物品放入保险箱；感觉快有危险的时候先吃个药品（因为药在战斗的时候不用快捷使用）；扣子弹行为（把剩余子弹从用过的弹夹中扣出来，放入正在使用的弹夹里）；在空间不足时，进行价值判断，消耗品直接使用掉（吃吃喝喝塔科夫）；满载时遇到高价值物品，先把保险箱里的东西拿进搜集容器，之后丢弃背包物品移出格位，最后把放进容器东西放入自己背包；拿一下AI的倍镜-把自身投保物品卖掉，穿上其他物品；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试",
+      "main_topic": "第三局",
+      "sub_question": "局中"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 61,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "局后",
+    "original_text": "进行治疗；连续两次任务失败后，查看任务；试图更换任务；调整装备；准备进行另一个任务；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试",
+      "main_topic": "第三局",
+      "sub_question": "局后"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 62,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "局中",
+    "original_text": "SCAV海关\n确认出生点后，前往任务地点；可能由于任务风险较低；会有更多的摸彩蛋的行为；通过三个彩蛋填满了背包；进入高资源地点在保险箱中发现高价值物品，丢弃子弹，进行物品抉择；持续进行物品替换；寻找下一个高资源地点；大量搜集物资；对资源点内的物资产出点非常熟悉；进入较近点撤离点直接撤离；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试",
+      "main_topic": "第四局",
+      "sub_question": "局中"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 63,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "局后",
+    "original_text": "卸下全部装备（scav赠送）；随后补充装备（自己的较高级的装备）；选择PMc模式",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试",
+      "main_topic": "第四局",
+      "sub_question": "局后"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 64,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "局中",
+    "original_text": "进行海岸线地图的任务 ，选择PMV模式\n搜寻中发现敌人；两抢未击杀后选择迅速撤离（应该是任务优先逻辑；避免陷入混战）；继续前往任务地点；期间少有搜集物资行为；到达疗养院；抵达任务地点；完成一个任务后被击杀；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试",
+      "main_topic": "第五局",
+      "sub_question": "局中"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 65,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "局后",
+    "original_text": "自我治疗，选择下一任务；看到任务需要SCAV背心，佩戴背心后；由于任务有击杀要求；开始改枪；确认弹夹与子弹后，前往藏身处；进行试枪；对局前进行装备投保（并未投保武器）；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试",
+      "main_topic": "第五局",
+      "sub_question": "局后"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 66,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "局中",
+    "original_text": "出生后更多在寻找敌人；听到枪声后前往交战地点；行进过程较为保守，奔跑行为较少；即将到达交战地点前预先使用药剂；抵达疗养院；首次匍匐前进；攻击高点架枪的敌人；击杀失败后放置任务物品；任务完成后撤离；撤离路上击杀一个AI；把用过的弹夹放入背包（更多区分作用）爬到草地里进行状态补充；并未舔包（任务驱动，避免过大风险）攻击第二个AI；将用过的弹夹放入背包作为区分；前往撤离点；进行撤离；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试",
+      "main_topic": "第六局",
+      "sub_question": "局中"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 67,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "局后",
+    "original_text": "交付任务；选择SCAV",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试",
+      "main_topic": "第六局",
+      "sub_question": "局后"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 68,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "局中",
+    "original_text": "出生后进行资源搜集；前往周边彩蛋地点；在初期以填满背包为主，对物品的筛选较少；搜索同时有整理习惯，整理目的为空出更多的大块空间；持续进行资源搜集行为；期间存在资源价值的对比；对比过程较为流畅（多档玩家对物品价值非常清晰）；按照固定路线完成搜集后撤离",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试",
+      "main_topic": "第七局",
+      "sub_question": "局中"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 69,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "局后",
+    "original_text": "撤离后清空身上装备；后续打算继续做任务",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试",
+      "main_topic": "第七局",
+      "sub_question": "局后"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 70,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "平常会经常整理自己的仓库吗？按照什么逻辑进行的整理分类的？有没有什么技巧可以帮助你整理仓库？（自动整理/整理缓冲区/套包）哪些是你经常在局内使用的物品？哪些是纯收藏品？摆放位置有何不同？每次从身上卸下或从仓库装备的时候有没有什么困难？（顶头没有空格所以需要下拉/多物品放入容器箱）如何快速找到你需要的某个物品？（页签、容器箱或其他玩家自行分类）",
+    "original_text": "【物资管理行为】\n新手期 被动仓储型-捡全部物品，背更大的背包，因为耐力不够移动速度很慢，经常被敌人截胡，非常懊恼\n进阶期 精准搜集型-玩了一年左右后，看了更多的大佬的 介绍，会更清晰的判断物品的价值，带高价值的物品，在游玩的过程中会有更多的花钱行为，因此对物品价值有更高的需求，有了携带更高价值物品的诉求\n成熟期 流动投资型-会希望起更好的装备，然后会有更高的撤离成功率，然后会有更多的金钱的积累；形成正循环；这个期间对高级物资的地点比较清晰，会直接前往高物资点进行搜集，会更加的关注单格价值\n挥霍期 战斗挥霍型-会更多的挥霍，每次游戏都起全装，不会关心每局都性价比；这个期间仓库的管理会比较好，每次捡拾物品都会比较随缘，主要的目标是打架\n\n【仓储转型原因】多次对枪被击杀，然后发现对方其实也是大喘息；复盘中发现自己失败的原因是自己的装备不足；随后会追求更高的装备进行游戏；以追求高投入，高回报；\n【成熟期转型原因】后续有一些任务，比如需要热成像；渐渐发现存在枪械碾压的感觉；随后发现稍微进行枪械改装后会提升击杀的效率",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试后访谈",
+      "main_topic": "结合直播情况抛场景",
+      "sub_question": "平常会经常整理自己的仓库吗？按照什么逻辑进行的整理分类的？有没有什么技巧可以帮助你整理仓库？（自动整理/整理缓冲区/套包）哪些是你经常在局内使用的物品？哪些是纯收藏品？摆放位置有何不同？每次从身上卸下或从仓库装备的时候有没有什么困难？（顶头没有空格所以需要下拉/多物品放入容器箱）如何快速找到你需要的某个物品？（页签、容器箱或其他玩家自行分类）"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 71,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "是否有过在进入战局前就已经有了明确的物资获取目标（任务/兑换/藏身处）？为了实现该目标是否采用了一定的策略（配装/地图选择）？",
+    "original_text": "【游戏阶段】\n第一阶段-初识 看到Up主玩游戏，购买游玩，最初期没有中文，新手期不友好，很迷茫不知道改干一些什么事情；一个月左右还没到五级；非常受挫；随后放弃塔可夫\n第二阶段-记地图 过了一年左右出了中文版；看了更多的教学和直播；大概了解到了游戏的流程；在熟悉阶段中知道了游戏应该怎么玩；开始了第二次尝试；然后开始了记地图\n第三阶段-练技术 对枪、身法、搜物资的流程，最近两个档玩的比较顺畅\n\n【游戏目标】\n第二阶段—高级物品探索诉求：希望下实验室，以场景解锁为核心目标；希望可以在实验室活着回来；快速的发育自己；保证自己能够经常起全装去作战；了解更多的实验室的地图构造；\n第三阶段—做高难的任务：更多的希望完成更多的主线任务；这次希望更多的完成主线任务，希望看后续的发展；希望玩更多的新扩张的区域；\n\n【成长过程中的困难点】\n地图选择-在新手时期对地图并不清晰，面对多张地图的时候没有清晰的游玩目标；要看很多推荐之后才清楚海关会更加适合新手\n      官方的难度标注—感觉官方的难度标注不是很精确；不知道标注的逻辑；比如森林虽然标注的为easy 但是地图的掌握难度还是很高；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试后访谈",
+      "main_topic": "结合直播情况抛场景",
+      "sub_question": "是否有过在进入战局前就已经有了明确的物资获取目标（任务/兑换/藏身处）？为了实现该目标是否采用了一定的策略（配装/地图选择）？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 72,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "有没有一把自己精心改装的枪支可以展示一下？都做了哪些改装？怎么获得这些配件的？有没有特意为某个配件去攒钱或者去局内针对性的找？带它进局内会害怕丢失吗？现在还有这种精心改装一把枪的目标吗？",
+    "original_text": "【战场信息】\n-枪的情况  进入战局后关注，保证自己的枪械时没有问题的，包括枪械、弹夹、子弹的检查\n-看  可以甩头操作，用鼠标中键进行侧头，在跑动的过程中使用鼠标中键进行左右侧头peek\n-听  枪的声音的种类（比如走到森林中心的时候，通过枪的声音都种类和未知判断男团是否刷新）枪声音的位置\n        脚步声、手雷声、喘息声、吃药声、使用医疗包的声音（听到敌人使用医疗包的时候会选择进行突脸进攻）\n        因为声音是非常关键的信息所以耳机是非常重要的\n        AI骂人的声音（玩灯塔的时候，会通过AI声音判断敌人的阵营；来选择自己的攻击策略）（同时可以通过骂人的声音确定周围是否有敌人）\n【改枪】回去可以追求老婆枪，全力改装一把枪，放到仓库中收藏（满配件的M4）\n\n【预设】会在改枪任务时为了交任务很多枪不会使用就会上交，感觉很亏，所以会预设一下以求再次搜集后自己体验一下\n【配件诉求】比如说AK消音器，新出的消音器，目前最强的消音器；会在局中进行刻意的搜集；看到之后一定会塞裤裆",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试后访谈",
+      "main_topic": "结合直播情况抛场景",
+      "sub_question": "有没有一把自己精心改装的枪支可以展示一下？都做了哪些改装？怎么获得这些配件的？有没有特意为某个配件去攒钱或者去局内针对性的找？带它进局内会害怕丢失吗？现在还有这种精心改装一把枪的目标吗？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 73,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "平时的配装思路是什么样的？哪些必带？为什么？（夜视仪热成像）携带的过程是什么样的？为什么XX总是放在XX位置？",
+    "original_text": "【配装】配装时一定会佩戴耳机，其他时候带什么会不确定\n【缓冲区使用】因为背包较小；所以很少存在使用背包作为缓冲区的情况；因此在前期的时候还是会更多使用缓冲区进行移动；\n- 新手期背包较小\n- 在更大体积大物品移动时更加方便\n【大批量整理】大批量整理时；还是使用缓冲区，采用拖动交互\n-在战局外以拖动为主     不在意拖动交互速度较慢\n-在战局中以快捷键点击为主  在紧张的战局下会追求更快的效率\n【页签的使用】\n-整理场景（大多数发生在仓库的大整理期间）；例如整理垃圾、同类型的物品进行售卖；\n-寻找特殊物品（但是对于钥匙这种物品寻找就很困难，比如找钥匙会发生，在仓库中寻找-未找到-进入市场购买-发现已检视（认知为已拥有）—返回仓库寻找-找到物品\n【搜索使用】无法搜索两个字，对于很多物品的寻找特别困难，只能通过箱子或者页签",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试后访谈",
+      "main_topic": "结合直播情况抛场景",
+      "sub_question": "平时的配装思路是什么样的？哪些必带？为什么？（夜视仪热成像）携带的过程是什么样的？为什么XX总是放在XX位置？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 74,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "如何决定本局的物资搜索路线？为什么？有哪些因素影响你做出此决策？",
+    "original_text": "【刚开局的整理行为】玩SCAV前会留存一定的空间，因为SCAV的物品只能直接放到仓库中，所以在玩SCAV前后先整理仓库，以确保有足够的空间\n\n【仓库空间对SCAV搜集的影响】会根据仓库内剩余格位的大致情况，进行游戏中的物资搜集规划，控制物资搜集的多少\n\n【物资预判】在进行任务中，会有对游戏中获得物品的预判；在非任务状态下，会随便捡拾东西，不会有明确的目标\n\n【热成像使用】因为对游戏已经非常熟悉了，再加上对插件的使用，对夜视仪的需求已经大大减低，而且夜视仪很怕手电筒；热成像的价格过高，而且目前的核心诉求是搜集物资，不是对枪，因此会很少的使用；同时热成像的倍镜度数比较尴尬，不是特别好用\n【固定线路】玩所以地图基本都会有固定的线路；顺路（从不同的地点出生，都容易走向这条路），安全且相对来说比较肥",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试后访谈",
+      "main_topic": "结合直播情况抛场景",
+      "sub_question": "如何决定本局的物资搜索路线？为什么？有哪些因素影响你做出此决策？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 75,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "如果决定要拾取，如何判断该物品被收容进的位置？需不需要对物品的落位情况有一定的掌控？是否需要拾取后再进行物品的位置/方向调整？有没有遇到过格位不够/形状不对的情况？该如何应对？像格位够但形状不对的这种情况可以自动化处理吗？",
+    "original_text": "【物品价值判断】在背包空间有限时，会更加追求单格价值，非常高价值的物品（如白卡）=任务物品>高价值物品；\n【消耗品拾取】基本不会捡拾，如果状态差会直接喝掉；状态好的话完全不会携带；如果是一些比较贵的消耗品才会捡；（如果是能够加buff 的话肯定会喝掉）\n【针】会带上针，价值比较高，会带上拿出来卖；因为没有针包，一般在战局中不会带针",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试后访谈",
+      "main_topic": "结合直播情况抛场景",
+      "sub_question": "如果决定要拾取，如何判断该物品被收容进的位置？需不需要对物品的落位情况有一定的掌控？是否需要拾取后再进行物品的位置/方向调整？有没有遇到过格位不够/形状不对的情况？该如何应对？像格位够但形状不对的这种情况可以自动化处理吗？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 76,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "先捡起物品再整理格位还是在捡起来的同时进行整理？为什么？什么因素会影响不同的选择？同理，先检视物品再拿上还是先拿上再检视物品？为什么？",
+    "original_text": "【检索同时行为】检索同时首先选择会加子弹，然后会选择治疗/吃喝；初此之外也会随时整理随身带物品，空出较大的空间\n【弹夹从胸挂-背包转移】换弹时如果弹挂没有多余的空间，现有弹夹会调出，因此会随时留一个弹夹到背包中；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试后访谈",
+      "main_topic": "结合直播情况抛场景",
+      "sub_question": "先捡起物品再整理格位还是在捡起来的同时进行整理？为什么？什么因素会影响不同的选择？同理，先检视物品再拿上还是先拿上再检视物品？为什么？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 77,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "有没有替换装备的时候？替换的时候要做哪些事情？（拆配件/沉河底/套包内）",
+    "original_text": "【局中搜索物品交换】\n在局中一定会点，只有需要旋转/移动格位的时候会拖动，其他物品为了快速拾取一定会点按\n【自动整理功能】感觉不是很需要自动整理身上物品功能，因为每个人都有自己的整理习惯，系统不一定能够调整的非常舒适",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试后访谈",
+      "main_topic": "结合直播情况抛场景",
+      "sub_question": "有没有替换装备的时候？替换的时候要做哪些事情？（拆配件/沉河底/套包内）"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 78,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "单排、野排和组队时的配装、地图、路线、战术选择差异？是否有物资交换的情况？哪些物资？是否有帮忙带东西的情况？哪些东西？是否有和队友抢东西的情况？发生后怎么办？队友帮忙架枪的情况？",
+    "original_text": "【格子强迫症】会有比较强的控制感，会要求物品按照自己所想的摆放方式摆放\n【骗保】经常会进行骗保行为，投保最主要的作用就是为了骗包，骗保前会扣除子弹（因为自己的子弹是比较高级的子弹）；有的时候会直接卸下弹夹；\n【子弹混装】只有在非常穷的 时候混装（前五发高穿弹，后边是正常子弹）之前会，现在不会了\n【撤离选择】一般是主动选择撤离，选择最快最近的撤离点（够肥了、很惨了的情况下撤离）（多个任务时一般完成全部任务后撤离）\n【单局赚亏判断】主要看能不能赚回来子弹前，其次是医疗护甲钱；更多的是量入围为收；不会详细计算自己的装备价格，会有一个大概的估计；根据不同的装备价值，有一个对收获的诉求（比如起了20w的装备，会希望击杀1-2人然后获得50w左右价值的物品）\n【赛季末盈亏】赛季末不太会计算物资的价值，只是单纯的打人，然后拿敌人的装备；不会太估计物资的价值；更多的拿战利品的乐趣",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试后访谈",
+      "main_topic": "结合直播情况抛场景",
+      "sub_question": "单排、野排和组队时的配装、地图、路线、战术选择差异？是否有物资交换的情况？哪些物资？是否有帮忙带东西的情况？哪些东西？是否有和队友抢东西的情况？发生后怎么办？队友帮忙架枪的情况？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 79,
+    "speaker_id": "P2",
+    "speaker_role": "interviewee",
+    "preceding_question": "如何决策是否应该撤离？哪些因素决定的？（保本/健康值/敌人/物资剩余）如何断定自己目前已经获得的战利品价值是否保本/亏了/血赚？（格子都满了/颜色/经验）撤离点如何选择？",
+    "original_text": "【藏身处升级顺序】会按照升级的要求进行，不会太过于依据自身的偏好，个人的话会首先升级工作台这种能生产的；上两个版本喜欢scav宝箱，现在不喜欢了（没有低买高卖的行为，不喜欢操控市场，更喜欢打枪，）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试后访谈",
+      "main_topic": "结合直播情况抛场景",
+      "sub_question": "如何决策是否应该撤离？哪些因素决定的？（保本/健康值/敌人/物资剩余）如何断定自己目前已经获得的战利品价值是否保本/亏了/血赚？（格子都满了/颜色/经验）撤离点如何选择？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 80,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "关注玩家日常游戏路径（先做什么、再做什么、为什么）",
+    "original_text": "角色装什么带什么-藏身处收菜-接一下每日每周任务",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "暖场 & 信息甄别 & 初步了解",
+      "main_topic": "日常路径",
+      "sub_question": "关注玩家日常游戏路径（先做什么、再做什么、为什么）"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 81,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "仓库的物资丰富度、分类、排列方式",
+    "original_text": "【仓库摆放逻辑】\n- 强迫症对称性\n- 垃圾箱、急救包放到上部；胸挂、护甲、装备放到下边；\n- 好看的装备塞在一起，放到箱子里；其他装备摆在下边\n【玩法理解】\n- 做任务、杀人（游戏通过任务强迫玩家杀人）\n【幸存者风格】marauder（电脑帧数比较卡；所以采用拾荒者的风格）\n【每日流程】\n- 藏身处 收菜、种菜\n- 商人     交易、每日任务\n- 配装   根据任务决定佩戴的装备\n【长线目标】3x4安全箱\n【低买高卖】",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "暖场 & 信息甄别 & 初步了解",
+      "main_topic": "仓库介绍",
+      "sub_question": "仓库的物资丰富度、分类、排列方式"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 82,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "局前",
+    "original_text": "立交桥",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试",
+      "main_topic": "第一局",
+      "sub_question": "局前"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 83,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "局中",
+    "original_text": "开局后立即前往高资源点；配装喷子，进入大型建筑物，进行频繁的资源搜集；搜索期间会不放过每一个资源点（不论肥瘦）；听到枪声；提前扔包准备打架；击杀AI并舔包；见好就收；在背包刚满后离开资源密集的危险区域；前往野外；随后撤离；撤离时背包尚未填满",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试",
+      "main_topic": "第一局",
+      "sub_question": "局中"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 84,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "局后",
+    "original_text": "撤离后将资源转移至仓库；收取之前投保的物品；更新装备为狙击枪；更改配装；交易无用的物品；浏览任务；选择特定任务后；前往森林；\n\n把身上装备放入空位，同时查阅第一次见到的物品都价格；\n收卖掉不需要的物品给商人；\n上架了一个高价值的物品；\n换了一把狙击枪，带上子弹，安全箱塞满，随时卖掉不需要的物品（哪怕是子弹）；\n查看并确认了自己要做的任务，选择森林出发；\n有倍镜架子，但是把狙击枪的倍镜放在了保险箱里",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试",
+      "main_topic": "第一局",
+      "sub_question": "局后"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 85,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "局中",
+    "original_text": "出生后判断位置；立即前往任务地点；将倍镜放入保险箱中，不装配倍镜，避免被击杀损失过大；路过资源点后不去搜寻；局内以任务为第一目标；到达任务地点后，前往高点架枪；确定没有危险后向任务地点靠近；通过侦查发现任务所需敌人并未刷新，更改游戏目标选择，开始搜集资源，进入任务地点后采取了一定的物资搜集行为；会捡拾起食物；并食用；详细搜集每个资源点；随后向撤离地点进行快速转移；开始撤离；撤离时背包都没有填满；\n\n玩家在开容器时存在后退/转身/改变姿势等改变位置的操作、过远的距离会导致判定失败；发现任务无法完成（没刷男团，决定搜一下撤退）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试",
+      "main_topic": "第二局",
+      "sub_question": "局中"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 86,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "局后",
+    "original_text": "局后将局内搜集的装备整理至垃圾箱；想要卖掉的装备会直接存放至仓库；在跳蚤市场搜寻物品价格；将高价物品挂卖；其他物品卖给商人；进入藏身处观看物品制造情况；再次查看任务；选择相同任务后再次进入游戏\n\n一部分留着的物品放进容器箱，其他堆在仓库中样，其他扔进仓库中间，把能卖的都卖掉，之后继续进行相同地图相同任务；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试",
+      "main_topic": "第二局",
+      "sub_question": "局后"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 87,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "局中",
+    "original_text": "开局后快速判断位置并前往任务地点；到达高处架点后采用望远镜侦查；发现任务目标后装配倍镜；击杀目标后迅速上 子弹并拆掉倍镜，重复上轮的资源搜集路线；撤离途中再次发现敌人；装配倍镜进行观察，随后被击杀；\n\n发现敌人，装上倍镜，之后迅速拆掉倍镜，上子弹，再查看敌人位置；进入搜索，拿到很多好东西，撤退；路过小屋，摸包摸柜子，撤离，中间吃掉消耗品；只有感觉要打的时候才会把倍镜按到枪上；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试",
+      "main_topic": "第三局",
+      "sub_question": "局中"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 88,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "局后",
+    "original_text": "阵亡后，治疗伤口，重新选取相同装备；进入藏身处，收菜；种菜；出售物品；可选择相同模式并投保装备；\n\n买有2x2的胸挂，买2x2弹夹，试枪，看一眼自己的概览，之后去藏身处收菜；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试",
+      "main_topic": "第三局",
+      "sub_question": "局后"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 89,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "局中",
+    "original_text": "开局后由于是相同任务；采用完全相同的行动路线；路遇玩家，并将其击杀；直接将狗牌放入裤裆；治疗身体状态后继续前进；途中再次被敌人击杀；\n\n查看剩余子弹，弹夹因为没地方放了所有掉在地上，玩家捡起；\n给捡到的雷做快捷键，喝掉刚捡起的物品，扔一个刚捡的手雷；\n杀了一队人，套包行为（包套包套胸挂）、装备替换行为、",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试",
+      "main_topic": "第四局",
+      "sub_question": "局中"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 90,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "局后",
+    "original_text": "局后进行治疗；并重新选择装备，对比商人与跳蚤市场中的护甲价格；购买护甲后；寻找带2x2的胸挂，并购买相应的子弹、弹挂；装备新枪后试枪；进入藏身处收菜；进入森林；投保物品；开始游戏；\n\n先拆套包的大物件，再拆套包内的小物件，值钱物品上架，留着的物品放入容器想，之后剩下的卖给商人；先整理的背包，再整理的胸挂，最后时口袋；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试",
+      "main_topic": "第四局",
+      "sub_question": "局后"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 91,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "局中",
+    "original_text": "游戏中，确认出生位置后，快速向任务地点转移；遇到敌人后射击；换弹时捡起掉落在地上的弹夹；前往任务地点后寻找并击杀Ai，随后搜集物品；会把搜集到的饮品喝掉；资源搜集路线相同；后续在森林中连续击杀多个玩家；舔包更换高级头甲、武器；反复进行套包操作；搜刮完成够迅速撤退；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试",
+      "main_topic": "第五局",
+      "sub_question": "局中"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 92,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "局后",
+    "original_text": "整理仓库时，先拆大物件；将背包进行套包操作；其他物品放置于相应的垃圾箱中；售卖部分不需要的物品拆除枪械配件；高级护甲与头盔；售卖枪械；储存护甲；收藏狗牌；批量出售不需要的物品，重新装配任务物品；并前往森林",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试",
+      "main_topic": "第五局",
+      "sub_question": "局后"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 93,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "局中",
+    "original_text": "开局后前往任务地点；到达任务地点后架点；架点时未发现敌人；随后选择进行物资搜集；在高资源点沿着既定路线快速搜集物资后；前往撤离点撤离；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试",
+      "main_topic": "第六局",
+      "sub_question": "局中"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 94,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "局后",
+    "original_text": "撤离后将背包中的物品按照不同的类别整理到相应的垃圾箱中；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试",
+      "main_topic": "第六局",
+      "sub_question": "局后"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 95,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "局中",
+    "original_text": "玩家在进行相同任务时一般会选择相同的路线，整体路线与之前完全相同；本次在架点时并未发现敌人；继续沿着固有路线进行搜索；在遇敌后会迅速躲避，补好状态后不会理解撤退，反而寻求反击；进行物品替换时以价值为主；目前没有任务物品的搜集行为；到达撤离点后准备撤离",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试",
+      "main_topic": "第七局",
+      "sub_question": "局中"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 96,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "局后",
+    "original_text": "撤离成功后；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试",
+      "main_topic": "第七局",
+      "sub_question": "局后"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 97,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "局外养成线路理解、历史目标、及其存在对游戏的整体作用",
+    "original_text": "【整体流程】找BOSS的路上；有时候没有找到boss 会杀一些路上遇到的玩家：boss刷新率比较低；今天这么多局boss 一把也没有刷新\n【任务】好感度、经验值、奖励；能买到更加便宜的东西\n【藏身处】\n- SCAV宝箱，抽奖；\n- 种菜赚钱；可以解锁高级物品；\n- 挂机时更快的恢复；\n- 靶场试枪\n【商人】\n-主要功能是任务\n-偶尔会去买一些配件\n\n找Boss路上顺便杀点玩家，顺便捡点垃圾；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试后访谈",
+      "main_topic": "开放式提问",
+      "sub_question": "局外养成线路理解、历史目标、及其存在对游戏的整体作用"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 98,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "局外仓库整理策略、操作障碍点及技巧、分类策略及意识",
+    "original_text": "【仓库】\n- 甲一个箱子  \n- 垃圾箱有很多分别放不同的东西；\n- 有些塞不下的弹夹会放到外边\n【战后整理行为】\n会留下对自己有用的东西；把没用的垃圾什么的卖掉；留下的东西会有固定的分类；每个分类都会用一个箱子承装（如酒、针）\n不想要的东西一般放到仓库的中间\n【售卖】售卖前会有比价的行为\n【仓库填满顺序】\n-初期从上往下填满；\n-后期会主要将物品放到中间\n【胸挂的不规则性】有一段时间仓库太满所以又端时间会把很多东西放到弹挂里；\n【末期的游玩状态】最后也是仓储型；最后电脑坏了，很多装备都没用很难受；在游玩的偏后期会起很多的装备；但是死掉之后又会很心疼",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试后访谈",
+      "main_topic": "开放式提问",
+      "sub_question": "局外仓库整理策略、操作障碍点及技巧、分类策略及意识"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 99,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "局外配装策略、与其他因素的相关性、配装场景下的需求、投保思路",
+    "original_text": "【配装思路】一般会先选耳机；大狙击枪的时候会选择消音；这样不会被发现；然后是背包；弹挂的话要看穿的是什么甲；会根据不同的地图和任务来确定自己要起的枪械的类型；\n【装备配比】待狙击枪是为了完成另一个任务；用狙击枪击杀NPC；\n【组队行为】一般自己玩的比较多，以前都是自己一个人玩\n【观看概览】每次配完装后，都会看一下自己的样子\n【换枪】想整个活；用把有趣的枪杀boss；杀了三个玩家；未来用这个装备；还买了个胸挂；同时起了一个四级甲是因为冲锋枪更容易死\n【倍镜】经常把倍镜放到保险箱；使用的时候再拿回来（价格40000）\n\n甲一个箱子，辅助道具其实也是希望放进里面，弹挂甲其实也是塞不下；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试后访谈",
+      "main_topic": "开放式提问",
+      "sub_question": "局外配装策略、与其他因素的相关性、配装场景下的需求、投保思路"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 100,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "局内战略决策流程（走哪条路、打还是苟、捡垃圾还是刚Boss、撤不撤离）",
+    "original_text": "【投保】投保的话都会投，不会考虑太多\n【路线】以快速找到boss 为主；没找到的话，撤退的时候也会杀一些玩家",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试后访谈",
+      "main_topic": "开放式提问",
+      "sub_question": "局内战略决策流程（走哪条路、打还是苟、捡垃圾还是刚Boss、撤不撤离）"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 101,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "局内物资搜刮策略（感知-认识-决策-行为）\n物资诉求（怎么判断需要什么/去哪里得到它/目标是什么）\n局内物资整理场景探讨、出现过的障碍与爽点；\n局内物资整理策略（什么时候整理？ 什么时候检视？整理后的好处）\n回忆与再认（新手期的物资管理诉求/行为/目标/决策）\n核心乐趣（枪战 or 物资 / 详细解读和讨论该乐趣“盲盒/积累等”）\n物资对局内外游戏的驱动力",
+    "original_text": "【杀人任务】如果离敌人进就直接去击杀玩家；如歌离敌人远的话；就会有更多的蹲点行为；\n【局内策略的决策】会看自己的目标任务与所携带的枪械\n【撤离条件】如果以boss未目标，找不到boss就会顺路搜一些东西快速撤离；如果搜到了任务物品就立即撤离；高价值物品可能会继续搜；\n【搜物品操作】优先高价值物品；如果价值很高会替换保险箱中的物品；对于部分装不下的物品会先拿出来再丢掉，这样别人搜不容易搜到；\n【是否接受搜索】背包满的时候不会耽误继续搜资源；因为会有一个价值的基本判断\n【水和食物】一般会随便带一些；为了让自己不亏；\n【物品搜集顺序】优先填满，然后再替换出来\n\n看什么装备，撤离点话是看时间和地点；\n以任务为导向：完成任务目标-搜点东西；\n安全、时间、Boss、",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试后访谈",
+      "main_topic": "开放式提问",
+      "sub_question": "局内物资搜刮策略（感知-认识-决策-行为）\n物资诉求（怎么判断需要什么/去哪里得到它/目标是什么）\n局内物资整理场景探讨、出现过的障碍与爽点；\n局内物资整理策略（什么时候整理？ 什么时候检视？整理后的好处）\n回忆与再认（新手期的物资管理诉求/行为/目标/决策）\n核心乐趣（枪战 or 物资 / 详细解读和讨论该乐趣“盲盒/积累等”）\n物资对局内外游戏的驱动力"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 102,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "局内物资交换场景探讨、同队竞争情况探讨",
+    "original_text": "【队友的指责分配】没有",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试后访谈",
+      "main_topic": "开放式提问",
+      "sub_question": "局内物资交换场景探讨、同队竞争情况探讨"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 103,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "成功撤离后干什么？配装的调整/保持/补充？",
+    "original_text": "【游戏结束后的整理】整理仓库-交易物品-看一下藏身处-收集一下消耗品",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试后访谈",
+      "main_topic": "开放式提问",
+      "sub_question": "成功撤离后干什么？配装的调整/保持/补充？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 104,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "撤离失败后的重新配装与栏位整理",
+    "original_text": "【撤离失败后行为】治疗自己-快速起自己下把所需要的装备",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试后访谈",
+      "main_topic": "开放式提问",
+      "sub_question": "撤离失败后的重新配装与栏位整理"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 105,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "局前",
+    "original_text": "进入藏身处收菜后； 浏览每日任务；确定任务后；佩戴相应装备；进入游戏\n\n去藏身处收菜，打一把SCAV",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试",
+      "main_topic": "第一局",
+      "sub_question": "局前"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 106,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "局中",
+    "original_text": "确认出生位置后；前往任务地点；先到高点架枪观察任务目标是否刷新；进入任务地点与敌人交战后受伤；撤离到安全位置后补充状态；确定敌人大致位置后绕后；与敌人周旋一段时间后仍未发现敌人；随后重新前往架枪点；在击架枪击杀一名AI后；随后发现一名玩家；在被玩家击中后；第一时间将狙击镜放入安全箱；由于缺少治疗流血的药物；在撤离途中阵亡。\n\n任务路线，从安全箱直接使用医疗品；\n通过剩余血量状况判断还需要多少治疗值，需要的多就先用剩余多的（可能因为后面还有这个上交任务）\n逃跑时先把镜子卸下来，再尝试治疗，但是已经没有了止血道具，最终死亡；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试",
+      "main_topic": "第一局",
+      "sub_question": "局中"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 107,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "局后",
+    "original_text": "阵亡后首先治疗状态；随后重新起一身任务装备（射手步枪）；起装备过程中对射手步枪进行了配件的改造；按照狙击枪配比子弹与弹夹；完成改装后，到藏身处试枪；（投保枪、甲、背包）；选择相同地图进行游戏",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试",
+      "main_topic": "第一局",
+      "sub_question": "局后"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 108,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "局中",
+    "original_text": "复活后没有继续前往任务地点；全场慢速前往狙击山；到达狙击山后蹲死一名敌人；在填包过程中顺序为\n-填头（自身没有带头入局）\n-整个拾起胸挂（自身背包内剩余空间较多）\n-舔口袋中的手雷\n-躲到安全地点后，详细整理敌人胸挂中的物品；将自身胸挂中物品转移后；替换胸挂\n抵达狙击山后搜索沿途物资；随后继续架枪任务地点\n下山后成功击杀男团，查看任务进度后；准备撤离，在撤离途中搜寻沿途彩蛋点；抵达撤离地点成功撤离",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试",
+      "main_topic": "第二局",
+      "sub_question": "局中"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 109,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "局后",
+    "original_text": "第二局局后；整理物品时首先卸下缴获弹夹中的子弹；将不同物品分类放置于仓库；重新配比与上局相同的装备；选择相同地图；重新进入游戏",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试",
+      "main_topic": "第二局",
+      "sub_question": "局后"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 110,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "局中",
+    "original_text": "开局后重新回到固有任务架枪点；发现任务目标刷新；击毙一个AI；成功推进查看撤离点后；规划搜寻物资并撤离点路线；在撤离途中发现一名玩家；避免交战；继续前往撤离地点；成功撤离",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试",
+      "main_topic": "第三局",
+      "sub_question": "局中"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 111,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "局后",
+    "original_text": "由于本局以任务为主没有；获得多余的物品；稍做整顿后便继续游戏；选择相同模式继续完成任务",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试",
+      "main_topic": "第三局",
+      "sub_question": "局后"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 112,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "局中",
+    "original_text": "开局后前往任务地点架点；但途中被击杀",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试",
+      "main_topic": "第四局",
+      "sub_question": "局中"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 113,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "局后",
+    "original_text": "完成治疗后；调整了装备配比；起了全套且较高级别的甲、头；并开始配枪",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试",
+      "main_topic": "第四局",
+      "sub_question": "局后"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 114,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "局中",
+    "original_text": "开局后前往任务地点；由于未佩戴狙击枪；本次并未架点；近距离摸入工厂；随后击杀两名男团；在搜集物资时，搜集了所以武器、掉落的重点资源（如钥匙）；随后前往撤离地点；按照既定的撤离路线；在最终撤离的途中搜集物资并完成撤离",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试",
+      "main_topic": "第五局",
+      "sub_question": "局中"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 115,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "局后",
+    "original_text": "局后将留下来的物品放入整理箱；将即将卖掉的物品放置在仓库中部；整理物品时会将弹夹与子弹拆开分别整理；因为子弹的价值会高于弹夹；随后卖给商人（卖给商人时会比较不同出售途径的价格）；随后去藏身处收菜；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试",
+      "main_topic": "第五局",
+      "sub_question": "局后"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 116,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "平常会经常整理自己的仓库吗？按照什么逻辑进行的整理分类的？有没有什么技巧可以帮助你整理仓库？（自动整理/整理缓冲区/套包）哪些是你经常在局内使用的物品？哪些是纯收藏品？摆放位置有何不同？每次从身上卸下或从仓库装备的时候有没有什么困难？（顶头没有空格所以需要下拉/多物品放入容器箱）如何快速找到你需要的某个物品？（页签、容器箱或其他玩家自行分类）",
+    "original_text": "【游戏轨迹】完成了狙击杀人的任务后更换了主武器；由于武器的攻击距离较近，所以佩戴了头和甲\n【针包内的排列】止痛-回血-止血-跑路（治疗相关放入左上部位，负重放入右下部位）\n【游戏阶段】\n-第一阶段 熟悉地图捡垃圾\n-第二阶段 偷人当老六\n-第三阶段 找人打架做任务\n-第四阶段 挥霍\n【游戏目标】攒钱是游戏的主要目标\n【打发风格】\n-第一阶段  会更加选择去游走在地图外围\n-第二阶段  很怂的熟悉外围环境\n-第三阶段  去渐渐熟练的去高资源点去搜去物资\n-第四阶段   主要是为了打人；会更注重好的架枪点\n【起装备的决策原因】\n-持续死亡的挫败感\n-复盘对局时；发现胜负之差一点\n【热成像】太贵了，除了任务需求不然不会去用\n【物资搜集演变】\n-第一阶段 建筑材料（快速赚钱）\n-第二阶段 医疗物品（功能性的积累）\n-第三阶段 各种箱子（更大的仓库空间）\n【物品去留的判断】网去搜查；藏身处的搜集条件",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试后访谈",
+      "main_topic": "结合直播情况抛场景",
+      "sub_question": "平常会经常整理自己的仓库吗？按照什么逻辑进行的整理分类的？有没有什么技巧可以帮助你整理仓库？（自动整理/整理缓冲区/套包）哪些是你经常在局内使用的物品？哪些是纯收藏品？摆放位置有何不同？每次从身上卸下或从仓库装备的时候有没有什么困难？（顶头没有空格所以需要下拉/多物品放入容器箱）如何快速找到你需要的某个物品？（页签、容器箱或其他玩家自行分类）"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 117,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "是否有过在进入战局前就已经有了明确的物资获取目标（任务/兑换/藏身处）？为了实现该目标是否采用了一定的策略（配装/地图选择）？",
+    "original_text": "【成长障碍点】\n-任务障碍 按照任务要求杀人\n-机制障碍  寻找boss十分困难\n-记地图  前期的时候记地图是很辛苦的\n-记操作  操作按键很多\n-机制模式  如SCAV中分辨玩家和AI\n【仓库整理】\n-垃圾箱  最先买的是垃圾箱因为前期无用的垃圾物品很多\n-医疗箱  因为打架过程中会频繁需要医疗物品\n-消耗品箱 弹药箱之类的\n-武器箱  \n-超级大的集装箱\n【乐趣点】核心乐趣点是杀人；然后搜刮敌人的物品是第二乐趣点；将战利品放到仓库内陈列是第三乐趣点\n【仓库整理习惯】如果仓库物品之间有空格会很难受；也会希望仓库比较整洁；会有追求对称的习惯\n【仓库整理技巧】套包 、利用弹挂内部的空间、将不同的物品分类存放\n【自动整理习惯】仓库不会自动整理、搜集箱内会自动整理\n【页签的使用习惯】页签很少使用（因为仓库比较整洁；对不同种类的物品会有预分类）\n【页签icon】能清晰的判读和理解页签的含义；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试后访谈",
+      "main_topic": "结合直播情况抛场景",
+      "sub_question": "是否有过在进入战局前就已经有了明确的物资获取目标（任务/兑换/藏身处）？为了实现该目标是否采用了一定的策略（配装/地图选择）？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 118,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "有没有一把自己精心改装的枪支可以展示一下？都做了哪些改装？怎么获得这些配件的？有没有特意为某个配件去攒钱或者去局内针对性的找？带它进局内会害怕丢失吗？现在还有这种精心改装一把枪的目标吗？",
+    "original_text": "【任务系统】\n- 前期任务很重要；主要是跟着任务走（快速升级，解锁商人的道具）\n- 中后期不太注重做任务，因为任务都很困难了\n【商人好感度】影响商人等级；影响可购买装备的等级和价值；黑商等级影响SCAV中的奖励的好坏；\n【地图偏好】实验室（少去，挂多；对地图不是很熟悉）、储备站（少去，老六多、撤退困难）\n【配装影响】地图、任务、朋友的 要求\n【改枪偏好】前期会经常改枪，会很好奇不同配件所带来的效果；后期改装比较少，更多的是寻求改完枪之后击杀敌人；\n【枪老婆】对枪的判断比较偏向于价值的判断，会不会带入游戏，感觉还是会看枪的价格，而不是付出的心血\n【热成像】没必要使用，因为有滤镜对地图的帮助已经足够\n【战场清晰度】\n- 自身状态信息：通过左上角的健康值判断；对于重伤状态屏幕上会有血的标志；重伤是还会有叫声；对于疼痛还有画面模糊的效果；\n- 枪声信息：打架的时候；对敌人的信息有一定的预判；知道敌人的位置；数量；交战状态\n【搜集流程】听有没有脚步声-判断没有人后进入-看高级资源点-看低级资源点-打开东西的时候可能会趴下，防止敌人发现；\n【搜索同时整理】会在右边检索时，同时整理左边的物品\n【检视】一般来说会先检视再拾取；为了判断物品的价值\n【捡拾交互】捡起东西时更多的是通过点击的方式；在部分格位不充足时才会进行拖到操作\n【价值判断】任务物品>高价值物品；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试后访谈",
+      "main_topic": "结合直播情况抛场景",
+      "sub_question": "有没有一把自己精心改装的枪支可以展示一下？都做了哪些改装？怎么获得这些配件的？有没有特意为某个配件去攒钱或者去局内针对性的找？带它进局内会害怕丢失吗？现在还有这种精心改装一把枪的目标吗？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 119,
+    "speaker_id": "P3",
+    "speaker_role": "interviewee",
+    "preceding_question": "平时的配装思路是什么样的？哪些必带？为什么？（夜视仪热成像）携带的过程是什么样的？为什么XX总是放在XX位置？",
+    "original_text": "【局内套包】在局内把敌人的胸挂，套到自己的背包中，等到找到安全的位置的时候再整理；\n【背包快速使用】不应该，不符合实际；在战斗中不应该能够直接使用背包中的物品；对游戏的拟真感存在影响\n【pubg捡东西】和塔可夫相比没有整理背包的快乐\n【暗区砍掉技能】暗区中入坑很久的和新人之间差距很小；这种差距对于喜欢肝的人来说会有一定的不满\n【暗区砍掉藏身处】如果砍掉的话，会丢失很多养成的快乐；藏身处对玩家的感觉更多集中于功能性；\n【暗区的地图 】地图的简化是游戏真实性的体验之一；所以感觉这部分在塔可夫中不应该做简化\n【暗区的声纹】不应该加入塔可夫中，都会降低养成的快感；都是为了真实而服务的；就是应该通过不断的积累来实现；不应该有太多的辅助\n【配装】\n-成功撤离 使用上一把的装备；补充子弹、护甲耐久度、血包、\n-撤离失败 有可能重新配上一把的装备；也有可能跟换打法；起更好的装备\n【下蹲、探头调整辅助】主要用于防止枪械和掩体的碰撞；在对战时有更好的隐蔽效果\n【耐力条】现实中跑的时候也会有相同的感受\n【声纹不应该展现、耐力可以展现】声纹会有一种判断的成就感；耐力是一种基本信息的展示\n【新手期的价值判断】新手期判断是价值；更多是看直觉（会将物品的价值和现实世界中的价值相对应）（紫色底会比黑色底贵）（占格子大比占格子小贵）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试后访谈",
+      "main_topic": "结合直播情况抛场景",
+      "sub_question": "平时的配装思路是什么样的？哪些必带？为什么？（夜视仪热成像）携带的过程是什么样的？为什么XX总是放在XX位置？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 120,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "关注玩家日常游戏路径（先做什么、再做什么、为什么）",
+    "original_text": "【商人】  已经到了大后期；只有一些每日任务了\n每日任务，现在是在做，还有一个是周期性的行动任务，时间限制的",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "暖场 & 信息甄别 & 初步了解",
+      "main_topic": "日常路径",
+      "sub_question": "关注玩家日常游戏路径（先做什么、再做什么、为什么）"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 121,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "仓库的物资丰富度、分类、排列方式",
+    "original_text": "【仓库解锁】\n仓储玩家，仓库总价值已经超过2亿；\n会将不同的物品分箱存放；箱中箱状态\n- 按照物品属性分类（钱、钥匙、子弹、弹夹）\n- 按照物品所占的格数分类（两格物品存放箱、三格物品存放箱）\n- 流动的东西放到上边；固定的装备、收藏品放到下边",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "暖场 & 信息甄别 & 初步了解",
+      "main_topic": "仓库介绍",
+      "sub_question": "仓库的物资丰富度、分类、排列方式"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 122,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "局前",
+    "original_text": "装备投保、配齐弹药、带上必要的食物和药品；\n\n打了一把Scav等朋友；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试",
+      "main_topic": "第一局",
+      "sub_question": "局前"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 123,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "局中",
+    "original_text": "由于是游戏后期玩家，对物资的需求度很低，在局内的物资搜集行为较少；对资源点物资、敌人物资的关注度较低\n\n【整体路径】判断出生位置—前往高资源地点—架高优势位置—发现敌人—击杀敌人—架点帮助队友搜房—规划下一步搜索路线—弹药补给——队友被打掉\n\n玩家发现系统给的装备很好，去搜刮了下其他死去玩家的尸体，开始跑彩蛋；已经开始有选择性地拿高价值物品；\n玩家通过问队友和上网搜索，询问任务的实现地点；\n玩家给SCAV点了个赞；\n捡彩蛋发现东西很多，然后带上自己感觉有价值的，之后开始把消耗品菠萝汁喝掉；\n队友开始等玩家，玩家还在继续搜素，让队友尝试去下工厂；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试",
+      "main_topic": "第一局",
+      "sub_question": "局中"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 124,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "局后",
+    "original_text": "直接销毁不重要的局内获得的物品\n复盘局内行为通过枪声位置、破窗位置、人物受伤位置来判断情况；局后整理时，会将消耗品放入对应的箱子，选择下一局的装备：选择枪械—更换枪械配件：\n\n将物品一个一个塞入对应的容器中，钥匙卡不知道放在哪里，大块物品放在别的地方；\n售卖物品、上交物品、回收物品；\n打开藏身处，查看刚才带出来的油桶够不够升级藏身处；\n上架物品、一直在整理仓库；等队友的时候去跳槽市场选低价物品；\n讨论各个任务的奖励，玩家说讲自己的理解，说喜欢Jagger给的热成像；\n玩家问队友一会要不要攻楼打架，决定带鹿弹；\n玩家检查自身时发现文件包里的上局战利品忘记拿出来了，尝试双文件包，感觉这个容器挺有有可以放好多东西；\n队友问要冲楼的话就要起枪；玩家说进楼拿长武器很烦；\n玩家被朋友刺激了，换成了AK套装，中间调整子弹时把物品放入弹药箱；\n雷、药、弹夹、被弹；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试",
+      "main_topic": "第一局",
+      "sub_question": "局后"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 125,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "局中",
+    "original_text": "局内无物资搜集行为\n确认复活位置较为偏远，扎蓝针提升移动速度快速赶路；听到枪声，判断敌人的位置、火力状态、交战情况—抵达目标地点—遇敌—通过判断敌人的装备等级，决策是否交战；\n\n把凡士林放进安全箱；\n边等待搜索变装子弹；玩家预期资源点较肥；\n杀了两个敌人，能装枪上的配件就装枪上了；把弹夹放在第一个排满；\n中途物资交换，说快没能量了，吃了队友给的牛肉罐头；\n发现保险箱里的石雕，发现拿不了，让队友来拿；\n为什么宁愿把雕像给队友也不把医疗用品从安全箱里拿出来（？）\n和队友一起决策去豪宅；让队友不要一直开着激光；\n把门关上制造假象；\n队友说要去摸村庄彩蛋点，但是感觉自身背包满了，就说算了没必要去了；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试",
+      "main_topic": "第二局",
+      "sub_question": "局中"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 126,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "局后",
+    "original_text": "【装备配比】选择装备（认真挑选枪、甲；随便买一个低级别的弹挂；）—调整装备配件—增添药物、针、投掷物（每局选择装备都不一样选择的逻辑是什么？）\n起了高级的头、甲枪；\n\n分门别类进行放置，分门别类放置物品，在容器盒里拿出一些物品进行整理（针，全部出售掉），带出来的两瓶酒没地方放了，所以把数量较少私酒拿出来，放进套包的箱子里；蚊子腿也是肉；钱也不要，不知道为什么钱也不拿；临近撤离枪也丢下；打一把Scav，打一把组队，也是在快速积累装备；窗口的悬浮、键鼠快捷键的高机动性是塔科夫让整理乐趣持续的玩法；队友询问能不能打一把实验室，玩家开始配一把枪；买了很多止血剂放进仓库，像在补货，玩家把2X2=400的医疗包换成两个300一个格的；子弹卸几个就知道u是自己需要的了；把枪的倍镜拿下来，队友把带子弹的弹夹扔给玩家；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试",
+      "main_topic": "第二局",
+      "sub_question": "局后"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 127,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "局中",
+    "original_text": "不以资源搜集为核心目标，在击杀敌人后也不会立即寻求搜包撤退；持续架枪、杀人；在确认没有敌人争夺资源点后，会进行环境资源搜集；资源搜集时只会搜集重点资源。\n到达资源密集地点后，直接上高点架枪（物资搜集和产出不以资源搜集为主，而以击杀舔包为主）——发现敌人声音——击杀敌人——击杀敌人后没有舔包行为——全程为队友架枪，不搜取环境资源——撤退前搜集实体，（甲、耳机、搜索胸挂、枪械的个别配件、）——换包",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试",
+      "main_topic": "第三局",
+      "sub_question": "局中"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 128,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "局后",
+    "original_text": "整理箱子时；资源型物品会放置于各自的箱子中，枪甲置于仓库最底部；\n【更换武器】卸下优势装备，不带头、垃圾的甲；一把狙击枪、食物；下一局目标是灯塔的白嫖",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试",
+      "main_topic": "第三局",
+      "sub_question": "局后"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 129,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "局中",
+    "original_text": "先采用狙击枪架点；远距离狙杀；确认击杀后，将装备埋到野外骗保；跑刀到尸体旁白嫖武器装备；顺序为枪—甲—更换弹挂—搜索背包；在这种诉求下，会尽量去捡拾敌人所有的装备，积极舔包；\n【目标】灯塔白嫖\n【整体行为】\n判断出生点后，寻找架点位置；后续听到了敌人的声音，持续蹲点等待敌人出现；进城舔包之前将武器埋在野外；舔包时点顺序，先武器再防具，随后将自身弹挂中的物品清空，更换弹挂（更换弹挂的行为，在白嫖式舔包中经常出现）（搜索弹挂时先搜索下方弹格区域；再搜索双格区域）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试",
+      "main_topic": "第四局",
+      "sub_question": "局中"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 130,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "局后",
+    "original_text": "【更换武器】选择低级装备—试枪—测试两个状态：红点连续压枪；高倍镜单点",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试",
+      "main_topic": "第四局",
+      "sub_question": "局后"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 131,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "局中",
+    "original_text": "判断出生地点-决定进攻地为后山-听到枪声，决定去抓人-发现敌人-击杀敌人后会照顾弱势队友，让队友先舔包，",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试",
+      "main_topic": "第五局",
+      "sub_question": "局中"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 132,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "局外养成线路理解、历史目标、及其存在对游戏的整体作用",
+    "original_text": "【枪械配备】根据不同的地图的特点，如射击距离等特性确定佩戴的枪；\n【团队分工】固定配合的队伍存在团队分工，这位玩家的分工以架点为主；负责侦查信息；有一定的分赃的过程，比如谁杀了人就谁舔；\n【整体流程】先打了两把海岸线，为了打架；打架主要是去楼里；等级高能够以最快的速度进入楼里；以楼为作战核心开打；\n【资源诉求】楼里就是打架的地方，虽然有一定的物资，但是物资不是很肥，所以过去是以打架为主，而且打架的时候会选择一些强力的装备；在打海岸线的时候会在山上狙人，然后差不多清掉玩家后开始搜集物资；\n【资源搜集路线】清晰不同房间里可以舔的资源点的位置；完成资源点的搜集之后；就会准备撤退",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试后访谈",
+      "main_topic": "开放式提问",
+      "sub_question": "局外养成线路理解、历史目标、及其存在对游戏的整体作用"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 133,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "局外仓库整理策略、操作障碍点及技巧、分类策略及意识",
+    "original_text": "【商人】通过培养好感度购买资源；还是有一些高级别物资；\n【战利品使用习惯】将战斗中获得的较好的枪全部收藏起来；不会去换钱；\n【仓库管理策略】\n -枪 有点种田的感觉，明明仓库中已经没有地方放下了，却还是想把更多的枪放到仓库；会享受一种仓库渐渐摆满的乐趣；\n -资源 有分别的资源箱子；都放到箱子里；作为消耗品使用位置在仓库的上部\n-贵重物品 统一放到独特的箱子里；位置在仓库的中部",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试后访谈",
+      "main_topic": "开放式提问",
+      "sub_question": "局外仓库整理策略、操作障碍点及技巧、分类策略及意识"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 134,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "局外配装策略、与其他因素的相关性、配装场景下的需求、投保思路",
+    "original_text": "【起装思路】\n-与队友之间的分工  架点的分工一般使用高倍镜\n-不同的作战场景  在楼房、遭遇战多的场景一般会使用射速快的冲锋枪\n-\n【投保思路】如果和队友一起玩的话，会进行投保，如果是自己玩的话一般不会投；因为投了也可能找不到",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试后访谈",
+      "main_topic": "开放式提问",
+      "sub_question": "局外配装策略、与其他因素的相关性、配装场景下的需求、投保思路"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 135,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "局内物资搜刮策略（感知-认识-决策-行为）\n物资诉求（怎么判断需要什么/去哪里得到它/目标是什么）\n局内物资整理场景探讨、出现过的障碍与爽点；\n局内物资整理策略（什么时候整理？ 什么时候检视？整理后的好处）\n回忆与再认（新手期的物资管理诉求/行为/目标/决策）\n核心乐趣（枪战 or 物资 / 详细解读和讨论该乐趣“盲盒/积累等”）\n物资对局内外游戏的驱动力",
+    "original_text": "【资源点选择】每一张地图都有几个固定的比较肥的资源点，玩的时候会直接去资源点；\n【撤退时机的选择】当资源点搜集结束；战斗也结束时；会结束搜集资源点的行为\n【环境资源】一般现在只会搜保险柜这种高爆率的资源点，其他的地方不会专门去搜\n【物资选择】会关注物品的单格价值；会更倾向于保留单格价值高的物品\n【局内搜集】会有开盲盒的乐趣；因为不同物品的价值不一样；所以会有更高的乐趣；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试后访谈",
+      "main_topic": "开放式提问",
+      "sub_question": "局内物资搜刮策略（感知-认识-决策-行为）\n物资诉求（怎么判断需要什么/去哪里得到它/目标是什么）\n局内物资整理场景探讨、出现过的障碍与爽点；\n局内物资整理策略（什么时候整理？ 什么时候检视？整理后的好处）\n回忆与再认（新手期的物资管理诉求/行为/目标/决策）\n核心乐趣（枪战 or 物资 / 详细解读和讨论该乐趣“盲盒/积累等”）\n物资对局内外游戏的驱动力"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 136,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "局后多结局后续探讨、出现的物资整理行为；\n不同结局所致的策略变化",
+    "original_text": "【撤出后的整理行为】喜欢囤货；把物品放到不同的资源箱里，一段时间买一次；一些普通的资源会直接卖给商人；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第一次测试后访谈",
+      "main_topic": "开放式提问",
+      "sub_question": "局后多结局后续探讨、出现的物资整理行为；\n不同结局所致的策略变化"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 137,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "局前",
+    "original_text": "选择森林地图；在战前决定打法为扫边缘敌人，不去进攻高资源地点；战局目标为搜集资源\n开局后判断出生位置；向边缘转移；听到枪声后明确进攻方向；摸上高点击杀敌人；判断敌人为AI；放弃舔包；搜刮部分环境资源后，继续选择高点架枪；持续在高点架枪，清点；对目标资源点进行持续狙击；被攻击后，判断敌人位置进行来枪线行为；和队友一个架近点，一个架远点；\n清点完成开始舔包，舔包过程中进行了物资的预分配；舔包过程先弹挂后背包；留下队友需要的物品；\n击杀第二个玩家后；开始骗保行为，将投保的枪的子弹扣下；将枪械丢掉；去舔敌人的包\n队友被击杀后，去帮助队友进行埋装备；\n待战局基本结束；开始搜刮人机的装备\n搜包时先卸掉狙击镜，来适配空间；频繁进行转向的置换操作；\n\n算单格价值，一格2.5万，同时计算重量，说没什么事不用拿；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试",
+      "main_topic": "第一局",
+      "sub_question": "局前"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 138,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "局中",
+    "original_text": "目前资源获取诉求较小，游玩中更多和朋友一起游玩；以杀人、团队合作为主要目的；过程中顺便完成每日任务；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试",
+      "main_topic": "第二局",
+      "sub_question": "局中"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 139,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "局后",
+    "original_text": "选择森林地图；在战前决定打法为扫边缘敌人，不去进攻高资源地点；战局目标为搜集资源\n开局后判断出生位置；向边缘转移；听到枪声后明确进攻方向；摸上高点击杀敌人；判断敌人为AI；放弃舔包；搜刮部分环境资源后，继续选择高点架枪；持续在高点架枪，清点；对目标资源点进行持续狙击；被攻击后，判断敌人位置进行来枪线行为；和队友一个架近点，一个架远点；\n清点完成开始舔包，舔包过程中进行了物资的预分配；舔包过程先弹挂后背包；留下队友需要的物品；\n击杀第二个玩家后；开始骗保行为，将投保的枪的子弹扣下；将枪械丢掉；去舔敌人的包\n队友被击杀后，去帮助队友进行埋装备；\n待战局基本结束；开始搜刮人机的装备\n搜包时先卸掉狙击镜，来适配空间；频繁进行转向的置换操作；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试",
+      "main_topic": "第二局",
+      "sub_question": "局后"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 140,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "平常会经常整理自己的仓库吗？按照什么逻辑进行的整理分类的？有没有什么技巧可以帮助你整理仓库？（自动整理/整理缓冲区/套包）哪些是你经常在局内使用的物品？哪些是纯收藏品？摆放位置有何不同？每次从身上卸下或从仓库装备的时候有没有什么困难？（顶头没有空格所以需要下拉/多物品放入容器箱）如何快速找到你需要的某个物品？（页签、容器箱或其他玩家自行分类）",
+    "original_text": "【是否会携带水和粮食】“一般在打灯塔的图的时候会带水，因为有些图打的时间比较长要30-40分钟；看这一局要什么打法”\n【游戏阶段回顾】\n- 认地图： 刚开始一两个月一个人在玩，主要是摸索不同地图的特色\n- 认资源：不同地点的高资源点的位置，回去刻意的学习\n- 认彩蛋：知道不同地图的彩蛋的位置\n- 认价值：偏后期，会有一个对物品价值的筛选；这个比较偏后期\n- 挥霍期： 在资源都比较多的时候，更多是和朋友们各种玩一玩\n\n【游戏目标】\n第一、二阶段目标：能够安全的拿到东西撤出来\n第三、四阶段目标：能够找到更加有价值的物品（这个时候会打一定打人，但还是很关注能否安全撤出）\n第五阶段的目标：会更多的以交战和击杀敌人为主；\n\n【战斗风格】更多的以杀人为主，会有更多的架点行为\n\n【信息关注点】\n枪声 - 会关注枪声的信息从而影响对后续路线的决策\nAI -有的时候会不打AI，利用其进行放哨，它枪指向的地方可能是敌人的地方\n物资 - 不同地点的物资刷新情况，判断是否被敌人摸过，从而判断这个区域的敌人的信息\n状态 - 一般是受伤的时候关注的更多\n受伤 - 被打之后会优先情况下会考虑后撤，后撤的同时会看左上角的个人的状态",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试后访谈",
+      "main_topic": "结合直播情况抛场景",
+      "sub_question": "平常会经常整理自己的仓库吗？按照什么逻辑进行的整理分类的？有没有什么技巧可以帮助你整理仓库？（自动整理/整理缓冲区/套包）哪些是你经常在局内使用的物品？哪些是纯收藏品？摆放位置有何不同？每次从身上卸下或从仓库装备的时候有没有什么困难？（顶头没有空格所以需要下拉/多物品放入容器箱）如何快速找到你需要的某个物品？（页签、容器箱或其他玩家自行分类）"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 141,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "是否有过在进入战局前就已经有了明确的物资获取目标（任务/兑换/藏身处）？为了实现该目标是否采用了一定的策略（配装/地图选择）？",
+    "original_text": "【物资管理状态】\n-新手期 最初的时候会什么东西都捡，最初建立的是对枪的价值的认知\n-认知期 最初的对价值的认知是从子弹开始，然后慢慢清楚物品的价值\n-任务期  以任务/藏身处对物品为搜集的目标\n\n【消耗品的搜集】局前不会携带太多的消耗品，局中的时候会捡拾一定的食物；背包空间不够的时候水一般会直接喝掉\n\n【成长过程中的障碍】\n- 不认配件、不认价格：背包满了之后会忘记捡，最一开始的时候不知道不同配件的价值，就会不知道捡什么\n- 枪械与配件的搭配：不知道什么配件应该应用在什么枪里（主要是枪口配件）（目前对于后坐力的评判标准，低于80只能用单点、低于50可以进行全自动射击）",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试后访谈",
+      "main_topic": "结合直播情况抛场景",
+      "sub_question": "是否有过在进入战局前就已经有了明确的物资获取目标（任务/兑换/藏身处）？为了实现该目标是否采用了一定的策略（配装/地图选择）？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 142,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "有没有一把自己精心改装的枪支可以展示一下？都做了哪些改装？怎么获得这些配件的？有没有特意为某个配件去攒钱或者去局内针对性的找？带它进局内会害怕丢失吗？现在还有这种精心改装一把枪的目标吗？",
+    "original_text": "【售卖物品】售卖的时候不会直接放到缓冲区里，而是放到包里，（因为放包里有快捷方式）\n【页签的使用】一般会在整理包的时候用的到，平时出来的时候会立即开下一把，会直接不分类放到背包里，后续整理的时候通过页签进行快速定位\n【整理背包的场景】一般在等待别的玩家会等3-5分钟的时候，回去进行整理的行为；时间允许的话会直接放到相应的箱子里\n【局后物品整理】最下边的地方会放一些甲和枪；整理多了东西的话会去进行物品交换；中间的部位是各种收藏品的箱子，最上边上流动性强的物品都箱子；\n【子弹配比】一个弹夹中的前15发子弹会放穿甲单，会更多用于单点/穿甲单射击，后边的子弹会用普通的子弹\n【局前目标】\n目前的每一局前没有非常准确的物资的目标；类似于开盲盒的感觉，能遇到就挺好\n在游戏的前中期，要去做任务的时候，会有比较强烈的对特定物品的需求；\n【手术包的携带】没有和队友之间的很明确的物品携带的分工，平时会带一些止血剂一些的东西\n【赛前的物品携带】会根据这句的作战策略确定物品的具体携带方案；比如枪的交战距离",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试后访谈",
+      "main_topic": "结合直播情况抛场景",
+      "sub_question": "有没有一把自己精心改装的枪支可以展示一下？都做了哪些改装？怎么获得这些配件的？有没有特意为某个配件去攒钱或者去局内针对性的找？带它进局内会害怕丢失吗？现在还有这种精心改装一把枪的目标吗？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 143,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "平时的配装思路是什么样的？哪些必带？为什么？（夜视仪热成像）携带的过程是什么样的？为什么XX总是放在XX位置？",
+    "original_text": "【改枪】\n- 前期 有那把枪就用哪把枪；不会去改装\n-后期 后期的时候会解锁更多的配件会有一定的改装行为\n【不会携带的贵重枪】\n-任务物品 获得比较麻烦\n-高价值 配件有高价值物品\n【投保】投保后会埋枪骗保；如果队友有贵重的物品，且投保了的话，会帮助队友进行埋包；\n把队友的高价值的物品放到旁边的地上，因为敌人在搜查的时候一般不会看尸体附近的区域",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试后访谈",
+      "main_topic": "结合直播情况抛场景",
+      "sub_question": "平时的配装思路是什么样的？哪些必带？为什么？（夜视仪热成像）携带的过程是什么样的？为什么XX总是放在XX位置？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 144,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "如何决定本局的物资搜索路线？为什么？有哪些因素影响你做出此决策？",
+    "original_text": "【摸出物品后丢掉】模起物资，并扔掉的行为可以加不同的技能经验值（感知、美丽、搜索），所以捡起东西后直接扔掉，是为了提升技能经验",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试后访谈",
+      "main_topic": "结合直播情况抛场景",
+      "sub_question": "如何决定本局的物资搜索路线？为什么？有哪些因素影响你做出此决策？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 145,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "如果决定要拾取，如何判断该物品被收容进的位置？需不需要对物品的落位情况有一定的掌控？是否需要拾取后再进行物品的位置/方向调整？有没有遇到过格位不够/形状不对的情况？该如何应对？像格位够但形状不对的这种情况可以自动化处理吗？",
+    "original_text": "【物品价值判断】单格价值超过2万的东西，会直接带走；【任务物品】>【高价值物品】\n【升级的意义】 升级为了提升好感度，为了从商人那里买卖更多的东西——养成诉",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试后访谈",
+      "main_topic": "结合直播情况抛场景",
+      "sub_question": "如果决定要拾取，如何判断该物品被收容进的位置？需不需要对物品的落位情况有一定的掌控？是否需要拾取后再进行物品的位置/方向调整？有没有遇到过格位不够/形状不对的情况？该如何应对？像格位够但形状不对的这种情况可以自动化处理吗？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 146,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "安全箱里平时会放哪些物品？为什么开局就放/不放些不值钱的东西？局内会将这些东西拿到背包里吗？为什么？有没有什么障碍或者困难？局内的套包行为多吗？",
+    "original_text": "【枪里的剩余子弹】要来会换弹夹，很多时候跟别人交战只有一个弹夹的机会，所以会时时确认自己的弹夹是否满\n【整理物品的交互】\n-点按 快速  在移动物品的时候会按快捷键用点按的操作，\n-拖拽 精准 在需要整理空间的具体的排布情况的时候会用拖拽的操作\n-单格 单格的物品会更多的使用点按的操作\n-大件 大件的物品会以拖拽为主\n【搜索同时的操作】\n左边会有一定的整理的行为，会提前把未知物品所需要的空间进行预整理\n【单局得失的判断】如局的时候身上装备的价值和出来之后保险箱中价值的对比",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试后访谈",
+      "main_topic": "结合直播情况抛场景",
+      "sub_question": "安全箱里平时会放哪些物品？为什么开局就放/不放些不值钱的东西？局内会将这些东西拿到背包里吗？为什么？有没有什么障碍或者困难？局内的套包行为多吗？"
+    }
+  },
+  {
+    "source_file": "生存撤离类新手引导体验研究/整合记录表.xlsx#【二期】塔科夫",
+    "segment_index": 147,
+    "speaker_id": "P4",
+    "speaker_role": "interviewee",
+    "preceding_question": "有没有替换装备的时候？替换的时候要做哪些事情？（拆配件/沉河底/套包内）",
+    "original_text": "【藏身处的升级顺序】升级藏身处的顺序基本是固定的，会按照你能获取物资的等级来进行搜集\n【藏身处模块的价值】\n-前期 SCRV宝箱：前期会跑出一些情报，看能不能跑出这些东西（利用经验来判断前期那些东西的价值会增加，在前期的时候会提前投入产出）\n【头盔的价值的判读】更多的不是直觉的判断，这些头盔是按照现实中的真实的情况，更多的还需要进行经验上的判断\n【高低价值的物品的视觉判断】比较困难，更多的还是要靠经验的积累；有一些固定价值比较高的物品他的底是紫色的，有一定经验的时候的判断标准就是少见的就是贵的\n【价值误判】新手的时候会觉得大个的东西就是好东西；然后一些特定容器中的是好物品，比如保险柜；\n【钥匙】新手时期对钥匙会有很高的优先级，基本会拿着所有的看到的钥匙；",
+    "cleaned_text": null,
+    "char_count": null,
+    "annotation": {
+      "sheet": "【二期】塔科夫",
+      "section": "第二次测试后访谈",
+      "main_topic": "结合直播情况抛场景",
+      "sub_question": "有没有替换装备的时候？替换的时候要做哪些事情？（拆配件/沉河底/套包内）"
+    }
+  }
+]
