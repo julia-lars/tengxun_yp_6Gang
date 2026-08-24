@@ -158,6 +158,14 @@ pipelineRoute.get("/status/:jobId", async (c) => {
   if (!status.completedAt) {
     const elapsed = Date.now() - new Date(status.startedAt).getTime();
 
+    // 自适应校准：当实际耗时超过原预估的 85% 还没完成时，延长 estimatedTotalMs
+    if (elapsed > status.estimatedTotalMs * 0.85) {
+      status.estimatedTotalMs = Math.round(elapsed * 1.18);
+    }
+    if (elapsed > status.estimatedTotalMs) {
+      status.estimatedTotalMs = Math.round(elapsed * 1.15);
+    }
+
     // 时间驱动进度（单调，不回退）
     const rawProgress = Math.round((elapsed / status.estimatedTotalMs) * 100);
     const monotonicProgress = Math.max(status.progress, Math.min(99, rawProgress));

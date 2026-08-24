@@ -86,7 +86,7 @@ export function HistoryPage() {
     <div className="space-y-6">
       <Link
         to="/"
-        className="inline-flex items-center gap-1 text-sm text-[--color-muted-foreground] hover:text-[--color-primary] transition-colors"
+        className="inline-flex items-center gap-1 text-sm text-(--color-muted-foreground) hover:text-(--color-primary) transition-colors"
       >
         <ArrowLeft className="h-3 w-3" /> 返回首页
       </Link>
