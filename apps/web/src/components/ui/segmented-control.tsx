@@ -16,7 +16,7 @@ export function SegmentedControl<T extends string>({
 }: SegmentedControlProps<T>) {
   return (
     <div
-      className={cn("flex rounded-md border border-[--color-border] overflow-hidden", className)}
+      className={cn("flex rounded-md border border-(--color-border) overflow-hidden", className)}
     >
       {options.map((opt, i) => {
         const isSelected = value === opt.value;
@@ -29,10 +29,10 @@ export function SegmentedControl<T extends string>({
             onClick={() => onChange(opt.value)}
             className={cn(
               "flex-1 px-3 py-1.5 text-xs font-medium transition-all duration-150",
-              "border-r border-[--color-border] last:border-r-0",
+              "border-r border-(--color-border) last:border-r-0",
               isSelected
                 ? "bg-gray-700 dark:bg-gray-200 text-white dark:text-gray-900 shadow-sm font-semibold"
-                : "bg-transparent text-[--color-muted-foreground] hover:bg-[--color-secondary] hover:text-[--color-foreground]",
+                : "bg-transparent text-(--color-muted-foreground) hover:bg-(--color-secondary) hover:text-(--color-foreground)",
             )}
           >
             {opt.icon && <span className="mr-1">{opt.icon}</span>}

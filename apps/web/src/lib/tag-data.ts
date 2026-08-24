@@ -463,3 +463,23 @@ export function isValidCombination(selectedTags: string[]): string | null {
   }
   return null;
 }
+
+// ---- 工具：将维度值展平为统一 options 列表 ----
+
+export function flattenOptions(dim: TagDimension): TagOption[] {
+  const seen = new Set<string>();
+  const result: TagOption[] = [];
+  const sources: TagOption[][] = [];
+  if (dim.options) sources.push(dim.options);
+  if (dim.groups) sources.push(...dim.groups.map((g) => g.options));
+  if (dim.segmentedAxes) sources.push(...dim.segmentedAxes.map((a) => a.options));
+  for (const opts of sources) {
+    for (const o of opts) {
+      if (!seen.has(o.value)) {
+        seen.add(o.value);
+        result.push(o);
+      }
+    }
+  }
+  return result;
+}

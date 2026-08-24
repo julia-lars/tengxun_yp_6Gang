@@ -4,20 +4,20 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[--color-ring] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-(--color-ring) disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
         default:
-          "bg-[--color-primary] text-[--color-primary-foreground] shadow-sm hover:bg-[--color-primary]/90",
+          "bg-(--color-primary) text-(--color-primary-foreground) shadow-sm hover:bg-(--color-primary)/90",
         destructive:
-          "bg-[--color-destructive] text-[--color-destructive-foreground] shadow-sm hover:bg-[--color-destructive]/90",
+          "bg-(--color-destructive) text-(--color-destructive-foreground) shadow-sm hover:bg-(--color-destructive)/90",
         outline:
-          "border border-[--color-border] bg-transparent shadow-sm hover:bg-[--color-accent] hover:text-[--color-accent-foreground]",
+          "border border-(--color-border) bg-transparent shadow-sm hover:bg-(--color-accent) hover:text-(--color-accent-foreground)",
         secondary:
-          "bg-[--color-secondary] text-[--color-secondary-foreground] shadow-sm hover:bg-[--color-secondary]/80",
-        ghost: "hover:bg-[--color-accent] hover:text-[--color-accent-foreground]",
-        link: "text-[--color-primary] underline-offset-4 hover:underline",
+          "bg-(--color-secondary) text-(--color-secondary-foreground) shadow-sm hover:bg-(--color-secondary)/80",
+        ghost: "hover:bg-(--color-accent) hover:text-(--color-accent-foreground)",
+        link: "text-(--color-primary) underline-offset-4 hover:underline",
       },
       size: {
         default: "h-9 px-4 py-2",

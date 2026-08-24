@@ -15,7 +15,7 @@ interface IcebergChainProps {
 const LEVELS: { key: string; label: string }[] = [
   { key: "M1_motivation", label: "M1 动机" },
   { key: "M2_expectation", label: "M2 期待" },
-  { key: "M3_perception", label: "M3 认知" },
+  { key: "M3_cognition", label: "M3 认知" },
   { key: "M4_feeling", label: "M4 感受" },
   { key: "M5_behavior", label: "M5 行为" },
 ];
@@ -25,10 +25,10 @@ export function IcebergChain({ chain, className }: IcebergChainProps) {
     key,
     label,
     content: chain[key] ?? "",
-  })).filter((item) => item.content);
+  }));
 
-  if (items.length === 0) {
-    return <p className="text-sm text-[--color-muted-foreground]">暂无动机链数据</p>;
+  if (items.every((item) => !item.content)) {
+    return <p className="text-sm text-(--color-muted-foreground)">暂无动机链数据</p>;
   }
 
   return (
@@ -40,18 +40,18 @@ export function IcebergChain({ chain, className }: IcebergChainProps) {
             <div
               className={cn(
                 "w-2.5 h-2.5 rounded-full border-2 flex-shrink-0",
-                "border-[--color-primary] bg-[--color-primary]",
+                "border-(--color-primary) bg-(--color-primary)",
               )}
             />
             {i < items.length - 1 && (
-              <div className="w-px flex-1 min-h-[16px] bg-[--color-border]" />
+              <div className="w-px flex-1 min-h-[16px] bg-(--color-border)" />
             )}
           </div>
           {/* 内容 */}
           <div className={cn("pb-3", i === items.length - 1 && "pb-0")}>
-            <span className="text-xs font-semibold text-[--color-primary]">{item.label}</span>
-            <p className="text-sm text-[--color-foreground] mt-0.5 leading-relaxed">
-              {item.content}
+            <span className="text-xs font-semibold text-(--color-primary)">{item.label}</span>
+            <p className="text-sm text-(--color-foreground) mt-0.5 leading-relaxed">
+              {item.content || "（待标注）"}
             </p>
           </div>
         </div>

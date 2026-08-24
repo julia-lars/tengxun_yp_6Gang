@@ -1,20 +1,31 @@
 // --------------------------------------------------------------
 // KOL 分身 路由
+// 使用共享聊天引擎 agent-chat.ts
 // --------------------------------------------------------------
 
-import type { KolProfileDetail, KolProfileSummary } from "@app/shared";
+import type { KolChatSession, KolProfileDetail, KolProfileSummary } from "@app/shared";
 import { kolChatRequestSchema } from "@app/shared";
 import { zValidator } from "@hono/zod-validator";
-import { eq, sql } from "drizzle-orm";
+import { desc, eq, sql } from "drizzle-orm";
 import { Hono } from "hono";
-import { streamSSE } from "hono/streaming";
 
 import { db } from "../db/client.js";
-import { kolProfiles, kolSegments } from "../db/schema.js";
+import { kolChatSessions, kolProfiles, kolSegments } from "../db/schema.js";
 import type { ChatMessage } from "../lib/llm.js";
-import { chatStream } from "../lib/llm.js";
+import { SPOKEN_STYLE_RULES, formatSpokenStyleRules } from "../lib/prompt-rules.js";
+import { escapeLike } from "../lib/sql.js";
+import {
+  getOrCreateSession,
+  searchEvidence,
+  streamChat,
+  formatEvidenceContext,
+  type EvidenceRow,
+} from "../lib/agent-chat.js";
 
 export const kolRoute = new Hono();
+
+// RAG 相似度阈值（余弦距离 < 0.5 视为相关）
+const KOL_SIMILARITY_THRESHOLD = 0.5;
 
 // ---- KOL 列表 ----
 
@@ -69,23 +80,11 @@ kolRoute.get("/:id", async (c) => {
   return c.json(result);
 });
 
-// ---- KOL 对话（SSE 流式） ----
-
-// BGE embedding 服务（Python 微服务，本地端口 8765）
-async function embedQuery(text: string): Promise<number[]> {
-  const res = await fetch("http://127.0.0.1:8765/embed", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ text }),
-  });
-  if (!res.ok) throw new Error(`Embed server ${res.status}`);
-  const data = (await res.json()) as { embedding: number[] };
-  return data.embedding;
-}
+// ---- KOL 对话（SSE 流式）----
 
 // POST /api/kol/chat
 kolRoute.post("/chat", zValidator("json", kolChatRequestSchema), async (c) => {
-  const { kolId, message } = c.req.valid("json");
+  const { kolId, sessionId, message } = c.req.valid("json");
 
   // 1. 获取 KOL 画像
   const kol = await db.query.kolProfiles.findFirst({
@@ -93,65 +92,92 @@ kolRoute.post("/chat", zValidator("json", kolChatRequestSchema), async (c) => {
   });
   if (!kol) return c.json({ error: "KOL 不存在" }, 404);
 
-  // 2. RAG: 向量相似搜索（pgvector），过滤广告片段
-  let evidenceRows: Array<{
-    id: number;
-    originalText: string;
-    title: string;
-    bvid: string;
-  }> = [];
+  // 2. 获取或创建会话（使用共享引擎，含归属校验）
+  const session = await getOrCreateSession({
+    findSession: async () => {
+      if (!sessionId) return undefined;
+      const s = await db.query.kolChatSessions.findFirst({
+        where: eq(kolChatSessions.id, sessionId),
+      });
+      // 校验归属，防止跨 KOL 串话
+      if (s && s.kolId !== kolId) {
+        console.warn(`会话 #${sessionId} 属于 KOL #${s.kolId}，与请求 KOL #${kolId} 不匹配，创建新会话`);
+        return undefined;
+      }
+      return s;
+    },
+    createSession: async () => {
+      const [s] = await db
+        .insert(kolChatSessions)
+        .values({ kolId, title: message.slice(0, 30), messages: [] })
+        .returning();
+      return s!;
+    },
+    message,
+  });
 
-  try {
-    // 2a. 把用户问题转成向量
-    const queryVec = await embedQuery(message);
+  // 3. RAG 检索（使用共享引擎）
+  const evidenceRows: EvidenceRow[] = await searchEvidence({
+    message,
+    vectorQuery: async (vecStr) => {
+      let rawRows = (await db.execute(
+        sql`SELECT id, original_text, title
+            FROM kol_segments
+            WHERE kol_id = ${kolId}
+              AND embedding IS NOT NULL
+              AND (ad_label IS NULL OR ad_label != '广告口播')
+              AND embedding <=> ${vecStr}::vector < ${KOL_SIMILARITY_THRESHOLD}
+            ORDER BY embedding <=> ${vecStr}::vector
+            LIMIT 3`,
+      )) as unknown as Array<{ id: number; original_text: string; title: string }>;
 
-    // 2b. pgvector 余弦相似搜索（排除广告口播片段）
-    const rawRows = await db.execute(
-      sql`SELECT id, original_text, title, bvid
-          FROM kol_segments
-          WHERE kol_id = ${kolId}
-            AND embedding IS NOT NULL
-            AND (ad_label IS NULL OR ad_label != '广告口播')
-          ORDER BY embedding <=> ${JSON.stringify(queryVec)}::vector
-          LIMIT 3`,
-    ) as unknown as Array<{
-      id: number;
-      original_text: string;
-      title: string;
-      bvid: string;
-    }>;
+      // 阈值过严时兜底
+      if (rawRows.length === 0) {
+        rawRows = (await db.execute(
+          sql`SELECT id, original_text, title
+              FROM kol_segments
+              WHERE kol_id = ${kolId}
+                AND embedding IS NOT NULL
+                AND (ad_label IS NULL OR ad_label != '广告口播')
+              ORDER BY embedding <=> ${vecStr}::vector
+              LIMIT 3`,
+        )) as unknown as Array<{ id: number; original_text: string; title: string }>;
+      }
 
-    // 规范化字段名（db.execute 返回 snake_case）
-    evidenceRows = rawRows.map((r) => ({
-      id: r.id,
-      originalText: r.original_text,
-      title: r.title,
-      bvid: r.bvid,
-    }));
-  } catch (e) {
-    // embedding 或 pgvector 查询失败 → fallback 到 ILIKE
-    console.error("向量检索失败，回退到 ILIKE:", e);
-    evidenceRows = await db
-      .select({
-        id: kolSegments.id,
-        originalText: kolSegments.originalText,
-        title: kolSegments.title,
-        bvid: kolSegments.bvid,
-      })
-      .from(kolSegments)
-      .where(
-        sql`${kolSegments.kolId} = ${kolId}
-            AND (${kolSegments.adLabel} IS NULL OR ${kolSegments.adLabel} != '广告口播')
-            AND ${kolSegments.originalText} ILIKE ${"%" + message.slice(0, 30) + "%"}`,
-      )
-      .limit(3);
-  }
+      return rawRows.map((r) => ({
+        id: r.id,
+        originalText: r.original_text,
+        sourceLabel: r.title,
+      }));
+    },
+    ilikeQuery: async () => {
+      const rows = await db
+        .select({
+          id: kolSegments.id,
+          originalText: kolSegments.originalText,
+          title: kolSegments.title,
+        })
+        .from(kolSegments)
+        .where(
+          sql`${kolSegments.kolId} = ${kolId}
+              AND (${kolSegments.adLabel} IS NULL OR ${kolSegments.adLabel} != '广告口播')
+              AND ${kolSegments.originalText} ILIKE ${"%" + escapeLike(message.slice(0, 30)) + "%"}`,
+        )
+        .limit(3);
+      return rows.map((r) => ({
+        id: r.id,
+        originalText: r.originalText,
+        sourceLabel: r.title,
+      }));
+    },
+  });
 
-  const evidenceContext = evidenceRows
-    .map((e) => `[${e.title}] ${e.originalText.slice(0, 300)}`)
-    .join("\n---\n");
+  const evidenceContext = formatEvidenceContext(
+    evidenceRows,
+    (e) => `[${e.sourceLabel}]`,
+  );
 
-  // 3. 构建 System Prompt
+  // 4. 构建 System Prompt（KOL 特有逻辑）
   const personaCard = kol.personaCard as Record<string, unknown>;
   const styleProfile = kol.styleProfile as Record<string, unknown>;
   const evalFramework = personaCard.evaluationFramework as Record<string, string> | undefined;
@@ -178,6 +204,7 @@ kolRoute.post("/chat", zValidator("json", kolChatRequestSchema), async (c) => {
     "4. 被问到不了解的事（超出你的游戏经验和内容领域），诚实地说不了解。",
     "5. 不要使用'作为一个人工智能'、'根据我的训练数据'等表述——你是真实的UP主。",
     "6. 回答要有个性和态度，不要中性圆滑——你的粉丝关注你就是因为你有自己的判断。",
+    ...formatSpokenStyleRules(7),
     "",
     "## 你可能相关的往期内容",
     evidenceContext || "(暂无直接相关内容，请基于你的专业知识回答)",
@@ -185,37 +212,78 @@ kolRoute.post("/chat", zValidator("json", kolChatRequestSchema), async (c) => {
     .filter(Boolean)
     .join("\n");
 
-  // 4. 构建对话消息
+  // 5. 构建对话历史
+  const history = (session.messages as Array<{ role: string; content: string }>) ?? [];
+  const historyMessages: ChatMessage[] = history
+    .slice(-30) // 最近 30 条（15 轮）
+    .map((m) => ({ role: m.role === "assistant" ? "assistant" : "user", content: m.content }));
+
   const llmMessages: ChatMessage[] = [
     { role: "system", content: systemPrompt },
+    ...historyMessages,
     { role: "user", content: message },
   ];
 
-  // 5. 流式响应
-  const evidenceIds = evidenceRows.map((e) => e.id);
-
-  return streamSSE(c, async (stream) => {
-    let fullResponse = "";
-
-    try {
-      for await (const token of chatStream(llmMessages)) {
-        fullResponse += token;
-        await stream.writeSSE({ data: token });
-      }
-    } catch (e) {
-      console.error("KOL 对话引擎错误:", e);
-      await stream.writeSSE({
-        data: "[KOL分身暂时无法响应，请稍后重试]",
-      });
-    }
-
-    // 发送 evidence
-    await stream.writeSSE({
-      data: JSON.stringify({
-        type: "evidence",
-        ids: evidenceIds,
-        kolId,
-      }),
-    });
+  // 6. 流式响应（使用共享引擎）
+  return streamChat({
+    c,
+    llmMessages,
+    sessionId: session.id,
+    evidenceIds: evidenceRows.map((e) => e.id),
+    history,
+    userMessage: message,
+    errorMessage: "[KOL分身暂时无法响应，请稍后重试]",
+    saveMessages: async (updatedMessages) => {
+      await db
+        .update(kolChatSessions)
+        .set({ messages: updatedMessages as never, updatedAt: new Date() })
+        .where(eq(kolChatSessions.id, session.id));
+    },
   });
+});
+
+// GET /api/kol/chat/sessions —— 列出某个 KOL 的会话
+kolRoute.get("/chat/sessions", async (c) => {
+  const kolId = c.req.query("kolId");
+  const conditions = kolId ? eq(kolChatSessions.kolId, Number(kolId)) : undefined;
+
+  const rows = await db
+    .select()
+    .from(kolChatSessions)
+    .where(conditions)
+    .orderBy(desc(kolChatSessions.updatedAt))
+    .limit(50);
+
+  const result: KolChatSession[] = rows.map((r) => ({
+    id: r.id,
+    kolId: r.kolId,
+    title: r.title,
+    messages: (r.messages as KolChatSession["messages"]) ?? [],
+    createdAt: r.createdAt.toISOString(),
+    updatedAt: r.updatedAt.toISOString(),
+  }));
+
+  return c.json(result);
+});
+
+// GET /api/kol/chat/sessions/:id —— 单个会话历史
+kolRoute.get("/chat/sessions/:id", async (c) => {
+  const id = Number(c.req.param("id"));
+  if (Number.isNaN(id)) return c.json({ error: "无效的会话 ID" }, 400);
+
+  const session = await db.query.kolChatSessions.findFirst({
+    where: eq(kolChatSessions.id, id),
+  });
+  if (!session) return c.json({ error: "会话不存在" }, 404);
+
+  const result: KolChatSession = {
+    id: session.id,
+    kolId: session.kolId,
+    title: session.title,
+    messages: (session.messages as KolChatSession["messages"]) ?? [],
+    createdAt: session.createdAt.toISOString(),
+    updatedAt: session.updatedAt.toISOString(),
+  };
+
+  return c.json(result);
 });

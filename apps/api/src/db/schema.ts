@@ -25,6 +25,8 @@ import {
   uniqueIndex,
 } from "drizzle-orm/pg-core";
 
+import type { ChatMessage } from "@app/shared";
+
 // pgvector 向量类型（Drizzle 没有内置，用 customType）
 const vector = customType<{ data: number[]; driverData: string }>({
   dataType() {
@@ -163,6 +165,8 @@ export const sourceSegments = pgTable(
     charCount: integer("char_count"),
     annotation: jsonb("annotation").$type<Record<string, unknown>>(),
     embedding: vector("embedding"),
+    embeddingVersion: text("embedding_version"),
+    embeddedAt: timestamp("embedded_at", { withTimezone: true }),
     personaIds: integer("persona_ids").array(),
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   },
@@ -224,7 +228,7 @@ export const chatSessions = pgTable(
       .notNull()
       .references(() => personas.id, { onDelete: "cascade" }),
     title: text("title"),
-    messages: jsonb("messages").$type<Record<string, unknown>[]>().notNull().default([]),
+    messages: jsonb("messages").$type<ChatMessage[]>().notNull().default([]),
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
     updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
   },
@@ -287,10 +291,37 @@ export const kolSegments = pgTable(
   }),
 );
 
+// -------------------- kol_chat_sessions（KOL 分身对话记录）--------------------
+
+export const kolChatSessions = pgTable(
+  "kol_chat_sessions",
+  {
+    id: serial("id").primaryKey(),
+    kolId: integer("kol_id")
+      .notNull()
+      .references(() => kolProfiles.id, { onDelete: "cascade" }),
+    title: text("title"),
+    messages: jsonb("messages").$type<ChatMessage[]>().notNull().default([]),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => ({
+    kolIdx: index("kcs_kol_id_idx").on(table.kolId),
+  }),
+);
+
 // -------------------- relations --------------------
 
 export const kolProfilesRelations = relations(kolProfiles, ({ many }) => ({
   segments: many(kolSegments),
+  chatSessions: many(kolChatSessions),
+}));
+
+export const kolChatSessionsRelations = relations(kolChatSessions, ({ one }) => ({
+  kol: one(kolProfiles, {
+    fields: [kolChatSessions.kolId],
+    references: [kolProfiles.id],
+  }),
 }));
 
 export const kolSegmentsRelations = relations(kolSegments, ({ one }) => ({
@@ -312,3 +343,4 @@ export type PersonaRow = typeof personas.$inferSelect;
 export type ChatSessionRow = typeof chatSessions.$inferSelect;
 export type KolProfileRow = typeof kolProfiles.$inferSelect;
 export type KolSegmentRow = typeof kolSegments.$inferSelect;
+export type KolChatSessionRow = typeof kolChatSessions.$inferSelect;

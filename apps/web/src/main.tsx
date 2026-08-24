@@ -12,6 +12,11 @@ import { KolDetailPage } from "./routes/kol-detail.js";
 import { KolListPage } from "./routes/kol-list.js";
 import { PersonaDetailPage } from "./routes/persona-detail.js";
 import { PersonasPage } from "./routes/personas.js";
+import { DataPipelinePage } from "./routes/data-pipeline.js";
+import { NewPersonaPage } from "./routes/new-persona.js";
+import { NewKolPage } from "./routes/new-kol.js";
+import { InterviewOutlinePage } from "./routes/interview-outline.js";
+import { BatchInterviewPage } from "./routes/batch-interview.js";
 
 const router = createBrowserRouter([
   {
@@ -20,12 +25,21 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <HomePage /> },
       { path: "history", element: <HistoryPage /> },
+      // 群体画像
       { path: "personas", element: <PersonasPage /> },
+      { path: "personas/new", element: <NewPersonaPage /> },
       { path: "personas/:id", element: <PersonaDetailPage /> },
       { path: "personas/:id/chat", element: <ChatRoomLayout /> },
+      // KOL 分身
       { path: "kol", element: <KolListPage /> },
+      { path: "kol/new", element: <NewKolPage /> },
       { path: "kol/:id", element: <KolDetailPage /> },
       { path: "kol/:id/chat", element: <KolChatLayout /> },
+      // 数据流水线
+      { path: "data-pipeline", element: <DataPipelinePage /> },
+      // 访谈工具
+      { path: "interview/outline", element: <InterviewOutlinePage /> },
+      { path: "interview/batch", element: <BatchInterviewPage /> },
     ],
   },
 ]);

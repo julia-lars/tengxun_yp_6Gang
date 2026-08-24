@@ -6,6 +6,9 @@ import { logger } from 'hono/logger';
 import { chatRoute } from './routes/chat.js';
 import { kolRoute } from './routes/kol.js';
 import { personasRoute } from './routes/personas.js';
+import { pipelineRoute } from './routes/pipeline.js';
+import { interviewOutlineRoute } from './routes/interview-outline.js';
+import { batchInterviewRoute } from './routes/batch-interview.js';
 
 export const app = new Hono();
 
@@ -22,6 +25,9 @@ app.get('/api/tags', (c) => {
 app.route('/api/personas', personasRoute);
 app.route('/api/chat', chatRoute);
 app.route('/api/kol', kolRoute);
+app.route('/api/pipeline', pipelineRoute);
+app.route('/api/interview/outline', interviewOutlineRoute);
+app.route('/api/interview/batch', batchInterviewRoute);
 
 app.onError((err, c) => {
   console.error('服务端异常:', err);

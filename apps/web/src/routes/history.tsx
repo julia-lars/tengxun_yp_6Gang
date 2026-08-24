@@ -1,5 +1,5 @@
-// 历史对话列表页
-import type { ChatSession, PersonaSummary } from "@app/shared";
+// 历史对话列表页 — 统一展示 Persona 和 KOL 会话
+import type { ChatSession, KolChatSession, KolProfileSummary, PersonaSummary } from "@app/shared";
 import { ArrowLeft, ArrowRight, Clock, Search } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router";
@@ -8,38 +8,79 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { api } from "@/lib/api";
 
+interface HistoryItem {
+  id: number;
+  type: "persona" | "kol";
+  agentId: number;
+  agentName?: string;
+  title: string | null | undefined;
+  messages: Array<{ role: string; content: string }>;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export function HistoryPage() {
-  const [sessions, setSessions] = useState<(ChatSession & { personaName?: string })[]>([]);
-  const [personas, setPersonas] = useState<PersonaSummary[]>([]);
+  const [items, setItems] = useState<HistoryItem[]>([]);
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    api.getChatSessions().then(setSessions).catch(() => {});
-    api.listPersonas().then(setPersonas).catch(() => {});
+    Promise.all([
+      api.getChatSessions().catch(() => [] as ChatSession[]),
+      api.listKolChatSessions().catch(() => [] as KolChatSession[]),
+      api.listPersonas().catch(() => [] as PersonaSummary[]),
+      api.listKol().catch(() => [] as KolProfileSummary[]),
+    ]).then(([personaSessions, kolSessions, personas, kols]) => {
+      const personaMap = new Map(personas.map((p) => [p.id, p.name]));
+      const kolMap = new Map(kols.map((k) => [k.id, k.name]));
+
+      const merged: HistoryItem[] = [
+        ...personaSessions.map((s) => ({
+          id: s.id,
+          type: "persona" as const,
+          agentId: s.personaId,
+          agentName: personaMap.get(s.personaId),
+          title: s.title,
+          messages: (s.messages ?? []) as Array<{ role: string; content: string }>,
+          createdAt: s.createdAt,
+          updatedAt: s.updatedAt,
+        })),
+        ...kolSessions.map((s) => ({
+          id: s.id,
+          type: "kol" as const,
+          agentId: s.kolId,
+          agentName: kolMap.get(s.kolId),
+          title: s.title,
+          messages: (s.messages ?? []) as Array<{ role: string; content: string }>,
+          createdAt: s.createdAt,
+          updatedAt: s.updatedAt,
+        })),
+      ].sort(
+        (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
+      );
+
+      setItems(merged);
+    });
   }, []);
 
   const filtered = useMemo(() => {
-    let list = sessions
-      .map((s) => {
-        const p = personas.find((p) => p.id === s.personaId);
-        return { ...s, personaName: p?.name };
-      })
-      .filter((s) => s.messages.length > 0);
+    let list = items.filter((s) => s.messages.length > 0);
 
     if (search) {
       const q = search.toLowerCase();
       list = list.filter((s) => {
-        const firstMsg = (s.messages[0] as { content?: string } | undefined)?.content ?? "";
+        const firstMsg = s.messages[0]?.content ?? "";
         return (
           (s.title ?? "").toLowerCase().includes(q) ||
           firstMsg.toLowerCase().includes(q) ||
-          (s.personaName ?? "").toLowerCase().includes(q)
+          (s.agentName ?? "").toLowerCase().includes(q)
         );
       });
     }
 
     return list;
-  }, [sessions, personas, search]);
+  }, [items, search]);
+
+  const typeLabel = (type: "persona" | "kol") => (type === "persona" ? "画像" : "KOL");
 
   return (
     <div className="space-y-6">
@@ -70,12 +111,16 @@ export function HistoryPage() {
       {filtered.length > 0 ? (
         <div className="space-y-2">
           {filtered.map((s) => {
-            const firstMsg = (s.messages[0] as { content?: string } | undefined)?.content ?? "";
+            const firstMsg = s.messages[0]?.content ?? "";
             const preview = s.title || firstMsg.slice(0, 50) || "新对话";
+            const chatPath =
+              s.type === "persona"
+                ? `/personas/${s.agentId}/chat?session=${s.id}&from=history`
+                : `/kol/${s.agentId}/chat?session=${s.id}&from=history`;
             return (
               <Link
-                key={s.id}
-                to={`/personas/${s.personaId}/chat?session=${s.id}&from=history`}
+                key={`${s.type}-${s.id}`}
+                to={chatPath}
                 className="block group"
               >
                 <Card className="transition-all duration-200 hover:border-[--color-primary] hover:shadow-sm">
@@ -86,8 +131,11 @@ export function HistoryPage() {
                         <span className="text-sm text-[--color-foreground] truncate group-hover:text-[--color-primary] transition-colors">
                           {preview}
                         </span>
-                        <Badge variant="secondary" className="text-[10px] flex-shrink-0">
-                          {s.personaName ? `画像: ${s.personaName}` : `画像 #${s.personaId}`}
+                        <Badge
+                          variant="secondary"
+                          className="text-[10px] flex-shrink-0"
+                        >
+                          {typeLabel(s.type)}: {s.agentName ?? `#${s.agentId}`}
                         </Badge>
                       </div>
                       <div className="text-xs text-[--color-muted-foreground] flex items-center gap-3">
@@ -99,7 +147,7 @@ export function HistoryPage() {
                             minute: "2-digit",
                           })}
                         </span>
-                        <span>{s.messages.length} 轮</span>
+                        <span>{Math.floor(s.messages.length / 2)} 轮</span>
                       </div>
                     </div>
                     <ArrowRight className="h-4 w-4 text-[--color-muted-foreground] opacity-0 group-hover:opacity-100 group-hover:text-[--color-primary] transition-all flex-shrink-0" />

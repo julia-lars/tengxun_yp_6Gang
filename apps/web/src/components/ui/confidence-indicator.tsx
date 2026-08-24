@@ -31,7 +31,7 @@ export function ConfidenceIndicator({
         />
       ))}
       {showLabel && (
-        <span className="ml-1 text-[--color-muted-foreground]" style={{ color }}>
+        <span className="ml-1 text-(--color-muted-foreground)" style={{ color }}>
           {label}
         </span>
       )}

@@ -13,7 +13,7 @@ interface OrnamentDividerProps {
 
 export function OrnamentDivider({ className, seal = "元" }: OrnamentDividerProps) {
   return (
-    <div className={cn("my-8 flex items-center gap-4 text-[--color-primary]", className)}>
+    <div className={cn("my-8 flex items-center gap-4 text-(--color-primary)", className)}>
       <div className="flex-1 h-px bg-current opacity-25" />
       <div className="relative shrink-0">
         <svg
@@ -50,7 +50,7 @@ export function OrnamentDivider({ className, seal = "元" }: OrnamentDividerProp
           />
         </svg>
         <span
-          className="absolute inset-0 flex items-center justify-center font-serif text-sm font-bold text-[--color-primary] leading-none"
+          className="absolute inset-0 flex items-center justify-center font-serif text-sm font-bold text-(--color-primary) leading-none"
           style={{ paddingTop: "1px" }}
         >
           {seal}

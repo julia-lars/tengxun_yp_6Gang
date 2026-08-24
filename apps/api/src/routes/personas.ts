@@ -3,7 +3,7 @@
 // --------------------------------------------------------------
 
 import type { PersonaDetail, PersonaSummary } from "@app/shared";
-import { and, eq, sql } from "drizzle-orm";
+import { and, eq, inArray, or, sql } from "drizzle-orm";
 import { Hono } from "hono";
 
 import { db } from "../db/client.js";
@@ -21,20 +21,39 @@ personasRoute.get("/", async (c) => {
 
   const conditions = [];
 
-  // 标签筛选：使用 PostgreSQL jsonb 操作符，避免全量拉取后 JS 字符串匹配
+  // 标签筛选：使用 PostgreSQL jsonb 操作符
+  // 格式：用 | 分隔题组（AND），, 分隔组内选项（OR）
+  // 无 | 时整个字符串视为一组，组内逗号为 OR（兼容旧格式但语义变为 OR）
   if (tagsParam) {
-    const tags = tagsParam
-      .split(",")
-      .map((t) => t.trim())
-      .filter(Boolean);
+    const groups = tagsParam
+      .split("|")
+      .map((g) =>
+        g
+          .split(",")
+          .map((t) => t.trim())
+          .filter(Boolean),
+      )
+      .filter((g) => g.length > 0);
 
-    for (const tag of tags) {
-      conditions.push(
-        sql`EXISTS (
-          SELECT 1 FROM jsonb_each_text(${personas.tagSpec}) AS kv
-          WHERE kv.value ILIKE ${"%" + tag + "%"}
-        )`,
-      );
+    for (const group of groups) {
+      if (group.length === 1) {
+        conditions.push(
+          sql`EXISTS (
+            SELECT 1 FROM jsonb_each_text(${personas.tagSpec}) AS kv
+            WHERE kv.value ILIKE ${"%" + group[0] + "%"}
+          )`,
+        );
+      } else {
+        // 组内 OR：任一标签命中即匹配
+        const orConditions = group.map(
+          (tag) =>
+            sql`EXISTS (
+              SELECT 1 FROM jsonb_each_text(${personas.tagSpec}) AS kv
+              WHERE kv.value ILIKE ${"%" + tag + "%"}
+            )`,
+        );
+        conditions.push(or(...orConditions)!);
+      }
     }
   }
 
@@ -91,7 +110,7 @@ personasRoute.get("/:id", async (c) => {
         annotation: sourceSegments.annotation,
       })
       .from(sourceSegments)
-      .where(sql`${sourceSegments.id} = ANY(${evidenceIds})`)
+      .where(inArray(sourceSegments.id, evidenceIds))
       .limit(10);
 
     evidenceList = evidenceRows.map((e) => ({

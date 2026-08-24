@@ -26,7 +26,7 @@ from sentence_transformers import SentenceTransformer
 # ── 配置 ──
 DB_URL = os.getenv("DATABASE_URL", "postgres://dev:dev@localhost:5432/webtutor")
 # bge-m3 通过 ModelScope 下载后的本地路径（--local_dir 指定，与文档 §2 一致）
-MODEL_PATH = os.getenv("EMBED_MODEL_PATH", os.path.expanduser("~/models/bge-m3"))
+MODEL_PATH = os.getenv("EMBED_MODEL_PATH", os.path.expanduser("~/models/bge-m3/BAAI/bge-m3"))
 EMBED_VERSION = "bge-m3@v1"
 BATCH_SIZE = 32
 

@@ -20,10 +20,10 @@ const STATE_CYCLE: Record<TriState, TriState> = {
 };
 
 const STATE_STYLE: Record<TriState, string> = {
-  neutral: "border-[--color-border] bg-transparent text-[--color-muted-foreground]",
-  liked: "border-[--color-success] bg-[--color-success]/15 text-[--color-success]",
+  neutral: "border-(--color-border) bg-transparent text-(--color-muted-foreground)",
+  liked: "border-(--color-success) bg-(--color-success)/15 text-(--color-success)",
   disliked:
-    "border-[--color-destructive] bg-[--color-destructive]/10 text-[--color-destructive] line-through",
+    "border-(--color-destructive) bg-(--color-destructive)/10 text-(--color-destructive) line-through",
 };
 
 export function TriStateTag({ label, value, onChange, disabled, className }: TriStateTagProps) {

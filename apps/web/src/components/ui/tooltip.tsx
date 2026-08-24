@@ -30,7 +30,7 @@ export function Tooltip({ children, content, side = "top", className }: TooltipP
       {open && (
         <div
           className={cn(
-            "absolute z-50 rounded-md border border-[--color-border] bg-[--color-popover] px-3 py-1.5 shadow-md",
+            "absolute z-50 rounded-md border border-(--color-border) bg-(--color-popover) px-3 py-1.5 shadow-md",
             "animate-fade-in",
             sideStyles[side],
             className,

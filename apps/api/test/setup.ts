@@ -33,10 +33,17 @@ beforeAll(async () => {
     .filter((f) => f.endsWith(".sql"))
     .sort();
 
-  // 只复制 0000（原始教程表），跳过 0001/0002/0003（新业务表含 vector 或依赖含 vector 的表）
+  // 跳过含 vector 类型或依赖含 vector 表的 migration
+  // pglite 不支持 pgvector 扩展
+  // 0002: vector(1024) 类型转换 → 跳过
+  // 0004: kol_segments 表含 vector(1024) 列 → 跳过
+  // 0006: 依赖 kol_segments（来自 0004）→ 跳过
+  // 0007: 依赖 kol_profiles（来自 0004）→ 跳过
+  const skipTags = new Set(["0002", "0004", "0006", "0007"]);
   const skippedTags: string[] = [];
   for (const f of sqlFiles) {
-    if (f.includes("0001") || f.includes("0002") || f.includes("0003")) {
+    const tag = f.slice(0, 4); // 取前4位数字作为 migration tag
+    if (skipTags.has(tag)) {
       skippedTags.push(f.replace(".sql", ""));
       continue;
     }
@@ -59,7 +66,7 @@ beforeAll(async () => {
 
 beforeEach(async () => {
   await testDb.execute(
-    "TRUNCATE demo_events, sections, chapters, courses RESTART IDENTITY CASCADE",
+    "TRUNCATE demo_events, sections, chapters, courses, source_segments, respondents RESTART IDENTITY CASCADE",
   );
 });
 

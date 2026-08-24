@@ -19,3 +19,21 @@ export function cn(...inputs: ClassValue[]) {
 export function formatIndex(n: number) {
   return String(n).padStart(2, "0");
 }
+
+/**
+ * 格式化剩余时间（毫秒）为可读字符串
+ * formatRemainingTime(65000)  → "预计剩余 1 分 5 秒"
+ * formatRemainingTime(30000)  → "预计剩余 30 秒"
+ * formatRemainingTime(0)      → "处理中..."
+ * formatRemainingTime(undefined) → "处理中..."
+ */
+export function formatRemainingTime(ms?: number): string {
+  if (ms === undefined || ms === null || ms <= 0) return "处理中...";
+  const totalSeconds = Math.round(ms / 1000);
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  if (minutes > 0) {
+    return `预计剩余 ${minutes} 分 ${seconds} 秒`;
+  }
+  return `预计剩余 ${seconds} 秒`;
+}

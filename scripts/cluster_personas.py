@@ -7,11 +7,10 @@
   ① 片段 → 人聚合（speaker_id，加权众数/占比）
   ② 特征编码（Gower 距离，混合类型）
   ③ 半监督：每人按 primary M1 归入 C1–C5（画像假设 §0.5）
-  ④ 簇内 HDBSCAN 找子型
-  ⑤ 簇间找「混合人」→ persona_ids 多标签
-  ⑥ 类间质心余弦 ≤ 0.7 复核
-  ⑦ 验收：轮廓系数 ≥0.3、DB ≤1.2、样本量达标
-  ⑧ 命名 + 落库 personas
+  ④ 簇间找「混合人」→ persona_ids 多标签
+  ⑤ 类间质心余弦 ≤ 0.7 复核
+  ⑥ 验收：轮廓系数 ≥0.3、DB ≤1.2、样本量达标
+  ⑦ 命名 + 落库 personas
 
 用法:
   python3 scripts/cluster_personas.py                     # 全量聚类
@@ -95,6 +94,108 @@ M5_MAP = {
 }
 M5_FREQ = {"daily": "每日", "regular": "经常", "occasional": "偶尔", "past": "过去", "planned": "计划中"}
 
+# ── M3 认知标签映射（类别 + 值）──
+M3_CAT_MAP = {
+    "quality_perception": "品质感知",
+    "difficulty_perception": "难度感知",
+    "depth_perception": "深度感知",
+    "self_ability": "自我能力",
+    "self_identity": "自我认同",
+    "self_limitation": "自我限制",
+    "fairness_perception": "公平感知",
+    "meta_perception": "环境感知",
+    "causal_attribution": "归因方式",
+    "community_perception": "社区感知",
+    "monetization_perception": "付费感知",
+    "teammate_perception": "队友感知",
+    "developer_perception": "开发者感知",
+}
+
+M3_VALUE_MAP = {
+    # quality_perception
+    "info_transparency_lacking": "信息不透明",
+    "lacks_visual_feedback": "视觉反馈缺失",
+    "lack_of_novelty": "缺乏新鲜感",
+    "dated_visuals": "画面过时",
+    "inconsistent_hero_feedback": "英雄反馈不一致",
+    "poor_production_value": "制作质量低",
+    "monotonous_content": "内容单调",
+    "poor_graphics_flat": "画质差/扁平",
+    "collabs_break_immersion": "联动破坏沉浸感",
+    "fun_characters": "角色有趣",
+    "lack_of_info_late_game": "后期信息不足",
+    "multi_layered_satire": "多层讽刺",
+    # difficulty_perception
+    "high_learning_curve": "学习曲线陡峭",
+    "too_complex": "过于复杂",
+    "hard_to_comeback": "翻盘困难",
+    "rank_grind_based": "排位靠肝",
+    "respawn_reduces_pressure": "复活降低压力",
+    "teamwork_required": "需要团队配合",
+    "overly_complex": "过于复杂",
+    "excessive_complexity": "过度复杂",
+    # depth_perception
+    "combo_dominates": "连招主导",
+    "high_skill_ceiling": "技能上限高",
+    "low_skill_ceiling": "技能上限低",
+    "easy_to_learn": "易于上手",
+    "high_replayability": "高重玩性",
+    "unique_mechanics": "机制独特",
+    # self_ability
+    "low_skill": "技术水平低",
+    "high_skill_level": "技术水平高",
+    "casual_player": "休闲玩家",
+    "knowledge_gap": "知识差距",
+    "time_constraint": "时间有限",
+    "time_constrained": "时间受限",
+    "high_learning_cost": "学习成本高",
+    "motion_sickness": "3D眩晕",
+    # self_identity
+    "social_player": "社交型玩家",
+    "entertainment_seeker": "娱乐寻求者",
+    "monster_hunter_fan": "怪物猎人粉丝",
+    "interest_driven_purchase": "兴趣驱动购买",
+    "not_competitive_player": "非竞技玩家",
+    "console_player": "主机玩家",
+    "not_into_shooters": "非射击玩家",
+    "sports_related_definition": "体育关联定义",
+    # monetization_perception
+    "free_games_attractive": "免费游戏吸引人",
+    "free_to_play": "免费游玩",
+    "price_sensitive": "价格敏感",
+    "pay_to_win": "付费取胜",
+    # meta_perception
+    "hero_imbalance": "英雄不平衡",
+    "balance_means_bad": "平衡差=不好",
+    "stage_division_clear": "阶段划分清晰",
+    "game_flow_disrupted": "游戏节奏被打断",
+    "lack_of_innovation": "缺乏创新",
+    "gameplay_first": "玩法优先",
+    "gameplay_over_performance": "玩法优于表现",
+    "looks_fun": "看起来有趣",
+    "platform_exclusivity_barrier": "平台独占壁垒",
+    "303_meta_dominance": "303阵容主导",
+    "3d_moba_not_attractive": "3D MOBA缺吸引力",
+    "3d_spatial_awareness_weak": "3D空间感弱",
+    "ability_reliant_not_gunplay": "依赖技能非枪法",
+    "above_average": "中等偏上",
+    "acceptable_controls": "操作可接受",
+    "acceptable_game_feel": "手感可接受",
+    "acceptable_gear_system": "装备系统可接受",
+    "accepts_initial_losses": "接受初期失败",
+    "aim_dependent": "依赖瞄准",
+    "aim_hard_to_improve": "瞄准难提升",
+    "aim_improvable": "瞄准可提升",
+    "aim_improvement": "瞄准有进步",
+    "aim_skill_determines": "瞄准决定胜负",
+    "aiming_feels_bad": "瞄准手感差",
+    "already_playing": "已在玩",
+    "ambiguous_kill_feedback": "击杀反馈模糊",
+    "improved_over_time": "持续改善",
+    "low_difficulty": "难度低",
+    "not_competitive_player": "非竞技玩家",
+}
+
 ABILITY_LVL = {"novice": 1, "beginner": 2, "intermediate": 3, "advanced": 4, "expert": 5, "unknown": 0}
 ABILITY_LVL_ZH = {"novice": "新手", "beginner": "入门", "intermediate": "进阶", "advanced": "高手", "expert": "专家"}
 STYLE_COMBAT = {"passive": "苟活", "balanced": "灵活", "aggressive": "刚枪"}
@@ -118,7 +219,7 @@ def _tag_ok(t: dict) -> bool:
     return t.get("c", 0.8) >= 0.6 and t.get("e") != "E0"
 
 
-def weighted_mode(items: list, weights: list) -> str | None:
+def weighted_mode(items: list, weights: list):
     """加权众数：返回加权计数最高的类别。"""
     if not items:
         return None
@@ -128,7 +229,7 @@ def weighted_mode(items: list, weights: list) -> str | None:
     return counter.most_common(1)[0][0]
 
 
-def weighted_median_ordinal(items: list, weights: list, value_map: dict) -> str | None:
+def weighted_median_ordinal(items: list, weights: list, value_map: dict):
     """加权中位数（适用于有序类别）。"""
     if not items:
         return None
@@ -148,7 +249,7 @@ def weighted_median_ordinal(items: list, weights: list, value_map: dict) -> str 
     return None
 
 
-def extract_primary_m1(segments: list[dict]) -> tuple[str | None, float]:
+def extract_primary_m1(segments: list):
     """从一个人的所有片段中提取 primary M1（加权众数）。"""
     items, weights = [], []
     for seg in segments:
@@ -168,7 +269,7 @@ def extract_primary_m1(segments: list[dict]) -> tuple[str | None, float]:
     return top[0], top[1] / total if total > 0 else 0.0
 
 
-def extract_m1_distribution(segments: list[dict]) -> dict[str, float]:
+def extract_m1_distribution(segments: list) -> dict:
     """M1 分布（用于判断混合人）。"""
     counter = Counter()
     for seg in segments:
@@ -184,7 +285,7 @@ def extract_m1_distribution(segments: list[dict]) -> dict[str, float]:
 
 # ── 特征聚合：片段 → 人 ──
 
-def aggregate_to_person(segments: list[dict]) -> dict:
+def aggregate_to_person(segments: list) -> dict:
     """将一个人的所有片段聚合为特征向量。"""
     feats = {}
     feats["segment_count"] = len(segments)
@@ -221,6 +322,23 @@ def aggregate_to_person(segments: list[dict]) -> dict:
             if _tag_ok(t):
                 m2_counter[t["v"]] += t.get("c", 0.8)
     feats["m2"] = dict(m2_counter.most_common(5))
+
+    # ── M3 认知（按类别聚合）──
+    m3_cat_counter = Counter()      # 类别级
+    m3_cat_values = {}              # 每个类别下的 top 值
+    for seg in segments:
+        label = seg.get("label") or {}
+        for t in (label.get("iceberg") or {}).get("M3") or []:
+            if _tag_ok(t):
+                cat = t.get("cat", "general")
+                m3_cat_counter[cat] += t.get("c", 0.8)
+                if cat not in m3_cat_values:
+                    m3_cat_values[cat] = Counter()
+                m3_cat_values[cat][t["v"]] += t.get("c", 0.8)
+    feats["m3_cats"] = dict(m3_cat_counter.most_common(5))
+    feats["m3_top_values"] = {
+        cat: vals.most_common(2) for cat, vals in m3_cat_values.items()
+    }
 
     # ── M4 感受 ──
     m4_counter = Counter()
@@ -321,7 +439,7 @@ def aggregate_to_person(segments: list[dict]) -> dict:
 
 # ── Gower 距离（混合类型）──
 
-def gower_distance_matrix(features: list[dict]) -> np.ndarray:
+def gower_distance_matrix(features: list) -> np.ndarray:
     """计算 Gower 距离矩阵（混合分类 + 有序特征）。
 
     特征列表（与聚类方案研究 §3.1 对齐）：
@@ -390,10 +508,10 @@ def gower_distance_matrix(features: list[dict]) -> np.ndarray:
 
 def build_persona_attrs(
     bucket_id: str,
-    sub_id: int | None,
+    sub_id,
     person_indices: list[int],
-    all_people: list[dict],
-    all_segments: list[dict],
+    all_people: list,
+    all_segments: list,
 ) -> dict:
     """从一组人的聚合特征中提取画像属性。"""
     people = [all_people[i] for i in person_indices]
@@ -417,6 +535,24 @@ def build_persona_attrs(
     for p in people:
         for k, v in (p.get("m5") or {}).items():
             m5_all[k] += v
+
+    # ── M2 期待 ──
+    m2_all = Counter()
+    for p in people:
+        for k, v in (p.get("m2") or {}).items():
+            m2_all[k] += v
+
+    # ── M3 认知（按类别聚合）──
+    m3_cat_all = Counter()
+    m3_cat_values_all = {}
+    for p in people:
+        for cat, v in (p.get("m3_cats") or {}).items():
+            m3_cat_all[cat] += v
+        for cat, vals in (p.get("m3_top_values") or {}).items():
+            if cat not in m3_cat_values_all:
+                m3_cat_values_all[cat] = Counter()
+            for val, w in vals:
+                m3_cat_values_all[cat][val] += w
 
     # ── M4 感受 ──
     m4_all = Counter()
@@ -471,8 +607,24 @@ def build_persona_attrs(
         chain["M1_motivation"] = "、".join(
             M1_MAP.get(k, k) for k, _ in top_m1 if k != "unknown"
         )
+    if m2_all:
+        chain["M2_expectation"] = "、".join(
+            M2_MAP.get(k, k) for k, _ in m2_all.most_common(3) if k != "unknown"
+        )
+    if m3_cat_all:
+        m3_parts = []
+        for cat, _ in m3_cat_all.most_common(3):
+            top_vals = m3_cat_values_all.get(cat, Counter()).most_common(2)
+            if top_vals:
+                vals_str = "、".join(
+                    M3_VALUE_MAP.get(v, v.replace("_", " ")) for v, _ in top_vals
+                )
+                cat_zh = M3_CAT_MAP.get(cat, cat)
+                m3_parts.append(f"{cat_zh}: {vals_str}")
+        if m3_parts:
+            chain["M3_cognition"] = "；".join(m3_parts)
     if m4_all:
-        chain["M4_emotion"] = "、".join(
+        chain["M4_feeling"] = "、".join(
             M4_MAP.get(k, k) for k, _ in m4_all.most_common(3) if k != "unknown"
         )
     if m5_all:
@@ -547,7 +699,7 @@ def main():
         min_cluster = int(sys.argv[sys.argv.index("--min-cluster") + 1])
 
     print("=" * 60)
-    print("🎯 画像聚类引擎 v2.0（半监督：M1 归桶 → HDBSCAN 子型）")
+    print("🎯 画像聚类引擎 v2.0（半监督：M1 归桶 → HDBSCAN）")
     print("=" * 60)
 
     # ── 1. 从 DB 读取数据 ──
@@ -634,8 +786,8 @@ def main():
         label = BUCKET_NAMES.get(bid, bid)
         print(f"   {bid} {label}: {count} 人")
 
-    # ── 4. 桶内 HDBSCAN 聚类 ──
-    print(f"\n🔬 桶内 HDBSCAN 聚类 (min_cluster_size={min_cluster})...")
+    # ── 4. 桶内聚合：每个桶生成一个画像（不分子型）──
+    print(f"\n📦 桶内聚合（每个 M1 桶 → 一个画像）...")
     all_personas = []
 
     for bucket_id in ["C1", "C2", "C3", "C4", "C5"]:
@@ -645,119 +797,10 @@ def main():
             continue
 
         n = len(indices)
-        bucket_people = [all_people[i] for i in indices]
-
-        if n < min_cluster:
-            # 人数太少，不分子型
-            print(f"\n   {bucket_id} ({BUCKET_NAMES[bucket_id]}): {n} 人，不足 {min_cluster}，作为单一画像")
-            persona = build_persona_attrs(bucket_id, None, indices, all_people, segments)
-            all_personas.append(persona)
-            print(f"      → {persona['name']}: {n} 人, {persona['segment_count']} 条语料")
-            continue
-
-        # 构建 Gower 距离矩阵
-        print(f"\n   {bucket_id} ({BUCKET_NAMES[bucket_id]}): {n} 人，计算 Gower 距离...")
-        dist_matrix = gower_distance_matrix(bucket_people)
-
-        # HDBSCAN 聚类
-        clusterer = HDBSCAN(
-            min_cluster_size=min(min_cluster, n - 1),
-            min_samples=2,
-            metric="precomputed",
-            cluster_selection_epsilon=0.5,
-        )
-        labels = clusterer.fit_predict(dist_matrix)
-
-        n_clusters = len(set(labels)) - (1 if -1 in labels else 0)
-        n_noise = int((labels == -1).sum())
-
-        if n_clusters == 0:
-            print(f"      HDBSCAN 未发现子型（全部噪声），作为单一画像")
-            persona = build_persona_attrs(bucket_id, None, indices, all_people, segments)
-            all_personas.append(persona)
-            continue
-
-        print(f"      发现 {n_clusters} 个子型, {n_noise} 个噪声点")
-
-        # 计算轮廓系数和 DB 指数
-        valid_mask = labels != -1
-        if valid_mask.sum() >= 2 and n_clusters >= 2:
-            try:
-                sil = silhouette_score(dist_matrix[valid_mask][:, valid_mask],
-                                       labels[valid_mask], metric="precomputed")
-                print(f"      轮廓系数: {sil:.3f}")
-            except Exception:
-                sil = None
-            try:
-                # DB 需要特征矩阵，用距离矩阵近似
-                db = davies_bouldin_score(dist_matrix[valid_mask][:, valid_mask],
-                                          labels[valid_mask])
-                print(f"      DB 指数: {db:.3f}")
-            except Exception:
-                db = None
-
-        # 为每个子型生成画像
-        for cluster_label in sorted(set(labels)):
-            if cluster_label == -1:
-                continue
-            cluster_indices = [indices[j] for j, lbl in enumerate(labels) if lbl == cluster_label]
-            persona = build_persona_attrs(bucket_id, int(cluster_label) + 1, cluster_indices, all_people, segments)
-            all_personas.append(persona)
-            print(f"      → {persona['name']}: {persona['sample_count']} 人, {persona['segment_count']} 条语料")
-
-        # 噪声点归入主画像
-        if n_noise > 0:
-            noise_indices = [indices[j] for j, lbl in enumerate(labels) if lbl == -1]
-            persona = build_persona_attrs(bucket_id, 0, noise_indices, all_people, segments)
-            persona["name"] = f"{BUCKET_NAMES[bucket_id]} · 噪声边缘"
-            persona["cluster_id"] = f"{bucket_id}-noise"
-            all_personas.append(persona)
-            print(f"      → {persona['name']}: {persona['sample_count']} 人 (噪声)")
-
-    # ── 4.5 合并稀疏子型 ──
-    # 规则：子型 < 10 人且人均 < 5 条语料 → 合并到同桶最大子型
-    print("\n🔧 合并稀疏子型 (< 10 人 且 人均 < 5 条语料)...")
-    merged_personas = []
-    bucket_personas = defaultdict(list)
-    for p in all_personas:
-        bid = p["cluster_id"].split("-")[0]
-        bucket_personas[bid].append(p)
-
-    for bid, plist in bucket_personas.items():
-        if len(plist) <= 1:
-            merged_personas.extend(plist)
-            continue
-
-        main = max(plist, key=lambda x: x["sample_count"])
-        to_merge = []
-        keep = [main]
-        for p in plist:
-            if p is main:
-                continue
-            avg_segs = p["segment_count"] / max(p["sample_count"], 1)
-            if p["sample_count"] < 10 and avg_segs < 5:
-                to_merge.append(p)
-            else:
-                keep.append(p)
-
-        if to_merge:
-            merged_indices = list(main["_person_indices"])
-            merged_names = [p["name"] for p in to_merge]
-            for p in to_merge:
-                merged_indices.extend(p["_person_indices"])
-            merged = build_persona_attrs(bid, None, merged_indices, all_people, segments)
-            merged["cluster_id"] = main["cluster_id"]
-            merged["name"] = BUCKET_NAMES.get(bid, bid)
-            merged_personas.append(merged)
-            # 保留其他未合并的子型（不包括 main，因为已合并）
-            for p in keep:
-                if p is not main:
-                    merged_personas.append(p)
-            print(f"   {bid}: {', '.join(merged_names)} → 合并到主画像 (共 {merged['sample_count']} 人)")
-        else:
-            merged_personas.extend(plist)
-
-    all_personas = merged_personas
+        print(f"\n   {bucket_id} ({BUCKET_NAMES[bucket_id]}): {n} 人，聚合为单一画像")
+        persona = build_persona_attrs(bucket_id, None, indices, all_people, segments)
+        all_personas.append(persona)
+        print(f"      → {persona['name']}: {n} 人, {persona['segment_count']} 条语料")
 
     # ── 5. 类间标签质心相似度复核（基于结构化特征，非 embedding）──
     # 聚类方案研究 §2.2：聚类基于结构化标签时，用标签质心比较

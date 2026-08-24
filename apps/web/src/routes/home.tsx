@@ -1,12 +1,8 @@
 // 项目首页 — AI 模拟用户系统
-import type { ChatSession, PersonaSummary } from "@app/shared";
+import type { ChatSession, KolChatSession, KolProfileSummary, PersonaSummary } from "@app/shared";
 import {
-  Archive,
   ArrowRight,
-  ClipboardCheck,
   Clock,
-  GitCompare,
-  Lightbulb,
   MessageCircle,
   Search,
   Users,
@@ -15,112 +11,166 @@ import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { EmptyState } from "@/components/shared/empty-state";
+import { Skeleton } from "@/components/ui/skeleton";
 import { api } from "@/lib/api";
 
+interface HomeSession {
+  id: number;
+  type: "persona" | "kol";
+  agentId: number;
+  agentName?: string;
+  title: string | null | undefined;
+  messages: Array<{ role: string; content: string }>;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export function HomePage() {
-  const [sessions, setSessions] = useState<(ChatSession & { personaName?: string })[]>([]);
-  const [personas, setPersonas] = useState<PersonaSummary[]>([]);
+  const [sessions, setSessions] = useState<HomeSession[]>([]);
   const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    api.getChatSessions().then(setSessions).catch(() => {});
-    api.listPersonas().then(setPersonas).catch(() => {});
+    Promise.all([
+      api.getChatSessions().catch(() => [] as ChatSession[]),
+      api.listKolChatSessions().catch(() => [] as KolChatSession[]),
+      api.listPersonas().catch(() => [] as PersonaSummary[]),
+      api.listKol().catch(() => [] as KolProfileSummary[]),
+    ]).then(([personaSessions, kolSessions, personas, kols]) => {
+      const personaMap = new Map(personas.map((p) => [p.id, p.name]));
+      const kolMap = new Map(kols.map((k) => [k.id, k.name]));
+
+      const merged: HomeSession[] = [
+        ...personaSessions.map((s) => ({
+          id: s.id,
+          type: "persona" as const,
+          agentId: s.personaId,
+          agentName: personaMap.get(s.personaId),
+          title: s.title,
+          messages: (s.messages ?? []) as Array<{ role: string; content: string }>,
+          createdAt: s.createdAt,
+          updatedAt: s.updatedAt,
+        })),
+        ...kolSessions.map((s) => ({
+          id: s.id,
+          type: "kol" as const,
+          agentId: s.kolId,
+          agentName: kolMap.get(s.kolId),
+          title: s.title,
+          messages: (s.messages ?? []) as Array<{ role: string; content: string }>,
+          createdAt: s.createdAt,
+          updatedAt: s.updatedAt,
+        })),
+      ].sort(
+        (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
+      );
+
+      setSessions(merged);
+      setLoading(false);
+    });
   }, []);
 
-  const sessionsWithPersona = useMemo(() => {
-    let list = sessions
-      .map((s) => {
-        const p = personas.find((p) => p.id === s.personaId);
-        return { ...s, personaName: p?.name };
-      })
-      .filter((s) => s.messages.length > 0);
+  const filteredSessions = useMemo(() => {
+    let list = sessions.filter((s) => s.messages.length > 0);
 
     if (search) {
       const q = search.toLowerCase();
       list = list.filter((s) => {
-        const firstMsg = (s.messages[0] as { content?: string } | undefined)?.content ?? "";
+        const firstMsg = s.messages[0]?.content ?? "";
         return (
           (s.title ?? "").toLowerCase().includes(q) ||
           firstMsg.toLowerCase().includes(q) ||
-          (s.personaName ?? "").toLowerCase().includes(q)
+          (s.agentName ?? "").toLowerCase().includes(q)
         );
       });
     }
 
     return list;
-  }, [sessions, personas, search]);
+  }, [sessions, search]);
 
-  const recentThree = sessionsWithPersona.slice(0, 3);
+  const recent = filteredSessions.slice(0, 3);
+
+  const typeLabel = (type: "persona" | "kol") => (type === "persona" ? "画像" : "KOL");
 
   return (
-    <div className="space-y-8 sm:space-y-10">
-      <section className="space-y-6 pt-4 text-center">
-        <div className="text-[10px] sm:text-xs tracking-[0.4em] text-[--color-accent] font-medium">
-          MUR · AI SIMULATED USER SYSTEM
+    <div className="space-y-6">
+      {/* ========== Hero 横幅 ========== */}
+      <section className="text-center space-y-2 pt-2">
+        <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-(--color-brand-50) border border-(--color-brand-100)">
+          <span className="w-1.5 h-1.5 rounded-full bg-(--color-brand-500) animate-pulse" />
+          <span className="text-[10px] font-medium text-(--color-brand-600) tracking-[0.2em]">
+            MUR AI · 模拟用户系统
+          </span>
         </div>
-        <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight leading-tight text-[--color-primary]">
-          AI 模拟用户系统
+        <h1 className="font-serif text-2xl sm:text-3xl font-bold text-black">
+          AI 驱动的玩家画像模拟系统
         </h1>
-        <p className="text-[--color-muted-foreground] text-base sm:text-lg max-w-[64ch] mx-auto leading-relaxed">
-          基于真实玩家访谈数据，构建射击品类 AI 模拟用户画像。选择特征标签，即可与虚拟玩家深度对话。
+        <p className="text-sm text-(--color-content-secondary)">
+          基于 17,132 条真实玩家访谈片段 · 构建射击品类 AI 模拟用户画像
         </p>
       </section>
 
-      <section>
-        <div className="grid gap-4 sm:grid-cols-2">
-          <Link to="/personas" className="block group">
-            <Card className="h-full transition-all duration-200 hover:border-[--color-primary] hover:shadow-md hover:-translate-y-0.5 cursor-pointer">
-              <CardHeader className="pb-3">
-                <CardTitle className="text-lg flex items-center gap-2 group-hover:text-[--color-primary] transition-colors">
-                  <Users className="h-5 w-5 text-[--color-primary]" />
+      {/* ========== 双功能入口 ========== */}
+      <section className="grid gap-4 sm:grid-cols-2">
+        {/* 群体画像 */}
+        <Link to="/personas" className="block group">
+          <Card className="h-48 transition-all duration-200 hover:border-(--color-brand-300) hover:shadow-md hover:-translate-y-0.5 cursor-pointer">
+            <CardContent className="h-full flex flex-col items-center justify-center text-center gap-3 py-6">
+              <div className="w-12 h-12 rounded-2xl bg-(--color-brand-50) flex items-center justify-center mt-2">
+                <Users className="h-6 w-6 text-(--color-brand-500)" />
+              </div>
+              <div>
+                <h2 className="font-serif text-lg font-bold text-black group-hover:text-(--color-brand-500) transition-colors">
                   群体画像
-                  <ArrowRight className="h-4 w-4 ml-auto text-[--color-muted-foreground] opacity-0 group-hover:opacity-100 group-hover:text-[--color-primary] transition-all duration-200 -translate-x-1 group-hover:translate-x-0" />
-                </CardTitle>
-                <CardDescription>
-                  基于 17,000+
-                  条真实玩家访谈片段，聚类形成典型玩家画像。选择特征标签，匹配画像并开展深度对话。
-                </CardDescription>
-              </CardHeader>
-            </Card>
-          </Link>
+                </h2>
+                <p className="text-xs text-(--color-content-tertiary)">Persona Matching</p>
+              </div>
+              <p className="text-sm text-(--color-content-secondary) leading-relaxed max-w-[280px]">
+                从五维度标签筛选匹配目标玩家画像，<br />支持多标签组合与置信度排序
+              </p>
+            </CardContent>
+          </Card>
+        </Link>
 
-          <Link to="/kol" className="block group">
-            <Card className="h-full transition-all duration-200 hover:border-[--color-primary] hover:shadow-md hover:-translate-y-0.5 cursor-pointer">
-              <CardHeader className="pb-3">
-                <CardTitle className="text-lg flex items-center gap-2 group-hover:text-[--color-primary] transition-colors">
-                  <MessageCircle className="h-5 w-5 text-[--color-primary]" />
-                  KOL 分身
-                  <ArrowRight className="h-4 w-4 ml-auto text-[--color-muted-foreground] opacity-0 group-hover:opacity-100 group-hover:text-[--color-primary] transition-all duration-200 -translate-x-1 group-hover:translate-x-0" />
-                </CardTitle>
-                <CardDescription>
-                  基于 B 站 UP 主真实内容构建数字孪生，获取专业视角的游戏评价反馈。
-                </CardDescription>
-              </CardHeader>
-            </Card>
-          </Link>
-        </div>
+        {/* KOL 数字孪生 */}
+        <Link to="/kol" className="block group">
+          <Card className="h-48 transition-all duration-200 hover:border-(--color-brand-300) hover:shadow-md hover:-translate-y-0.5 cursor-pointer">
+            <CardContent className="h-full flex flex-col items-center justify-center text-center gap-3 py-6">
+              <div className="w-12 h-12 rounded-2xl bg-(--color-brand-50) flex items-center justify-center mt-2">
+                <MessageCircle className="h-6 w-6 text-(--color-brand-500)" />
+              </div>
+              <div>
+                <h2 className="font-serif text-lg font-bold text-black group-hover:text-(--color-brand-500) transition-colors">
+                  KOL 数字孪生
+                </h2>
+                <p className="text-xs text-(--color-content-tertiary)">Digital Twin</p>
+              </div>
+              <p className="text-sm text-(--color-content-secondary) leading-relaxed max-w-[280px]">
+                基于 B 站 UP 主真实内容构建数字分身，<br />获取专业视角的游戏评测与见解
+              </p>
+            </CardContent>
+          </Card>
+        </Link>
       </section>
 
-      {/* 历史对话 */}
-      <section className="space-y-4">
+      {/* ========== 最近对话 ========== */}
+      <section className="space-y-3">
+        {/* 标题行 */}
         <div className="flex items-center justify-between">
-          <h2 className="font-serif text-xl sm:text-2xl font-bold text-[--color-primary]">
-            历史对话
-          </h2>
-          {sessionsWithPersona.length > 3 && (
-            <Button asChild variant="ghost" size="sm" className="text-xs">
-              <Link to="/history">
-                更多 <ArrowRight className="h-3 w-3 ml-1" />
-              </Link>
-            </Button>
-          )}
+          <div>
+            <h2 className="font-serif text-lg font-bold text-black">
+              最近对话
+            </h2>
+          </div>
         </div>
 
+        {/* 搜索框 */}
         {sessions.length > 0 && (
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[--color-muted-foreground]" />
+          <div className="relative max-w-md">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-(--color-content-tertiary)" />
             <Input
               placeholder="搜索历史对话..."
               value={search}
@@ -130,117 +180,99 @@ export function HomePage() {
           </div>
         )}
 
-        {recentThree.length > 0 ? (
-          <div className="space-y-2">
-            {recentThree.map((s) => {
-              const firstMsg = (s.messages[0] as { content?: string } | undefined)?.content ?? "";
-              const preview = s.title || firstMsg.slice(0, 40) || "新对话";
-              return (
-                <Link
-                  key={s.id}
-                  to={`/personas/${s.personaId}/chat?session=${s.id}&from=home`}
-                  className="block group"
-                >
-                  <Card className="transition-all duration-200 hover:border-[--color-primary] hover:shadow-sm">
-                    <CardContent className="flex items-center gap-3 py-3 px-4">
-                      <Clock className="h-4 w-4 text-[--color-muted-foreground] flex-shrink-0" />
-                      <div className="flex-1 min-w-0 space-y-0.5">
-                        <div className="flex items-center gap-2">
-                          <span className="text-sm text-[--color-foreground] truncate group-hover:text-[--color-primary] transition-colors">
-                            {preview}
-                          </span>
-                          <Badge variant="secondary" className="text-[10px] flex-shrink-0">
-                            {s.personaName ? `画像: ${s.personaName}` : `画像 #${s.personaId}`}
-                          </Badge>
+        {/* 对话列表 */}
+        <div>
+          {loading ? (
+            <div className="space-y-2">
+              {[1, 2, 3].map((i) => (
+                <Card key={i}>
+                  <CardContent className="flex items-center gap-4 py-3 px-4">
+                    <Skeleton className="w-8 h-8 rounded-full" />
+                    <div className="flex-1 space-y-1.5">
+                      <Skeleton className="h-4 w-48" />
+                      <Skeleton className="h-3 w-32" />
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          ) : recent.length > 0 ? (
+            <div className="space-y-2">
+              {recent.map((s) => {
+                const firstMsg = (s.messages[0] as { content?: string } | undefined)?.content ?? "";
+                const preview = s.title || firstMsg.slice(0, 60) || "新对话";
+                const chatPath =
+                  s.type === "persona"
+                    ? `/personas/${s.agentId}/chat?session=${s.id}&from=home`
+                    : `/kol/${s.agentId}/chat?session=${s.id}&from=home`;
+                return (
+                  <Link
+                    key={`${s.type}-${s.id}`}
+                    to={chatPath}
+                    className="block group"
+                  >
+                    <Card className="transition-all duration-200 hover:border-(--color-brand-300) hover:shadow-sm">
+                      <CardContent className="flex items-center gap-4 py-3 px-4">
+                        <div className="w-8 h-8 rounded-full bg-(--color-surface-secondary) flex items-center justify-center flex-shrink-0">
+                          <Clock className="h-4 w-4 text-(--color-content-tertiary)" />
                         </div>
-                        <div className="text-xs text-[--color-muted-foreground] flex items-center gap-3">
-                          <span>
-                            {new Date(s.createdAt).toLocaleDateString("zh-CN", {
-                              month: "short",
-                              day: "numeric",
-                              hour: "2-digit",
-                              minute: "2-digit",
-                            })}
-                          </span>
-                          <span>{s.messages.length} 轮</span>
+                        <div className="flex-1 min-w-0 space-y-0.5">
+                          <div className="flex items-center gap-2">
+                            <span className="text-sm text-(--color-content-primary) truncate group-hover:text-(--color-brand-500) transition-colors">
+                              {preview}
+                            </span>
+                            <Badge variant="secondary" className="text-[10px] flex-shrink-0">
+                              {typeLabel(s.type)}: {s.agentName ?? `#${s.agentId}`}
+                            </Badge>
+                          </div>
+                          <div className="text-xs text-(--color-content-tertiary) flex items-center gap-3">
+                            <span>
+                              {new Date(s.createdAt).toLocaleDateString("zh-CN", {
+                                month: "short",
+                                day: "numeric",
+                                hour: "2-digit",
+                                minute: "2-digit",
+                              })}
+                            </span>
+                            <span>{Math.floor(s.messages.length / 2)} 轮对话</span>
+                          </div>
                         </div>
-                      </div>
-                      <ArrowRight className="h-4 w-4 text-[--color-muted-foreground] opacity-0 group-hover:opacity-100 group-hover:text-[--color-primary] transition-all flex-shrink-0" />
-                    </CardContent>
-                  </Card>
-                </Link>
-              );
-            })}
-          </div>
-        ) : search ? (
-          <Card className="border-dashed">
-            <CardContent className="flex flex-col items-center justify-center py-8">
-              <Search className="h-8 w-8 text-[--color-muted-foreground] opacity-30 mb-2" />
-              <p className="text-sm text-[--color-muted-foreground]">未找到匹配的对话</p>
-            </CardContent>
-          </Card>
-        ) : (
-          <Card className="border-dashed">
-            <CardContent className="flex flex-col items-center justify-center py-8">
-              <Clock className="h-8 w-8 text-[--color-muted-foreground] opacity-30 mb-2" />
-              <p className="text-sm text-[--color-muted-foreground]">暂无历史对话</p>
-              <p className="text-xs text-[--color-muted-foreground] opacity-70 mt-1">
-                进入画像详情页，开始与虚拟玩家对话后，将在此显示
-              </p>
-            </CardContent>
-          </Card>
-        )}
-      </section>
-
-      {/* 使用场景 */}
-      <section className="space-y-5">
-        <h2 className="font-serif text-xl sm:text-2xl font-bold text-[--color-primary] text-center">
-          使用场景
-        </h2>
-        <div className="grid gap-4 sm:grid-cols-2">
-          {[
-            {
-              icon: Lightbulb,
-              title: "立项概念预筛",
-              desc: "团队有 2-4 个立项概念，选择目标玩家标签，快速验证不同画像的反应，淘汰明显不匹配的方向。",
-            },
-            {
-              icon: GitCompare,
-              title: "玩法机制比较",
-              desc: "需要比较 TTK、复活机制、武器方案时，对不同画像分别提问，理解「为什么喜欢/不喜欢」而非只看偏好比例。",
-            },
-            {
-              icon: ClipboardCheck,
-              title: "访谈提纲预演",
-              desc: "正式深访前，用模拟画像按提纲预演 10-15 分钟，标记空泛问题、诱导问题和无法区分画像的问题。",
-            },
-            {
-              icon: Archive,
-              title: "历史洞察复用",
-              desc: "出现新需求时，从历史语料中检索已有证据，明确哪些结论已有支撑、哪些仍需新研究，避免重复造轮子。",
-            },
-          ].map(({ icon: Icon, title, desc }) => (
-            <Card
-              key={title}
-              className="transition-all duration-200 hover:border-[--color-primary] hover:shadow-md"
-            >
-              <CardHeader className="pb-2">
-                <CardTitle className="text-base flex items-center gap-2">
-                  <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-[--color-primary]/10 flex items-center justify-center">
-                    <Icon className="h-4 w-4 text-[--color-primary]" />
-                  </div>
-                  {title}
-                </CardTitle>
-                <CardDescription className="text-sm leading-relaxed">{desc}</CardDescription>
-              </CardHeader>
-            </Card>
-          ))}
+                        <ArrowRight className="h-4 w-4 text-(--color-content-tertiary) opacity-0 group-hover:opacity-100 group-hover:text-(--color-brand-500) transition-all flex-shrink-0" />
+                      </CardContent>
+                    </Card>
+                  </Link>
+                );
+              })}
+              {filteredSessions.length > 3 && (
+                <div className="flex justify-center pt-2">
+                  <Button asChild variant="ghost" size="sm" className="text-xs text-(--color-content-secondary) hover:text-(--color-brand-500) hover:bg-transparent transition-colors">
+                    <Link to="/history" className="group inline-flex items-center">
+                      查看全部 <ArrowRight className="h-3 w-3 ml-1 text-(--color-content-secondary) group-hover:text-(--color-brand-500) transition-colors" />
+                    </Link>
+                  </Button>
+                </div>
+              )}
+            </div>
+          ) : search ? (
+            <EmptyState
+              icon={Search}
+              title="未找到匹配的对话"
+              description="尝试使用不同的关键词搜索"
+            />
+          ) : (
+            <EmptyState
+              icon={MessageCircle}
+              title="暂无历史对话"
+              description="进入画像详情页，开始与虚拟玩家对话后，将在此显示"
+              action={
+                <Button asChild size="sm">
+                  <Link to="/personas">开始匹配画像</Link>
+                </Button>
+              }
+            />
+          )}
         </div>
       </section>
-
-      <footer className="text-center text-xs text-[--color-muted-foreground] py-4 border-t border-[--color-border]">
-        MUR 用户智库 · 腾讯 IEG 市场与用户研究部 × 北京大学元培学院
-      </footer>
     </div>
   );
 }

@@ -50,6 +50,20 @@
       "when": 1785345127876,
       "tag": "0006_confused_barracuda",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1787283828167,
+      "tag": "0007_lush_sage",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1787299998122,
+      "tag": "0008_milky_maestro",
+      "breakpoints": true
     }
   ]
 }

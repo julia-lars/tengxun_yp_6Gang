@@ -39,17 +39,17 @@ export function EvidenceCard({
       className={cn(
         "rounded-lg border p-4 space-y-3 transition-all",
         isActive
-          ? "border-[--color-primary] bg-[--color-primary]/5"
-          : "border-[--color-border] bg-[--color-card]",
+          ? "border-(--color-primary) bg-(--color-primary)/5"
+          : "border-(--color-border) bg-(--color-card)",
         className,
       )}
     >
       {/* 原文引用 */}
       <div>
-        <p className="text-xs font-medium text-[--color-muted-foreground] mb-1 flex items-center gap-1">
+        <p className="text-xs font-medium text-(--color-muted-foreground) mb-1 flex items-center gap-1">
           <FileText className="h-3 w-3" /> 原文引用
         </p>
-        <blockquote className="text-sm text-[--color-foreground] leading-relaxed border-l-2 border-[--color-primary] pl-3 py-1">
+        <blockquote className="text-sm text-(--color-foreground) leading-relaxed border-l-2 border-(--color-primary) pl-3 py-1">
           {originalText}
         </blockquote>
       </div>
@@ -57,7 +57,7 @@ export function EvidenceCard({
       {/* 冰山标签 */}
       {iceberg && Object.keys(iceberg).length > 0 && (
         <div>
-          <p className="text-xs font-medium text-[--color-muted-foreground] mb-1">冰山标签</p>
+          <p className="text-xs font-medium text-(--color-muted-foreground) mb-1">冰山标签</p>
           <div className="flex flex-wrap gap-1">
             {Object.entries(iceberg).map(([key, vals]) =>
               (Array.isArray(vals) ? vals : [vals]).map((v) => (
@@ -71,7 +71,7 @@ export function EvidenceCard({
       )}
 
       {/* 元信息 */}
-      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-[--color-muted-foreground]">
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-(--color-muted-foreground)">
         <span className="flex items-center gap-1">
           <FileText className="h-3 w-3" /> {sourceFile}
         </span>
@@ -88,7 +88,7 @@ export function EvidenceCard({
         <button
           type="button"
           onClick={onCopy}
-          className="text-xs text-[--color-muted-foreground] hover:text-[--color-primary] flex items-center gap-1 transition-colors"
+          className="text-xs text-(--color-muted-foreground) hover:text-(--color-primary) flex items-center gap-1 transition-colors"
         >
           <Copy className="h-3 w-3" /> 复制引用
         </button>

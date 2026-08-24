@@ -1,4 +1,4 @@
-# llm.ts - LLM SDK with deprecation note on embed()
+// llm.ts - LLM SDK (Anthropic-compatible via TokenHub / 腾讯 MaaS)
 import "dotenv/config";
 
 export type ModelName = "deepseek" | "glm" | "minimax";
@@ -9,25 +9,24 @@ export interface ChatOptions {
   maxTokens?: number;
 }
 
-export interface EmbedOptions {
-  model?: string;
-}
-
-const MODEL_CONFIG: Record<ModelName, { baseUrl: string; apiKey: string; defaultModel: string }> = {
+const MODEL_CONFIG: Record<ModelName, { baseUrl: string; apiKey: string; defaultModel: string; supportsThinking: boolean }> = {
   deepseek: {
-    baseUrl: "https://api.deepseek.com/v1",
+    baseUrl: process.env.DEEPSEEK_BASE_URL ?? "https://api.deepseek.com/v1",
     apiKey: process.env.DEEPSEEK_API_KEY ?? "",
-    defaultModel: "deepseek-chat",
+    defaultModel: process.env.DEEPSEEK_MODEL ?? "deepseek-chat",
+    supportsThinking: true,
   },
   glm: {
-    baseUrl: "https://open.bigmodel.cn/api/paas/v4",
+    baseUrl: process.env.GLM_BASE_URL ?? "https://open.bigmodel.cn/api/paas/v4",
     apiKey: process.env.GLM_API_KEY ?? "",
-    defaultModel: "glm-4-flash",
+    defaultModel: process.env.GLM_MODEL ?? "glm-4-flash",
+    supportsThinking: false,
   },
   minimax: {
-    baseUrl: "https://api.minimaxi.com/v1",
+    baseUrl: process.env.MINIMAX_BASE_URL ?? "https://api.minimaxi.com/v1",
     apiKey: process.env.MINIMAX_API_KEY ?? "",
-    defaultModel: "abab6.5s-chat",
+    defaultModel: process.env.MINIMAX_MODEL ?? "abab6.5s-chat",
+    supportsThinking: false,
   },
 };
 
@@ -38,7 +37,9 @@ function getConfig(model?: ModelName) {
   return MODEL_CONFIG[m];
 }
 
-async function apiFetch(
+// ---- Anthropic-compatible API fetch ----
+
+async function anthropicFetch(
   path: string,
   body: Record<string, unknown>,
   model?: ModelName,
@@ -48,7 +49,8 @@ async function apiFetch(
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${cfg.apiKey}`,
+      "x-api-key": cfg.apiKey,
+      "anthropic-version": "2023-06-01",
     },
     body: JSON.stringify(body),
   });
@@ -76,42 +78,70 @@ export interface ChatMessage {
   content: string;
 }
 
+// ---- Non-streaming chat ----
+
 export async function chat(messages: ChatMessage[], options: ChatOptions = {}): Promise<string> {
   const cfg = getConfig(options.model);
   return withRetry(async () => {
-    const res = await apiFetch(
-      "/chat/completions",
-      {
-        model: cfg.defaultModel,
-        messages,
-        temperature: options.temperature ?? 0.7,
-        max_tokens: options.maxTokens ?? 2048,
-        stream: false,
-      },
-      options.model,
-    );
-    const data = (await res.json()) as { choices: [{ message: { content: string } }] };
-    return data.choices[0].message.content;
+    // Extract system prompt (Anthropic API puts it as top-level field)
+    const systemMsg = messages.find((m) => m.role === "system");
+    const chatMessages = messages
+      .filter((m) => m.role !== "system")
+      .map((m) => ({ role: m.role, content: m.content }));
+
+    const body: Record<string, unknown> = {
+      model: cfg.defaultModel,
+      messages: chatMessages,
+      max_tokens: options.maxTokens ?? 2048,
+      temperature: options.temperature ?? 0.7,
+    };
+    if (cfg.supportsThinking) {
+      body.thinking = { type: "disabled" };
+    }
+    if (systemMsg) {
+      body.system = systemMsg.content;
+    }
+
+    const res = await anthropicFetch("/v1/messages", body, options.model);
+    const data = (await res.json()) as {
+      content: Array<{ type: string; text: string }>;
+    };
+    // Extract text from content blocks
+    const textBlocks = data.content.filter((c) => c.type === "text");
+    return textBlocks.map((c) => c.text).join("");
   });
 }
+
+// ---- Streaming chat (SSE) ----
 
 export async function* chatStream(
   messages: ChatMessage[],
   options: ChatOptions = {},
 ): AsyncGenerator<string> {
   const cfg = getConfig(options.model);
+
+  // Extract system prompt (Anthropic API puts it as top-level field)
+  const systemMsg = messages.find((m) => m.role === "system");
+  const chatMessages = messages
+    .filter((m) => m.role !== "system")
+    .map((m) => ({ role: m.role, content: m.content }));
+
+  const body: Record<string, unknown> = {
+    model: cfg.defaultModel,
+    messages: chatMessages,
+    max_tokens: options.maxTokens ?? 2048,
+    temperature: options.temperature ?? 0.7,
+    stream: true,
+  };
+  if (cfg.supportsThinking) {
+    body.thinking = { type: "disabled" };
+  }
+  if (systemMsg) {
+    body.system = systemMsg.content;
+  }
+
   const res = await withRetry(async () =>
-    apiFetch(
-      "/chat/completions",
-      {
-        model: cfg.defaultModel,
-        messages,
-        temperature: options.temperature ?? 0.7,
-        max_tokens: options.maxTokens ?? 2048,
-        stream: true,
-      },
-      options.model,
-    ),
+    anthropicFetch("/v1/messages", body, options.model),
   );
 
   const reader = res.body?.getReader();
@@ -130,42 +160,27 @@ export async function* chatStream(
 
     for (const line of lines) {
       if (!line.startsWith("data: ")) continue;
-      const content = line.slice(6);
-      if (content === "[DONE]") return;
+      const content = line.slice(6).trim();
+      if (!content) continue;
 
       try {
         const parsed = JSON.parse(content) as {
-          choices: [{ delta: { content?: string } }];
+          type: string;
+          delta?: { type: string; text: string };
+          content_block?: { type: string; text: string };
         };
-        const token = parsed.choices?.[0]?.delta?.content;
-        if (token) yield token;
+
+        // Anthropic streaming format:
+        // content_block_delta: { type: "content_block_delta", delta: { type: "text_delta", text: "..." } }
+        if (parsed.type === "content_block_delta" && parsed.delta?.type === "text_delta") {
+          if (parsed.delta.text) yield parsed.delta.text;
+        }
+        // content_block_stop - end of a content block, ignore
+        // message_delta with stop_reason - end of message
+        if (parsed.type === "message_stop") return;
       } catch {
         // skip malformed chunks
       }
     }
   }
-}
-
-// ---- 文本向量化 ----
-// 注意：此方法通过 DeepSeek API 调用 text-embedding-3-small，
-// 实际项目使用 bge-large-zh-v1.5 本地部署（Python 微服务端口 8765），
-// 调用方（chat.ts / kol.ts）直接调 embedQuery() 而非此方法。
-// 此方法保留用于兼容性和未来模型切换。
-
-export async function embed(text: string, model?: string): Promise<number[]> {
-  const cfg = getConfig(DEFAULT_MODEL);
-  const embedModel = model ?? "text-embedding-3-small";
-
-  return withRetry(async () => {
-    const res = await apiFetch(
-      "/embeddings",
-      {
-        model: embedModel,
-        input: text,
-      },
-      DEFAULT_MODEL,
-    );
-    const data = (await res.json()) as { data: [{ embedding: number[] }] };
-    return data.data[0].embedding;
-  });
 }

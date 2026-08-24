@@ -57,7 +57,7 @@ export function PersonaDetailPage() {
         <p className="text-[--color-muted-foreground] mt-1">{persona.description}</p>
         <div className="mt-4">
           <Link to={`/personas/${persona.id}/chat`}>
-            <Button size="lg" className="text-base px-8 py-6">
+            <Button size="lg" variant="outline" className="text-base px-8 py-6 bg-white">
               <MessageCircle className="h-5 w-5 mr-2" />
               与「{persona.name}」开始对话
             </Button>
@@ -75,7 +75,7 @@ export function PersonaDetailPage() {
             {Object.entries(tagSpec).map(([dim, val]) => {
               const vals = Array.isArray(val) ? val : [val];
               return vals.map((v) => (
-                <Badge key={`${dim}-${v}`}>
+                <Badge key={`${dim}-${v}`} variant="outline" className="bg-white">
                   {dim}: {v}
                 </Badge>
               ));
@@ -108,11 +108,11 @@ export function PersonaDetailPage() {
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-lg">
-              代表性原声（{persona.evidenceList.length} 条）
+              代表性原声（{Math.min(persona.evidenceList.length, 5)} 条）
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
-            {persona.evidenceList.map((e) => (
+            {persona.evidenceList.slice(0, 5).map((e) => (
               <div key={e.id} className="animate-fade-in-up">
                 <blockquote className="border-l-2 border-[--color-primary] pl-3 py-1 text-sm text-[--color-muted-foreground] leading-relaxed">
                   {e.originalText.slice(0, 300)}
@@ -134,25 +134,6 @@ export function PersonaDetailPage() {
           </CardContent>
         </Card>
       )}
-
-      {/* 已知边界 */}
-      <Card>
-        <CardHeader className="pb-2">
-          <CardTitle className="text-lg">已知边界</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className="text-sm text-[--color-muted-foreground]">
-            该画像不适用于超出其游戏经验范围的问题。对话时 AI 会在知识边界外明确说明"不知道"。
-          </p>
-          <div className="flex items-center gap-4 mt-2 text-xs text-[--color-muted-foreground]">
-            <span>标签版本: v1.0</span>
-            <span>·</span>
-            <span>数据截止: 2026-07</span>
-            <span>·</span>
-            <span>来源: 12 个研究项目</span>
-          </div>
-        </CardContent>
-      </Card>
 
       {/* 历史对话 */}
       {sessions.length > 0 && (
@@ -181,7 +162,7 @@ export function PersonaDetailPage() {
                     </span>
                     <span className="text-[--color-foreground] truncate">{preview}</span>
                     <span className="text-[--color-muted-foreground] flex-shrink-0">
-                      {s.messages.length} 轮
+                      {Math.floor(s.messages.length / 2)} 轮
                     </span>
                   </div>
                   <Link

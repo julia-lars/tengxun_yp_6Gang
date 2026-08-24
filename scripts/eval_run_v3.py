@@ -203,8 +203,11 @@ def load_env_file(path: str) -> dict:
 
 def resolve_judge_config(project_root: str) -> dict:
     api_env = load_env_file(os.path.join(project_root, "apps", "api", ".env"))
-    base_url = os.getenv("EVAL_JUDGE_BASE_URL", "https://api.deepseek.com/v1")
-    model = os.getenv("EVAL_JUDGE_MODEL", "deepseek-chat")
+    base_url = os.getenv(
+        "EVAL_JUDGE_BASE_URL",
+        api_env.get("DEEPSEEK_BASE_URL", "https://api.deepseek.com/v1"),
+    )
+    model = os.getenv("EVAL_JUDGE_MODEL", api_env.get("DEEPSEEK_MODEL", "deepseek-chat"))
     api_key = os.getenv("EVAL_JUDGE_API_KEY", api_env.get("DEEPSEEK_API_KEY", ""))
     return {"base_url": base_url.rstrip("/"), "model": model, "api_key": api_key}
 
@@ -396,10 +399,11 @@ AI 的回答：
 只输出一个 JSON 对象，不要输出任何其它文字，格式如下：
 {{"人设一致性": {{"score": 4, "reason": "理由"}}, "专业准确性": {{"score": 4, "reason": "理由"}}, "知识边界": {{"score": 4, "reason": "理由"}}, "具体性": {{"score": 4, "reason": "理由"}}, "情感真实性": {{"score": 4, "reason": "理由"}}, "区分度": {{"score": 4, "reason": "理由"}}, "深度": {{"score": 4, "reason": "理由"}}, "overall": 4, "comment": "一句话总评"}}"""
 
+    # Anthropic Messages API 兼容格式（TokenHub / 腾讯 MaaS）
     payload = {
         "model": cfg["model"],
+        "system": "你只输出合法 JSON，不输出任何解释或 markdown 代码块。你的回复必须以 { 开头，以 } 结尾。",
         "messages": [
-            {"role": "system", "content": "你只输出合法 JSON，不输出任何解释或 markdown 代码块。你的回复必须以 { 开头，以 } 结尾。"},
             {"role": "user", "content": prompt},
         ],
         "temperature": 0.0,
@@ -407,15 +411,22 @@ AI 的回答：
     }
 
     resp = requests.post(
-        f"{cfg['base_url']}/chat/completions",
+        f"{cfg['base_url']}/v1/messages",
         json=payload,
-        headers={"Authorization": f"Bearer {cfg['api_key']}"},
+        headers={
+            "Content-Type": "application/json",
+            "x-api-key": cfg["api_key"],
+            "anthropic-version": "2023-06-01",
+        },
         timeout=180,
     )
     if not resp.ok:
         raise RuntimeError(f"judge 请求失败 {resp.status_code}: {resp.text[:300]}")
 
-    content = resp.json()["choices"][0]["message"]["content"].strip()
+    content = resp.json()["content"]
+    content = "".join(
+        block.get("text", "") for block in content if block.get("type") == "text"
+    ).strip()
     content = extract_json(content)
     return json.loads(content)
 
