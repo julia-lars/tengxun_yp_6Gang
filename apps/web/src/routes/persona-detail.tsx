@@ -2,7 +2,7 @@
 import type { ChatSession, PersonaDetail } from "@app/shared";
 import { ArrowLeft, Clock, MessageCircle, Trash2 } from "lucide-react";
 import { useEffect, useState, useCallback } from "react";
-import { Link, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -13,6 +13,7 @@ import { toast } from "sonner";
 
 export function PersonaDetailPage() {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const [persona, setPersona] = useState<PersonaDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [sessions, setSessions] = useState<ChatSession[]>([]);
@@ -56,12 +57,13 @@ export function PersonaDetailPage() {
 
   return (
     <div className="space-y-6">
-      <Link
-        to="/personas"
-        className="inline-flex items-center gap-1 text-sm text-[--color-muted-foreground] hover:text-[--color-primary] transition-colors"
+      <button
+        type="button"
+        onClick={() => navigate(-1)}
+        className="inline-flex items-center gap-1 text-sm text-[--color-muted-foreground] hover:text-[--color-primary] transition-colors cursor-pointer"
       >
         <ArrowLeft className="h-3 w-3" /> 返回画像列表
-      </Link>
+      </button>
 
       {/* 标题区 */}
       <div>

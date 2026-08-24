@@ -1,16 +1,13 @@
 // KOL 分身对话室 — 使用统一聊天组件 AgentChat
 import { User } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useParams, useSearchParams } from "react-router";
+import { useParams } from "react-router";
 import { AgentChat, type ChatMessage, type SessionRestoreResult } from "@/components/chat/agent-chat.js";
 import { api } from "../lib/api.js";
 
 export function KolChatPage() {
   const { id } = useParams<{ id: string }>();
-  const [searchParams] = useSearchParams();
   const kolId = Number(id);
-  const fromParam = searchParams.get("from");
-  const backUrl = fromParam === "kol" ? "/kol" : `/kol/${kolId}`;
   const [kolName, setKolName] = useState<string>("");
 
   useEffect(() => {
@@ -32,7 +29,6 @@ export function KolChatPage() {
     <AgentChat
       type="kol"
       agentId={kolId}
-      backUrl={backUrl}
       title={kolName || "KOL 分身对话"}
       subtitle="KOL 数字孪生 · 像与真人 UP 主对话一样提问"
       chatEndpoint="/api/kol/chat"

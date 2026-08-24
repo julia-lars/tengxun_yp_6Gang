@@ -2,7 +2,7 @@
 import type { KolProfileSummary } from "@app/shared";
 import { ArrowLeft, ArrowRight, Database, MessageCircle, User } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { EmptyState } from "@/components/shared/empty-state";
@@ -11,6 +11,7 @@ import { PageHeader } from "@/components/shared/page-header";
 import { api } from "@/lib/api";
 
 export function KolListPage() {
+  const navigate = useNavigate();
   const [kols, setKols] = useState<KolProfileSummary[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -74,12 +75,13 @@ export function KolListPage() {
     <div className="space-y-6">
       <div className="sticky top-0 z-10 -mt-6 pt-6 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 bg-neutral-50">
         <div className="pb-2 border-b border-neutral-200">
-          <Link
-            to="/"
-            className="inline-flex items-center gap-1 text-sm text-(--color-content-secondary) hover:text-(--color-brand-500) transition-colors"
+          <button
+            type="button"
+            onClick={() => navigate(-1)}
+            className="inline-flex items-center gap-1 text-sm text-(--color-content-secondary) hover:text-(--color-brand-500) transition-colors cursor-pointer"
           >
-            <ArrowLeft className="h-3 w-3" /> 返回首页
-          </Link>
+            <ArrowLeft className="h-3 w-3" /> 返回上一页
+          </button>
         </div>
       </div>
 
@@ -139,7 +141,7 @@ export function KolListPage() {
                   </Link>
                 </Button>
                 <Button asChild size="sm">
-                  <Link to={`/kol/${kol.id}/chat?from=kol`}>
+                  <Link to={`/kol/${kol.id}/chat`}>
                     <MessageCircle className="h-3.5 w-3.5 mr-1" />
                     开始对话
                   </Link>

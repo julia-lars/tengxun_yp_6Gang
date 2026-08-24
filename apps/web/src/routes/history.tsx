@@ -2,7 +2,7 @@
 import type { ChatSession, KolChatSession, KolProfileSummary, PersonaSummary } from "@app/shared";
 import { ArrowLeft, Clock, Search } from "lucide-react";
 import { useEffect, useMemo, useState, useCallback } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { Card, CardContent } from "@/components/ui/card";
 import { SessionCard } from "@/components/shared/session-card";
 import { Input } from "@/components/ui/input";
@@ -21,6 +21,7 @@ interface HistoryItem {
 }
 
 export function HistoryPage() {
+  const navigate = useNavigate();
   const [items, setItems] = useState<HistoryItem[]>([]);
   const [search, setSearch] = useState("");
 
@@ -136,12 +137,13 @@ export function HistoryPage() {
     <div className="space-y-6">
       <div className="sticky top-0 z-10 -mt-6 pt-6 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 bg-neutral-50">
         <div className="pb-2 border-b border-neutral-200">
-          <Link
-            to="/"
-            className="inline-flex items-center gap-1 text-sm text-(--color-muted-foreground) hover:text-(--color-primary) transition-colors"
+          <button
+            type="button"
+            onClick={() => navigate(-1)}
+            className="inline-flex items-center gap-1 text-sm text-(--color-muted-foreground) hover:text-(--color-primary) transition-colors cursor-pointer"
           >
-            <ArrowLeft className="h-3 w-3" /> 返回首页
-          </Link>
+            <ArrowLeft className="h-3 w-3" /> 返回上一页
+          </button>
         </div>
       </div>
 
@@ -169,8 +171,8 @@ export function HistoryPage() {
             const preview = getPreview(s);
             const chatPath =
               s.type === "persona"
-                ? `/personas/${s.agentId}/chat?session=${s.id}&from=history`
-                : `/kol/${s.agentId}/chat?session=${s.id}&from=history`;
+                ? `/personas/${s.agentId}/chat?session=${s.id}`
+                : `/kol/${s.agentId}/chat?session=${s.id}`;
             const roundCount = Math.floor(s.messages.length / 2);
             return (
               <SessionCard

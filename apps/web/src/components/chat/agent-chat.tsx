@@ -16,7 +16,7 @@ import {
   User,
 } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Link, useSearchParams } from "react-router";
+import { useNavigate, useSearchParams } from "react-router";
 import { toast } from "sonner";
 import { api } from "@/lib/api";
 import { Button } from "@/components/ui/button";
@@ -88,7 +88,6 @@ export interface SessionRestoreResult {
 export interface AgentChatProps {
   type: "persona" | "kol";
   agentId: number;
-  backUrl: string;
   title: string;
   subtitle?: string;
   emptyTitle?: string;
@@ -129,7 +128,6 @@ const defaultFeatures: Required<AgentChatProps["features"]> = {
 export function AgentChat({
   type,
   agentId,
-  backUrl,
   title,
   subtitle,
   emptyTitle,
@@ -144,8 +142,8 @@ export function AgentChat({
 }: AgentChatProps) {
   const f = { ...defaultFeatures, ...features };
 
+  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-  const fromParam = searchParams.get("from");
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
   const [streaming, setStreaming] = useState(false);
@@ -214,10 +212,7 @@ export function AgentChat({
   // 更新 sessionId
   useEffect(() => {
     if (sessionId) {
-      setSearchParams({
-        session: String(sessionId),
-        ...(fromParam ? { from: fromParam } : {}),
-      });
+      setSearchParams({ session: String(sessionId) });
     }
   }, [sessionId]);
 
@@ -554,12 +549,13 @@ export function AgentChat({
     <div className="flex flex-col h-full">
       {/* 顶部信息栏 */}
       <div className="flex items-center gap-3 pb-3 border-b border-(--color-border-default) shrink-0 sticky top-0 z-10 bg-(--color-surface-primary) pt-3">
-        <Link
-          to={backUrl}
-          className="text-(--color-content-secondary) hover:text-(--color-brand-500) transition-colors"
+        <button
+          type="button"
+          onClick={() => navigate(-1)}
+          className="text-(--color-content-secondary) hover:text-(--color-brand-500) transition-colors cursor-pointer"
         >
           <ArrowLeft className="h-4 w-4" />
-        </Link>
+        </button>
         <div className="flex-1 min-w-0">
           <h2 className="font-serif text-lg font-bold text-black truncate">
             {title}

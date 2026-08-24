@@ -7,7 +7,7 @@ import {
   XCircle,
 } from "lucide-react";
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { api, type DryRunResult, type ImportJob } from "../lib/api.js";
@@ -27,6 +27,7 @@ const STRATEGIES = [
 type Step = "upload" | "preview" | "importing" | "done";
 
 export function AdminImportPage() {
+  const navigate = useNavigate();
   const [step, setStep] = useState<Step>("upload");
   const [file, setFile] = useState<File | null>(null);
   const [targetTable, setTargetTable] = useState("source_segments");
@@ -119,10 +120,14 @@ export function AdminImportPage() {
   return (
     <div className="space-y-6">
       <div>
-        <Link to="/admin" className="text-sm text-blue-500 hover:underline inline-flex items-center gap-1">
+        <button
+          type="button"
+          onClick={() => navigate(-1)}
+          className="text-sm text-blue-500 hover:underline inline-flex items-center gap-1 cursor-pointer"
+        >
           <ArrowLeft className="h-3 w-3" />
           返回仪表盘
-        </Link>
+        </button>
         <h1 className="text-2xl font-bold text-(--color-content-primary) mt-1">数据导入</h1>
         <p className="text-sm text-(--color-content-secondary) mt-1">
           上传 JSON/JSONL 文件导入数据库，或从 data/ 目录批量导入

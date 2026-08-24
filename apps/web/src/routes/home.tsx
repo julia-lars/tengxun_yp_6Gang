@@ -252,8 +252,8 @@ export function HomePage() {
                 const preview = getPreview(s);
                 const chatPath =
                   s.type === "persona"
-                    ? `/personas/${s.agentId}/chat?session=${s.id}&from=home`
-                    : `/kol/${s.agentId}/chat?session=${s.id}&from=home`;
+                    ? `/personas/${s.agentId}/chat?session=${s.id}`
+                    : `/kol/${s.agentId}/chat?session=${s.id}`;
                 const roundCount = Math.floor(s.messages.length / 2);
                 return (
                   <SessionCard

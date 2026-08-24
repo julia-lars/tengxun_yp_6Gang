@@ -2,23 +2,13 @@
 import type { PersonaDetail } from "@app/shared";
 import { User } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useParams, useSearchParams } from "react-router";
+import { useParams } from "react-router";
 import { AgentChat, type ChatMessage, type SessionRestoreResult } from "@/components/chat/agent-chat.js";
 import { api } from "../lib/api.js";
 
 export function ChatRoomPage() {
   const { id } = useParams<{ id: string }>();
-  const [searchParams] = useSearchParams();
   const personaId = Number(id);
-  const fromParam = searchParams.get("from");
-  const backUrl =
-    fromParam === "home"
-      ? "/"
-      : fromParam === "history"
-        ? "/history"
-        : fromParam === "personas"
-          ? "/personas"
-          : `/personas/${personaId}`;
   const [persona, setPersona] = useState<PersonaDetail | null>(null);
 
   // 加载画像信息
@@ -49,7 +39,6 @@ export function ChatRoomPage() {
     <AgentChat
       type="persona"
       agentId={personaId}
-      backUrl={backUrl}
       title={persona?.name ?? "虚拟访谈室"}
       subtitle={subtitle}
       chatEndpoint="/api/chat"

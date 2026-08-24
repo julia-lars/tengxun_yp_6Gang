@@ -11,7 +11,7 @@ import {
   X,
 } from "lucide-react";
 import { useCallback, useMemo, useState } from "react";
-import { Link, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -127,12 +127,13 @@ export function NewPersonaPage() {
 
   return (
     <div className="space-y-6">
-      <Link
-        to="/personas"
-        className="inline-flex items-center gap-1 text-sm text-(--color-content-secondary) hover:text-(--color-brand-500) transition-colors"
+      <button
+        type="button"
+        onClick={() => navigate(-1)}
+        className="inline-flex items-center gap-1 text-sm text-(--color-content-secondary) hover:text-(--color-brand-500) transition-colors cursor-pointer"
       >
         <ArrowLeft className="h-3 w-3" /> 返回画像列表
-      </Link>
+      </button>
 
       <PageHeader
         title="新建用户画像"

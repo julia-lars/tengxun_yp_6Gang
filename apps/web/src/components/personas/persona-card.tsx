@@ -66,7 +66,7 @@ export function PersonaCard({ persona }: PersonaCardProps) {
             </Link>
           </Button>
           <Button asChild size="sm">
-            <Link to={`/personas/${persona.id}/chat?from=personas`}>
+            <Link to={`/personas/${persona.id}/chat`}>
               <MessageCircle className="h-3.5 w-3.5 mr-1" />
               开始访谈
             </Link>

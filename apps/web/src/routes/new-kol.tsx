@@ -134,12 +134,13 @@ export function NewKolPage() {
 
   return (
     <div className="space-y-6">
-      <RouterLink
-        to="/kol"
-        className="inline-flex items-center gap-1 text-sm text-(--color-content-secondary) hover:text-(--color-brand-500) transition-colors"
+      <button
+        type="button"
+        onClick={() => navigate(-1)}
+        className="inline-flex items-center gap-1 text-sm text-(--color-content-secondary) hover:text-(--color-brand-500) transition-colors cursor-pointer"
       >
         <ArrowLeft className="h-3 w-3" /> 返回 KOL 列表
-      </RouterLink>
+      </button>
 
       <PageHeader
         title="新建 KOL 分身"

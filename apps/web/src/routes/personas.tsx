@@ -8,7 +8,7 @@ import {
   X,
 } from "lucide-react";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Link, useSearchParams } from "react-router";
+import { Link, useNavigate, useSearchParams } from "react-router";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -43,6 +43,7 @@ for (const dim of MAIN_DIMENSIONS) {
 const TAG_SEPARATOR = ",";
 
 export function PersonasPage() {
+  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const [personas, setPersonas] = useState<PersonaSummary[]>([]);
   const [loading, setLoading] = useState(true);
@@ -190,12 +191,13 @@ export function PersonasPage() {
     <div className="space-y-6">
       <div className="sticky top-0 z-10 -mt-6 pt-6 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 bg-neutral-50">
         <div className="pb-2 border-b border-neutral-200">
-          <Link
-            to="/"
-            className="inline-flex items-center gap-1 text-sm text-(--color-muted-foreground) hover:text-(--color-primary) transition-colors"
+          <button
+            type="button"
+            onClick={() => navigate(-1)}
+            className="inline-flex items-center gap-1 text-sm text-(--color-muted-foreground) hover:text-(--color-primary) transition-colors cursor-pointer"
           >
-            <ArrowLeft className="h-3 w-3" /> 返回首页
-          </Link>
+            <ArrowLeft className="h-3 w-3" /> 返回上一页
+          </button>
         </div>
       </div>
       <div>

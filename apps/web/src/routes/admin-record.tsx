@@ -1,7 +1,7 @@
 // 管理后台 — 记录编辑/新增页（通用）
 import { ArrowLeft, Save } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -118,10 +118,14 @@ export function AdminRecordPage() {
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <div>
-          <Link to={`/admin/${table}`} className="text-sm text-blue-500 hover:underline inline-flex items-center gap-1">
+          <button
+            type="button"
+            onClick={() => navigate(-1)}
+            className="text-sm text-blue-500 hover:underline inline-flex items-center gap-1 cursor-pointer"
+          >
             <ArrowLeft className="h-3 w-3" />
             返回列表
-          </Link>
+          </button>
           <h1 className="text-2xl font-bold text-(--color-content-primary) mt-1">
             {isNew ? `新增${meta}` : `编辑${meta} #${id}`}
           </h1>

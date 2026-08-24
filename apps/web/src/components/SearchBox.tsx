@@ -95,7 +95,7 @@ export function SearchBox() {
           id: s.id,
           label: title || "对话",
           desc: p ? `画像: ${p.name}` : "历史对话",
-          url: `/personas/${s.personaId}/chat?session=${s.id}&from=search`,
+          url: `/personas/${s.personaId}/chat?session=${s.id}`,
         });
       }
     }

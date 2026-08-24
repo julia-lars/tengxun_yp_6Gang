@@ -2,7 +2,7 @@
 import type { KolProfileDetail } from "@app/shared";
 import { ArrowLeft, ExternalLink, MessageCircle } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -10,6 +10,7 @@ import { api } from "@/lib/api";
 
 export function KolDetailPage() {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const kolId = Number(id);
   const [kol, setKol] = useState<KolProfileDetail | null>(null);
   const [loading, setLoading] = useState(true);
@@ -40,9 +41,13 @@ export function KolDetailPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-3">
-        <Link to="/kol" className="text-[--color-muted-foreground] hover:text-[--color-primary]">
+        <button
+          type="button"
+          onClick={() => navigate(-1)}
+          className="text-(--color-muted-foreground) hover:text-(--color-primary) cursor-pointer"
+        >
           <ArrowLeft className="h-4 w-4" />
-        </Link>
+        </button>
         <h1 className="font-serif text-2xl font-bold text-[--color-primary]">{kol.name}</h1>
       </div>
 

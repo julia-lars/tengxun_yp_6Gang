@@ -8,7 +8,7 @@ import {
   Trash2,
 } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
-import { Link, useParams, useSearchParams } from "react-router";
+import { Link, useNavigate, useParams, useSearchParams } from "react-router";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -49,6 +49,7 @@ const TABLE_META: Record<string, { label: string; columns: string[] }> = {
 const PAGE_SIZE = 20;
 
 export function AdminTablePage() {
+  const navigate = useNavigate();
   const { table } = useParams<{ table: string }>();
   const [searchParams, setSearchParams] = useSearchParams();
   const [data, setData] = useState<AdminListResponse<Record<string, unknown>> | null>(null);
@@ -135,9 +136,13 @@ export function AdminTablePage() {
       {/* 页头 */}
       <div className="flex items-center justify-between">
         <div>
-          <Link to="/admin" className="text-sm text-blue-500 hover:underline">
+          <button
+            type="button"
+            onClick={() => navigate(-1)}
+            className="text-sm text-blue-500 hover:underline cursor-pointer"
+          >
             ← 返回仪表盘
-          </Link>
+          </button>
           <h1 className="text-2xl font-bold text-(--color-content-primary) mt-1">
             {meta.label}
           </h1>
