@@ -25,9 +25,10 @@ import {
   Users,
   Wand2,
   X,
+  XCircle,
 } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router";
+import { Link, useNavigate, useSearchParams } from "react-router";
 import { toast } from "sonner";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -50,6 +51,7 @@ import { cn, formatRemainingTime } from "@/lib/utils";
 
 export function InterviewOutlinePage() {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   // 表单状态
   const [theme, setTheme] = useState("");
@@ -71,12 +73,49 @@ export function InterviewOutlinePage() {
   const [editingQuestion, setEditingQuestion] = useState<string | null>(null);
   const [refining, setRefining] = useState(false);
   const [estimatedRemainingMs, setEstimatedRemainingMs] = useState<number | undefined>();
+  const [restoredFromServer, setRestoredFromServer] = useState(false);
   const pollRef = useRef<ReturnType<typeof setInterval>>();
 
   // 加载画像列表
   useEffect(() => {
     api.listPersonas().then(setPersonas).catch(console.error);
   }, []);
+
+  // ★ 挂载时从后端恢复最新数据（不依赖 URL 参数，切换页面也能恢复）
+  useEffect(() => {
+    if (restoredFromServer) return;
+
+    // 同时拉取最新大纲和正在运行的作业
+    Promise.allSettled([
+      api.listOutlines(),
+      api.listBatchInterviewJobs(),
+    ]).then(([outlinesResult, jobsResult]) => {
+      // 1. 恢复最新大纲
+      if (outlinesResult.status === "fulfilled" && outlinesResult.value.length > 0) {
+        const latest = outlinesResult.value[0]!;
+        setOutline(latest);
+        setExpandedSections(new Set(latest.sections.map((_, i: number) => String(i))));
+      }
+
+      // 2. 检查是否有正在运行的 outline 作业
+      // 从 URL 或最近的 job 中查找
+      const urlJobId = searchParams.get("jobId");
+      if (urlJobId) {
+        api.getOutlineGenerateStatus(urlJobId).then((s) => {
+          if (s.status === "pending" || s.status === "running") {
+            setGenerating(true);
+            setOutlineJobId(urlJobId);
+            setOutlineProgress(s.progress);
+            setEstimatedRemainingMs(s.estimatedRemainingMs);
+          }
+        }).catch(() => {});
+      }
+
+      setRestoredFromServer(true);
+    }).catch(() => {
+      setRestoredFromServer(true);
+    });
+  }, []); // 仅在挂载时执行一次
 
   // 添加关注领域
   const addFocus = useCallback(() => {
@@ -106,11 +145,27 @@ export function InterviewOutlinePage() {
       };
       const { jobId } = await api.generateOutline(req);
       setOutlineJobId(jobId);
+      setSearchParams({ jobId }, { replace: true });
     } catch (e) {
       toast.error(`生成失败: ${String(e)}`);
       setGenerating(false);
     }
   }, [theme, selectedPersonas, focusAreas, additionalContext, questionCount]);
+
+  // 取消大纲生成
+  const cancelGeneration = useCallback(async () => {
+    if (!outlineJobId) return;
+    try {
+      await api.cancelOutlineGeneration(outlineJobId);
+      toast.success("大纲生成已取消");
+    } catch (e) {
+      toast.error(`取消失败: ${String(e)}`);
+    }
+    if (pollRef.current) clearInterval(pollRef.current);
+    setGenerating(false);
+    setOutlineJobId(null);
+    setSearchParams({}, { replace: true });
+  }, [outlineJobId, setSearchParams]);
 
   // 轮询大纲生成状态
   useEffect(() => {
@@ -122,14 +177,21 @@ export function InterviewOutlinePage() {
         setEstimatedRemainingMs(status.estimatedRemainingMs);
         if (status.status === "completed" && status.result) {
           setOutline(status.result);
-          setExpandedSections(new Set(status.result.sections.map((_, i) => String(i))));
+          setExpandedSections(new Set(status.result.sections.map((_, i: number) => String(i))));
           setGenerating(false);
           setOutlineJobId(null);
+          setSearchParams({ outlineId: status.result.id }, { replace: true });
           toast.success("访谈大纲生成成功！");
         } else if (status.status === "failed") {
           setGenerating(false);
           setOutlineJobId(null);
+          setSearchParams({}, { replace: true });
           toast.error(status.error ?? "大纲生成失败");
+        } else if (status.status === "cancelled") {
+          setGenerating(false);
+          setOutlineJobId(null);
+          setSearchParams({}, { replace: true });
+          toast.info("大纲生成已取消");
         }
       } catch {
         // 轮询忽略错误
@@ -197,7 +259,7 @@ export function InterviewOutlinePage() {
   // 跳转到批量访谈
   const goToBatchInterview = useCallback(() => {
     if (!outline) return;
-    navigate("/interview/batch", { state: { outline } });
+    navigate(`/interview/batch?outlineId=${outline.id}`, { state: { outline } });
   }, [outline, navigate]);
 
   const questionCategories = useMemo(() => {
@@ -213,12 +275,16 @@ export function InterviewOutlinePage() {
 
   return (
     <div className="space-y-6">
-      <Link
-        to="/"
-        className="inline-flex items-center gap-1 text-sm text-(--color-content-secondary) hover:text-(--color-brand-500) transition-colors"
-      >
-        <ArrowLeft className="h-3 w-3" /> 返回首页
-      </Link>
+      <div className="sticky top-0 z-10 -mt-6 pt-6 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 bg-neutral-50">
+        <div className="pb-2 border-b border-neutral-200">
+          <Link
+            to="/"
+            className="inline-flex items-center gap-1 text-sm text-(--color-content-secondary) hover:text-(--color-brand-500) transition-colors"
+          >
+            <ArrowLeft className="h-3 w-3" /> 返回首页
+          </Link>
+        </div>
+      </div>
 
       <PageHeader
         title="访谈大纲生成器"
@@ -357,23 +423,31 @@ export function InterviewOutlinePage() {
               </div>
 
               {/* 生成按钮 */}
-              <Button
-                className="w-full"
-                onClick={handleGenerate}
-                disabled={generating || !theme.trim()}
-              >
-                {generating ? (
-                  <>
+              {generating ? (
+                <div className="space-y-2">
+                  <Button className="w-full" disabled>
                     <Loader2 className="h-4 w-4 mr-2 animate-spin" />
                     {formatRemainingTime(estimatedRemainingMs)}
-                  </>
-                ) : (
-                  <>
-                    <Sparkles className="h-4 w-4 mr-2" />
-                    生成大纲
-                  </>
-                )}
-              </Button>
+                  </Button>
+                  <Button
+                    className="w-full"
+                    variant="outline"
+                    onClick={cancelGeneration}
+                  >
+                    <XCircle className="h-4 w-4 mr-2 text-red-500" />
+                    取消生成
+                  </Button>
+                </div>
+              ) : (
+                <Button
+                  className="w-full"
+                  onClick={handleGenerate}
+                  disabled={!theme.trim()}
+                >
+                  <Sparkles className="h-4 w-4 mr-2" />
+                  生成大纲
+                </Button>
+              )}
             </CardContent>
           </Card>
 

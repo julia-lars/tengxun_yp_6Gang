@@ -17,6 +17,7 @@ import {
   Upload,
   Users,
   X,
+  XCircle,
   Zap,
 } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -34,7 +35,7 @@ import { api } from "@/lib/api";
 import { cn, formatRemainingTime } from "@/lib/utils";
 
 // ---- 流水线阶段 ----
-type PipelineStage = "idle" | "uploading" | "extracting" | "cleaning" | "tagging" | "embedding" | "clustering" | "done";
+type PipelineStage = "idle" | "uploading" | "extracting" | "cleaning" | "tagging" | "embedding" | "clustering" | "cancelled" | "done";
 
 interface StageInfo {
   key: PipelineStage;
@@ -154,48 +155,47 @@ export function DataPipelinePage() {
   const [estimatedRemainingMs, setEstimatedRemainingMs] = useState<number | undefined>();
   const pollRef = useRef<ReturnType<typeof setInterval>>();
 
-  const isRunning = currentStage !== "idle" && currentStage !== "done";
+  const isRunning = currentStage !== "idle" && currentStage !== "done" && currentStage !== "cancelled";
 
-  // 页面刷新后恢复轮询
+  // 页面刷新后恢复轮询（优先 sessionStorage，兜底 API）
   useEffect(() => {
-    if (!saved.jobId) return;
-    // 如果之前有活跃的作业，立即恢复轮询
-    const restoredStage = saved.stage ?? "uploading";
-    if (restoredStage === "done") {
-      clearPipelineState();
-      setCurrentStage("done");
-      setProgress(100);
-      return;
-    }
-    // 开始轮询
-    const interval = setInterval(async () => {
-      try {
-        const status = await api.getPipelineStatus(saved.jobId!);
-        setCurrentStage(status.stage);
-        setProgress(status.progress);
-        setPipelineStats(status.stats);
-        setEstimatedRemainingMs(status.estimatedRemainingMs);
-        savePipelineState({
-          stage: status.stage,
-          progress: status.progress,
-          stats: status.stats,
-        });
-        if (status.completedAt) {
+    const recoverJob = async () => {
+      // 1. 优先从 sessionStorage 恢复
+      if (saved.jobId) {
+        const restoredStage = saved.stage ?? "uploading";
+        if (restoredStage === "done") {
+          clearPipelineState();
           setCurrentStage("done");
           setProgress(100);
-          setJobId(null);
-          clearPipelineState();
-          toast.success("数据流水线处理完成！");
+          return;
+        }
+        // jobId 已通过 useState 初始化，轮询 effect 会自动启动
+        return;
+      }
+
+      // 2. 兜底：从 API 查找是否有运行中的作业
+      try {
+        const jobs = await api.listPipelineJobs();
+        const activeJob = jobs.find((j) => !j.completedAt);
+        if (activeJob) {
+          setJobId(activeJob.jobId);
+          setCurrentStage(activeJob.stage);
+          setProgress(activeJob.progress);
+          setPipelineStats(activeJob.stats);
+          setEstimatedRemainingMs(activeJob.estimatedRemainingMs);
+          savePipelineState({
+            jobId: activeJob.jobId,
+            stage: activeJob.stage,
+            progress: activeJob.progress,
+            stats: activeJob.stats,
+          });
+          // 轮询 effect 会通过 jobId/isRunning 变化自动启动
         }
       } catch {
-        // 轮询失败（作业可能已过期），停止
-        clearInterval(interval);
-        setCurrentStage("idle");
-        clearPipelineState();
-        toast.error("流水线作业已过期，请重新上传文件");
+        // 无活跃作业，忽略
       }
-    }, 1500);
-    return () => clearInterval(interval);
+    };
+    recoverJob();
   }, []); // 仅在挂载时执行一次
 
   // 轮询流水线状态
@@ -220,8 +220,20 @@ export function DataPipelinePage() {
           clearPipelineState();
           toast.success("数据流水线处理完成！");
         }
+        if (status.stage === "cancelled") {
+          clearInterval(pollRef.current);
+          setCurrentStage("idle");
+          setJobId(null);
+          clearPipelineState();
+          toast.info("流水线已取消");
+        }
       } catch {
-        // 轮询中忽略错误
+        // 轮询失败（作业可能已过期或不存在），停止
+        clearInterval(pollRef.current);
+        setCurrentStage("idle");
+        setJobId(null);
+        clearPipelineState();
+        toast.error("流水线作业已过期，请重新上传文件");
       }
     }, 1500);
     return () => clearInterval(pollRef.current);
@@ -307,6 +319,8 @@ export function DataPipelinePage() {
       });
       setJobId(newJobId);
 
+      toast.success("开始处理...");
+
       // 持久化到 sessionStorage，防止刷新丢失
       savePipelineState({
         jobId: newJobId,
@@ -345,8 +359,23 @@ export function DataPipelinePage() {
     setJobId(null);
     setPipelineStats(null);
     setUploadResult(null);
+    setEstimatedRemainingMs(undefined);
     clearPipelineState();
   }, []);
+
+  // 取消流水线
+  const cancelPipeline = useCallback(async () => {
+    if (!jobId) return;
+    try {
+      await api.cancelPipeline(jobId);
+      toast.success("流水线已取消，已清理相关数据");
+    } catch (e) {
+      toast.error(`取消失败: ${String(e)}`);
+    }
+    // 无论取消请求是否成功，都停止轮询并重置 UI
+    if (pollRef.current) clearInterval(pollRef.current);
+    reset();
+  }, [jobId, reset]);
 
   const formatSize = (bytes: number) => {
     if (bytes < 1024) return `${bytes} B`;
@@ -356,12 +385,16 @@ export function DataPipelinePage() {
 
   return (
     <div className="space-y-6">
-      <Link
-        to="/"
-        className="inline-flex items-center gap-1 text-sm text-(--color-content-secondary) hover:text-(--color-brand-500) transition-colors"
-      >
-        <ArrowLeft className="h-3 w-3" /> 返回首页
-      </Link>
+      <div className="sticky top-0 z-10 -mt-6 pt-6 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 bg-neutral-50">
+        <div className="pb-2 border-b border-neutral-200">
+          <Link
+            to="/"
+            className="inline-flex items-center gap-1 text-sm text-(--color-content-secondary) hover:text-(--color-brand-500) transition-colors"
+          >
+            <ArrowLeft className="h-3 w-3" /> 返回首页
+          </Link>
+        </div>
+      </div>
 
       <PageHeader
         title="数据流水线"
@@ -657,10 +690,20 @@ export function DataPipelinePage() {
               </Button>
             )}
             {isRunning && (
-              <Button className="w-full" disabled>
-                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                {formatRemainingTime(estimatedRemainingMs)}
-              </Button>
+              <div className="space-y-2">
+                <Button className="w-full" disabled>
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  {formatRemainingTime(estimatedRemainingMs)}
+                </Button>
+                <Button
+                  className="w-full"
+                  variant="outline"
+                  onClick={cancelPipeline}
+                >
+                  <XCircle className="h-4 w-4 mr-2 text-red-500" />
+                  取消处理
+                </Button>
+              </div>
             )}
             {currentStage === "done" && (
               <>

@@ -1,5 +1,6 @@
 // --------------------------------------------------------------
 // 批量访谈路由 — 大规模自动访谈 + 报告生成
+// 持久化到 PostgreSQL，支持页面刷新/重启后恢复
 // --------------------------------------------------------------
 
 import type {
@@ -10,20 +11,20 @@ import type {
 } from "@app/shared";
 import { batchInterviewConfigSchema, normalizeTagSpec, tagSpecToPrompt } from "@app/shared";
 import { zValidator } from "@hono/zod-validator";
-import { eq, inArray, sql } from "drizzle-orm";
+import { desc, eq, inArray } from "drizzle-orm";
 import { Hono } from "hono";
 
 import { db } from "../db/client.js";
-import { personas, sourceSegments } from "../db/schema.js";
+import { batchInterviewJobs, batchInterviewReports, personas } from "../db/schema.js";
 import type { ChatMessage } from "../lib/llm.js";
 import { chat } from "../lib/llm.js";
 import { SPOKEN_STYLE_RULES, formatSpokenStyleRules } from "../lib/prompt-rules.js";
 
 export const batchInterviewRoute = new Hono();
 
-// 内存中的作业存储
-const jobStore = new Map<string, BatchInterviewStatus>();
-const reportStore = new Map<string, BatchInterviewReport>();
+// 固定时间校准：记录每个 job 上次校准的 elapsed 时间
+const batchCalibrationStore = new Map<string, number>();
+const BATCH_CALIBRATION_INTERVAL = 30_000; // 每 30 秒校准一次
 
 // ---- 启动批量访谈 ----
 
@@ -45,6 +46,22 @@ batchInterviewRoute.post(
       config.personaIds.length * questionCount * 5_000 + 30_000,
     );
 
+    const now = new Date();
+
+    // 持久化作业到 DB
+    await db.insert(batchInterviewJobs).values({
+      jobId,
+      status: "pending",
+      progress: 0,
+      estimatedTotalMs,
+      completedPersonas: [],
+      totalPersonas: config.personaIds.length,
+      totalRounds: 0,
+      progressByPersona: {},
+      startedAt: now,
+      config: config as any,
+    });
+
     const status: BatchInterviewStatus = {
       jobId,
       status: "pending",
@@ -54,17 +71,18 @@ batchInterviewRoute.post(
       totalPersonas: config.personaIds.length,
       totalRounds: 0,
       progressByPersona: {},
-      startedAt: new Date().toISOString(),
+      startedAt: now.toISOString(),
       estimatedCompletionAt: null,
     };
 
-    jobStore.set(jobId, status);
-
     // 异步执行
     executeBatchInterview(jobId, config).catch((e) => {
-      const current = jobStore.get(jobId);
-      if (current) current.status = "failed";
       console.error("批量访谈失败:", e);
+      db.update(batchInterviewJobs)
+        .set({ status: "failed", error: String(e).slice(0, 500) })
+        .where(eq(batchInterviewJobs.jobId, jobId))
+        .execute()
+        .catch(() => {});
     });
 
     return c.json({ jobId, status });
@@ -76,31 +94,70 @@ batchInterviewRoute.post(
 // GET /api/interview/batch/status/:jobId
 batchInterviewRoute.get("/status/:jobId", async (c) => {
   const { jobId } = c.req.param();
-  const status = jobStore.get(jobId);
-  if (!status) return c.json({ error: "作业不存在" }, 404);
+  const rows = await db
+    .select()
+    .from(batchInterviewJobs)
+    .where(eq(batchInterviewJobs.jobId, jobId))
+    .limit(1);
 
-  if (status.status !== "completed" && status.status !== "failed") {
-    const elapsed = Date.now() - new Date(status.startedAt).getTime();
+  const job = rows[0];
+  if (!job) return c.json({ error: "作业不存在" }, 404);
 
-    // 自适应校准：当有至少一个画像完成时，基于实际速度重新预估
-    if (status.completedPersonas.length > 0) {
-      const avgMsPerPersona = elapsed / status.completedPersonas.length;
-      const remainingPersonas = status.totalPersonas - status.completedPersonas.length;
-      // 重新预估：已耗时 + 剩余画像耗时 + 报告生成 30s
-      status.estimatedTotalMs = Math.round(
-        elapsed + avgMsPerPersona * remainingPersonas + 30_000,
-      );
-    } else if (elapsed > status.estimatedTotalMs * 0.5) {
-      // 第一个画像还没完成但已超过预估的 50%，延长预估
-      status.estimatedTotalMs = Math.round(elapsed * status.totalPersonas * 1.2);
+  const status: BatchInterviewStatus = {
+    jobId: job.jobId,
+    status: job.status as BatchInterviewStatus["status"],
+    progress: job.progress ?? 0,
+    estimatedTotalMs: job.estimatedTotalMs ?? 30000,
+    estimatedRemainingMs: job.estimatedRemainingMs ?? undefined,
+    completedPersonas: job.completedPersonas ?? [],
+    totalPersonas: job.totalPersonas ?? 0,
+    totalRounds: job.totalRounds ?? 0,
+    progressByPersona: (job.progressByPersona ?? undefined) as BatchInterviewStatus["progressByPersona"],
+    startedAt: job.startedAt?.toISOString() ?? new Date().toISOString(),
+    estimatedCompletionAt: job.estimatedCompletionAt?.toISOString() ?? null,
+    error: job.error ?? undefined,
+  };
+
+  if (job.status !== "completed" && job.status !== "failed") {
+    const elapsed = Date.now() - (job.startedAt?.getTime() ?? Date.now());
+
+    // 固定时间校准：每隔 30 秒重新计算预估
+    const lastCalibration = batchCalibrationStore.get(jobId) ?? 0;
+    if (elapsed - lastCalibration >= BATCH_CALIBRATION_INTERVAL) {
+      batchCalibrationStore.set(jobId, elapsed);
+
+      if ((job.completedPersonas ?? []).length > 0) {
+        const avgMsPerPersona = elapsed / (job.completedPersonas ?? []).length;
+        const remainingPersonas = (job.totalPersonas ?? 0) - (job.completedPersonas ?? []).length;
+        status.estimatedTotalMs = Math.round(
+          elapsed + avgMsPerPersona * remainingPersonas + 30_000,
+        );
+      } else if (elapsed > (job.estimatedTotalMs ?? 30000) * 0.5) {
+        status.estimatedTotalMs = Math.round(elapsed * (job.totalPersonas ?? 1) * 1.2);
+      }
+
+      // 异步更新 DB
+      db.update(batchInterviewJobs)
+        .set({ estimatedTotalMs: status.estimatedTotalMs })
+        .where(eq(batchInterviewJobs.jobId, jobId))
+        .execute()
+        .catch(() => {});
     }
 
     // 时间驱动进度（单调，不回退）
     const rawProgress = Math.round((elapsed / status.estimatedTotalMs) * 100);
-    status.progress = Math.max(status.progress, Math.min(99, rawProgress));
-
-    // 剩余时间
+    status.progress = Math.max(job.progress ?? 0, Math.min(99, rawProgress));
     status.estimatedRemainingMs = Math.max(0, status.estimatedTotalMs - elapsed);
+
+    // 异步更新 DB 进度
+    db.update(batchInterviewJobs)
+      .set({
+        progress: status.progress,
+        estimatedRemainingMs: status.estimatedRemainingMs,
+      })
+      .where(eq(batchInterviewJobs.jobId, jobId))
+      .execute()
+      .catch(() => {});
   }
 
   return c.json(status);
@@ -110,10 +167,26 @@ batchInterviewRoute.get("/status/:jobId", async (c) => {
 
 // GET /api/interview/batch/jobs
 batchInterviewRoute.get("/jobs", async (c) => {
-  const jobs = Array.from(jobStore.values()).sort(
-    (a, b) => new Date(b.startedAt).getTime() - new Date(a.startedAt).getTime(),
+  const rows = await db
+    .select()
+    .from(batchInterviewJobs)
+    .orderBy(desc(batchInterviewJobs.startedAt));
+
+  return c.json(
+    rows.map((job) => ({
+      jobId: job.jobId,
+      status: job.status as BatchInterviewStatus["status"],
+      progress: job.progress ?? 0,
+      estimatedTotalMs: job.estimatedTotalMs ?? 30000,
+      completedPersonas: job.completedPersonas ?? [],
+      totalPersonas: job.totalPersonas ?? 0,
+      totalRounds: job.totalRounds ?? 0,
+      progressByPersona: job.progressByPersona ?? undefined,
+      startedAt: job.startedAt?.toISOString() ?? new Date().toISOString(),
+      estimatedCompletionAt: job.estimatedCompletionAt?.toISOString() ?? null,
+      error: job.error ?? undefined,
+    } satisfies BatchInterviewStatus)),
   );
-  return c.json(jobs);
 });
 
 // ---- 获取批量访谈报告 ----
@@ -121,9 +194,32 @@ batchInterviewRoute.get("/jobs", async (c) => {
 // GET /api/interview/batch/report/:jobId
 batchInterviewRoute.get("/report/:jobId", async (c) => {
   const { jobId } = c.req.param();
-  const report = reportStore.get(jobId);
-  if (!report) return c.json({ error: "报告不存在或尚未生成" }, 404);
-  return c.json(report);
+  const rows = await db
+    .select()
+    .from(batchInterviewReports)
+    .where(eq(batchInterviewReports.jobId, jobId))
+    .limit(1);
+
+  const row = rows[0];
+  if (!row) return c.json({ error: "报告不存在或尚未生成" }, 404);
+
+  return c.json(row.report as BatchInterviewReport);
+});
+
+// ---- 取消批量访谈作业 ----
+
+// POST /api/interview/batch/cancel/:jobId
+batchInterviewRoute.post("/cancel/:jobId", async (c) => {
+  const { jobId } = c.req.param();
+
+  // 标记作业为已取消，后续清理由 executeBatchInterview 中的检查完成
+  await db
+    .update(batchInterviewJobs)
+    .set({ status: "cancelled" })
+    .where(eq(batchInterviewJobs.jobId, jobId))
+    .execute();
+
+  return c.json({ success: true, message: "批量访谈已取消" });
 });
 
 // ---- 执行批量访谈 ----
@@ -132,12 +228,28 @@ async function executeBatchInterview(
   jobId: string,
   config: BatchInterviewConfig,
 ) {
-  const updateStatus = (patch: Partial<BatchInterviewStatus>) => {
-    const current = jobStore.get(jobId);
-    if (current) Object.assign(current, patch);
+  const updateJob = async (patch: Record<string, unknown>) => {
+    await db.update(batchInterviewJobs)
+      .set(patch as any)
+      .where(eq(batchInterviewJobs.jobId, jobId))
+      .execute();
   };
 
-  updateStatus({ status: "running" });
+  // 检查是否已被取消
+  const checkCancelled = async (): Promise<boolean> => {
+    try {
+      const rows = await db
+        .select({ status: batchInterviewJobs.status })
+        .from(batchInterviewJobs)
+        .where(eq(batchInterviewJobs.jobId, jobId))
+        .limit(1);
+      return rows[0]?.status === "cancelled";
+    } catch {
+      return false;
+    }
+  };
+
+  await updateJob({ status: "running" as any });
 
   try {
     // 获取画像信息
@@ -171,6 +283,12 @@ async function executeBatchInterview(
     // 逐个画像进行访谈（并发控制）
     const concurrency = config.concurrency ?? 3;
     for (let i = 0; i < config.personaIds.length; i += concurrency) {
+      // 每批开始前检查是否已被取消
+      if (await checkCancelled()) {
+        console.log(`批量访谈作业 ${jobId} 已被取消，停止执行`);
+        return;
+      }
+
       const batch = config.personaIds.slice(i, i + concurrency);
       const batchResults = await Promise.all(
         batch.map((personaId) =>
@@ -181,30 +299,44 @@ async function executeBatchInterview(
       for (const result of batchResults) {
         if (result) {
           results.push(result);
-          updateStatus({
-            completedPersonas: [
-              ...(jobStore.get(jobId)?.completedPersonas ?? []),
-              result.personaId,
-            ],
-            totalRounds:
-              (jobStore.get(jobId)?.totalRounds ?? 0) + result.rounds.length,
-          });
+
+          // 更新 DB 中的完成状态
+          const currentJob = await db
+            .select()
+            .from(batchInterviewJobs)
+            .where(eq(batchInterviewJobs.jobId, jobId))
+            .limit(1);
+
+          const current = currentJob[0];
+          if (current) {
+            const completedPersonas = [...(current.completedPersonas ?? []), result.personaId];
+            const totalRounds = (current.totalRounds ?? 0) + result.rounds.length;
+            await updateJob({
+              completedPersonas,
+              totalRounds,
+            });
+          }
         }
       }
     }
 
     // 生成综合分析报告
     const report = await generateReport(jobId, config, results);
-    reportStore.set(jobId, report);
 
-    updateStatus({
+    // 持久化报告到 DB
+    await db.insert(batchInterviewReports).values({
+      jobId,
+      report: report as any,
+    });
+
+    await updateJob({
       status: "completed",
       progress: 100,
       completedPersonas: results.map((r) => r.personaId),
     });
   } catch (e) {
     console.error("批量访谈执行失败:", e);
-    updateStatus({
+    await updateJob({
       status: "failed",
       error: String(e).slice(0, 500),
     });
@@ -287,16 +419,27 @@ async function interviewPersona(
 
   for (let qi = 0; qi < questions.length; qi++) {
     const question = questions[qi]!;
-    // 更新当前进度：正在访谈哪个画像、哪个问题（按画像 ID 记录，避免并发互相覆盖）
-    const store = jobStore.get(jobId);
+    // 更新当前进度：正在访谈哪个画像、哪个问题
+    const currentJob = await db
+      .select()
+      .from(batchInterviewJobs)
+      .where(eq(batchInterviewJobs.jobId, jobId))
+      .limit(1);
+
+    const store = currentJob[0];
     if (store) {
-      store.progressByPersona = {
-        ...(store.progressByPersona ?? {}),
+      const existingProgress = (store.progressByPersona ?? {}) as Record<string, { name: string; question: string }>;
+      const nextProgress = {
+        ...existingProgress,
         [String(personaId)]: {
           name: personaName,
           question: `问题 ${qi + 1}/${questions.length}: ${question.slice(0, 50)}...`,
         },
       };
+      await db.update(batchInterviewJobs)
+        .set({ progressByPersona: nextProgress as any })
+        .where(eq(batchInterviewJobs.jobId, jobId))
+        .execute();
     }
 
     try {
@@ -336,11 +479,20 @@ async function interviewPersona(
   }
 
   // 清除当前画像的进度
-  const store = jobStore.get(jobId);
-  if (store) {
-    const next = { ...(store.progressByPersona ?? {}) };
+  const currentJob = await db
+    .select()
+    .from(batchInterviewJobs)
+    .where(eq(batchInterviewJobs.jobId, jobId))
+    .limit(1);
+
+  if (currentJob[0]) {
+    const existingProgress = (currentJob[0].progressByPersona ?? {}) as Record<string, { name: string; question: string }>;
+    const next = { ...existingProgress };
     delete next[String(personaId)];
-    store.progressByPersona = next;
+    await db.update(batchInterviewJobs)
+      .set({ progressByPersona: next as any })
+      .where(eq(batchInterviewJobs.jobId, jobId))
+      .execute();
   }
 
   // 提取关键洞察

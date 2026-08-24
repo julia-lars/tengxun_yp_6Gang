@@ -1,7 +1,7 @@
 // 画像详情页面 — 交互设计规范 v1.0
 import type { ChatSession, PersonaDetail } from "@app/shared";
 import { ArrowLeft, Clock, MessageCircle, Trash2 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Link, useParams } from "react-router";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ConfidenceIndicator } from "@/components/ui/confidence-indicator";
 import { IcebergChain } from "@/components/ui/iceberg-chain";
 import { api } from "../lib/api.js";
+import { toast } from "sonner";
 
 export function PersonaDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -28,6 +29,17 @@ export function PersonaDetailPage() {
       .then(setSessions)
       .catch(() => setSessions([]));
   }, [id]);
+
+  const handleDeleteSession = useCallback(async (sessionId: number) => {
+    if (!window.confirm("确定要删除这条对话记录吗？此操作不可恢复。")) return;
+    try {
+      await api.deleteChatSession(sessionId);
+      setSessions((prev) => prev.filter((s) => s.id !== sessionId));
+      toast.success("对话已删除");
+    } catch {
+      toast.error("删除失败，请重试");
+    }
+  }, []);
 
   if (loading)
     return (
@@ -174,6 +186,15 @@ export function PersonaDetailPage() {
                       继续对话
                     </Button>
                   </Link>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => handleDeleteSession(s.id)}
+                    className="text-xs h-7 text-(--color-content-tertiary) hover:text-red-500 flex-shrink-0"
+                    title="删除对话"
+                  >
+                    <Trash2 className="h-3 w-3" />
+                  </Button>
                 </div>
               );
             })}

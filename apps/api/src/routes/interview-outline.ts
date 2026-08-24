@@ -1,25 +1,24 @@
 // --------------------------------------------------------------
 // 访谈大纲路由 — 根据访谈主题自动生成大纲和问题
+// 持久化到 PostgreSQL，支持页面刷新/重启后恢复
 // --------------------------------------------------------------
 
-import type { InterviewOutline, InterviewQuestion, OutlineJobStatus } from "@app/shared";
-import { interviewOutlineSchema, outlineGenerateRequestSchema } from "@app/shared";
+import type { InterviewOutline, OutlineJobStatus } from "@app/shared";
+import { outlineGenerateRequestSchema } from "@app/shared";
 import { zValidator } from "@hono/zod-validator";
-import { inArray } from "drizzle-orm";
+import { desc, eq, inArray } from "drizzle-orm";
 import { Hono } from "hono";
 
 import { db } from "../db/client.js";
-import { personas } from "../db/schema.js";
+import { interviewOutlines, outlineJobs, personas } from "../db/schema.js";
 import type { ChatMessage } from "../lib/llm.js";
 import { chat } from "../lib/llm.js";
 
 export const interviewOutlineRoute = new Hono();
 
-// 内存中保存的大纲列表
-const outlineStore = new Map<string, InterviewOutline>();
-
-// 异步生成作业存储
-const outlineJobStore = new Map<string, OutlineJobStatus>();
+// 固定时间校准：记录每个 job 上次校准的 elapsed 时间
+const outlineCalibrationStore = new Map<string, number>();
+const OUTLINE_CALIBRATION_INTERVAL = 15_000; // 每 15 秒校准一次
 
 // ---- 生成访谈大纲（异步） ----
 
@@ -37,27 +36,29 @@ interviewOutlineRoute.post(
       Math.max(20_000, 30_000 + (req.questionCount ?? 15) * 500),
     );
 
-    const status: OutlineJobStatus = {
+    const now = new Date();
+
+    // 持久化作业到 DB
+    await db.insert(outlineJobs).values({
       jobId,
       status: "pending",
       progress: 0,
       estimatedTotalMs,
-      startedAt: new Date().toISOString(),
-      completedAt: null,
-      result: null,
-      error: null,
-    };
-    outlineJobStore.set(jobId, status);
+      startedAt: now,
+    });
 
     // 异步执行生成（不阻塞响应）
     executeOutlineGeneration(jobId, req).catch((e) => {
-      const current = outlineJobStore.get(jobId);
-      if (current) {
-        current.status = "failed";
-        current.error = String(e).slice(0, 500);
-        current.completedAt = new Date().toISOString();
-      }
       console.error("大纲生成失败:", e);
+      db.update(outlineJobs)
+        .set({
+          status: "failed",
+          error: String(e).slice(0, 500),
+          completedAt: new Date(),
+        })
+        .where(eq(outlineJobs.jobId, jobId))
+        .execute()
+        .catch(() => {});
     });
 
     return c.json({ jobId, estimatedTotalMs });
@@ -69,29 +70,101 @@ interviewOutlineRoute.post(
 // GET /api/interview/outline/generate/status/:jobId
 interviewOutlineRoute.get("/generate/status/:jobId", async (c) => {
   const { jobId } = c.req.param();
-  const status = outlineJobStore.get(jobId);
-  if (!status) return c.json({ error: "作业不存在" }, 404);
+  const rows = await db
+    .select()
+    .from(outlineJobs)
+    .where(eq(outlineJobs.jobId, jobId))
+    .limit(1);
 
-  if (!status.completedAt && status.status !== "failed") {
-    const elapsed = Date.now() - new Date(status.startedAt).getTime();
+  const job = rows[0];
+  if (!job) return c.json({ error: "作业不存在" }, 404);
 
-    // 自适应校准：当实际耗时超过原预估的 85% 还没完成时，延长 estimatedTotalMs
-    if (elapsed > status.estimatedTotalMs * 0.85) {
-      status.estimatedTotalMs = Math.round(elapsed * 1.18);
+  const status: OutlineJobStatus = {
+    jobId: job.jobId,
+    status: job.status as OutlineJobStatus["status"],
+    progress: job.progress ?? 0,
+    estimatedTotalMs: job.estimatedTotalMs ?? 30000,
+    estimatedRemainingMs: job.estimatedRemainingMs ?? undefined,
+    startedAt: job.startedAt?.toISOString() ?? new Date().toISOString(),
+    completedAt: job.completedAt?.toISOString() ?? null,
+    result: null,
+    error: job.error ?? null,
+  };
+
+  // 如果作业已完成，尝试加载结果大纲
+  if (job.status === "completed" && job.resultOutlineId) {
+    const outlineRows = await db
+      .select()
+      .from(interviewOutlines)
+      .where(eq(interviewOutlines.id, job.resultOutlineId))
+      .limit(1);
+    if (outlineRows[0]) {
+      status.result = {
+        id: outlineRows[0].id,
+        theme: outlineRows[0].theme,
+        targetPersona: outlineRows[0].targetPersona ?? undefined,
+        description: outlineRows[0].description ?? "",
+        sections: outlineRows[0].sections as InterviewOutline["sections"],
+        totalDurationMinutes: outlineRows[0].totalDurationMinutes ?? 0,
+        createdAt: outlineRows[0].createdAt.toISOString(),
+      };
     }
-    if (elapsed > status.estimatedTotalMs) {
-      status.estimatedTotalMs = Math.round(elapsed * 1.15);
+  }
+
+  // 进行中的作业：计算进度
+  if (!job.completedAt && job.status !== "failed") {
+    const elapsed = Date.now() - (job.startedAt?.getTime() ?? Date.now());
+
+    // 固定时间校准：每隔 15 秒延长一次预估，防止进度卡死
+    const lastCalibration = outlineCalibrationStore.get(jobId) ?? 0;
+    if (elapsed - lastCalibration >= OUTLINE_CALIBRATION_INTERVAL) {
+      outlineCalibrationStore.set(jobId, elapsed);
+      const currentEstimate = job.estimatedTotalMs ?? 30000;
+      if (elapsed > currentEstimate * 0.7) {
+        const newEstimate = Math.round(elapsed * 1.2);
+        status.estimatedTotalMs = newEstimate;
+        // 异步更新 DB
+        db.update(outlineJobs)
+          .set({ estimatedTotalMs: newEstimate })
+          .where(eq(outlineJobs.jobId, jobId))
+          .execute()
+          .catch(() => {});
+      }
     }
 
     // 时间驱动进度（单调，不回退）
     const rawProgress = Math.round((elapsed / status.estimatedTotalMs) * 100);
-    status.progress = Math.max(status.progress, Math.min(99, rawProgress));
-
-    // 剩余时间
+    status.progress = Math.max(job.progress ?? 0, Math.min(99, rawProgress));
     status.estimatedRemainingMs = Math.max(0, status.estimatedTotalMs - elapsed);
+
+    // 异步更新 DB 进度
+    db.update(outlineJobs)
+      .set({
+        progress: status.progress,
+        estimatedRemainingMs: status.estimatedRemainingMs,
+      })
+      .where(eq(outlineJobs.jobId, jobId))
+      .execute()
+      .catch(() => {});
   }
 
   return c.json(status);
+});
+
+// ---- 取消大纲生成作业 ----
+
+// POST /api/interview/outline/cancel/:jobId
+interviewOutlineRoute.post("/cancel/:jobId", async (c) => {
+  const { jobId } = c.req.param();
+
+  // 标记作业为已取消，后续清理由 executeOutlineGeneration 中的检查完成
+  await db
+    .update(outlineJobs)
+    .set({ status: "cancelled", completedAt: new Date() })
+    .where(eq(outlineJobs.jobId, jobId))
+    .execute();
+
+  return c.json({ success: true, message: "大纲生成已取消" });
 });
 
 // ---- 大纲生成执行逻辑 ----
@@ -100,12 +173,28 @@ async function executeOutlineGeneration(
   jobId: string,
   req: { theme: string; targetPersonaIds?: number[]; targetPersonaNames?: string[]; focusAreas?: string[]; additionalContext?: string; questionCount?: number },
 ) {
-  const update = (patch: Partial<OutlineJobStatus>) => {
-    const current = outlineJobStore.get(jobId);
-    if (current) Object.assign(current, patch);
+  const updateJob = async (patch: Record<string, unknown>) => {
+    await db.update(outlineJobs)
+      .set(patch as any)
+      .where(eq(outlineJobs.jobId, jobId))
+      .execute();
   };
 
-  update({ status: "running" });
+  // 检查是否已被取消
+  const checkCancelled = async (): Promise<boolean> => {
+    try {
+      const rows = await db
+        .select({ status: outlineJobs.status })
+        .from(outlineJobs)
+        .where(eq(outlineJobs.jobId, jobId))
+        .limit(1);
+      return rows[0]?.status === "cancelled";
+    } catch {
+      return false;
+    }
+  };
+
+  await updateJob({ status: "running" as any });
 
   // 获取目标画像信息
   let personaContext = "";
@@ -184,6 +273,12 @@ async function executeOutlineGeneration(
 
   let outlineData: { sections: InterviewOutline["sections"] };
   try {
+    // 调用 LLM 前检查是否已取消
+    if (await checkCancelled()) {
+      console.log(`大纲生成作业 ${jobId} 已被取消，停止执行`);
+      return;
+    }
+
     const response = await chat(messages, {
       temperature: 0.7,
       maxTokens: 4096,
@@ -195,10 +290,10 @@ async function executeOutlineGeneration(
       sections: InterviewOutline["sections"];
     };
   } catch (e) {
-    update({
+    await updateJob({
       status: "failed",
       error: `大纲生成失败: ${String(e)}`,
-      completedAt: new Date().toISOString(),
+      completedAt: new Date(),
     });
     return;
   }
@@ -239,23 +334,36 @@ async function executeOutlineGeneration(
     0,
   );
 
+  const outlineId = `outline-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`;
+  const now = new Date();
+
   const outline: InterviewOutline = {
-    id: `outline-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
+    id: outlineId,
     theme: req.theme,
     targetPersona: req.targetPersonaNames?.join("、") ?? "通用",
     description: `针对「${req.theme}」的访谈大纲，共 ${outlineData.sections.length} 个章节`,
     sections: outlineData.sections,
     totalDurationMinutes: totalDuration,
-    createdAt: new Date().toISOString(),
+    createdAt: now.toISOString(),
   };
 
-  outlineStore.set(outline.id, outline);
+  // 持久化大纲到 DB
+  await db.insert(interviewOutlines).values({
+    id: outline.id,
+    theme: outline.theme,
+    targetPersona: outline.targetPersona,
+    description: outline.description,
+    sections: outline.sections,
+    totalDurationMinutes: outline.totalDurationMinutes,
+    createdAt: now,
+  });
 
-  update({
+  // 更新作业状态
+  await updateJob({
     status: "completed",
     progress: 100,
-    completedAt: new Date().toISOString(),
-    result: outline,
+    completedAt: now,
+    resultOutlineId: outline.id,
   });
 }
 
@@ -264,19 +372,46 @@ async function executeOutlineGeneration(
 // GET /api/interview/outline/:id
 interviewOutlineRoute.get("/:id", async (c) => {
   const { id } = c.req.param();
-  const outline = outlineStore.get(id);
-  if (!outline) return c.json({ error: "大纲不存在" }, 404);
-  return c.json(outline);
+  const rows = await db
+    .select()
+    .from(interviewOutlines)
+    .where(eq(interviewOutlines.id, id))
+    .limit(1);
+
+  const row = rows[0];
+  if (!row) return c.json({ error: "大纲不存在" }, 404);
+
+  return c.json({
+    id: row.id,
+    theme: row.theme,
+    targetPersona: row.targetPersona ?? undefined,
+    description: row.description ?? "",
+    sections: row.sections as InterviewOutline["sections"],
+    totalDurationMinutes: row.totalDurationMinutes ?? 0,
+    createdAt: row.createdAt.toISOString(),
+  } satisfies InterviewOutline);
 });
 
 // ---- 列出所有大纲 ----
 
-// GET /api/interview/outlines
+// GET /api/interview/outline
 interviewOutlineRoute.get("/", async (c) => {
-  const outlines = Array.from(outlineStore.values()).sort(
-    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+  const rows = await db
+    .select()
+    .from(interviewOutlines)
+    .orderBy(desc(interviewOutlines.createdAt));
+
+  return c.json(
+    rows.map((row) => ({
+      id: row.id,
+      theme: row.theme,
+      targetPersona: row.targetPersona ?? undefined,
+      description: row.description ?? "",
+      sections: row.sections as InterviewOutline["sections"],
+      totalDurationMinutes: row.totalDurationMinutes ?? 0,
+      createdAt: row.createdAt.toISOString(),
+    } satisfies InterviewOutline)),
   );
-  return c.json(outlines);
 });
 
 // ---- 优化单个问题 ----

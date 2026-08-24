@@ -2,20 +2,20 @@
 import type { ChatSession, KolChatSession, KolProfileSummary, PersonaSummary } from "@app/shared";
 import {
   ArrowRight,
-  Clock,
   MessageCircle,
   Search,
   Users,
 } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useCallback } from "react";
 import { Link } from "react-router";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { EmptyState } from "@/components/shared/empty-state";
+import { SessionCard } from "@/components/shared/session-card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { api } from "@/lib/api";
+import { toast } from "sonner";
 
 interface HomeSession {
   id: number;
@@ -73,6 +73,26 @@ export function HomePage() {
     });
   }, []);
 
+  const handleDelete = useCallback(
+    async (e: React.MouseEvent, id: number, type: "persona" | "kol") => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (!window.confirm(`确定要删除这条对话记录吗？此操作不可恢复。`)) return;
+      try {
+        if (type === "persona") {
+          await api.deleteChatSession(id);
+        } else {
+          await api.deleteKolChatSession(id);
+        }
+        setSessions((prev) => prev.filter((s) => !(s.type === type && s.id === id)));
+        toast.success("对话已删除");
+      } catch {
+        toast.error("删除失败，请重试");
+      }
+    },
+    [],
+  );
+
   const filteredSessions = useMemo(() => {
     let list = sessions.filter((s) => s.messages.length > 0);
 
@@ -93,7 +113,36 @@ export function HomePage() {
 
   const recent = filteredSessions.slice(0, 3);
 
-  const typeLabel = (type: "persona" | "kol") => (type === "persona" ? "画像" : "KOL");
+  const formatTime = (dateStr: string) => {
+    const d = new Date(dateStr);
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const yesterday = new Date(today.getTime() - 86400000);
+    const weekStart = new Date(today.getTime() - today.getDay() * 86400000);
+    const yearStart = new Date(now.getFullYear(), 0, 1);
+
+    const time = d.toLocaleTimeString("zh-CN", { hour: "2-digit", minute: "2-digit", hour12: false });
+    const weekDays = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
+
+    if (d >= today) return time;
+    if (d >= yesterday) return `昨天 ${time}`;
+    if (d >= weekStart) return `${weekDays[d.getDay()]} ${time}`;
+    if (d >= yearStart) return d.toLocaleDateString("zh-CN", { month: "2-digit", day: "2-digit" });
+    return d.toLocaleDateString("zh-CN", { year: "numeric", month: "2-digit", day: "2-digit" });
+  };
+
+  const getTitle = (s: HomeSession) => {
+    if (s.title) return s.title;
+    const firstUserMsg = s.messages.find((m) => m.role === "user");
+    if (firstUserMsg?.content) return firstUserMsg.content.slice(0, 30);
+    return "新对话";
+  };
+
+  const getPreview = (s: HomeSession) => {
+    const lastAiMsg = [...s.messages].reverse().find((m) => m.role === "assistant");
+    if (lastAiMsg?.content) return lastAiMsg.content;
+    return "";
+  };
 
   return (
     <div className="space-y-6">
@@ -199,48 +248,27 @@ export function HomePage() {
           ) : recent.length > 0 ? (
             <div className="space-y-2">
               {recent.map((s) => {
-                const firstMsg = (s.messages[0] as { content?: string } | undefined)?.content ?? "";
-                const preview = s.title || firstMsg.slice(0, 60) || "新对话";
+                const title = getTitle(s);
+                const preview = getPreview(s);
                 const chatPath =
                   s.type === "persona"
                     ? `/personas/${s.agentId}/chat?session=${s.id}&from=home`
                     : `/kol/${s.agentId}/chat?session=${s.id}&from=home`;
+                const roundCount = Math.floor(s.messages.length / 2);
                 return (
-                  <Link
+                  <SessionCard
                     key={`${s.type}-${s.id}`}
-                    to={chatPath}
-                    className="block group"
-                  >
-                    <Card className="transition-all duration-200 hover:border-(--color-brand-300) hover:shadow-sm">
-                      <CardContent className="flex items-center gap-4 py-3 px-4">
-                        <div className="w-8 h-8 rounded-full bg-(--color-surface-secondary) flex items-center justify-center flex-shrink-0">
-                          <Clock className="h-4 w-4 text-(--color-content-tertiary)" />
-                        </div>
-                        <div className="flex-1 min-w-0 space-y-0.5">
-                          <div className="flex items-center gap-2">
-                            <span className="text-sm text-(--color-content-primary) truncate group-hover:text-(--color-brand-500) transition-colors">
-                              {preview}
-                            </span>
-                            <Badge variant="secondary" className="text-[10px] flex-shrink-0">
-                              {typeLabel(s.type)}: {s.agentName ?? `#${s.agentId}`}
-                            </Badge>
-                          </div>
-                          <div className="text-xs text-(--color-content-tertiary) flex items-center gap-3">
-                            <span>
-                              {new Date(s.createdAt).toLocaleDateString("zh-CN", {
-                                month: "short",
-                                day: "numeric",
-                                hour: "2-digit",
-                                minute: "2-digit",
-                              })}
-                            </span>
-                            <span>{Math.floor(s.messages.length / 2)} 轮对话</span>
-                          </div>
-                        </div>
-                        <ArrowRight className="h-4 w-4 text-(--color-content-tertiary) opacity-0 group-hover:opacity-100 group-hover:text-(--color-brand-500) transition-all flex-shrink-0" />
-                      </CardContent>
-                    </Card>
-                  </Link>
+                    id={s.id}
+                    type={s.type}
+                    agentId={s.agentId}
+                    agentName={s.agentName}
+                    title={title}
+                    preview={preview}
+                    roundCount={roundCount}
+                    time={formatTime(s.createdAt)}
+                    chatPath={chatPath}
+                    onDelete={handleDelete}
+                  />
                 );
               })}
               {filteredSessions.length > 3 && (

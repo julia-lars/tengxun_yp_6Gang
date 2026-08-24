@@ -1,87 +1,72 @@
-# 自动化评测（评测题流水线）
+# 评测数据目录
 
-对应 `README2.md` 的「任务 7：自动化评测脚本」。这条流水线负责：把测试题集转成结构化 JSON → 逐题调对话 API → 保存回答 → LLM-as-judge 打分 → 出报告。
+## 测试题来源
 
-## 前置条件
+测试题来自桌面 `腾讯用户画像-data/test/` 下的 Excel 文件：
 
-1. **后端已启动**（`http://localhost:3000`）：`bun run dev` 或 `bun src/index.ts`（在 `apps/api/` 下）。
-2. **bge-m3 embed 服务已启动**（`http://127.0.0.1:8765`）：`python3 scripts/embed_server.py`。不启动也能跑（chat 路由会 fallback 到 ILIKE），但 RAG 质量会下降。
-3. **数据库已灌入画像 / KOL**：`bun run db:seed-personas`（9 个聚类画像）、`bun run db:seed-kol-test` 或 `seed-kol`（2 位 UP 主）。
-4. **有效的 DeepSeek API Key**（`apps/api/.env` 的 `DEEPSEEK_API_KEY`）——这是对话和打分的共同依赖。
+| 文件 | 目标模块 | 题数 |
+|------|----------|------|
+| `AI模拟用户画像_测试题集_射击类用户.xlsx` | 群体画像 | 122 题 |
+| `KOL数字孪生_测试题集_硬核测评KOL.xlsx` | KOL 数字孪生 | 68 题 |
 
-## 两步走
+## 测试题结构
 
-### 第 1 步：xlsx → JSON
+### 群体画像（5 类）
+
+| 类别 | 题数 | 说明 |
+|------|------|------|
+| 一致性测试 | 31 | 验证 AI 回答是否内化群体特征，画像间是否有区分度 |
+| 游戏立项 | 20 | 模拟新游戏立项方向的假设性提案 |
+| 玩法设计 | 30 | 具体玩法/机制设计方案偏好判断 |
+| 运营与商业化 | 20 | 商业化策略、付费意愿和态度 |
+| 市场营销 | 21 | 营销策略、推广内容和转化路径 |
+
+### KOL（4 类）
+
+| 类别 | 题数 | 说明 |
+|------|------|------|
+| 一致性测试 | 21 | 验证 AI 是否还原 KOL 的个人特征和评价体系 |
+| 立项判断 | 15 | 模拟开发者向 KOL 展示新项目方向 |
+| 推广合作 | 17 | 模拟推广合作方案、内容策略 |
+| 设计反馈 | 15 | 具体玩法/设计方案的专业反馈 |
+
+## 评测执行
 
 ```bash
-# KOL 测试题集（4 Sheet：一致性测试/立项判断/推广合作/设计反馈）
-python3 scripts/eval_convert.py "KOL数字孪生_测试题集_硬核测评KOL(2).xlsx" \
-  --target kol --name "KOL数字孪生_测试题集" --out data/eval/test_cases_kol.json
+# 群体画像评测
+python3 scripts/eval_run_v3.py data/eval/test_cases_persona_v1.json
 
-# 群体画像测试题集（142 题）
-python3 scripts/eval_convert.py "AI模拟用户画像_测试题集_射击类用户(2).xlsx" \
-  --target persona --name "群体画像测试题集" --out data/eval/test_cases_persona.json
+# KOL 评测
+python3 scripts/eval_run_v3.py data/eval/test_cases_kol_v1.json
+
+# 限制题数测试
+python3 scripts/eval_run_v3.py data/eval/test_cases_persona_v1.json --limit 5
+
+# 跳过 Judge 评分（仅收集回答）
+python3 scripts/eval_run_v3.py data/eval/test_cases_persona_v1.json --no-judge
 ```
 
-如果题集里没有「目标画像/KOL」列，用 `--target-id N` 统一指定。表头列名识别规则见 `scripts/eval_convert.py` 的 `COLUMN_ALIASES`，与真实 xlsx 不符时按需增补别名。
+## 评测流程
 
-### 第 2 步：跑评测 + 打分
-
-```bash
-# 完整跑（回答 + LLM-as-judge 打分）
-python3 scripts/eval_run.py data/eval/test_cases_kol.json
-
-# 冒烟测试：先跑 3 题
-python3 scripts/eval_run.py data/eval/test_cases_kol.json --limit 3
-
-# 只跑回答不打分（留给人评分）
-python3 scripts/eval_run.py data/eval/test_cases_kol.json --no-judge
-```
-
-结果写到 `data/eval/results/`：一个 `<名>_<时间戳>.json`（结构化回答+评分）和一个 `.md`（可读报告，含分维度平均分和逐题明细）。
+1. **Phase 1 收集回答**：每题向所有画像/KOL 分别发送，收集全部回答
+2. **Phase 2 LLM Judge 评分**：7 维评分 + 自动化指标
+3. **Phase 3 跨题分析**：画像一致性、区分度、评分分布
+4. **Phase 4 回归对比**：与基线对比（可选）
 
 ## 评测维度
 
-三个维度各 1-5 分（来自 `README2.md` 任务 7）：
+| 维度 | 权重 | 说明 |
+|------|------|------|
+| 人设一致性 | 20% | 语气/立场是否与目标画像一致 |
+| 专业准确性 | 15% | 评价逻辑是否成立、有洞察 |
+| 知识边界 | 10% | 超出经验时是否诚实说不知道 |
+| 具体性 | 10% | 是否有具体例子而非泛泛而谈 |
+| 情感真实性 | 10% | 情感表达是否自然 |
+| 区分度 | 5% | 该回答能否与其它画像区分开 |
+| 深度 | 10% | 表面理解 vs 深层洞察 |
+| 自动化指标 | 30% | 长度合理性、幻觉检测、模板化检测、关键词覆盖 |
 
-| 维度 | 问什么 |
-| --- | --- |
-| 人设一致性 | 语气/立场像不像被模拟的那个人 |
-| 专业准确性 | 评价逻辑成立吗、有洞察吗 |
-| 知识边界 | 超出经验/领域时，诚实说不知道吗 |
+## 注意
 
-## Judge 的 LLM 配置
-
-默认用 DeepSeek（读 `apps/api/.env` 的 `DEEPSEEK_API_KEY`）。可覆盖：
-
-```bash
-export EVAL_JUDGE_API_KEY=sk-xxx
-export EVAL_JUDGE_BASE_URL=https://api.deepseek.com/v1
-export EVAL_JUDGE_MODEL=deepseek-chat
-```
-
-## 测试用例 JSON 结构
-
-```json
-{
-  "meta": {
-    "name": "KOL评测样例",
-    "source_file": "....xlsx",
-    "target": "kol",                // "kol" 或 "persona"
-    "api_base": "http://localhost:3000",
-    "dimensions": ["人设一致性", "专业准确性", "知识边界"]
-  },
-  "cases": [
-    {
-      "id": "KOL-001",
-      "dimension": "立项判断",
-      "target_id": 1,               // kolId 或 personaId
-      "question": "……",
-      "reference": "……",            // 参考答案/期望要点（可空）
-      "persona_hint": "……"          // 打分时给 judge 的对象说明（可空）
-    }
-  ]
-}
-```
-
-样例见 `test_cases_kol_sample.json` / `test_cases_persona_sample.json`。
+- 测试题文件和评测结果含业务敏感信息，**不上传 GitHub**
+- 评测结果输出到 `data/eval/results/`（已被 .gitignore 屏蔽）

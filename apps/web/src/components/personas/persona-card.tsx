@@ -16,14 +16,14 @@ export function PersonaCard({ persona }: PersonaCardProps) {
   const topTags = extractTopTags(spec, 5);
 
   return (
-    <Card className="h-full transition-all duration-200 hover:border-(--color-brand-300) hover:shadow-md hover:-translate-y-0.5">
+    <Card className="h-full group transition-all duration-200 hover:border-(--color-brand-300) hover:shadow-md hover:-translate-y-0.5">
       <CardHeader className="pb-3">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-2xl bg-(--color-brand-50) flex items-center justify-center flex-shrink-0">
             <Users className="h-5 w-5 text-(--color-brand-500)" />
           </div>
           <div className="min-w-0">
-            <CardTitle className="text-lg font-serif text-black">{persona.name}</CardTitle>
+            <CardTitle className="text-lg font-serif text-black group-hover:text-(--color-brand-500) transition-colors">{persona.name}</CardTitle>
             <CardDescription className="text-xs text-(--color-content-tertiary)">
               基于 {persona.sampleCount} 个样本
             </CardDescription>

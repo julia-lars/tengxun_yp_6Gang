@@ -25,7 +25,7 @@ import {
   uniqueIndex,
 } from "drizzle-orm/pg-core";
 
-import type { ChatMessage } from "@app/shared";
+import type { ChatMessage, InterviewOutline, BatchInterviewConfig, BatchInterviewReport, PipelineStatus } from "@app/shared";
 
 // pgvector 向量类型（Drizzle 没有内置，用 customType）
 const vector = customType<{ data: number[]; driverData: string }>({
@@ -344,3 +344,154 @@ export type ChatSessionRow = typeof chatSessions.$inferSelect;
 export type KolProfileRow = typeof kolProfiles.$inferSelect;
 export type KolSegmentRow = typeof kolSegments.$inferSelect;
 export type KolChatSessionRow = typeof kolChatSessions.$inferSelect;
+
+// -------------------- import_jobs（批量导入作业记录）--------------------
+
+export const importJobs = pgTable(
+  "import_jobs",
+  {
+    id: serial("id").primaryKey(),
+    source: text("source").notNull(),
+    targetTable: text("target_table").notNull(),
+    fileName: text("file_name"),
+    totalRows: integer("total_rows").default(0),
+    inserted: integer("inserted").default(0),
+    updated: integer("updated").default(0),
+    skipped: integer("skipped").default(0),
+    errors: jsonb("errors").$type<Array<{ row: number; message: string }>>().default([]),
+    status: text("status").default("pending"),
+    startedAt: timestamp("started_at", { withTimezone: true }),
+    completedAt: timestamp("completed_at", { withTimezone: true }),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => ({
+    statusIdx: index("import_jobs_status_idx").on(table.status),
+    targetIdx: index("import_jobs_target_idx").on(table.targetTable),
+  }),
+);
+
+// -------------------- audit_log（数据变更审计日志）--------------------
+
+export const auditLog = pgTable(
+  "audit_log",
+  {
+    id: serial("id").primaryKey(),
+    tableName: text("table_name").notNull(),
+    recordId: integer("record_id").notNull(),
+    action: text("action").notNull(),
+    changedBy: text("changed_by").default("admin"),
+    oldData: jsonb("old_data").$type<Record<string, unknown>>(),
+    newData: jsonb("new_data").$type<Record<string, unknown>>(),
+    changedAt: timestamp("changed_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => ({
+    tableRecordIdx: index("audit_log_table_record_idx").on(table.tableName, table.recordId),
+    actionIdx: index("audit_log_action_idx").on(table.action),
+    changedAtIdx: index("audit_log_changed_at_idx").on(table.changedAt),
+  }),
+);
+
+export type ImportJobRow = typeof importJobs.$inferSelect;
+export type AuditLogRow = typeof auditLog.$inferSelect;
+
+// -------------------- interview_outlines（访谈大纲持久化）--------------------
+
+export const interviewOutlines = pgTable(
+  "interview_outlines",
+  {
+    id: text("id").primaryKey(),
+    theme: text("theme").notNull(),
+    targetPersona: text("target_persona"),
+    description: text("description"),
+    sections: jsonb("sections").$type<InterviewOutline["sections"]>().notNull(),
+    totalDurationMinutes: integer("total_duration_minutes"),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+);
+
+// -------------------- outline_jobs（大纲生成异步作业）--------------------
+
+export const outlineJobs = pgTable(
+  "outline_jobs",
+  {
+    jobId: text("job_id").primaryKey(),
+    status: text("status").notNull().default("pending"),
+    progress: integer("progress").default(0),
+    estimatedTotalMs: integer("estimated_total_ms"),
+    estimatedRemainingMs: integer("estimated_remaining_ms"),
+    startedAt: timestamp("started_at", { withTimezone: true }),
+    completedAt: timestamp("completed_at", { withTimezone: true }),
+    resultOutlineId: text("result_outline_id"),
+    error: text("error"),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => ({
+    statusIdx: index("outline_jobs_status_idx").on(table.status),
+    startedIdx: index("outline_jobs_started_idx").on(table.startedAt),
+  }),
+);
+
+// -------------------- batch_interview_jobs（批量访谈异步作业）--------------------
+
+export const batchInterviewJobs = pgTable(
+  "batch_interview_jobs",
+  {
+    jobId: text("job_id").primaryKey(),
+    status: text("status").notNull().default("pending"),
+    progress: integer("progress").default(0),
+    estimatedTotalMs: integer("estimated_total_ms"),
+    estimatedRemainingMs: integer("estimated_remaining_ms"),
+    completedPersonas: integer("completed_personas").array().default([]),
+    totalPersonas: integer("total_personas"),
+    totalRounds: integer("total_rounds").default(0),
+    progressByPersona: jsonb("progress_by_persona").$type<Record<string, { name: string; question: string }>>(),
+    startedAt: timestamp("started_at", { withTimezone: true }),
+    estimatedCompletionAt: timestamp("estimated_completion_at", { withTimezone: true }),
+    error: text("error"),
+    config: jsonb("config").$type<BatchInterviewConfig>(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => ({
+    statusIdx: index("batch_jobs_status_idx").on(table.status),
+    startedIdx: index("batch_jobs_started_idx").on(table.startedAt),
+  }),
+);
+
+// -------------------- batch_interview_reports（批量访谈报告）--------------------
+
+export const batchInterviewReports = pgTable(
+  "batch_interview_reports",
+  {
+    jobId: text("job_id").primaryKey(),
+    report: jsonb("report").$type<BatchInterviewReport>().notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+);
+
+export type InterviewOutlineRow = typeof interviewOutlines.$inferSelect;
+export type OutlineJobRow = typeof outlineJobs.$inferSelect;
+export type BatchInterviewJobRow = typeof batchInterviewJobs.$inferSelect;
+export type BatchInterviewReportRow = typeof batchInterviewReports.$inferSelect;
+
+// -------------------- pipeline_jobs（数据流水线异步作业持久化）--------------------
+
+export const pipelineJobs = pgTable(
+  "pipeline_jobs",
+  {
+    jobId: text("job_id").primaryKey(),
+    stage: text("stage").notNull().default("uploading"),
+    progress: integer("progress").default(0),
+    estimatedTotalMs: integer("estimated_total_ms"),
+    estimatedRemainingMs: integer("estimated_remaining_ms"),
+    stats: jsonb("stats").$type<PipelineStatus["stats"]>().notNull(),
+    startedAt: timestamp("started_at", { withTimezone: true }),
+    completedAt: timestamp("completed_at", { withTimezone: true }),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => ({
+    stageIdx: index("pipeline_jobs_stage_idx").on(table.stage),
+    startedIdx: index("pipeline_jobs_started_idx").on(table.startedAt),
+  }),
+);
+
+export type PipelineJobRow = typeof pipelineJobs.$inferSelect;

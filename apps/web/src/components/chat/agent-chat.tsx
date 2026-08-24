@@ -4,6 +4,8 @@
 import {
   ArrowDown,
   ArrowLeft,
+  ChevronDown,
+  ChevronRight,
   Copy,
   Download,
   FileJson,
@@ -16,9 +18,10 @@ import {
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router";
 import { toast } from "sonner";
+import { api } from "@/lib/api";
 import { Button } from "@/components/ui/button";
+import { ConfidenceIndicator } from "@/components/ui/confidence-indicator";
 import { EvidenceCard } from "@/components/ui/evidence-card";
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { SuggestionChip } from "@/components/ui/suggestion-chip";
 import { Textarea } from "@/components/ui/textarea";
 import { ThinkingDots } from "@/components/ui/thinking-dots";
@@ -32,10 +35,30 @@ import {
 
 // ---- 类型 ----
 
+export interface ConfidenceResult {
+  score: number;
+  level: "high" | "medium" | "low";
+  breakdown: {
+    evidenceScore: number;
+    consistencyScore: number;
+    sampleScore: number;
+  };
+  flags: string[];
+}
+
+export interface EvidenceMeta {
+  id: number;
+  similarity: number;
+  matchLevel: "direct" | "partial" | "inferred";
+  tagOverlap: number;
+}
+
 export interface ChatMessage {
   role: "user" | "assistant";
   content: string;
   evidenceIds?: number[];
+  evidenceMeta?: EvidenceMeta[];
+  confidence?: ConfidenceResult;
   suggestions?: string[];
   isBoundary?: boolean;
   timestamp?: string;
@@ -46,6 +69,10 @@ export interface EvidenceData {
   sourceFile: string;
   originalText: string;
   annotation: Record<string, unknown> | null;
+  similarity?: number;
+  matchLevel?: "direct" | "partial" | "inferred";
+  tagOverlap?: number;
+  speakerId?: string;
 }
 
 export interface AgentInfo {
@@ -55,63 +82,36 @@ export interface AgentInfo {
 
 export interface SessionRestoreResult {
   messages: ChatMessage[];
-  /** 如果会话不属于当前 agent，返回 false */
   valid: boolean;
 }
 
 export interface AgentChatProps {
-  /** Agent 类型标识，用于导出文件名等 */
   type: "persona" | "kol";
-  /** Agent ID */
   agentId: number;
-  /** 返回按钮的目标 URL */
   backUrl: string;
-  /** 顶部标题 */
   title: string;
-  /** 顶部副标题 */
   subtitle?: string;
-  /** 空状态标题 */
   emptyTitle?: string;
-  /** 空状态描述 */
   emptyDescription?: string;
-  /** 输入框占位符 */
   placeholder?: string;
-  /** 聊天 API 端点 */
   chatEndpoint: string;
-  /** 构建请求体 */
   buildRequestBody: (message: string, sessionId: number | null) => Record<string, unknown>;
-  /** 恢复会话（返回 messages 和 valid 标志） */
   restoreSession: (sessionId: number) => Promise<SessionRestoreResult>;
-  /** 头像样式类名 */
   avatarClassName?: string;
-  /** 头像内容（ReactNode，默认 User 图标） */
   avatarContent?: React.ReactNode;
-  /** 功能开关 */
   features?: {
-    /** 证据溯源面板 */
     evidence?: boolean;
-    /** 证据数据列表（从 agent 详情获取） */
     evidenceList?: EvidenceData[];
-    /** 导出对话 */
     export?: boolean;
-    /** 建议追问 */
     suggestions?: boolean;
-    /** 复制消息 */
     copy?: boolean;
-    /** 重试失败消息 */
     retry?: boolean;
-    /** 思考中动画 */
     thinking?: boolean;
-    /** 滚动到底部按钮 */
     scrollButton?: boolean;
-    /** 清空对话 */
     clearChat?: boolean;
-    /** 打字光标动画 */
     typingCursor?: boolean;
   };
 }
-
-// ---- 默认值 ----
 
 const defaultFeatures: Required<AgentChatProps["features"]> = {
   evidence: true,
@@ -125,8 +125,6 @@ const defaultFeatures: Required<AgentChatProps["features"]> = {
   clearChat: true,
   typingCursor: true,
 };
-
-// ---- 组件 ----
 
 export function AgentChat({
   type,
@@ -156,11 +154,8 @@ export function AgentChat({
   );
   const [agentInfo, setAgentInfo] = useState<AgentInfo>({ name: "" });
   const [thinking, setThinking] = useState(false);
-  const [evidencePanel, setEvidencePanel] = useState<{
-    open: boolean;
-    evidenceIds: number[];
-    evidenceList: EvidenceData[];
-  }>({ open: false, evidenceIds: [], evidenceList: [] });
+  // 内联展开的证据：记录哪些消息索引展开了证据
+  const [expandedEvidence, setExpandedEvidence] = useState<Set<number>>(new Set());
   const [showScrollButton, setShowScrollButton] = useState(false);
   const [isNearBottom, setIsNearBottom] = useState(true);
   const bottomRef = useRef<HTMLDivElement>(null);
@@ -216,7 +211,7 @@ export function AgentChat({
     }
   }, [messages, isNearBottom, thinking]);
 
-  // 更新 sessionId（写入 URL）
+  // 更新 sessionId
   useEffect(() => {
     if (sessionId) {
       setSearchParams({
@@ -242,6 +237,8 @@ export function AgentChat({
     let aiContent = "";
     let evidenceIds: number[] = [];
     let suggestions: string[] = [];
+    let confidence: ConfidenceResult | undefined;
+    let evidenceMeta: EvidenceMeta[] = [];
 
     const controller = new AbortController();
     abortRef.current = controller;
@@ -300,7 +297,16 @@ export function AgentChat({
                   ids?: number[];
                   sessionId?: number;
                   suggestions?: string[];
+                  confidence?: ConfidenceResult;
+                  evidenceMeta?: EvidenceMeta[];
                 };
+                if (parsed.type === "meta") {
+                  if (parsed.sessionId) setSessionId(parsed.sessionId);
+                  if (parsed.ids) evidenceIds = parsed.ids;
+                  if (parsed.suggestions) suggestions = parsed.suggestions;
+                  if (parsed.confidence) confidence = parsed.confidence;
+                  if (parsed.evidenceMeta) evidenceMeta = parsed.evidenceMeta;
+                }
                 if (parsed.type === "evidence" && parsed.ids) evidenceIds = parsed.ids;
                 if (parsed.sessionId) setSessionId(parsed.sessionId);
                 if (parsed.suggestions) suggestions = parsed.suggestions;
@@ -322,7 +328,6 @@ export function AgentChat({
         }
       }
 
-      // 完成
       setMessages((prev) => {
         const next = [...prev];
         const last = next[next.length - 1];
@@ -331,6 +336,8 @@ export function AgentChat({
             ...last,
             content: aiContent,
             evidenceIds,
+            evidenceMeta,
+            confidence,
             suggestions,
           };
         }
@@ -385,13 +392,36 @@ export function AgentChat({
     send(lastUserMsg.content);
   }, [messages, send]);
 
-  // 打开证据侧栏
-  const openEvidence = useCallback(
-    async (ids: number[]) => {
-      if (ids.length === 0) return;
-      setEvidencePanel((prev) => ({ ...prev, open: true, evidenceIds: ids }));
-      const list = (f.evidenceList ?? []).filter((e) => ids.includes(e.id));
-      setEvidencePanel((prev) => ({ ...prev, evidenceList: list }));
+  // 切换内联证据展开
+  const toggleEvidence = useCallback((msgIndex: number) => {
+    setExpandedEvidence((prev) => {
+      const next = new Set(prev);
+      if (next.has(msgIndex)) {
+        next.delete(msgIndex);
+      } else {
+        next.add(msgIndex);
+      }
+      return next;
+    });
+  }, []);
+
+  // 获取某条消息对应的证据数据
+  const getEvidenceForMessage = useCallback(
+    (msg: ChatMessage): EvidenceData[] => {
+      if (!msg.evidenceIds || msg.evidenceIds.length === 0) return [];
+      const list = (f.evidenceList ?? []).filter((e) => msg.evidenceIds!.includes(e.id));
+      if (msg.evidenceMeta && msg.evidenceMeta.length > 0) {
+        const metaMap = new Map(msg.evidenceMeta.map((m) => [m.id, m]));
+        for (const item of list) {
+          const m = metaMap.get(item.id);
+          if (m) {
+            item.similarity = m.similarity;
+            item.matchLevel = m.matchLevel;
+            item.tagOverlap = m.tagOverlap;
+          }
+        }
+      }
+      return list;
     },
     [f.evidenceList],
   );
@@ -468,16 +498,28 @@ export function AgentChat({
     [messages, agentInfo, agentId, type],
   );
 
-  // 清空对话
-  const clearChat = useCallback(() => {
+  // 清空
+  const clearChat = useCallback(async () => {
     if (messages.length === 0) return;
-    if (window.confirm("确定要清空当前对话吗？此操作不可恢复。")) {
+    if (!window.confirm("确定要清空当前对话吗？此操作不可恢复。")) return;
+
+    try {
+      if (sessionId) {
+        if (type === "persona") {
+          await api.deleteChatSession(sessionId);
+        } else {
+          await api.deleteKolChatSession(sessionId);
+        }
+      }
       setMessages([]);
       setSessionId(null);
       setSearchParams({});
+      setExpandedEvidence(new Set());
       toast.success("对话已清空");
+    } catch {
+      toast.error("清空失败，请重试");
     }
-  }, [messages, setSearchParams]);
+  }, [messages, sessionId, type, setSearchParams]);
 
   // 应用建议追问
   const applySuggestion = useCallback((text: string) => {
@@ -585,7 +627,11 @@ export function AgentChat({
           </div>
         )}
 
-        {messages.map((m, i) => (
+        {messages.map((m, i) => {
+          const isExpanded = expandedEvidence.has(i);
+          const evidenceForMsg = getEvidenceForMessage(m);
+
+          return (
           <div
             key={i}
             className={`flex gap-3 ${m.role === "user" ? "justify-end" : ""} animate-fade-in-up`}
@@ -601,7 +647,7 @@ export function AgentChat({
               </div>
             )}
 
-            {/* 气泡 + 操作 */}
+            {/* 气泡 + 操作 + 内联证据 */}
             <div className="max-w-[80%] max-sm:max-w-[90%] space-y-1.5">
               {/* 消息气泡 */}
               <div
@@ -633,43 +679,98 @@ export function AgentChat({
 
               {/* AI 气泡操作 */}
               {m.role === "assistant" && m.content && !(i === messages.length - 1 && streaming) && (
-                <div className="flex items-center gap-2 px-1">
-                  {f.evidence && m.evidenceIds && m.evidenceIds.length > 0 && (
-                    <button
-                      type="button"
-                      onClick={() => openEvidence(m.evidenceIds!)}
-                      className="text-xs text-(--color-brand-500) hover:underline flex items-center gap-1"
-                    >
-                      <FileText className="h-3 w-3" /> 查看引用证据（{m.evidenceIds.length}条）
-                    </button>
-                  )}
-                  {f.evidence && m.evidenceIds && m.evidenceIds.length === 0 && (
-                    <span className="text-xs text-(--color-content-tertiary)">
-                      ⚠ 该回答无直接证据支持
-                    </span>
-                  )}
-                  {f.copy && (
-                    <button
-                      type="button"
-                      onClick={() => copyMessage(m.content)}
-                      className="text-xs text-(--color-content-tertiary) hover:text-(--color-content-primary) transition-colors"
-                      title="复制"
-                    >
-                      <Copy className="h-3 w-3" />
-                    </button>
-                  )}
-                  {f.retry &&
-                    (m.content.startsWith("[请求失败") ||
-                      m.content.startsWith("[连接失败") ||
-                      m.content.startsWith("[连接中断")) && (
+                <div className="flex flex-col gap-1.5 px-1">
+                  {/* 可信度 + 证据展开按钮 */}
+                  <div className="flex items-center gap-2 flex-wrap">
+                    {m.confidence && (
+                      <ConfidenceIndicator score={m.confidence.score} size="sm" showLabel />
+                    )}
+
+                    {f.evidence && m.evidenceIds && m.evidenceIds.length > 0 && (
                       <button
                         type="button"
-                        onClick={retry}
-                        className="text-xs text-(--color-warning-500) hover:underline flex items-center gap-1"
+                        onClick={() => toggleEvidence(i)}
+                        className="text-xs text-(--color-brand-500) hover:underline flex items-center gap-1"
                       >
-                        <RotateCw className="h-3 w-3" /> 重试
+                        {isExpanded ? (
+                          <ChevronDown className="h-3 w-3" />
+                        ) : (
+                          <ChevronRight className="h-3 w-3" />
+                        )}
+                        证据支持（{m.evidenceIds.length}条）
                       </button>
                     )}
+
+                    {f.evidence && (!m.evidenceIds || m.evidenceIds.length === 0) && (
+                      <span className="text-xs text-(--color-content-tertiary)">
+                        无直接证据
+                      </span>
+                    )}
+
+                    {f.copy && (
+                      <button
+                        type="button"
+                        onClick={() => copyMessage(m.content)}
+                        className="text-xs text-(--color-content-tertiary) hover:text-(--color-content-primary) transition-colors"
+                        title="复制"
+                      >
+                        <Copy className="h-3 w-3" />
+                      </button>
+                    )}
+
+                    {f.retry &&
+                      (m.content.startsWith("[请求失败") ||
+                        m.content.startsWith("[连接失败") ||
+                        m.content.startsWith("[连接中断")) && (
+                        <button
+                          type="button"
+                          onClick={retry}
+                          className="text-xs text-(--color-warning-500) hover:underline flex items-center gap-1"
+                        >
+                          <RotateCw className="h-3 w-3" /> 重试
+                        </button>
+                      )}
+                  </div>
+
+                  {/* 风险标记 */}
+                  {m.confidence && m.confidence.flags.length > 0 && (
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      {m.confidence.flags.includes("low_sample") && (
+                        <span className="text-[10px] text-(--color-muted-foreground) bg-(--color-surface-secondary) px-1.5 py-0.5 rounded">
+                          低样本
+                        </span>
+                      )}
+                      {m.confidence.flags.includes("inferred") && (
+                        <span className="text-[10px] text-(--color-muted-foreground) bg-(--color-surface-secondary) px-1.5 py-0.5 rounded">
+                          基于推断
+                        </span>
+                      )}
+                      {m.confidence.flags.includes("boundary") && (
+                        <span className="text-[10px] text-(--color-muted-foreground) bg-(--color-surface-secondary) px-1.5 py-0.5 rounded">
+                          边界外推
+                        </span>
+                      )}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* 内联展开的证据 */}
+              {f.evidence && isExpanded && evidenceForMsg.length > 0 && (
+                <div className="space-y-2 pl-5 border-l-2 border-(--color-border) ml-1">
+                  {evidenceForMsg.map((e) => (
+                    <EvidenceCard
+                      key={e.id}
+                      id={e.id}
+                      sourceFile={e.sourceFile}
+                      originalText={e.originalText}
+                      annotation={e.annotation}
+                      speakerId={e.speakerId}
+                      similarity={e.similarity}
+                      matchLevel={e.matchLevel}
+                      onCopy={() => copyMessage(e.originalText)}
+                    />
+                  ))}
                 </div>
               )}
 
@@ -694,7 +795,8 @@ export function AgentChat({
               </div>
             )}
           </div>
-        ))}
+        );
+        })}
 
         {/* 思考指示器 */}
         {f.thinking && thinking && (
@@ -714,7 +816,6 @@ export function AgentChat({
 
         <div ref={bottomRef} />
 
-        {/* 滚动到底部按钮 */}
         {f.scrollButton && showScrollButton && (
           <button
             type="button"
@@ -771,38 +872,6 @@ export function AgentChat({
           )}
         </div>
       </div>
-
-      {/* 证据溯源侧栏 */}
-      {f.evidence && (
-        <Sheet
-          open={evidencePanel.open}
-          onOpenChange={(open) => setEvidencePanel((prev) => ({ ...prev, open }))}
-        >
-          <SheetContent side="right" className="w-[380px] sm:w-[420px] overflow-y-auto">
-            <SheetHeader>
-              <SheetTitle className="text-lg font-serif">证据溯源</SheetTitle>
-            </SheetHeader>
-            <div className="mt-4 space-y-4">
-              {evidencePanel.evidenceList.length > 0 ? (
-                evidencePanel.evidenceList.map((e) => (
-                  <EvidenceCard
-                    key={e.id}
-                    id={e.id}
-                    sourceFile={e.sourceFile}
-                    originalText={e.originalText}
-                    annotation={e.annotation}
-                    onCopy={() => copyMessage(e.originalText)}
-                  />
-                ))
-              ) : (
-                <p className="text-sm text-(--color-content-secondary) text-center py-8">
-                  暂无证据数据。完成 AI 打标和 Embedding 后，将在此展示引用原文。
-                </p>
-              )}
-            </div>
-          </SheetContent>
-        </Sheet>
-      )}
     </div>
   );
 }

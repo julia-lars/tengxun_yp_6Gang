@@ -78,9 +78,60 @@ export function BatchInterviewPage() {
     new Set(),
   );
   const [estimatedRemainingMs, setEstimatedRemainingMs] = useState<number | undefined>();
+  const [restoredFromServer, setRestoredFromServer] = useState(false);
   const pollRef = useRef<ReturnType<typeof setInterval>>();
 
-  // 页面加载时，如果 URL 中有 jobId，自动恢复轮询
+  // ★ 挂载时从后端恢复最新数据（不依赖 URL 参数，切换页面也能恢复）
+  useEffect(() => {
+    if (restoredFromServer) return;
+
+    // 同时拉取最新大纲和正在运行的作业
+    Promise.allSettled([
+      api.listOutlines(),
+      api.listBatchInterviewJobs(),
+    ]).then(([outlinesResult, jobsResult]) => {
+      // 1. 恢复 outline（从 URL 参数或后端最新数据）
+      const urlOutlineId = searchParams.get("outlineId");
+      if (urlOutlineId && !initialOutline && !outline) {
+        api.getOutline(urlOutlineId).then(setOutline).catch(() => {});
+      } else if (!initialOutline && !outline && outlinesResult.status === "fulfilled" && outlinesResult.value.length > 0) {
+        setOutline(outlinesResult.value[0]!);
+      }
+
+      // 2. 恢复最近运行的作业
+      const urlJobId = searchParams.get("jobId");
+      if (urlJobId) {
+        api.getBatchInterviewStatus(urlJobId).then((s) => {
+          setStatus(s);
+          setRunning(s.status === "pending" || s.status === "running");
+          if (s.status === "completed") {
+            api.getBatchInterviewReport(urlJobId).then(setReport).catch(() => {});
+          }
+        }).catch(() => {});
+      } else if (jobsResult.status === "fulfilled" && jobsResult.value.length > 0) {
+        // 从后端获取最近作业
+        const latestJob = jobsResult.value[0]!;
+        if (latestJob.status === "pending" || latestJob.status === "running") {
+          setJobId(latestJob.jobId);
+          setStatus(latestJob);
+          setRunning(true);
+        } else if (latestJob.status === "completed") {
+          setStatus(latestJob);
+          api.getBatchInterviewReport(latestJob.jobId).then(setReport).catch(() => {});
+          // 从报告恢复 outline
+          api.getBatchInterviewReport(latestJob.jobId).then((r) => {
+            if (r.config.outline) setOutline(r.config.outline);
+          }).catch(() => {});
+        }
+      }
+
+      setRestoredFromServer(true);
+    }).catch(() => {
+      setRestoredFromServer(true);
+    });
+  }, []); // 仅在挂载时执行一次
+
+  // 旧：页面加载时，如果 URL 中有 jobId，自动恢复轮询（保留作为 fallback）
   useEffect(() => {
     const savedJobId = searchParams.get("jobId");
     if (!savedJobId || running) return;
@@ -93,7 +144,6 @@ export function BatchInterviewPage() {
         api.getBatchInterviewReport(savedJobId).then(setReport).catch(() => {});
       }
     }).catch(() => {
-      // 作业不存在，清除 URL
       setSearchParams({}, { replace: true });
     });
   }, []); // 仅在挂载时执行一次
@@ -111,10 +161,12 @@ export function BatchInterviewPage() {
         const s = await api.getBatchInterviewStatus(jobId);
         setStatus(s);
         setEstimatedRemainingMs(s.estimatedRemainingMs);
-        if (s.status === "completed" || s.status === "failed") {
+        if (s.status === "completed" || s.status === "failed" || s.status === "cancelled") {
           setRunning(false);
-          // 清除 URL 中的 jobId
-          setSearchParams({}, { replace: true });
+          // 清除 URL 中的 jobId，保留 outlineId
+          const next = new URLSearchParams(searchParams);
+          next.delete("jobId");
+          setSearchParams(next, { replace: true });
           if (s.status === "completed") {
             try {
               const r = await api.getBatchInterviewReport(jobId);
@@ -123,6 +175,8 @@ export function BatchInterviewPage() {
             } catch {
               toast.error("报告获取失败");
             }
+          } else if (s.status === "cancelled") {
+            toast.info("批量访谈已取消");
           } else {
             toast.error(s.error ? `批量访谈失败: ${s.error}` : "批量访谈执行失败");
           }
@@ -145,6 +199,7 @@ export function BatchInterviewPage() {
     setStatus(null);
     try {
       const config: BatchInterviewConfig = {
+        outlineId: outline?.id,
         personaIds: selectedPersonas,
         personaNames: selectedPersonas.map(
           (id) => personas.find((p) => p.id === id)?.name ?? `画像 #${id}`,
@@ -157,14 +212,36 @@ export function BatchInterviewPage() {
         await api.startBatchInterview(config);
       setJobId(newJobId);
       setStatus(initialStatus);
-      // 将 jobId 写入 URL，刷新后可以恢复
-      setSearchParams({ jobId: newJobId }, { replace: true });
+      // 将 jobId 和 outlineId 写入 URL
+      const next = new URLSearchParams();
+      next.set("jobId", newJobId);
+      if (outline?.id) next.set("outlineId", outline.id);
+      setSearchParams(next, { replace: true });
       toast.success("批量访谈已启动");
     } catch (e) {
       toast.error(`启动失败: ${String(e)}`);
       setRunning(false);
     }
   }, [selectedPersonas, personas, concurrency, maxRounds, outline, setSearchParams]);
+
+  // 取消批量访谈
+  const cancelBatch = useCallback(async () => {
+    if (!jobId) return;
+    try {
+      await api.cancelBatchInterview(jobId);
+      toast.success("批量访谈已取消");
+    } catch (e) {
+      toast.error(`取消失败: ${String(e)}`);
+    }
+    if (pollRef.current) clearInterval(pollRef.current);
+    setRunning(false);
+    setJobId(null);
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      next.delete("jobId");
+      return next;
+    });
+  }, [jobId, setSearchParams]);
 
   // 全选/取消全选
   const toggleAllPersonas = useCallback(() => {
@@ -250,12 +327,16 @@ export function BatchInterviewPage() {
 
   return (
     <div className="space-y-6">
-      <Link
-        to="/"
-        className="inline-flex items-center gap-1 text-sm text-(--color-content-secondary) hover:text-(--color-brand-500) transition-colors"
-      >
-        <ArrowLeft className="h-3 w-3" /> 返回首页
-      </Link>
+      <div className="sticky top-0 z-10 -mt-6 pt-6 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 bg-neutral-50">
+        <div className="pb-2 border-b border-neutral-200">
+          <Link
+            to="/"
+            className="inline-flex items-center gap-1 text-sm text-(--color-content-secondary) hover:text-(--color-brand-500) transition-colors"
+          >
+            <ArrowLeft className="h-3 w-3" /> 返回首页
+          </Link>
+        </div>
+      </div>
 
       <PageHeader
         title="批量访谈"
@@ -349,7 +430,12 @@ export function BatchInterviewPage() {
                       variant="ghost"
                       size="sm"
                       className="text-xs text-(--color-brand-500)"
-                      onClick={() => setOutline(null)}
+                      onClick={() => {
+                          setOutline(null);
+                          const next = new URLSearchParams(searchParams);
+                          next.delete("outlineId");
+                          setSearchParams(next, { replace: true });
+                        }}
                     >
                       清除大纲
                     </Button>
@@ -419,10 +505,20 @@ export function BatchInterviewPage() {
                 }
               >
                 {running ? (
-                  <>
-                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                    {formatRemainingTime(estimatedRemainingMs)}
-                  </>
+                  <div className="space-y-2">
+                    <Button className="w-full" disabled>
+                      <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                      {formatRemainingTime(estimatedRemainingMs)}
+                    </Button>
+                    <Button
+                      className="w-full"
+                      variant="outline"
+                      onClick={cancelBatch}
+                    >
+                      <XCircle className="h-4 w-4 mr-2 text-red-500" />
+                      取消访谈
+                    </Button>
+                  </div>
                 ) : (
                   <>
                     <Play className="h-4 w-4 mr-2" />

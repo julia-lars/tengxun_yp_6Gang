@@ -1,12 +1,13 @@
 // 历史对话列表页 — 统一展示 Persona 和 KOL 会话
 import type { ChatSession, KolChatSession, KolProfileSummary, PersonaSummary } from "@app/shared";
-import { ArrowLeft, ArrowRight, Clock, Search } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { ArrowLeft, Clock, Search } from "lucide-react";
+import { useEffect, useMemo, useState, useCallback } from "react";
 import { Link } from "react-router";
-import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { SessionCard } from "@/components/shared/session-card";
 import { Input } from "@/components/ui/input";
 import { api } from "@/lib/api";
+import { toast } from "sonner";
 
 interface HistoryItem {
   id: number;
@@ -62,6 +63,26 @@ export function HistoryPage() {
     });
   }, []);
 
+  const handleDelete = useCallback(
+    async (e: React.MouseEvent, id: number, type: "persona" | "kol") => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (!window.confirm(`确定要删除这条对话记录吗？此操作不可恢复。`)) return;
+      try {
+        if (type === "persona") {
+          await api.deleteChatSession(id);
+        } else {
+          await api.deleteKolChatSession(id);
+        }
+        setItems((prev) => prev.filter((i) => !(i.type === type && i.id === id)));
+        toast.success("对话已删除");
+      } catch {
+        toast.error("删除失败，请重试");
+      }
+    },
+    [],
+  );
+
   const filtered = useMemo(() => {
     let list = items.filter((s) => s.messages.length > 0);
 
@@ -80,16 +101,49 @@ export function HistoryPage() {
     return list;
   }, [items, search]);
 
-  const typeLabel = (type: "persona" | "kol") => (type === "persona" ? "画像" : "KOL");
+  const formatTime = (dateStr: string) => {
+    const d = new Date(dateStr);
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const yesterday = new Date(today.getTime() - 86400000);
+    const weekStart = new Date(today.getTime() - today.getDay() * 86400000);
+    const yearStart = new Date(now.getFullYear(), 0, 1);
+
+    const time = d.toLocaleTimeString("zh-CN", { hour: "2-digit", minute: "2-digit", hour12: false });
+    const weekDays = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
+
+    if (d >= today) return time;
+    if (d >= yesterday) return `昨天 ${time}`;
+    if (d >= weekStart) return `${weekDays[d.getDay()]} ${time}`;
+    if (d >= yearStart) return d.toLocaleDateString("zh-CN", { month: "2-digit", day: "2-digit" });
+    return d.toLocaleDateString("zh-CN", { year: "numeric", month: "2-digit", day: "2-digit" });
+  };
+
+  const getTitle = (s: HistoryItem) => {
+    if (s.title) return s.title;
+    const firstUserMsg = s.messages.find((m) => m.role === "user");
+    if (firstUserMsg?.content) return firstUserMsg.content.slice(0, 30);
+    return "新对话";
+  };
+
+  const getPreview = (s: HistoryItem) => {
+    const lastAiMsg = [...s.messages].reverse().find((m) => m.role === "assistant");
+    if (lastAiMsg?.content) return lastAiMsg.content;
+    return "";
+  };
 
   return (
     <div className="space-y-6">
-      <Link
-        to="/"
-        className="inline-flex items-center gap-1 text-sm text-(--color-muted-foreground) hover:text-(--color-primary) transition-colors"
-      >
-        <ArrowLeft className="h-3 w-3" /> 返回首页
-      </Link>
+      <div className="sticky top-0 z-10 -mt-6 pt-6 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 bg-neutral-50">
+        <div className="pb-2 border-b border-neutral-200">
+          <Link
+            to="/"
+            className="inline-flex items-center gap-1 text-sm text-(--color-muted-foreground) hover:text-(--color-primary) transition-colors"
+          >
+            <ArrowLeft className="h-3 w-3" /> 返回首页
+          </Link>
+        </div>
+      </div>
 
       <div>
         <h1 className="font-serif text-3xl font-bold text-[--color-primary]">历史对话</h1>
@@ -111,49 +165,27 @@ export function HistoryPage() {
       {filtered.length > 0 ? (
         <div className="space-y-2">
           {filtered.map((s) => {
-            const firstMsg = s.messages[0]?.content ?? "";
-            const preview = s.title || firstMsg.slice(0, 50) || "新对话";
+            const title = getTitle(s);
+            const preview = getPreview(s);
             const chatPath =
               s.type === "persona"
                 ? `/personas/${s.agentId}/chat?session=${s.id}&from=history`
                 : `/kol/${s.agentId}/chat?session=${s.id}&from=history`;
+            const roundCount = Math.floor(s.messages.length / 2);
             return (
-              <Link
+              <SessionCard
                 key={`${s.type}-${s.id}`}
-                to={chatPath}
-                className="block group"
-              >
-                <Card className="transition-all duration-200 hover:border-[--color-primary] hover:shadow-sm">
-                  <CardContent className="flex items-center gap-3 py-3 px-4">
-                    <Clock className="h-4 w-4 text-[--color-muted-foreground] flex-shrink-0" />
-                    <div className="flex-1 min-w-0 space-y-0.5">
-                      <div className="flex items-center gap-2">
-                        <span className="text-sm text-[--color-foreground] truncate group-hover:text-[--color-primary] transition-colors">
-                          {preview}
-                        </span>
-                        <Badge
-                          variant="secondary"
-                          className="text-[10px] flex-shrink-0"
-                        >
-                          {typeLabel(s.type)}: {s.agentName ?? `#${s.agentId}`}
-                        </Badge>
-                      </div>
-                      <div className="text-xs text-[--color-muted-foreground] flex items-center gap-3">
-                        <span>
-                          {new Date(s.createdAt).toLocaleDateString("zh-CN", {
-                            month: "short",
-                            day: "numeric",
-                            hour: "2-digit",
-                            minute: "2-digit",
-                          })}
-                        </span>
-                        <span>{Math.floor(s.messages.length / 2)} 轮</span>
-                      </div>
-                    </div>
-                    <ArrowRight className="h-4 w-4 text-[--color-muted-foreground] opacity-0 group-hover:opacity-100 group-hover:text-[--color-primary] transition-all flex-shrink-0" />
-                  </CardContent>
-                </Card>
-              </Link>
+                id={s.id}
+                type={s.type}
+                agentId={s.agentId}
+                agentName={s.agentName}
+                title={title}
+                preview={preview}
+                roundCount={roundCount}
+                time={formatTime(s.createdAt)}
+                chatPath={chatPath}
+                onDelete={handleDelete}
+              />
             );
           })}
         </div>

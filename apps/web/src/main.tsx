@@ -17,6 +17,10 @@ import { NewPersonaPage } from "./routes/new-persona.js";
 import { NewKolPage } from "./routes/new-kol.js";
 import { InterviewOutlinePage } from "./routes/interview-outline.js";
 import { BatchInterviewPage } from "./routes/batch-interview.js";
+import { AdminDashboard } from "./routes/admin-dashboard.js";
+import { AdminTablePage } from "./routes/admin-table.js";
+import { AdminRecordPage } from "./routes/admin-record.js";
+import { AdminImportPage } from "./routes/admin-import.js";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +44,11 @@ const router = createBrowserRouter([
       // 访谈工具
       { path: "interview/outline", element: <InterviewOutlinePage /> },
       { path: "interview/batch", element: <BatchInterviewPage /> },
+      // 管理后台
+      { path: "admin", element: <AdminDashboard /> },
+      { path: "admin/import", element: <AdminImportPage /> },
+      { path: "admin/:table", element: <AdminTablePage /> },
+      { path: "admin/:table/:id", element: <AdminRecordPage /> },
     ],
   },
 ]);

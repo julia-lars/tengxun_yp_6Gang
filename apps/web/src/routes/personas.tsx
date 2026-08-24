@@ -54,14 +54,12 @@ export function PersonasPage() {
     [selectedTags],
   );
 
-  // 简洁筛选状态（5 道选择题，独立于高级筛选的 tags）
+  // 简洁筛选状态（3 道选择题，独立于高级筛选的 tags）
   const simpleValue = useMemo(
     () => ({
       need: searchParams.get("need") ?? undefined,
-      social: searchParams.get("social") ?? undefined,
       mode: searchParams.get("mode") ?? undefined,
       pace: searchParams.get("pace") ?? undefined,
-      level: searchParams.get("level") ?? undefined,
     }),
     [searchParams],
   );
@@ -98,7 +96,7 @@ export function PersonasPage() {
   );
 
   const clearSimple = useCallback(
-    () => updateParams({ need: null, social: null, mode: null, pace: null, level: null }),
+    () => updateParams({ need: null, mode: null, pace: null }),
     [updateParams],
   );
 
@@ -190,20 +188,24 @@ export function PersonasPage() {
 
   return (
     <div className="space-y-6">
-      <Link
-        to="/"
-        className="inline-flex items-center gap-1 text-sm text-(--color-muted-foreground) hover:text-(--color-primary) transition-colors"
-      >
-        <ArrowLeft className="h-3 w-3" /> 返回首页
-      </Link>
+      <div className="sticky top-0 z-10 -mt-6 pt-6 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 bg-neutral-50">
+        <div className="pb-2 border-b border-neutral-200">
+          <Link
+            to="/"
+            className="inline-flex items-center gap-1 text-sm text-(--color-muted-foreground) hover:text-(--color-primary) transition-colors"
+          >
+            <ArrowLeft className="h-3 w-3" /> 返回首页
+          </Link>
+        </div>
+      </div>
       <div>
         <h1 className="font-serif text-2xl sm:text-3xl font-bold text-black">选择目标用户</h1>
         <p className="text-sm text-(--color-content-secondary) mt-1">
-          回答 5 道选择题，快速匹配模拟用户画像；需要更多条件可展开高级筛选
+          回答 3 道选择题，快速匹配模拟用户画像；需要更多条件可展开高级筛选
         </p>
       </div>
 
-      {/* 简洁筛选 — 5 道选择题 */}
+      {/* 简洁筛选 — 3 道选择题 */}
       <Card>
         <CardHeader className="pb-3">
           <div className="flex items-center justify-between">

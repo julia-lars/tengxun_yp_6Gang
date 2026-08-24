@@ -1,7 +1,7 @@
 // --------------------------------------------------------------
-// 简洁筛选：5 道选择题的数据定义与映射
+// 简洁筛选：3 道选择题的数据定义与映射
 // 所有题均为硬筛选：同一题内多选 OR，跨题 AND
-// Q1 多选（最多 3 个），Q2-Q5 单选
+// Q1 多选（最多 3 个），Q2-Q3 单选
 // --------------------------------------------------------------
 
 export interface SimpleOption {
@@ -13,7 +13,7 @@ export interface SimpleOption {
 }
 
 export interface SimpleQuestion {
-  id: "need" | "social" | "mode" | "pace" | "level";
+  id: "need" | "mode" | "pace";
   title: string;
   subtitle?: string;
   /** 是否多选（Q1 为 true） */
@@ -64,16 +64,6 @@ export const SIMPLE_QUESTIONS: SimpleQuestion[] = [
     ],
   },
   {
-    id: "social",
-    title: "这位玩家偏好怎样的社交方式？",
-    subtitle: "单选",
-    options: [
-      { key: "solo", label: "独狼/单人", tags: ["陌生人/单人"] },
-      { key: "friends", label: "熟人/朋友开黑", tags: ["熟人开黑"] },
-      { key: "flexible", label: "看情况" },
-    ],
-  },
-  {
     id: "mode",
     title: "这位玩家偏好什么玩法模式？",
     subtitle: "单选",
@@ -92,17 +82,6 @@ export const SIMPLE_QUESTIONS: SimpleQuestion[] = [
       { key: "fast", label: "快节奏/刚枪拼反应", tags: ["主动求战/刚枪"] },
       { key: "mid", label: "中速/灵活切换", tags: ["灵活平衡"] },
       { key: "slow", label: "慢节奏/策略思考", tags: ["苟活避战"] },
-      { key: "unknown", label: "不确定" },
-    ],
-  },
-  {
-    id: "level",
-    title: "这位玩家的大致水平？",
-    subtitle: "单选",
-    options: [
-      { key: "novice", label: "新手/入门", tags: ["新手"] },
-      { key: "intermediate", label: "进阶", tags: ["进阶"] },
-      { key: "expert", label: "高手/专家", tags: ["高手"] },
       { key: "unknown", label: "不确定" },
     ],
   },

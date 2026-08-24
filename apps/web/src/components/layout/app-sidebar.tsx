@@ -3,6 +3,7 @@ import {
   BarChart3,
   ChevronLeft,
   Clock,
+  Database,
   FilePlus,
   FileText,
   Home,
@@ -35,6 +36,7 @@ const TOOL_ITEMS: SidebarItem[] = [
   { path: "/data-pipeline", label: "数据流水线", icon: Workflow },
   { path: "/interview/outline", label: "访谈大纲", icon: FileText },
   { path: "/interview/batch", label: "批量访谈", icon: BarChart3 },
+  { path: "/admin", label: "数据管理", icon: Database },
 ];
 
 const CREATE_ITEMS: SidebarItem[] = [

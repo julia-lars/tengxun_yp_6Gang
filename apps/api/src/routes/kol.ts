@@ -3,7 +3,7 @@
 // 使用共享聊天引擎 agent-chat.ts
 // --------------------------------------------------------------
 
-import type { KolChatSession, KolProfileDetail, KolProfileSummary } from "@app/shared";
+import type { KolChatSession, KolProfileDetail, KolProfileSummary, EvidenceMeta } from "@app/shared";
 import { kolChatRequestSchema } from "@app/shared";
 import { zValidator } from "@hono/zod-validator";
 import { desc, eq, sql } from "drizzle-orm";
@@ -21,6 +21,10 @@ import {
   formatEvidenceContext,
   type EvidenceRow,
 } from "../lib/agent-chat.js";
+import {
+  calculateConfidence,
+  classifyMatchLevel,
+} from "../lib/confidence.js";
 
 export const kolRoute = new Hono();
 
@@ -121,7 +125,8 @@ kolRoute.post("/chat", zValidator("json", kolChatRequestSchema), async (c) => {
     message,
     vectorQuery: async (vecStr) => {
       let rawRows = (await db.execute(
-        sql`SELECT id, original_text, title
+        sql`SELECT id, original_text, title,
+                   embedding <=> ${vecStr}::vector AS distance
             FROM kol_segments
             WHERE kol_id = ${kolId}
               AND embedding IS NOT NULL
@@ -129,25 +134,37 @@ kolRoute.post("/chat", zValidator("json", kolChatRequestSchema), async (c) => {
               AND embedding <=> ${vecStr}::vector < ${KOL_SIMILARITY_THRESHOLD}
             ORDER BY embedding <=> ${vecStr}::vector
             LIMIT 3`,
-      )) as unknown as Array<{ id: number; original_text: string; title: string }>;
+      )) as unknown as Array<{
+        id: number;
+        original_text: string;
+        title: string;
+        distance: number;
+      }>;
 
       // 阈值过严时兜底
       if (rawRows.length === 0) {
         rawRows = (await db.execute(
-          sql`SELECT id, original_text, title
+          sql`SELECT id, original_text, title,
+                     embedding <=> ${vecStr}::vector AS distance
               FROM kol_segments
               WHERE kol_id = ${kolId}
                 AND embedding IS NOT NULL
                 AND (ad_label IS NULL OR ad_label != '广告口播')
               ORDER BY embedding <=> ${vecStr}::vector
               LIMIT 3`,
-        )) as unknown as Array<{ id: number; original_text: string; title: string }>;
+        )) as unknown as Array<{
+          id: number;
+          original_text: string;
+          title: string;
+          distance: number;
+        }>;
       }
 
       return rawRows.map((r) => ({
         id: r.id,
         originalText: r.original_text,
         sourceLabel: r.title,
+        similarity: 1 - (r.distance ?? 0),
       }));
     },
     ilikeQuery: async () => {
@@ -168,6 +185,7 @@ kolRoute.post("/chat", zValidator("json", kolChatRequestSchema), async (c) => {
         id: r.id,
         originalText: r.originalText,
         sourceLabel: r.title,
+        similarity: 0.5, // ILIKE 兜底给中等相似度
       }));
     },
   });
@@ -176,6 +194,39 @@ kolRoute.post("/chat", zValidator("json", kolChatRequestSchema), async (c) => {
     evidenceRows,
     (e) => `[${e.sourceLabel}]`,
   );
+
+  // 3.5 计算置信度 + 增强证据元数据
+  const similarities = evidenceRows
+    .map((e) => e.similarity ?? 0)
+    .filter((s) => s > 0);
+  const topSimilarity = similarities.length > 0 ? Math.max(...similarities) : 0;
+  const avgSimilarity =
+    similarities.length > 0
+      ? similarities.reduce((a, b) => a + b, 0) / similarities.length
+      : 0;
+
+  const hasDirectQuote = evidenceRows.some(
+    (e) => (e.matchLevel ?? classifyMatchLevel(e.similarity ?? 0)) === "direct",
+  );
+
+  const videoCount = ((kol.styleProfile as Record<string, unknown>).videoCount as number) ?? 0;
+  const estimatedSampleCount = Math.max(videoCount, evidenceRows.length);
+
+  const confidenceResult = calculateConfidence({
+    evidenceCount: evidenceRows.length,
+    topSimilarity,
+    avgSimilarity,
+    tagOverlapRatio: 0.5, // KOL 没有画像标签体系，给中性值
+    sampleCount: estimatedSampleCount,
+    hasDirectQuote,
+    isBoundaryQuestion: false,
+  });
+
+  const evidenceMeta: EvidenceMeta[] = evidenceRows.map((e) => {
+    const similarity = e.similarity ?? 0;
+    const matchLevel = e.matchLevel ?? classifyMatchLevel(similarity);
+    return { id: e.id, similarity, matchLevel, tagOverlap: 0.5 };
+  });
 
   // 4. 构建 System Prompt（KOL 特有逻辑）
   const personaCard = kol.personaCard as Record<string, unknown>;
@@ -233,6 +284,8 @@ kolRoute.post("/chat", zValidator("json", kolChatRequestSchema), async (c) => {
     history,
     userMessage: message,
     errorMessage: "[KOL分身暂时无法响应，请稍后重试]",
+    confidence: confidenceResult,
+    evidenceMeta,
     saveMessages: async (updatedMessages) => {
       await db
         .update(kolChatSessions)
@@ -286,4 +339,20 @@ kolRoute.get("/chat/sessions/:id", async (c) => {
   };
 
   return c.json(result);
+});
+
+// DELETE /api/kol/chat/sessions/:id —— 删除会话
+kolRoute.delete("/chat/sessions/:id", async (c) => {
+  const id = Number(c.req.param("id"));
+  if (Number.isNaN(id)) return c.json({ error: "无效的会话 ID" }, 400);
+
+  const session = await db.query.kolChatSessions.findFirst({
+    where: eq(kolChatSessions.id, id),
+  });
+
+  if (!session) return c.json({ error: "会话不存在" }, 404);
+
+  await db.delete(kolChatSessions).where(eq(kolChatSessions.id, id));
+
+  return c.json({ success: true });
 });

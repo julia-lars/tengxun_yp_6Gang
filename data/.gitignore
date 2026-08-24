@@ -11,9 +11,8 @@
 !kol/
 !kol/*.json
 !eval/
-!eval/results/
-!eval/results/*.json
-!eval/*.json
+!eval/README.md
 !群体画像/
 !群体画像/*.json
 !README.md
+!file_index.csv

@@ -11,6 +11,8 @@ import { db } from "../db/client.js";
 import type { ChatMessage } from "../lib/llm.js";
 import { chatStream } from "../lib/llm.js";
 import { embedQuery } from "../lib/embed.js";
+import type { ConfidenceResult, EvidenceMeta } from "@app/shared";
+import { classifyMatchLevel } from "../lib/confidence.js";
 
 // ---- 1. 会话获取或创建 ----
 
@@ -36,6 +38,16 @@ export interface EvidenceRow {
   id: number;
   originalText: string;
   sourceLabel: string; // persona: sourceFile, kol: title
+  /** 向量余弦相似度 (0-1)，仅向量检索时有值 */
+  similarity?: number;
+  /** 证据等级：直引 / 部分关联 / 推断 */
+  matchLevel?: "direct" | "partial" | "inferred";
+  /** 证据标签与画像标签的重叠度 (0-1) */
+  tagOverlap?: number;
+  /** 受访者匿名 ID */
+  speakerId?: string;
+  /** 冰山+框架标注 */
+  annotation?: Record<string, unknown> | null;
 }
 
 /**
@@ -66,7 +78,7 @@ export async function searchEvidence(opts: {
 // ---- 3. 通用 SSE 流式对话 ----
 
 /**
- * 执行 SSE 流式对话：打字机输出 → 保存消息 → 发送 evidence 事件。
+ * 执行 SSE 流式对话：打字机输出 → 保存消息 → 发送 meta 事件。
  * 调用方负责构建 systemPrompt 和 llmMessages。
  */
 export async function streamChat(opts: {
@@ -78,8 +90,22 @@ export async function streamChat(opts: {
   userMessage: string;
   saveMessages: (updatedMessages: Array<Record<string, unknown>>) => Promise<void>;
   errorMessage?: string;
+  /** 置信度计算结果（调用方在 RAG 检索后计算） */
+  confidence?: ConfidenceResult;
+  /** 证据元数据列表 */
+  evidenceMeta?: EvidenceMeta[];
 }): Promise<Response> {
-  const { c, llmMessages, sessionId, evidenceIds, history, userMessage, saveMessages } = opts;
+  const {
+    c,
+    llmMessages,
+    sessionId,
+    evidenceIds,
+    history,
+    userMessage,
+    saveMessages,
+    confidence,
+    evidenceMeta,
+  } = opts;
 
   return streamSSE(c, async (stream) => {
     let fullResponse = "";
@@ -96,7 +122,7 @@ export async function streamChat(opts: {
       });
     }
 
-    // 保存对话记录
+    // 保存对话记录（含置信度和证据元数据）
     const updatedMessages = [
       ...history,
       { role: "user", content: userMessage, timestamp: new Date().toISOString() },
@@ -104,19 +130,23 @@ export async function streamChat(opts: {
         role: "assistant",
         content: fullResponse,
         evidenceIds,
+        evidenceMeta: evidenceMeta ?? [],
+        confidence: confidence ?? null,
         timestamp: new Date().toISOString(),
       },
     ];
 
     await saveMessages(updatedMessages);
 
-    // 发送 evidence + sessionId
+    // 发送 meta 事件：evidence + sessionId + confidence + evidenceMeta
     try {
       await stream.writeSSE({
         data: JSON.stringify({
-          type: "evidence",
+          type: "meta",
           ids: evidenceIds,
           sessionId,
+          confidence,
+          evidenceMeta: evidenceMeta ?? [],
         }),
       });
     } catch {

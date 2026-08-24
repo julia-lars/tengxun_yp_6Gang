@@ -9,6 +9,9 @@ import { personasRoute } from './routes/personas.js';
 import { pipelineRoute } from './routes/pipeline.js';
 import { interviewOutlineRoute } from './routes/interview-outline.js';
 import { batchInterviewRoute } from './routes/batch-interview.js';
+import { adminRoute } from './routes/admin/index.js';
+import { importRoute } from './routes/import/index.js';
+import { env } from './env.js';
 
 export const app = new Hono();
 
@@ -28,9 +31,19 @@ app.route('/api/kol', kolRoute);
 app.route('/api/pipeline', pipelineRoute);
 app.route('/api/interview/outline', interviewOutlineRoute);
 app.route('/api/interview/batch', batchInterviewRoute);
+app.route('/api/admin', adminRoute);
+app.route('/api/import', importRoute);
 
 app.onError((err, c) => {
+  const isDev = env.NODE_ENV !== 'production';
   console.error('服务端异常:', err);
-  return c.json({ error: 'Internal Server Error' }, 500);
+  const message = err instanceof Error ? err.message : String(err);
+  return c.json(
+    {
+      error: 'Internal Server Error',
+      ...(isDev && { detail: message, stack: err instanceof Error ? err.stack : undefined }),
+    },
+    500,
+  );
 });
 app.notFound((c) => c.json({ error: 'Not Found', path: c.req.path }, 404));

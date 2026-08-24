@@ -45,15 +45,15 @@ export function KolChatPage() {
       avatarClassName="bg-gradient-to-br from-(--color-brand-500) to-(--color-brand-600)"
       avatarContent={<User className="h-4 w-4 text-white" />}
       features={{
-        evidence: false,
-        export: false,
-        suggestions: false,
-        copy: false,
-        retry: false,
-        thinking: false,
-        scrollButton: false,
-        clearChat: false,
-        typingCursor: false,
+        evidence: true,
+        export: true,
+        suggestions: true,
+        copy: true,
+        retry: true,
+        thinking: true,
+        scrollButton: true,
+        clearChat: true,
+        typingCursor: true,
       }}
     />
   );

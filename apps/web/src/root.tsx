@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 export function Root() {
   const mainRef = useRef<HTMLDivElement>(null);
   const { pathname } = useLocation();
+  const scrollPositions = useRef<Record<string, number>>({});
   const [sidebarCollapsed, setSidebarCollapsed] = useState(() => {
     try {
       return localStorage.getItem("sidebarCollapsed") === "true";
@@ -20,9 +21,27 @@ export function Root() {
   // 移动端侧栏抽屉状态
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
-  // 路由变化时滚动到顶部 + 关闭移动端侧栏
+  // 持续记录当前页面的滚动位置
   useEffect(() => {
-    mainRef.current?.scrollTo(0, 0);
+    const el = mainRef.current;
+    if (!el) return;
+    const onScroll = () => {
+      scrollPositions.current[pathname] = el.scrollTop;
+    };
+    el.addEventListener("scroll", onScroll, { passive: true });
+    return () => el.removeEventListener("scroll", onScroll);
+  }, [pathname]);
+
+  // 路由变化时恢复滚动位置（有记录则恢复，无记录则滚到顶部）+ 关闭移动端侧栏
+  useEffect(() => {
+    const saved = scrollPositions.current[pathname];
+    if (saved !== undefined && saved > 0) {
+      requestAnimationFrame(() => {
+        mainRef.current?.scrollTo(0, saved);
+      });
+    } else {
+      mainRef.current?.scrollTo(0, 0);
+    }
     setMobileSidebarOpen(false);
   }, [pathname]);
 

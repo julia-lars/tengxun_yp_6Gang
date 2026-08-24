@@ -1,4 +1,4 @@
-// 简洁筛选组件 — 5 道选择题（单张卡片内纵向排列，Q1 多选，Q2-Q5 单选）
+// 简洁筛选组件 — 3 道选择题（单张卡片内纵向排列，Q1 多选，Q2-Q3 单选）
 import { RotateCcw, X } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { parseMultiValue, SIMPLE_QUESTIONS, type SimpleFilterValue } from "@/lib/simple-filter";
@@ -23,11 +23,11 @@ export function SimpleFilter({ value, onChange, onClear }: SimpleFilterProps) {
 
         return (
           <div key={q.id}>
-            <p className="text-sm font-medium text-(--color-muted-foreground) mb-2">
-              <span className="font-semibold mr-1.5">{idx + 1}.</span>
+            <p className="text-sm font-semibold text-(--color-muted-foreground) mb-2">
+              <span className="mr-1.5">{idx + 1}.</span>
               {q.title}
               {q.subtitle && (
-                <span className="text-xs ml-1.5 font-normal opacity-60">（{q.subtitle}）</span>
+                <span className="text-xs ml-1.5 opacity-60">（{q.subtitle}）</span>
               )}
             </p>
             <div className="flex flex-wrap gap-2">
@@ -39,7 +39,7 @@ export function SimpleFilter({ value, onChange, onClear }: SimpleFilterProps) {
                   <Badge
                     key={opt.key}
                     variant={isActive ? "default" : "outline"}
-                    className={`cursor-pointer hover:opacity-80 transition-all duration-150 select-none ${
+                    className={`cursor-pointer hover:opacity-80 transition-all duration-150 select-none font-normal ${
                       isDisabled ? "opacity-30 cursor-not-allowed hover:opacity-30" : ""
                     }`}
                     title={opt.hint}

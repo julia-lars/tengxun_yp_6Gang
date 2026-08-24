@@ -3,7 +3,7 @@
 // 使用共享聊天引擎 agent-chat.ts
 // --------------------------------------------------------------
 
-import { type ChatRequest, type ChatSession, chatRequestSchema } from "@app/shared";
+import { type ChatRequest, type ChatSession, type EvidenceMeta, chatRequestSchema } from "@app/shared";
 import { zValidator } from "@hono/zod-validator";
 import { and, desc, eq, sql } from "drizzle-orm";
 import { Hono } from "hono";
@@ -19,6 +19,11 @@ import {
   formatEvidenceContext,
   type EvidenceRow,
 } from "../lib/agent-chat.js";
+import {
+  calculateConfidence,
+  computeTagOverlap,
+  classifyMatchLevel,
+} from "../lib/confidence.js";
 
 export const chatRoute = new Hono();
 
@@ -120,17 +125,29 @@ chatRoute.post("/", zValidator("json", chatRequestSchema), async (c) => {
       message,
       vectorQuery: async (vecStr) => {
         const rows = (await db.execute(
-          sql`SELECT id, original_text, source_file
+          sql`SELECT id, original_text, source_file,
+                     embedding <=> ${vecStr}::vector AS distance,
+                     annotation, speaker_id
               FROM source_segments
               WHERE embedding IS NOT NULL
                 AND (annotation->'meta'->>'rs' IS NULL OR annotation->'meta'->>'rs' != 'skip')
               ORDER BY embedding <=> ${vecStr}::vector
               LIMIT 3`,
-        )) as unknown as Array<{ id: number; original_text: string; source_file: string }>;
+        )) as unknown as Array<{
+          id: number;
+          original_text: string;
+          source_file: string;
+          distance: number;
+          annotation: Record<string, unknown> | null;
+          speaker_id: string | null;
+        }>;
         return rows.map((r) => ({
           id: r.id,
           originalText: r.original_text,
           sourceLabel: r.source_file,
+          similarity: 1 - (r.distance ?? 0),
+          speakerId: r.speaker_id ?? undefined,
+          annotation: r.annotation,
         }));
       },
       ilikeQuery: async () => {
@@ -139,6 +156,8 @@ chatRoute.post("/", zValidator("json", chatRequestSchema), async (c) => {
             id: sourceSegments.id,
             originalText: sourceSegments.originalText,
             sourceFile: sourceSegments.sourceFile,
+            annotation: sourceSegments.annotation,
+            speakerId: sourceSegments.speakerId,
           })
           .from(sourceSegments)
           .where(
@@ -149,6 +168,9 @@ chatRoute.post("/", zValidator("json", chatRequestSchema), async (c) => {
           id: r.id,
           originalText: r.originalText,
           sourceLabel: r.sourceFile,
+          similarity: 0.5, // ILIKE 兜底给中等相似度
+          speakerId: r.speakerId ?? undefined,
+          annotation: r.annotation as Record<string, unknown> | null,
         }));
       },
     });
@@ -158,6 +180,40 @@ chatRoute.post("/", zValidator("json", chatRequestSchema), async (c) => {
     evidenceRows,
     (e) => `[来源: ${e.sourceLabel}]`,
   );
+
+  // 3.5 计算置信度 + 增强证据元数据
+  const evidenceAnnotations = evidenceRows.map((e) => e.annotation ?? null);
+  const tagOverlapRatio = computeTagOverlap(tagSpec, evidenceAnnotations);
+
+  const similarities = evidenceRows
+    .map((e) => e.similarity ?? 0)
+    .filter((s) => s > 0);
+  const topSimilarity = similarities.length > 0 ? Math.max(...similarities) : 0;
+  const avgSimilarity =
+    similarities.length > 0
+      ? similarities.reduce((a, b) => a + b, 0) / similarities.length
+      : 0;
+
+  const hasDirectQuote = evidenceRows.some(
+    (e) => (e.matchLevel ?? classifyMatchLevel(e.similarity ?? 0)) === "direct",
+  );
+
+  const confidenceResult = calculateConfidence({
+    evidenceCount: evidenceRows.length,
+    topSimilarity,
+    avgSimilarity,
+    tagOverlapRatio,
+    sampleCount: persona?.sampleCount ?? 0,
+    hasDirectQuote,
+    isBoundaryQuestion: false,
+  });
+
+  const evidenceMeta: EvidenceMeta[] = evidenceRows.map((e) => {
+    const similarity = e.similarity ?? 0;
+    const matchLevel = e.matchLevel ?? classifyMatchLevel(similarity);
+    const tagOverlap = e.tagOverlap ?? tagOverlapRatio;
+    return { id: e.id, similarity, matchLevel, tagOverlap };
+  });
 
   // 4. 构建 System Prompt
   const systemPrompt = buildSystemPrompt(
@@ -190,6 +246,8 @@ chatRoute.post("/", zValidator("json", chatRequestSchema), async (c) => {
     history,
     userMessage: message,
     errorMessage: "[模拟用户暂时无法响应，请稍后重试]",
+    confidence: confidenceResult,
+    evidenceMeta,
     saveMessages: async (updatedMessages) => {
       await db
         .update(chatSessions)
@@ -246,4 +304,20 @@ chatRoute.get("/sessions/:id", async (c) => {
   };
 
   return c.json(result);
+});
+
+// DELETE /api/chat/sessions/:id —— 删除会话
+chatRoute.delete("/sessions/:id", async (c) => {
+  const id = Number(c.req.param("id"));
+  if (Number.isNaN(id)) return c.json({ error: "无效的会话 ID" }, 400);
+
+  const session = await db.query.chatSessions.findFirst({
+    where: eq(chatSessions.id, id),
+  });
+
+  if (!session) return c.json({ error: "会话不存在" }, 404);
+
+  await db.delete(chatSessions).where(eq(chatSessions.id, id));
+
+  return c.json({ success: true });
 });

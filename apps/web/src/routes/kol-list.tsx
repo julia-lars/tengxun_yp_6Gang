@@ -72,12 +72,16 @@ export function KolListPage() {
 
   return (
     <div className="space-y-6">
-      <Link
-        to="/"
-        className="inline-flex items-center gap-1 text-sm text-(--color-content-secondary) hover:text-(--color-brand-500) transition-colors"
-      >
-        <ArrowLeft className="h-3 w-3" /> 返回首页
-      </Link>
+      <div className="sticky top-0 z-10 -mt-6 pt-6 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 bg-neutral-50">
+        <div className="pb-2 border-b border-neutral-200">
+          <Link
+            to="/"
+            className="inline-flex items-center gap-1 text-sm text-(--color-content-secondary) hover:text-(--color-brand-500) transition-colors"
+          >
+            <ArrowLeft className="h-3 w-3" /> 返回首页
+          </Link>
+        </div>
+      </div>
 
       <PageHeader
         title="KOL 数字孪生"
@@ -88,7 +92,7 @@ export function KolListPage() {
         {kols.map((kol) => (
           <Card
             key={kol.id}
-            className="h-full transition-all duration-200 hover:border-(--color-brand-300) hover:shadow-md hover:-translate-y-0.5"
+            className="h-full group transition-all duration-200 hover:border-(--color-brand-300) hover:shadow-md hover:-translate-y-0.5"
           >
             <CardHeader className="pb-3">
               <div className="flex items-center gap-3">
@@ -96,7 +100,7 @@ export function KolListPage() {
                   <User className="h-5 w-5 text-(--color-brand-500)" />
                 </div>
                 <div className="min-w-0">
-                  <CardTitle className="text-lg font-serif text-black">{kol.name}</CardTitle>
+                  <CardTitle className="text-lg font-serif text-black group-hover:text-(--color-brand-500) transition-colors">{kol.name}</CardTitle>
                   <CardDescription className="text-xs text-(--color-content-tertiary)">
                     已分析 {kol.videoCount} 个视频
                   </CardDescription>

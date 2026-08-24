@@ -1,9 +1,7 @@
-// 证据溯源卡片 — 用于侧栏展示
-
+// 证据溯源卡片 — 内联展开式，简洁展示原文与来源
 import { Copy, FileText, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Badge } from "./badge";
-import { ConfidenceIndicator } from "./confidence-indicator";
 
 interface EvidenceCardProps {
   id: number;
@@ -12,17 +10,28 @@ interface EvidenceCardProps {
   annotation?: Record<string, unknown> | null;
   speakerId?: string;
   confidence?: number;
+  /** 向量相似度 (0-1) */
+  similarity?: number;
+  /** 证据等级 */
+  matchLevel?: "direct" | "partial" | "inferred";
   isActive?: boolean;
   onCopy?: () => void;
   className?: string;
 }
+
+const matchLevelLabel: Record<string, string> = {
+  direct: "直引",
+  partial: "部分关联",
+  inferred: "推断",
+};
 
 export function EvidenceCard({
   sourceFile,
   originalText,
   annotation,
   speakerId,
-  confidence = 0.85,
+  similarity,
+  matchLevel,
   isActive,
   onCopy,
   className,
@@ -30,14 +39,11 @@ export function EvidenceCard({
   const iceberg = (annotation as Record<string, unknown>)?.iceberg as
     | Record<string, string[]>
     | undefined;
-  const framework = (annotation as Record<string, unknown>)?.framework as
-    | Record<string, unknown>
-    | undefined;
 
   return (
     <div
       className={cn(
-        "rounded-lg border p-4 space-y-3 transition-all",
+        "rounded-lg border p-3 space-y-2 transition-all text-sm",
         isActive
           ? "border-(--color-primary) bg-(--color-primary)/5"
           : "border-(--color-border) bg-(--color-card)",
@@ -45,33 +51,25 @@ export function EvidenceCard({
       )}
     >
       {/* 原文引用 */}
-      <div>
-        <p className="text-xs font-medium text-(--color-muted-foreground) mb-1 flex items-center gap-1">
-          <FileText className="h-3 w-3" /> 原文引用
-        </p>
-        <blockquote className="text-sm text-(--color-foreground) leading-relaxed border-l-2 border-(--color-primary) pl-3 py-1">
-          {originalText}
-        </blockquote>
-      </div>
+      <blockquote className="leading-relaxed border-l-2 border-(--color-border) pl-3 py-1 text-(--color-foreground)">
+        {originalText}
+      </blockquote>
 
       {/* 冰山标签 */}
       {iceberg && Object.keys(iceberg).length > 0 && (
-        <div>
-          <p className="text-xs font-medium text-(--color-muted-foreground) mb-1">冰山标签</p>
-          <div className="flex flex-wrap gap-1">
-            {Object.entries(iceberg).map(([key, vals]) =>
-              (Array.isArray(vals) ? vals : [vals]).map((v) => (
-                <Badge key={`${key}-${v}`} variant="secondary" className="text-[10px]">
-                  {key}: {v}
-                </Badge>
-              )),
-            )}
-          </div>
+        <div className="flex flex-wrap gap-1">
+          {Object.entries(iceberg).map(([key, vals]) =>
+            (Array.isArray(vals) ? vals : [vals]).map((v) => (
+              <Badge key={`${key}-${v}`} variant="secondary" className="text-[10px]">
+                {key}: {v}
+              </Badge>
+            )),
+          )}
         </div>
       )}
 
       {/* 元信息 */}
-      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-(--color-muted-foreground)">
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-(--color-muted-foreground)">
         <span className="flex items-center gap-1">
           <FileText className="h-3 w-3" /> {sourceFile}
         </span>
@@ -80,7 +78,12 @@ export function EvidenceCard({
             <User className="h-3 w-3" /> {speakerId}
           </span>
         )}
-        <ConfidenceIndicator score={confidence} size="sm" />
+        {matchLevel && (
+          <span>{matchLevelLabel[matchLevel] ?? matchLevel}</span>
+        )}
+        {similarity !== undefined && (
+          <span>匹配 {Math.round(similarity * 100)}%</span>
+        )}
       </div>
 
       {/* 操作 */}

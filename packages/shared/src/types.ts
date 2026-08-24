@@ -42,10 +42,37 @@ export const personaDetailSchema = personaSummarySchema.extend({
 export type PersonaDetail = z.infer<typeof personaDetailSchema>;
 
 // ---- 对话 ----
+
+export const confidenceBreakdownSchema = z.object({
+  evidenceScore: z.number().min(0).max(1),
+  consistencyScore: z.number().min(0).max(1),
+  sampleScore: z.number().min(0).max(1),
+});
+export type ConfidenceBreakdown = z.infer<typeof confidenceBreakdownSchema>;
+
+export const confidenceResultSchema = z.object({
+  score: z.number().min(0).max(1),
+  level: z.enum(["high", "medium", "low"]),
+  breakdown: confidenceBreakdownSchema,
+  flags: z.array(z.string()),
+});
+export type ConfidenceResult = z.infer<typeof confidenceResultSchema>;
+
+export const evidenceMetaSchema = z.object({
+  id: z.number().int().positive(),
+  similarity: z.number().min(0).max(1),
+  matchLevel: z.enum(["direct", "partial", "inferred"]),
+  tagOverlap: z.number().min(0).max(1),
+});
+export type EvidenceMeta = z.infer<typeof evidenceMetaSchema>;
+
 export const chatMessageSchema = z.object({
   role: z.enum(["user", "assistant"]),
   content: z.string(),
   evidenceIds: z.array(z.number().int().positive()).optional(),
+  evidenceMeta: z.array(evidenceMetaSchema).optional(),
+  confidence: confidenceResultSchema.optional(),
+  suggestions: z.array(z.string()).optional(),
   timestamp: z.string(),
 });
 export type ChatMessage = z.infer<typeof chatMessageSchema>;
@@ -124,6 +151,7 @@ export const pipelineStatusSchema = z.object({
     "tagging",
     "embedding",
     "clustering",
+    "cancelled",
   ]),
   progress: z.number().min(0).max(100),
   estimatedTotalMs: z.number().int().positive(),
@@ -184,7 +212,7 @@ export type OutlineGenerateRequest = z.infer<typeof outlineGenerateRequestSchema
 
 export const outlineJobStatusSchema = z.object({
   jobId: z.string(),
-  status: z.enum(["pending", "running", "completed", "failed"]),
+  status: z.enum(["pending", "running", "completed", "failed", "cancelled"]),
   progress: z.number().min(0).max(100),
   estimatedTotalMs: z.number().int().positive(),
   estimatedRemainingMs: z.number().int().optional(),
@@ -251,7 +279,7 @@ export type BatchInterviewReport = z.infer<typeof batchInterviewReportSchema>;
 
 export const batchInterviewStatusSchema = z.object({
   jobId: z.string(),
-  status: z.enum(["pending", "running", "completed", "failed"]),
+  status: z.enum(["pending", "running", "completed", "failed", "cancelled"]),
   progress: z.number().min(0).max(100),
   estimatedTotalMs: z.number().int().positive(),
   estimatedRemainingMs: z.number().int().optional(),

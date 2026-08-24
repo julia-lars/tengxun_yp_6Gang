@@ -32,6 +32,12 @@ lerna-debug.log*
 # testing
 coverage/
 
+# 评测数据（含业务敏感信息，不上传 GitHub）
+data/eval/test_cases_*.json
+data/eval/results/
+data/eval/validation/
+测试结果分析报告.md
+
 # bun
 bun.lockb.tmp
 
