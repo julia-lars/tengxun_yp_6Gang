@@ -66,11 +66,25 @@ export const evidenceMetaSchema = z.object({
 });
 export type EvidenceMeta = z.infer<typeof evidenceMetaSchema>;
 
+// SSE 流中传输的完整证据数据（含原文内容，前端直接渲染）
+export const sseEvidenceSchema = z.object({
+  id: z.number().int().positive(),
+  sourceFile: z.string(),
+  originalText: z.string(),
+  annotation: z.record(z.string(), z.unknown()).nullable(),
+  similarity: z.number().min(0).max(1),
+  matchLevel: z.enum(["direct", "partial", "inferred"]),
+  tagOverlap: z.number().min(0).max(1),
+  speakerId: z.string().nullable().optional(),
+});
+export type SSEEvidence = z.infer<typeof sseEvidenceSchema>;
+
 export const chatMessageSchema = z.object({
   role: z.enum(["user", "assistant"]),
   content: z.string(),
   evidenceIds: z.array(z.number().int().positive()).optional(),
   evidenceMeta: z.array(evidenceMetaSchema).optional(),
+  evidence: z.array(sseEvidenceSchema).optional(),
   confidence: confidenceResultSchema.optional(),
   suggestions: z.array(z.string()).optional(),
   timestamp: z.string(),

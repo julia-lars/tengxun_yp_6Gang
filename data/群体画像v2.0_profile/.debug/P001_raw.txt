@@ -1,0 +1,554 @@
+Parse error: Unterminated string starting at: line 480 column 22 (char 14131)
+
+--- First 2000 chars ---
+{
+  "profile_version": "1.0",
+  "respondent_id": "P001",
+  "generated_at": "2025-04-15T00:00:00Z",
+  "source_segments_count": 1180,
+  "model": "user_profile_generator_v1",
+  "metadata": {
+    "age": 26,
+    "gender": "male",
+    "employment_status": "unemployed",
+    "education": "associate_degree",
+    "current_games": ["Apex英雄", "守望先锋", "战地", "无畏契约", "死锁", "穿越火线", "英雄联盟"],
+    "genre_experience": ["Apex英雄", "使命召唤", "守望先锋", "战地", "无畏契约", "死锁", "穿越火线", "英雄联盟"],
+    "platform": "PC (Steam)",
+    "play_hours": {
+      "Deadlock": 31,
+      "LOL英雄联盟": 3650,
+      "APEX英雄": 700,
+      "CF": 500,
+      "使命召唤": 30,
+      "战地": 60
+    }
+  },
+  "profile": {
+    "context": [
+      {
+        "trait_id": "T001",
+        "dimension": "context",
+        "trait_type": "social_context",
+        "statement": "经常与朋友一起玩游戏，社交是游戏的重要部分",
+        "status": "supported",
+        "temporal_scope": "recurring",
+        "confidence": 0.95,
+        "evidence": [
+          {
+            "segment_id": "iceberg_1",
+            "quote": "群友偶尔会跟我玩一下。",
+            "evidence_level": "E3",
+            "inference_type": "direct"
+          },
+          {
+            "segment_id": "iceberg_2",
+            "quote": "跟朋友一起玩",
+            "evidence_level": "E3",
+            "inference_type": "direct"
+          },
+          {
+            "segment_id": "iceberg_3",
+            "quote": "一起开黑的时候就说一下",
+            "evidence_level": "E3",
+            "inference_type": "direct"
+          }
+        ],
+        "supporting_segments": ["iceberg_1", "iceberg_2", "iceberg_3"]
+      },
+      {
+        "trait_id": "T002",
+        "dimension": "context",
+        "trait_type": "life_context",
+        "statement": "目前待业，有较多时间玩游戏，但也会因生活变化（如考研）而减少游戏",
+        "status": "supported",
+        "temporal_scope": "current",
+        "confidence": 0.85,
+        "evidence": [
+          {
+            "segment_id": "iceberg_4",
+            "quote": "太久没怎么玩了，因为最近要考研",
+            "evidence_level": "E3",
+            "inference_type": "di
+
+--- Full raw text ---
+{
+  "profile_version": "1.0",
+  "respondent_id": "P001",
+  "generated_at": "2025-04-15T00:00:00Z",
+  "source_segments_count": 1180,
+  "model": "user_profile_generator_v1",
+  "metadata": {
+    "age": 26,
+    "gender": "male",
+    "employment_status": "unemployed",
+    "education": "associate_degree",
+    "current_games": ["Apex英雄", "守望先锋", "战地", "无畏契约", "死锁", "穿越火线", "英雄联盟"],
+    "genre_experience": ["Apex英雄", "使命召唤", "守望先锋", "战地", "无畏契约", "死锁", "穿越火线", "英雄联盟"],
+    "platform": "PC (Steam)",
+    "play_hours": {
+      "Deadlock": 31,
+      "LOL英雄联盟": 3650,
+      "APEX英雄": 700,
+      "CF": 500,
+      "使命召唤": 30,
+      "战地": 60
+    }
+  },
+  "profile": {
+    "context": [
+      {
+        "trait_id": "T001",
+        "dimension": "context",
+        "trait_type": "social_context",
+        "statement": "经常与朋友一起玩游戏，社交是游戏的重要部分",
+        "status": "supported",
+        "temporal_scope": "recurring",
+        "confidence": 0.95,
+        "evidence": [
+          {
+            "segment_id": "iceberg_1",
+            "quote": "群友偶尔会跟我玩一下。",
+            "evidence_level": "E3",
+            "inference_type": "direct"
+          },
+          {
+            "segment_id": "iceberg_2",
+            "quote": "跟朋友一起玩",
+            "evidence_level": "E3",
+            "inference_type": "direct"
+          },
+          {
+            "segment_id": "iceberg_3",
+            "quote": "一起开黑的时候就说一下",
+            "evidence_level": "E3",
+            "inference_type": "direct"
+          }
+        ],
+        "supporting_segments": ["iceberg_1", "iceberg_2", "iceberg_3"]
+      },
+      {
+        "trait_id": "T002",
+        "dimension": "context",
+        "trait_type": "life_context",
+        "statement": "目前待业，有较多时间玩游戏，但也会因生活变化（如考研）而减少游戏",
+        "status": "supported",
+        "temporal_scope": "current",
+        "confidence": 0.85,
+        "evidence": [
+          {
+            "segment_id": "iceberg_4",
+            "quote": "太久没怎么玩了，因为最近要考研",
+            "evidence_level": "E3",
+            "inference_type": "direct"
+          }
+        ],
+        "supporting_segments": ["iceberg_4"]
+      }
+    ],
+    "experience_capability": [
+      {
+        "trait_id": "T003",
+        "dimension": "experience_capability",
+        "trait_type": "experience",
+        "statement": "在射击类游戏（如Apex、守望先锋、战地等）有丰富经验，总游戏时长超过4000小时",
+        "status": "supported",
+        "temporal_scope": "stable",
+        "confidence": 0.95,
+        "evidence": [
+          {
+            "segment_id": "metadata",
+            "quote": "游戏时长: Deadlock: 31, LOL: 3650, APEX: 700, CF: 500, 使命召唤: 30, 战地: 60",
+            "evidence_level": "E3",
+            "inference_type": "direct"
+          }
+        ],
+        "supporting_segments": ["metadata"]
+      },
+      {
+        "trait_id": "T004",
+        "dimension": "experience_capability",
+        "trait_type": "capability",
+        "statement": "自认在RTS类游戏中水平较低，经常被吊打",
+        "status": "supported",
+        "temporal_scope": "current",
+        "confidence": 0.90,
+        "evidence": [
+          {
+            "segment_id": "iceberg_5",
+            "quote": "一直被人吊打",
+            "evidence_level": "E3",
+            "inference_type": "direct"
+          },
+          {
+            "segment_id": "iceberg_6",
+            "quote": "这种类型我都玩的很菜",
+            "evidence_level": "E3",
+            "inference_type": "direct"
+          }
+        ],
+        "supporting_segments": ["iceberg_5", "iceberg_6"]
+      }
+    ],
+    "behaviors": [
+      {
+        "trait_id": "T005",
+        "dimension": "behaviors",
+        "trait_type": "current_behavior",
+        "statement": "经常以休闲心态玩游戏，不特别看重分数或排名",
+        "status": "supported",
+        "temporal_scope": "current",
+        "confidence": 0.95,
+        "evidence": [
+          {
+            "segment_id": "iceberg_7",
+            "quote": "分不是特别重要",
+            "evidence_level": "E3",
+            "inference_type": "direct"
+          },
+          {
+            "segment_id": "iceberg_8",
+            "quote": "觉得娱乐重要",
+            "evidence_level": "E3",
+            "inference_type": "direct"
+          }
+        ],
+        "supporting_segments": ["iceberg_7", "iceberg_8"]
+      },
+      {
+        "trait_id": "T006",
+        "dimension": "behaviors",
+        "trait_type": "social_behavior",
+        "statement": "与朋友一起玩时更倾向于社交互动，打排位时则独自玩",
+        "status": "supported",
+        "temporal_scope": "recurring",
+        "confidence": 0.90,
+        "evidence": [
+          {
+            "segment_id": "iceberg_9",
+            "quote": "打竞技从来不跟朋友玩儿",
+            "evidence_level": "E3",
+            "inference_type": "direct"
+          },
+          {
+            "segment_id": "iceberg_10",
+            "quote": "打CS一般跟朋友玩，怕没互动",
+            "evidence_level": "E3",
+            "inference_type": "direct"
+          }
+        ],
+        "supporting_segments": ["iceberg_9", "iceberg_10"]
+      },
+      {
+        "trait_id": "T007",
+        "dimension": "behaviors",
+        "trait_type": "recurring_behavior",
+        "statement": "会因心态变化或游戏体验不佳而频繁切换游戏",
+        "status": "supported",
+        "temporal_scope": "recurring",
+        "confidence": 0.90,
+        "evidence": [
+          {
+            "segment_id": "iceberg_11",
+            "quote": "心态崩了就直接换游戏耍",
+            "evidence_level": "E3",
+            "inference_type": "direct"
+          },
+          {
+            "segment_id": "iceberg_12",
+            "quote": "两个游戏更想去玩三角洲行动",
+            "evidence_level": "E3",
+            "inference_type": "direct"
+          }
+        ],
+        "supporting_segments": ["iceberg_11", "iceberg_12"]
+      },
+      {
+        "trait_id": "T008",
+        "dimension": "behaviors",
+        "trait_type": "cessation_behavior",
+        "statement": "因朋友离开或生活变化而弃坑游戏",
+        "status": "supported",
+        "temporal_scope": "historical",
+        "confidence": 0.90,
+        "evidence": [
+          {
+            "segment_id": "iceberg_13",
+            "quote": "没玩几天全部都跑光了",
+            "evidence_level": "E3",
+            "inference_type": "direct"
+          },
+          {
+            "segment_id": "iceberg_14",
+            "quote": "那些朋友也都跑光了",
+            "evidence_level": "E3",
+            "inference_type": "direct"
+          }
+        ],
+        "supporting_segments": ["iceberg_13", "iceberg_14"]
+      },
+      {
+        "trait_id": "T009",
+        "dimension": "behaviors",
+        "trait_type": "consumption_behavior",
+        "statement": "在游戏内消费，主要购买会员和保险箱等实用功能",
+        "status": "supported",
+        "temporal_scope": "recurring",
+        "confidence": 0.90,
+        "evidence": [
+          {
+            "segment_id": "iceberg_15",
+            "quote": "固定的会员和保险。",
+            "evidence_level": "E3",
+            "inference_type": "direct"
+          },
+          {
+            "segment_id": "iceberg_16",
+            "quote": "最主要的是权限，《暗区》的权限可以增加上架的格子，仓库格子，保险就是带东西出来。",
+            "evidence_level": "E3",
+            "inference_type": "direct"
+          }
+        ],
+        "supporting_segments": ["iceberg_15", "iceberg_16"]
+      },
+      {
+        "trait_id": "T010",
+        "dimension": "behaviors",
+        "trait_type": "play_behavior",
+        "statement": "在游戏中会主动探索、搜集物品，并注重装备搭配",
+        "status": "supported",
+        "temporal_scope": "recurring",
+        "confidence": 0.90,
+        "evidence": [
+          {
+            "segment_id": "iceberg_17",
+            "quote": "有包必舔",
+            "evidence_level": "E3",
+            "inference_type": "direct"
+          },
+          {
+            "segment_id": "iceberg_18",
+            "quote": "有东西就搜",
+            "evidence_level": "E3",
+            "inference_type": "direct"
+          }
+        ],
+        "supporting_segments": ["iceberg_17", "iceberg_18"]
+      },
+      {
+        "trait_id": "T011",
+        "dimension": "behaviors",
+        "trait_type": "social_behavior",
+        "statement": "会与朋友分享游戏内容，如截图和推荐码",
+        "status": "supported",
+        "temporal_scope": "recurring",
+        "confidence": 0.85,
+        "evidence": [
+          {
+            "segment_id": "iceberg_19",
+            "quote": "打游戏的群里面发",
+            "evidence_level": "E3",
+            "inference_type": "direct"
+          },
+          {
+            "segment_id": "iceberg_20",
+            "quote": "我有推荐码，要来的话就可以",
+            "evidence_level": "E3",
+            "inference_type": "direct"
+          }
+        ],
+        "supporting_segments": ["iceberg_19", "iceberg_20"]
+      }
+    ],
+    "preferences": [
+      {
+        "trait_id": "T012",
+        "dimension": "preferences",
+        "trait_type": "gameplay_preference",
+        "statement": "偏好有竞技性和战术深度的射击游戏，喜欢玩头脑而非莽撞",
+        "status": "supported",
+        "temporal_scope": "stable",
+        "confidence": 0.90,
+        "evidence": [
+          {
+            "segment_id": "iceberg_21",
+            "quote": "竞技性很强",
+            "evidence_level": "E3",
+            "inference_type": "direct"
+          },
+          {
+            "segment_id": "iceberg_22",
+            "quote": "战术体系更加明显一点，我是喜欢这种玩头脑的，不喜欢莽撞",
+            "evidence_level": "E3",
+            "inference_type": "direct"
+          }
+        ],
+        "supporting_segments": ["iceberg_21", "iceberg_22"]
+      },
+      {
+        "trait_id": "T013",
+        "dimension": "preferences",
+        "trait_type": "aesthetic_preference",
+        "statement": "喜欢偏写实、厚重、工业风格的枪械质感",
+        "status": "supported",
+        "temporal_scope": "stable",
+        "confidence": 0.90,
+        "evidence": [
+          {
+            "segment_id": "iceberg_23",
+            "quote": "我可能是枪械的质感",
+            "evidence_level": "E3",
+            "inference_type": "direct"
+          },
+          {
+            "segment_id": "iceberg_24",
+            "quote": "喜欢偏厚重、有工业风格、写实一点的枪械",
+            "evidence_level": "E3",
+            "inference_type": "direct"
+          }
+        ],
+        "supporting_segments": ["iceberg_23", "iceberg_24"]
+      },
+      {
+        "trait_id": "T014",
+        "dimension": "preferences",
+        "trait_type": "social_preference",
+        "statement": "更喜欢与朋友一起玩，认为有队友更好玩，但排位时独自玩",
+        "status": "supported",
+        "temporal_scope": "recurring",
+        "confidence": 0.90,
+        "evidence": [
+          {
+            "segment_id": "iceberg_25",
+            "quote": "有队友好玩一点",
+            "evidence_level": "E3",
+            "inference_type": "direct"
+          },
+          {
+            "segment_id": "iceberg_26",
+            "quote": "打竞技从来不跟朋友玩儿",
+            "evidence_level": "E3",
+            "inference_type": "direct"
+          }
+        ],
+        "supporting_segments": ["iceberg_25", "iceberg_26"]
+      },
+      {
+        "trait_id": "T015",
+        "dimension": "preferences",
+        "trait_type": "mode_preference",
+        "statement": "对PVE和剧情模式有偏好，认为这类游戏剧情丰富、有意思",
+        "status": "supported",
+        "temporal_scope": "stable",
+        "confidence": 0.85,
+        "evidence": [
+          {
+            "segment_id": "iceberg_27",
+            "quote": "因为更喜欢pve部分，觉得这类游戏剧情会很丰富，会有意思",
+            "evidence_level": "E3",
+            "inference_type": "direct"
+          }
+        ],
+        "supporting_segments": ["iceberg_27"]
+      },
+      {
+        "trait_id": "T016",
+        "dimension": "preferences",
+        "trait_type": "combat_preference",
+        "statement": "偏好技能与射击结合的玩法，认为技能增加趣味性和深度",
+        "status": "supported",
+        "temporal_scope": "stable",
+        "confidence": 0.90,
+        "evidence": [
+          {
+            "segment_id": "iceberg_28",
+            "quote": "因为从来没有遇到过射击类的游戏，还有技能，觉得很有意思",
+            "evidence_level": "E3",
+            "inference_type": "direct"
+          },
+          {
+            "segment_id": "iceberg_29",
+            "quote": "我觉得守望先锋挺有意思，不仅有FPS的那种东西在，因为我比较喜欢mobai的游戏，又比较喜欢英雄联盟，它里面有技能就很有意思，我觉得很吸引",
+            "evidence_level": "E3",
+            "inference_type": "direct"
+          }
+        ],
+        "supporting_segments": ["iceberg_28", "iceberg_29"]
+      }
+    ],
+    "motivations_needs": [
+      {
+        "trait_id": "T017",
+        "dimension": "motivations_needs",
+        "trait_type": "motivation",
+        "statement": "与朋友一起玩是重要的社交动机，害怕没有互动",
+        "status": "supported",
+        "temporal_scope": "recurring",
+        "confidence": 0.95,
+        "evidence": [
+          {
+            "segment_id": "iceberg_30",
+            "quote": "跟朋友一起玩",
+            "evidence_level": "E3",
+            "inference_type": "direct"
+          },
+          {
+            "segment_id": "iceberg_31",
+            "quote": "打CS一般跟朋友玩，怕没互动",
+            "evidence_level": "E3",
+            "inference_type": "direct"
+          }
+        ],
+        "supporting_segments": ["iceberg_30", "iceberg_31"]
+      },
+      {
+        "trait_id": "T018",
+        "dimension": "motivations_needs",
+        "trait_type": "motivation",
+        "statement": "探索和收集物品带来乐趣，喜欢搜刮和配装备",
+        "status": "supported",
+        "temporal_scope": "recurring",
+        "confidence": 0.90,
+        "evidence": [
+          {
+            "segment_id": "iceberg_32",
+            "quote": "想用新的枪",
+            "evidence_level": "E3",
+            "inference_type": "direct"
+          },
+          {
+            "segment_id": "iceberg_33",
+            "quote": "会专门看价值高的东西",
+            "evidence_level": "E3",
+            "inference_type": "direct"
+          }
+        ],
+        "supporting_segments": ["iceberg_32", "iceberg_33"]
+      },
+      {
+        "trait_id": "T019",
+        "dimension": "motivations_needs",
+        "trait_type": "motivation",
+        "statement": "通过排位证明自己，追求段位和认可",
+        "status": "supported",
+        "temporal_scope": "recurring",
+        "confidence": 0.90,
+        "evidence": [
+          {
+            "segment_id": "iceberg_34",
+            "quote": "排位更多方面是证明自己，有时候也是想上更高的",
+            "evidence_level": "E3",
+            "inference_type": "direct"
+          },
+          {
+            "segment_id": "iceberg_35",
+            "quote": "DF杀了人对自己的认可感更强",
+            "evidence_level": "E3",
+            "inference_type": "direct"
+          }
+        ],
+        "supporting_segments": ["iceberg_34", "iceberg_35"]
+      },
+      {
+        "trait_id": "T020",
+        "dimension": "motivations

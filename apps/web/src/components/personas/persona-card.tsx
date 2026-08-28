@@ -16,7 +16,7 @@ export function PersonaCard({ persona }: PersonaCardProps) {
   const topTags = extractTopTags(spec, 5);
 
   return (
-    <Card className="h-full group transition-all duration-200 hover:border-(--color-brand-300) hover:shadow-md hover:-translate-y-0.5">
+    <Card className="h-full group transition-all duration-200 hover:border-(--color-brand-300) hover:shadow-md hover:-translate-y-0.5 flex flex-col">
       <CardHeader className="pb-3">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-2xl bg-(--color-brand-50) flex items-center justify-center flex-shrink-0">
@@ -30,30 +30,33 @@ export function PersonaCard({ persona }: PersonaCardProps) {
           </div>
         </div>
       </CardHeader>
-      <CardContent className="space-y-3">
-        <p className="text-sm text-(--color-content-secondary) text-clamp-2">
+      <CardContent className="space-y-3 flex flex-col flex-1">
+        {/* 描述 — 固定 2 行高度，确保对齐 */}
+        <p className="text-sm text-(--color-content-secondary) text-clamp-2 min-h-[2.5rem]">
           {persona.description}
         </p>
 
-        {/* 特征标签 — 5 个维度标签 + 折叠计数 */}
-        {topTags.length > 0 && (
-          <div className="space-y-1.5">
-            <p className="text-xs text-(--color-content-tertiary) font-medium">特征标签</p>
-            <div className="flex flex-wrap gap-1">
-              {topTags.map(({ dim, value }) => (
-                <Badge
-                  key={`${dim}-${value}`}
-                  variant="secondary"
-                  className="text-[10px]"
-                >
-                  {value}
-                </Badge>
-              ))}
+        {/* 特征标签 — 固定 2 行高度，即使没有标签也占位 */}
+        <div className="min-h-[2rem]">
+          {topTags.length > 0 && (
+            <div className="space-y-1.5">
+              <div className="flex flex-wrap gap-1">
+                {topTags.map(({ dim, value }) => (
+                  <Badge
+                    key={`${dim}-${value}`}
+                    variant="secondary"
+                    className="text-[10px]"
+                  >
+                    {value}
+                  </Badge>
+                ))}
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
 
-        <div className="flex gap-2 pt-1">
+        {/* 按钮 — 固定在底部 */}
+        <div className="flex gap-2 pt-1 mt-auto">
           <Button
             asChild
             variant="outline"

@@ -133,7 +133,7 @@ kolRoute.post("/chat", zValidator("json", kolChatRequestSchema), async (c) => {
               AND (ad_label IS NULL OR ad_label != '广告口播')
               AND embedding <=> ${vecStr}::vector < ${KOL_SIMILARITY_THRESHOLD}
             ORDER BY embedding <=> ${vecStr}::vector
-            LIMIT 3`,
+            LIMIT 10`,
       )) as unknown as Array<{
         id: number;
         original_text: string;
@@ -151,7 +151,7 @@ kolRoute.post("/chat", zValidator("json", kolChatRequestSchema), async (c) => {
                 AND embedding IS NOT NULL
                 AND (ad_label IS NULL OR ad_label != '广告口播')
               ORDER BY embedding <=> ${vecStr}::vector
-              LIMIT 3`,
+              LIMIT 10`,
         )) as unknown as Array<{
           id: number;
           original_text: string;
@@ -180,7 +180,7 @@ kolRoute.post("/chat", zValidator("json", kolChatRequestSchema), async (c) => {
               AND (${kolSegments.adLabel} IS NULL OR ${kolSegments.adLabel} != '广告口播')
               AND ${kolSegments.originalText} ILIKE ${"%" + escapeLike(message.slice(0, 30)) + "%"}`,
         )
-        .limit(3);
+        .limit(10);
       return rows.map((r) => ({
         id: r.id,
         originalText: r.originalText,
@@ -281,6 +281,7 @@ kolRoute.post("/chat", zValidator("json", kolChatRequestSchema), async (c) => {
     llmMessages,
     sessionId: session.id,
     evidenceIds: evidenceRows.map((e) => e.id),
+    evidenceData: evidenceRows,
     history,
     userMessage: message,
     errorMessage: "[KOL分身暂时无法响应，请稍后重试]",
@@ -290,6 +291,12 @@ kolRoute.post("/chat", zValidator("json", kolChatRequestSchema), async (c) => {
       await db
         .update(kolChatSessions)
         .set({ messages: updatedMessages as never, updatedAt: new Date() })
+        .where(eq(kolChatSessions.id, session.id));
+    },
+    updateTitle: async (title) => {
+      await db
+        .update(kolChatSessions)
+        .set({ title, updatedAt: new Date() })
         .where(eq(kolChatSessions.id, session.id));
     },
   });

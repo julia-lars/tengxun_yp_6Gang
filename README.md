@@ -60,8 +60,8 @@ bun run dev
 
 | 层             | 状态  | 说明                                                        |
 | ------------- | --- | --------------------------------------------------------- |
-| 数据处理          | ✅   | 68 个文件 → 17,132 个片段，已清洗入库                                 |
-| 数据库           | ✅   | 3 张新表 + pgvector + HNSW 索引 + 4 个示例画像                      |
+| 数据处理          | ✅   | 14 项目，18,743 片段 → 15,395 有效片段，已清洗入库                       |
+| 数据库           | ✅   | 3 张新表 + pgvector + HNSW 索引 + 5 个群体画像                      |
 | 共享类型          | ✅   | Persona/Chat/TagDimension Zod Schema                      |
 | LLM SDK       | ✅   | chat/chatStream/embed，支持 DeepSeek                         |
 | API 路由        | ✅   | /api/tags /api/personas /api/chat(SSE) /api/chat/sessions |
@@ -70,10 +70,9 @@ bun run dev
 | 品牌替换          | ✅   | 教程内容删除，MUR 暗色主题                                           |
 | 测试            | ✅   | typecheck 通过，全部测试通过                                       |
 | pgvector      | ✅   | 编译安装 + vector(1024) + HNSW 索引                             |
-| **AI 打标**     | ⬜   | 17K 片段尚未标注——这是最关键的上游任务                                    |
-| **Embedding (KOL)** | ✅ | bge-large-zh-v1.5，389 条 kol_segments 已向量化，pgvector 语义搜索替代 ILIKE |
-| **Embedding (画像)** | ⬜ | source_segments 表待打标完成后灌入 |
-| **画像聚类**      | ⬜   | 当前用的是手写种子数据，非真实聚类                                         |
+| **AI 打标（v3.0）** | ✅ | 冰山五层 M1-M5 + 框架四维度 + 有效性判断，15,395 有效片段                  |
+| **Embedding（群体画像）** | ✅ | bge-m3，10,897 片段向量化，pgvector HNSW 索引 |
+| **画像聚类**      | ✅   | 基于 M1_motivation 标注分类 5 个画像，718 个受访者已分配                         |
 | **证据溯源**      | 🔧   | KOL 侧已实现向量搜索，群体画像侧仍走 ILIKE                               |
 | **评测**        | ⬜   | 142 道测试题未执行                                               |
 | **部署**        | ✅   | 已部署到腾讯云 CVM http://49.232.59.125                           |
@@ -104,7 +103,7 @@ bun run dev
 
 ```
 tengxun_yp_6Gang/
-├── PROJECT_PLAN.md           ← 你正在读的文件
+├── README.md                 ← 你正在读的文件
 │
 ├── apps/api/src/             ← 后端（Hono + Drizzle）
 │   ├── db/schema.ts          ← 数据库表（7 张表）
@@ -120,9 +119,29 @@ tengxun_yp_6Gang/
 │   └── components/ui/        ← shadcn 组件
 ├── packages/shared/src/      ← 前后端共享 Zod Schema
 │
-├── docs/                     ← 用研产出（标注规范、画像假设等）
-├── data/                     ← 处理后的数据（all_segments.jsonl 等）
-├── scripts/                  ← 独立脚本
+├── docs/                     ← 用研产出与规范文档
+│   ├── 数据标注规范.md
+│   ├── 数据清洗规范.md
+│   ├── 数据提取规范.md
+│   ├── 用户画像Profile生成规范.md
+│   ├── Embedding规范.md
+│   ├── Profile_Embedding规范.md
+│   └── 画像假设.md
+│
+├── data/
+│   ├── 群体画像v2.0_merged/   ← 14 项目 merged 标注数据（15,395 有效片段）
+│   └── 群体画像v2.0_profile/  ← 14 项目 Profile 数据（受访者画像）
+│
+├── scripts/                  ← 数据处理流水线脚本
+│   ├── process_all.py        ← 一键全流程：提取 → 清洗 → 打标 → 合并
+│   ├── label_all_v3.py       ← AI 打标 v3.0（冰山 M1-M5 + framework）
+│   ├── merge_labeled_by_project.py ← 按项目合并标注结果
+│   ├── embed_segments.py     ← Segment Embedding 生成（bge-m3）
+│   ├── split_embeddings_by_profile.py ← 按 Profile 拆分 Embedding
+│   ├── generate_profiles.py  ← 用户画像 Profile 生成
+│   ├── classify_respondents.py ← 受访者画像分类（C1-C5）
+│   ├── import_source_segments.py ← 导入 source_segments 表
+│   └── ...
 └── deploy/                   ← 部署配置
 ```
 
@@ -174,27 +193,17 @@ tengxun_yp_6Gang/
 
 ### AI 开发 × 3（崔续衡 闫瑾 林钰坤）
 
-- [x] **任务 1：数据提取与清洗** —— 68 个文件（6 种格式）→ 17,132 个清洗后片段，已输出 `data/all_segments.jsonl`。🔧 英文片段混在中文数据集中，建议按语言分文件。
+- [x] **任务 1：数据提取与清洗（v2.0）** —— 14 项目，18,743 个片段 → 15,395 个有效片段（is_player_evidence=true），已清洗入库。流程：`scripts/process_all.py` → `clean_segments_v2_demo.py` → `merge_labeled_by_project.py`。产物：`data/群体画像v2.0_merged/`（14 个 JSON 文件）。
 
-- [x] **任务 2：打标 Schema 设计** —— 冰山五层 + 框架四维度的 JSON Schema 已在 `docs/数据处理计划.md` 中定义。🔧 需要和用研专家确认 Schema 字段是否完整，确认后固化为 `annotation_schema.json`。
+- [x] **任务 2：打标 Schema 设计** —— 冰山五层 M1-M5 + 框架四维度 + validity 判断，JSON Schema 已定义在 `docs/数据标注规范.md`。AI 打标 v3.0 已执行：`scripts/label_all_v3.py`。
 
-- [x] **任务 3：LLM SDK 封装** —— `apps/api/src/lib/llm.ts`：chat/chatStream/embed，支持 DeepSeek/GLM/MiniMax，内置重试+流式。🔧 embed() 方法用 DeepSeek 的通用 embedding API 可能不如专用模型（bge-large-zh），需要做对比评测。
+- [x] **任务 3：LLM SDK 封装** —— `apps/api/src/lib/llm.ts`：chat/chatStream/embed，支持 DeepSeek/GLM/MiniMax，内置重试+流式。🔧 embed() 方法用 DeepSeek 的通用 embedding API 可能不如专用模型（bge-m3），需要做对比评测。
 
-- [ ] **任务 4：AI 打标 Pipeline** —— **这是当前最关键的未完成项。** 17K 片段需要逐一过 LLM 打标。实现方式：
-  1. 基于黄金案例（需用研专家先产出）写 Few-shot 打标 Prompt
-  2. 批量调 `chat()` 对每个片段标注，输出结构化 JSON
-  3. 低置信度（<0.6）标记为待人工复核
-  4. 结果写回 `source_segments` 表
-  - 产物：`scripts/label.ts` + `annotated_corpus.jsonl`
+- [x] **任务 4：AI 打标 Pipeline（v3.0）** —— 14 项目 18,743 片段已全部标注完成：冰山五层 M1-M5 + 框架四维度 + validity 判断。低置信度标记为 skip_reason。脚本：`scripts/label_all_v3.py` + `scripts/label_imur_parallel.py`。
 
-- [x] **任务 5：Embedding 与向量存储** — ✅ KOL 侧已完成(scripts/embed_kol.py, bge-large-zh-v1.5 via ModelScope, 389条 kol_segments 向量化, pgvector 语义搜索替代 ILIKE, 含广告口播过滤)。⬜ 群体画像侧: 待打标完成后对 17K 条 source_segments 执行同流程。产物: scripts/embed_kol.py + scripts/embed_server.py(Python)。
+- [x] **任务 5：Embedding 与向量存储** —— ✅ 群体画像：scripts/embed_segments.py（bge-m3, 1024-dim, L2 normalized），10,897 片段向量化，已灌入 source_segments 表并建 HNSW 索引。✅ KOL 侧：scripts/embed_kol.py（bge-large-zh-v1.5），389 条 kol_segments 向量化。产物：data/embed/segments/ + data/embed/profiles/。
 
-- [x] **任务 6：画像生成引擎** —— 当前用手写种子数据（`seed-personas.ts`）模拟了 4 个画像。🔧 真正的聚类流程未实现：标注→Embedding→HDBSCAN→提取标签+动机链+原声。实现方式：
-  1. 从 `source_segments` 读已标注+Embedding 的数据
-  2. HDBSCAN 聚类（min_cluster_size=5），UMAP 降维可视化
-  3. 每个 cluster 统计高频标签值→画像标签，提取 M1→M5 典型路径→动机链，选 3-5 条中心原文→原声证据
-  4. 结果写入 `personas` 表
-  - 产物：`apps/api/src/lib/persona-engine.ts`
+- [x] **任务 6：画像生成引擎** —— ✅ 基于 M1_motivation 标注分类 5 个群体画像（C1-C5），718 个受访者已分配（15% 阈值，可多画像）。脚本：scripts/classify_respondents.py。画像数据已写入 personas 和 respondents 表。Profile 生成：scripts/generate_profiles.py → data/群体画像v2.0_profile/（14 项目）。
 
 - [x] **任务 7：对话引擎** —— System Prompt 模板 + RAG（当前用 ILIKE 模糊匹配，非向量搜索）+ SSE 流式。端到端可用，AI 以画像人设回复。🔧 优化项：
   1. **RAG 升级**：pgvector 已就绪，Embedding 灌入后把 `ILIKE` 替换为向量相似搜索 `ORDER BY embedding <=> query_vector LIMIT 3`
@@ -317,22 +326,22 @@ tengxun_yp_6Gang/
 ## 关键依赖链
 
 ```
-用研: 标注规范 + 黄金案例 ──→ AI: 打标 Pipeline ──→ AI: Embedding ──→ AI: 聚类画像
+用研: 标注规范 + 黄金案例 ──→ AI: 打标 Pipeline ✅ ──→ AI: Embedding ✅ ──→ AI: 聚类画像 ✅
                                                                         │
                                                                         ▼
-                                                              后端: personas 表有真实数据
+                                                              后端: personas 表有真实数据 ✅
                                                                         │
                                                                         ▼
-                                                              前端: 画像列表展示真实聚类结果
+                                                              前端: 画像列表展示真实聚类结果 ✅
                                                                         │
                                                                         ▼
-                                                              AI: RAG 向量搜索替换 ILIKE
+                                                              AI: RAG 向量搜索替换 ILIKE 🔧
                                                                         │
                                                                         ▼
-                                                              测试: 142 题评测 + 盲测
+                                                              测试: 142 题评测 + 盲测 ⬜
 ```
 
-**当前阻塞点：用研专家尚未产出标注规范和黄金案例 → AI 打标无法开始 → 聚类和 RAG 只能用手写种子数据。**
+**当前状态：v2.0 数据流水线已完成，5 个群体画像（C1-C5）已入库，source_segments 表已更新（15,395 条，91.7% 有 persona_ids）。下一步：RAG 向量搜索升级 + 评测。**
 
 ---
 
@@ -344,10 +353,10 @@ tengxun_yp_6Gang/
 | 功能       | 状态  | 说明                                   |
 | -------- | --- | ------------------------------------ |
 | 标签选择器    | ✅   | 五维度选标签，实时反馈匹配画像数。🔧 缺互斥校验            |
-| 画像预览     | ✅   | 展示 4 个手写种子画像。⬜ 等聚类后替换为真实画像           |
+| 画像预览     | ✅   | 展示 5 个群体画像（C1-C5），基于 M1_motivation 真实分类   |
 | 虚拟访谈室    | ✅   | SSE 流式对话，气泡布局。🔧 缺历史恢复+溯源面板          |
 | 对话引擎     | ✅   | 角色 Prompt + DeepSeek。🔧 RAG 需升级为向量搜索 |
-| 证据溯源     | ⬜   | 未实现                                  |
+| 证据溯源     | 🔧   | KOL 侧已实现向量搜索，群体画像侧仍走 ILIKE      |
 | 标签查询 API | ✅   | /api/tags 返回 5 个维度                   |
 
 

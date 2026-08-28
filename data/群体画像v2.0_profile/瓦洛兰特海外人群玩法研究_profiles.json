@@ -1,0 +1,979 @@
+[
+  {
+    "profile_version": "1.0",
+    "respondent_id": "P001",
+    "generated_at": "2025-04-13T12:00:00Z",
+    "source_segments_count": 64,
+    "model": "user_profile_generator_v1",
+    "metadata": {
+      "respondent_id": "P001",
+      "display_name": "P001",
+      "source_files": [
+        "瓦洛兰特海外人群玩法研究/深访笔录-D1.docx"
+      ],
+      "segment_count": 64,
+      "demographics": {
+        "name": "P001",
+        "age": null,
+        "gender": "",
+        "occupation": "",
+        "education": "",
+        "self_intro_raw": "MOBA和枪战吧，一起玩的人多。\nMOBA就是《LOL》，如果是电脑上的，《300英雄》玩过一点点，但是主要是《LOL》，然后枪战就比较多了，从单机就是《使命召唤》到《彩虹六号》、吃鸡、《瓦罗兰特》，然后《守望先锋》这种的。"
+      },
+      "gaming_background": {
+        "current_games": [
+          "300英雄",
+          "使命召唤",
+          "守望先锋",
+          "彩虹六号",
+          "无畏契约",
+          "绝地求生",
+          "英雄联盟",
+          "lol",
+          "apex",
+          "战地"
+        ],
+        "platform": [
+          "PC"
+        ],
+        "experience_years": null,
+        "genre_experience": [
+          "MOBA"
+        ],
+        "gaming_self_intro_raw": "MOBA和枪战吧，一起玩的人多。\nMOBA就是《LOL》，如果是电脑上的，《300英雄》玩过一点点，但是主要是《LOL》，然后枪战就比较多了，从单机就是《使命召唤》到《彩虹六号》、吃鸡、《瓦罗兰特》，然后《守望先锋》这种的。"
+      }
+    },
+    "profile": {
+      "context": [
+        {
+          "trait_id": "T001",
+          "dimension": "context",
+          "trait_type": "life_context",
+          "statement": "当前处于考研备考阶段，游戏时间减少，处于暂时退游状态",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S001",
+              "quote": "太久没怎么玩了，因为最近要考研",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S001"
+          ]
+        }
+      ],
+      "experience_capability": [
+        {
+          "trait_id": "T002",
+          "dimension": "experience_capability",
+          "trait_type": "experience",
+          "statement": "有丰富的FPS游戏经验，包括CSGO、无畏契约、Apex英雄等，并熟悉MOBA品类",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S002",
+              "quote": "《CS GO》打匹配比较多",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S003",
+              "quote": "我两个都玩",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S004",
+              "quote": "MOBA的话，它就是我的社交游戏",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S002",
+            "S003",
+            "S004"
+          ]
+        },
+        {
+          "trait_id": "T003",
+          "dimension": "experience_capability",
+          "trait_type": "capability",
+          "statement": "自认为游戏水平较低，属于菜鸟玩家",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S005",
+              "quote": "可能是因为我比较菜",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S005"
+          ]
+        }
+      ],
+      "behaviors": [
+        {
+          "trait_id": "T004",
+          "dimension": "behaviors",
+          "trait_type": "social_behavior",
+          "statement": "喜欢与朋友一起组队游戏，社交是重要驱动力",
+          "status": "supported",
+          "temporal_scope": "recurring",
+          "confidence": 0.75,
+          "evidence": [
+            {
+              "segment_id": "S006",
+              "quote": "一起玩的人多",
+              "evidence_level": "E2",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S007",
+              "quote": "MOBA的话，它就是我的社交游戏",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S006",
+            "S007"
+          ]
+        },
+        {
+          "trait_id": "T005",
+          "dimension": "behaviors",
+          "trait_type": "role_specialization",
+          "statement": "在无畏契约中固定只玩烟位角色，专注于战场分割和团队支援",
+          "status": "supported",
+          "temporal_scope": "recurring",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "S008",
+              "quote": "我是只玩一种干员，就是烟位的，所有带烟的，我都会玩",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S009",
+              "quote": "我不太喜欢玩，因为她的烟只能短短几秒，她的烟主要是用来掩护她自己冲进去的，这种对我来说不是很有用",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S010",
+              "quote": "打那种信息位、辅助位，一般都是我来封烟，我来给队友打支持，帮忙补枪",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S008",
+            "S009",
+            "S010"
+          ]
+        },
+        {
+          "trait_id": "T006",
+          "dimension": "behaviors",
+          "trait_type": "current_behavior",
+          "statement": "当前主要玩无畏契约，偶尔玩CSGO，比例约为3-4天无畏契约配1天CSGO",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.75,
+          "evidence": [
+            {
+              "segment_id": "S011",
+              "quote": "现在玩《无畏契约》比较多",
+              "evidence_level": "E2",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S012",
+              "quote": "现在差不多基本上三四天玩《无畏契约》，就给一天玩《CS GO》",
+              "evidence_level": "E2",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S011",
+            "S012"
+          ]
+        },
+        {
+          "trait_id": "T007",
+          "dimension": "behaviors",
+          "trait_type": "ranked_grind",
+          "statement": "主要玩排位模式，通过排位证明自己并追求更高段位",
+          "status": "supported",
+          "temporal_scope": "recurring",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "S013",
+              "quote": "就是打排位",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S014",
+              "quote": "排位更多方面是证明自己，有时候也是想上更高的",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S013",
+            "S014"
+          ]
+        },
+        {
+          "trait_id": "T008",
+          "dimension": "behaviors",
+          "trait_type": "cessation_behavior",
+          "statement": "因考研暂时减少游戏时间，处于半退游状态",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S001",
+              "quote": "太久没怎么玩了，因为最近要考研",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S001"
+          ]
+        }
+      ],
+      "preferences": [
+        {
+          "trait_id": "T009",
+          "dimension": "preferences",
+          "trait_type": "aesthetic_preference",
+          "statement": "偏好枪械皮肤有特效和好音效，认为无畏契约的枪械比CSGO更帅",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "S015",
+              "quote": "枪比《CS GO》的帅",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S016",
+              "quote": "枪帅不帅，我主要是它的原皮到皮肤有没有特效这种，然后音效怎么样",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S017",
+              "quote": "视频里面是它的枪械皮肤特别的帅，我就进去了",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S015",
+            "S016",
+            "S017"
+          ]
+        },
+        {
+          "trait_id": "T010",
+          "dimension": "preferences",
+          "trait_type": "gameplay_preference",
+          "statement": "偏好战术性强、需要动脑的游戏方式，不喜欢莽撞玩法",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.75,
+          "evidence": [
+            {
+              "segment_id": "S018",
+              "quote": "它的战术来说，体系还是比较完整的",
+              "evidence_level": "E2",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S019",
+              "quote": "战术体系更加明显一点，我是喜欢这种玩头脑的，不喜欢莽撞",
+              "evidence_level": "E2",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S018",
+            "S019"
+          ]
+        },
+        {
+          "trait_id": "T011",
+          "dimension": "preferences",
+          "trait_type": "combat_preference",
+          "statement": "偏好枪法主导、技能辅助的战斗设计，不喜欢技能过于淡化枪法的游戏",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "S020",
+              "quote": "枪法其实还是占比很大的，这个游戏里面技能只能做辅助，你的枪法不行依旧不行",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S021",
+              "quote": "《无畏契约》做得比《守望先锋》好的一点，就是《守望先锋》已经过于淡化枪法了",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S020",
+            "S021"
+          ]
+        },
+        {
+          "trait_id": "T012",
+          "dimension": "preferences",
+          "trait_type": "content_preference",
+          "statement": "偏好能秒人的游戏机制，不喜欢Apex英雄那样无法秒人的设计",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S022",
+              "quote": "主要是因为《无畏契约》和《CS GO》是能秒人的，但是《Apex英雄》不行",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S022"
+          ]
+        }
+      ],
+      "motivations_needs": [
+        {
+          "trait_id": "T013",
+          "dimension": "motivations_needs",
+          "trait_type": "motivation",
+          "statement": "追求公平竞技环境，因CSGO外挂太多而转向无畏契约",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "S023",
+              "quote": "《CS GO》挂太多了，我就改去玩《无畏契约》了",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S024",
+              "quote": "对于我来说，我觉得这个是公平，没有存在不公平的这种现象",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S023",
+            "S024"
+          ]
+        },
+        {
+          "trait_id": "T014",
+          "dimension": "motivations_needs",
+          "trait_type": "motivation",
+          "statement": "通过排位证明自己，追求竞技性和成就感",
+          "status": "supported",
+          "temporal_scope": "recurring",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "S014",
+              "quote": "排位更多方面是证明自己",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S025",
+              "quote": "对我来说竞技性可能会更强一点",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S026",
+              "quote": "杀人的时候有成就感",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S014",
+            "S025",
+            "S026"
+          ]
+        },
+        {
+          "trait_id": "T015",
+          "dimension": "motivations_needs",
+          "trait_type": "need",
+          "statement": "需要游戏有较低的入门门槛，帮助新手快速上手",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.75,
+          "evidence": [
+            {
+              "segment_id": "S027",
+              "quote": "《无畏契约》是帮助新手完成这个。因为它的封烟是直接从地图上封，它开技能以后能直接看到想封哪儿就封哪儿",
+              "evidence_level": "E2",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S027"
+          ]
+        },
+        {
+          "trait_id": "T016",
+          "dimension": "motivations_needs",
+          "trait_type": "motivation",
+          "statement": "享受团队合作，喜欢在游戏中扮演支援和辅助角色",
+          "status": "supported",
+          "temporal_scope": "recurring",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S010",
+              "quote": "打那种信息位、辅助位，一般都是我来封烟，我来给队友打支持，帮忙补枪",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S010"
+          ]
+        }
+      ],
+      "perceptions_beliefs": [
+        {
+          "trait_id": "T017",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "self_identity",
+          "statement": "自认为是枪械情感型玩家，对枪械外观和手感有强烈偏好",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S028",
+              "quote": "本人就是比较有枪械情感的那种玩家",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S028"
+          ]
+        },
+        {
+          "trait_id": "T018",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为无畏契约的击杀反馈比CSGO更令人满足，爆头音效和特效增强成就感",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S029",
+              "quote": "《无畏契约》让我更舒服吧",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S030",
+              "quote": "《CS GO》它击杀没有那种感觉",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S031",
+              "quote": "《无畏契约》，你击杀的时候会有音效",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S029",
+            "S030",
+            "S031"
+          ]
+        },
+        {
+          "trait_id": "T019",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为无畏契约的战术体系比CSGO更明确，地图和干员配合带来更多战术深度",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S032",
+              "quote": "战术体系更加明显一点",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S033",
+              "quote": "每张图的干员选择会更清晰一点",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S034",
+              "quote": "每张图会有不同适合的英雄出现，然后每张图的战术体系会更加的明确",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S032",
+            "S033",
+            "S034"
+          ]
+        },
+        {
+          "trait_id": "T020",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为无畏契约对新手不友好，但熟练掌握后体验很好",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S035",
+              "quote": "这个游戏对新手来说是不太友好的",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S036",
+              "quote": "它比《CS GO》更难上手",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S037",
+              "quote": "你玩熟了以后玩起来很爽",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S035",
+            "S036",
+            "S037"
+          ]
+        },
+        {
+          "trait_id": "T021",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为无畏契约中存在一些英雄过于强势，平衡性有待改进",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S038",
+              "quote": "有些英雄，它还是太强了",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S039",
+              "quote": "像斯凯这种又能当闪，艰也能当信息位的就特别强",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S038",
+            "S039"
+          ]
+        },
+        {
+          "trait_id": "T022",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为CSGO更真实写实，无畏契约更偏向二次元风格",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S040",
+              "quote": "《CS GO》更偏向于现实一点，《无畏契约》更倾向于二次元一点",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S040"
+          ]
+        },
+        {
+          "trait_id": "T023",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为无畏契约的技能设计降低了枪法的重要性，但枪法仍是决定性因素",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S041",
+              "quote": "如果技能放得很娴熟的话，可能到后面枪械的作用会变得少一点",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S042",
+              "quote": "枪法其实还是占比很大的，这个游戏里面技能只能做辅助，你的枪法不行依旧不行",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S041",
+            "S042"
+          ]
+        },
+        {
+          "trait_id": "T024",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为无畏契约的回防比CSGO更灵活，可以利用技能创造性地进入点位",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S043",
+              "quote": "《无畏契约》的回防是可以通过配合，莫名其妙就进到点里面去的",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S044",
+              "quote": "《CS GO》...回防一般都是定死的",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S043",
+            "S044"
+          ]
+        },
+        {
+          "trait_id": "T025",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为无畏契约的地图比CSGO更容易导航，不易迷路",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S045",
+              "quote": "《无畏契约》的地图来说，不容易迷路",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S046",
+              "quote": "《CS GO》...我根本分不清人在哪儿",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S045",
+            "S046"
+          ]
+        },
+        {
+          "trait_id": "T026",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为无畏契约的枪械手感很好，但初期因画风和手感差异需要适应",
+          "status": "supported",
+          "temporal_scope": "historical",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S047",
+              "quote": "枪手感真的很好",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S048",
+              "quote": "刚开始的时候技能是一点都不会放",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S049",
+              "quote": "一开始一定是不习惯的，因为它的画风、它的枪械的手感肯定都是和《CS GO》不一样的",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S047",
+            "S048",
+            "S049"
+          ]
+        },
+        {
+          "trait_id": "T027",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为高分段玩家枪法更猛且技能使用娴熟，团队配合有体系",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S050",
+              "quote": "越往上打，你越觉得对方枪猛，这是肯定的，加上技能的话，一看对面是老油子，就是那种放技能特别娴熟的那种",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S051",
+              "quote": "配合会更加娴熟，每位位置知道自己要干什么，什么时候该封烟，信息位什么时候探，什么时候一起冲，什么时候一起架枪，都是比较有体系存在的感觉",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S050",
+            "S051"
+          ]
+        },
+        {
+          "trait_id": "T028",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为无畏契约的技能可以无损获取信息，而CSGO需要牺牲才能获得信息",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S052",
+              "quote": "《无畏契约》有些人的技能太强了，信息位基本上不用吊人就能直接知道对面在哪儿",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S053",
+              "quote": "还有丢鬼的，可以直接探位置的，这种都是可以无损去探信息位的",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S054",
+              "quote": "大家都习惯了冲进去，感觉都是习惯性冲进去，然后死了，然后爆点这种",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S052",
+            "S053",
+            "S054"
+          ]
+        },
+        {
+          "trait_id": "T029",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为无畏契约的烟位角色应负责切割战场，而非仅封路口",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S055",
+              "quote": "我玩的都是那种能切割战场的烟位，比如说布史东、亚星卓这种能把整个战场分割开来，方便我们去进攻，方便我们去防守的这种干员",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S056",
+              "quote": "《CS GO》的烟更主要的是封路口",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S055",
+            "S056"
+          ]
+        },
+        {
+          "trait_id": "T030",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为无畏契约的定位分明，各司其职，而CSGO角色分工较模糊",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S057",
+              "quote": "《无畏契约》的话，它就比较依靠每个人自己，定位分明嘛，信息位该做信息位的事情，辅助该做辅助的事情，切割战场，烟位就该干切割战场的事情，进攻位就是想怎么high怎么high",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S057"
+          ]
+        },
+        {
+          "trait_id": "T031",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为无畏契约的平衡性总体可以接受，枪法仍是关键，技能只是辅助",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S058",
+              "quote": "其实是有平衡性的",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S059",
+              "quote": "《无畏契约》做得比《守望先锋》好的一点，就是《守望先锋》已经过于淡化枪法了",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S058",
+            "S059"
+          ]
+        },
+        {
+          "trait_id": "T032",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为地图平衡性通过攻守互换得以缓解，实力决定胜负",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.75,
+          "evidence": [
+            {
+              "segment_id": "S060",
+              "quote": "反正大家都是要攻守方转换的，痛苦的时候，对方也会痛苦的",
+              "evidence_level": "E2",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S061",
+              "quote": "如果说进攻、防守都打不过，本来就是实力不行",
+              "evidence_level": "E2",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S060",
+            "S061"
+          ]
+        },
+        {
+          "trait_id": "T033",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为无畏契约中有更多秀操作的空间，如夜戮的瞬移骗局，而CSGO操作空间较少",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S062",
+              "quote": "《CS GO》可能秀操作的地方很少",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S063",
+              "quote": "《无畏契约》有很多骚操作，比如说长得很帅的一个男的，蓝色的那个，能瞬移的、能放假人的那个",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S064",
+              "quote": "夜戮本身是一个很骚的英雄，他是能做到你假装在打A点，瞬移到B点去下包的这种，人家都去回防A了，你在B点下包，把别人骗得团团转，然后又浪费对面的时间",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S062",
+            "S063",
+            "S064"
+          ]
+        }
+      ]
+    },
+    "patterns": [
+      "从CSGO转向无畏契约，主要驱动力是外挂问题和公平竞技需求",
+      "偏好枪法主导、技能辅助的战斗设计，认为技能不应过度淡化枪法",
+      "固定扮演烟位角色，享受团队支援和战场分割的战术角色",
+      "对枪械外观和击杀反馈有强烈情感偏好，追求视觉和听觉上的满足感",
+      "认为无畏契约在战术深度、角色分工、操作空间上优于CSGO",
+      "当前因学业暂时减少游戏时间，但核心游戏偏好稳定"
+    ],
+    "contradictions": [],
+    "summary": "P001是一名有丰富FPS经验的玩家，目前主要玩无畏契约，偶尔玩CSGO，但因考研暂时减少游戏时间。他自认为是枪械情感型玩家，偏好枪械外观有特效和好音效，并认为无畏契约的击杀反馈比CSGO更令人满足。他固定只玩烟位角色，享受团队支援和战场分割的战术角色。他追求公平竞技环境，因CSGO外挂太多而转向无畏契约，并通过排位证明自己。他偏好枪法主导、技能辅助的战斗设计，认为无畏契约在战术深度、角色分工、操作空间上优于CSGO，但也承认游戏对新手不友好且存在英雄平衡性问题。他自认为水平较低，但享受高分段团队配合的体系感。",
+    "review_candidates": [
+      "T003: 自认为水平较低，但证据仅有一条，且可能影响其他Trait的推断",
+      "T010: 偏好战术性玩法的证据为E2，需确认是否足够支撑",
+      "T015: 需要低门槛的证据为E2，且与T020（认为游戏对新手不友好）存在潜在张力，但未达到冲突级别"
+    ],
+    "_evidence_summary": {
+      "iceberg_label_types": 72,
+      "annotated_segments": 62,
+      "total_segments": 64
+    }
+  }
+]

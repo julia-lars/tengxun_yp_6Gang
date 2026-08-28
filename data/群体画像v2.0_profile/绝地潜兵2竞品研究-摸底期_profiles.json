@@ -1,0 +1,4551 @@
+[
+  {
+    "profile_version": "1.0",
+    "respondent_id": "P002",
+    "generated_at": "2025-04-17T23:00:00Z",
+    "source_segments_count": 53,
+    "model": "iceberg-framework-v1",
+    "metadata": {
+      "respondent_id": "P002",
+      "display_name": "3-G1-HH",
+      "source_files": [
+        "绝地潜兵2竞品研究-摸底期/座谈会笔录-G1.docx"
+      ],
+      "segment_count": 53,
+      "demographics": {
+        "name": "G1-HH",
+        "age": null,
+        "gender": "",
+        "occupation": "是一个自由职业性质的工",
+        "education": "",
+        "self_intro_raw": "大家好，我叫G1-HH，稍等我是00年的二十五岁，然后我现在做影视灯光是一个自由职业性质的工作，有影视项目的时候我就会去做，然后我还在我的母校做那个兼职教师教也教影视灯光。 玩游戏的话是从我八九岁就开始玩了，一开始是先玩点 CF，大家当时都在玩 CF 我发现我很喜欢枪，所以很喜欢玩各种各样的射击类。 但是后来年纪小也比较傻，然后就对 CF 有一种厌恶感，因为当时有很多网上的喷子，我也信了他们那一套，然后我就不玩 CF 了。\n后面就尽可能的想尽的翻墙去接触外网的游戏，然后后来我接触到了8条命二，然后起源引擎的一些很多军团要塞。还有很我后来也很喜欢玩这个第一人称射击类，主要是当最开始年纪小打的也不好，所以玩的主要是单人的那种类似于长廊射击类的，比如那个极度恐慌。比如这个不倒危机，在这个网络更发达之后，这个更适合与外网联机之后，就开始砸很多的时间进这个彩虹6号 squad 这一类的想主打 PVP 类的射击游戏，但是20岁以后就感觉自己反应跟不上了，枪法也跟不上了，所以就开始转向模拟类游戏，也喜欢玩拟真类游戏，比如我那个环世界玩了有2000个小时，在上大学之前就玩了塔利塔科夫可能砸了大概2000个没有111千来个小时。 那时候没有 PD 然后现在后来绝地铁兵出了之后，因为我是很喜欢钻研一个游戏的，所以我玩一个游戏就会被这个游戏吸进去，然后我也在绝地潜兵里砸了1800个小时。我玩游戏时，我最喜欢钻研它的机制和这个和这怎么说，研究打法吧，然后最近就。 觉得连射击类都感觉有点跟不上了，我就想我就玩一些这个可能画面比较简单的那种模拟类游戏，有一个游戏叫 cataclysmdark digs ahead。玩了最近上个月就玩了200多个小时，开始喜欢玩那种生存类的模拟类的游戏。"
+      },
+      "gaming_background": {
+        "current_games": [
+          "战术小队",
+          "方舟",
+          "穿越火线",
+          "绝地潜兵",
+          "逃离塔科夫",
+          "cf",
+          "ark",
+          "塔科夫",
+          "squad"
+        ],
+        "platform": [],
+        "experience_years": null,
+        "genre_experience": [],
+        "gaming_self_intro_raw": "大家好，我叫G1-HH，稍等我是00年的二十五岁，然后我现在做影视灯光是一个自由职业性质的工作，有影视项目的时候我就会去做，然后我还在我的母校做那个兼职教师教也教影视灯光。 玩游戏的话是从我八九岁就开始玩了，一开始是先玩点 CF，大家当时都在玩 CF 我发现我很喜欢枪，所以很喜欢玩各种各样的射击类。 但是后来年纪小也比较傻，然后就对 CF 有一种厌恶感，因为当时有很多网上的喷子，我也信了他们那一套，然后我就不玩 CF 了。\n后面就尽可能的想尽的翻墙去接触外网的游戏，然后后来我接触到了8条命二，然后起源引擎的一些很多军团要塞。还有很我后来也很喜欢玩这个第一人称射击类，主要是当最开始年纪小打的也不好，所以玩的主要是单人的那种类似于长廊射击类的，比如那个极度恐慌。比如这个不倒危机，在这个网络更发达之后，这个更适合与外网联机之后，就开始砸很多的时间进这个彩虹6号 squad 这一类的想主打 PVP 类的射击游戏，但是20岁以后就感觉自己反应跟不上了，枪法也跟不上了，所以就开始转向模拟类游戏，也喜欢玩拟真类游戏，比如我那个环世界玩了有2000个小时，在上大学之前就玩了塔利塔科夫可能砸了大概2000个没有111千来个小时。 那时候没有 PD 然后现在后来绝地铁兵出了之后，因为我是很喜欢钻研一个游戏的，所以我玩一个游戏就会被这个游戏吸进去，然后我也在绝地潜兵里砸了1800个小时。我玩游戏时，我最喜欢钻研它的机制和这个和这怎么说，研究打法吧，然后最近就。 觉得连射击类都感觉有点跟不上了，我就想我就玩一些这个可能画面比较简单的那种模拟类游戏，有一个游戏叫 cataclysmdark digs ahead。玩了最近上个月就玩了200多个小时，开始喜欢玩那种生存类的模拟类的游戏。"
+      }
+    },
+    "profile": {
+      "context": [
+        {
+          "trait_id": "T001",
+          "dimension": "context",
+          "trait_type": "social_context",
+          "statement": "与朋友一起玩游戏是重要的社交活动，尤其当朋友回老家时缺乏游戏伙伴",
+          "status": "supported",
+          "temporal_scope": "recurring",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S001",
+              "quote": "几个朋友回老家了，没什么东西玩",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S002",
+              "quote": "最开始当时刚开始玩的时候其实是比较重要的，因为我可能跟G1-FSY的这个社交圈比较接近",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S001",
+            "S002"
+          ]
+        },
+        {
+          "trait_id": "T002",
+          "dimension": "context",
+          "trait_type": "life_context",
+          "statement": "工作繁忙时（如3月到4月）会暂停游戏，但也会因工作忙而减少游戏时间",
+          "status": "supported",
+          "temporal_scope": "historical",
+          "confidence": 0.8,
+          "evidence": [
+            {
+              "segment_id": "S003",
+              "quote": "过完年之后我也就3月到4月我挺忙的，我有工作",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S003"
+          ]
+        },
+        {
+          "trait_id": "T003",
+          "dimension": "context",
+          "trait_type": "usage_context",
+          "statement": "在手机上玩手游主要是偷偷玩，属于碎片化时间利用",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.8,
+          "evidence": [
+            {
+              "segment_id": "S004",
+              "quote": "不是手游是有玩手游的手游玩的还行，主要是像偷偷玩",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S004"
+          ]
+        }
+      ],
+      "experience_capability": [
+        {
+          "trait_id": "T004",
+          "dimension": "experience_capability",
+          "trait_type": "capability",
+          "statement": "具备深入钻研游戏机制并研究打法的能力，能啃下高难度内容",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "S005",
+              "quote": "我最喜欢钻研它的机制和这个和这怎么说，研究打法吧",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S006",
+              "quote": "我可能前半2024年前半年就一直在玩，一直在研究一直在想一直在搞这个事情",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S007",
+              "quote": "我喜欢顶我最最最啃不动的难度去打",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S005",
+            "S006",
+            "S007"
+          ]
+        },
+        {
+          "trait_id": "T005",
+          "dimension": "experience_capability",
+          "trait_type": "experience",
+          "statement": "有多年射击游戏经验，玩过穿越火线、战术小队、方舟、绝地潜兵、逃离塔科夫等多种游戏",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.95,
+          "evidence": [
+            {
+              "segment_id": "S008",
+              "quote": "我就不玩 穿越火线 了",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S009",
+              "quote": "停完基本停完了一个两个月",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S010",
+              "quote": "过完年之后我也就3月到4月我挺忙的，我有工作，但其实我也是吃透了他这个东西，那我就没有什么太大兴趣了",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S008",
+            "S009",
+            "S010"
+          ]
+        },
+        {
+          "trait_id": "T006",
+          "dimension": "experience_capability",
+          "trait_type": "capability",
+          "statement": "自认为20岁后反应和枪法下降，因此转向模拟类游戏",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.8,
+          "evidence": [
+            {
+              "segment_id": "S011",
+              "quote": "20岁以后就感觉自己反应跟不上了，枪法也跟不上了",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S012",
+              "quote": "就开始转向模拟类游戏",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S011",
+            "S012"
+          ]
+        }
+      ],
+      "behaviors": [
+        {
+          "trait_id": "T007",
+          "dimension": "behaviors",
+          "trait_type": "cessation_behavior",
+          "statement": "因游戏内容吃透或技术问题而停止游玩，曾停玩穿越火线并停玩绝地潜兵一两个月",
+          "status": "supported",
+          "temporal_scope": "historical",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "S013",
+              "quote": "我就不玩 穿越火线 了",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S014",
+              "quote": "停完基本停完了一个两个月",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S015",
+              "quote": "过完年之后我也就3月到4月我挺忙的，我有工作，但其实我也是吃透了他这个东西，那我就没有什么太大兴趣了",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S013",
+            "S014",
+            "S015"
+          ]
+        },
+        {
+          "trait_id": "T008",
+          "dimension": "behaviors",
+          "trait_type": "recurring_behavior",
+          "statement": "会投入大量时间钻研游戏机制和打法，进行刻意练习",
+          "status": "supported",
+          "temporal_scope": "recurring",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "S016",
+              "quote": "我最喜欢钻研它的机制和这个和这怎么说，研究打法吧",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S017",
+              "quote": "一直在研究一直在想一直在搞这个事情",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S016",
+            "S017"
+          ]
+        },
+        {
+          "trait_id": "T009",
+          "dimension": "behaviors",
+          "trait_type": "social_behavior",
+          "statement": "与朋友一起玩射击游戏，社交圈影响游戏选择",
+          "status": "supported",
+          "temporal_scope": "recurring",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S018",
+              "quote": "几个朋友回老家了，没什么东西玩",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S019",
+              "quote": "最开始当时刚开始玩的时候其实是比较重要的，因为我可能跟G1-FSY的这个社交圈比较接近",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S020",
+              "quote": "我们会比较喜欢这个可能射击手感比较接近",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S018",
+            "S019",
+            "S020"
+          ]
+        },
+        {
+          "trait_id": "T010",
+          "dimension": "behaviors",
+          "trait_type": "casual_play",
+          "statement": "在手机上偷偷玩手游，属于轻度休闲行为",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.8,
+          "evidence": [
+            {
+              "segment_id": "S021",
+              "quote": "不是手游是有玩手游的手游玩的还行，主要是像偷偷玩",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S021"
+          ]
+        },
+        {
+          "trait_id": "T011",
+          "dimension": "behaviors",
+          "trait_type": "switch_mode",
+          "statement": "因反应下降转向模拟类游戏，偏好画面简单的模拟类游戏",
+          "status": "supported",
+          "temporal_scope": "historical",
+          "confidence": 0.8,
+          "evidence": [
+            {
+              "segment_id": "S022",
+              "quote": "就开始转向模拟类游戏",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S023",
+              "quote": "我就想我就玩一些这个可能画面比较简单的那种模拟类游戏",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S022",
+            "S023"
+          ]
+        },
+        {
+          "trait_id": "T012",
+          "dimension": "behaviors",
+          "trait_type": "return",
+          "statement": "在绝地潜兵60天计划整改后重新回归游戏",
+          "status": "supported",
+          "temporal_scope": "historical",
+          "confidence": 0.8,
+          "evidence": [
+            {
+              "segment_id": "S024",
+              "quote": "在他60天计划整改之后，又发现我还能打开这游戏了，我能玩了",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S024"
+          ]
+        },
+        {
+          "trait_id": "T013",
+          "dimension": "behaviors",
+          "trait_type": "content_share",
+          "statement": "自己也会使用玩家创作的内容（如Mod）",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.8,
+          "evidence": [
+            {
+              "segment_id": "S025",
+              "quote": "我自己有时候也会用一些。",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S025"
+          ]
+        }
+      ],
+      "preferences": [
+        {
+          "trait_id": "T014",
+          "dimension": "preferences",
+          "trait_type": "gameplay_preference",
+          "statement": "偏好高难度、需要钻研和策略的玩法，喜欢啃最难的难度",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "S026",
+              "quote": "我喜欢顶我最最最啃不动的难度去打",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S027",
+              "quote": "我也是比较喜欢啃难玩的东西",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S028",
+              "quote": "有很高的难度去玩也是也玩法也是很多的，你可以自己限制自己",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S026",
+            "S027",
+            "S028"
+          ]
+        },
+        {
+          "trait_id": "T015",
+          "dimension": "preferences",
+          "trait_type": "combat_preference",
+          "statement": "喜欢高强度的战斗，享受在战斗中不断做临时决策的紧张感",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "S029",
+              "quote": "喜欢在高强度的不停的做这个临时的决定，它高难度是",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S030",
+              "quote": "当我开始不停的做决定的时候，我已经我就不会意识到我在做决定了，我好像进入了一个自动驾驶状态",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S029",
+            "S030"
+          ]
+        },
+        {
+          "trait_id": "T016",
+          "dimension": "preferences",
+          "trait_type": "social_preference",
+          "statement": "喜欢与朋友一起玩，社交圈影响游戏选择，但也能接受单人游玩",
+          "status": "supported",
+          "temporal_scope": "recurring",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S031",
+              "quote": "几个朋友回老家了，没什么东西玩",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S032",
+              "quote": "最开始当时刚开始玩的时候其实是比较重要的，因为我可能跟G1-FSY的这个社交圈比较接近",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S033",
+              "quote": "我们会比较喜欢这个可能射击手感比较接近",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S031",
+            "S032",
+            "S033"
+          ]
+        },
+        {
+          "trait_id": "T017",
+          "dimension": "preferences",
+          "trait_type": "platform_preference",
+          "statement": "主要使用PC平台玩游戏，偶尔在手机上玩手游",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.95,
+          "evidence": [
+            {
+              "segment_id": "S034",
+              "quote": "不是手游是有玩手游的手游玩的还行，主要是像偷偷玩",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S034"
+          ]
+        },
+        {
+          "trait_id": "T018",
+          "dimension": "preferences",
+          "trait_type": "mode_preference",
+          "statement": "偏好PVE为主的游戏模式",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.95,
+          "evidence": [
+            {
+              "segment_id": "S035",
+              "quote": "pve_main",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S035"
+          ]
+        },
+        {
+          "trait_id": "T019",
+          "dimension": "preferences",
+          "trait_type": "content_preference",
+          "statement": "喜欢有深度、可钻研的游戏内容，但一旦吃透就会失去兴趣",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "S036",
+              "quote": "这个游戏的深度挺深的，它有各种各样的怪的机制，虽然其实一旦研究明白之后就会很浅显",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S037",
+              "quote": "吃透了他这个东西，那我就没有什么太大兴趣了",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S036",
+            "S037"
+          ]
+        }
+      ],
+      "motivations_needs": [
+        {
+          "trait_id": "T020",
+          "dimension": "motivations_needs",
+          "trait_type": "motivation",
+          "statement": "有强烈的钻研和掌握游戏机制的动机，喜欢研究打法并攻克高难度内容",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.95,
+          "evidence": [
+            {
+              "segment_id": "S038",
+              "quote": "我最喜欢钻研它的机制和这个和这怎么说，研究打法吧",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S039",
+              "quote": "我可能前半2024年前半年就一直在玩，一直在研究一直在想一直在搞这个事情",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S040",
+              "quote": "我又可以啃了，我又可以研究了",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S041",
+              "quote": "我喜欢顶我最最最啃不动的难度去打",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S038",
+            "S039",
+            "S040",
+            "S041"
+          ]
+        },
+        {
+          "trait_id": "T021",
+          "dimension": "motivations_needs",
+          "trait_type": "motivation",
+          "statement": "追求高强度的刺激感，喜欢在战斗中不断做临时决策并进入心流状态",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "S042",
+              "quote": "我发现我很喜欢枪，所以很喜欢玩各种各样的射击类",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S043",
+              "quote": "喜欢在高强度的不停的做这个临时的决定，它高难度是",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S044",
+              "quote": "当我开始不停的做决定的时候，我已经我就不会意识到我在做决定了，我好像进入了一个自动驾驶状态",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S042",
+            "S043",
+            "S044"
+          ]
+        },
+        {
+          "trait_id": "T022",
+          "dimension": "motivations_needs",
+          "trait_type": "need",
+          "statement": "需要开发者尊重玩家，重视游戏优化和bug修复，而不是欺骗或忽视玩家反馈",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.95,
+          "evidence": [
+            {
+              "segment_id": "S045",
+              "quote": "最严重的问题就是尊重问题",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S046",
+              "quote": "你的这个更新效率也不是很高",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S047",
+              "quote": "玩家之前可能游戏刚发售就存在的问题到他们到现在也没有去解决，或者根本不想解决。 这根本上就是还有你骗我，这根本上就是一个尊重问题。",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S048",
+              "quote": "是运营问题，也是尊重问题",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S049",
+              "quote": "尊重玩家",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S045",
+            "S046",
+            "S047",
+            "S048",
+            "S049"
+          ]
+        },
+        {
+          "trait_id": "T023",
+          "dimension": "motivations_needs",
+          "trait_type": "need",
+          "statement": "希望游戏有丰富的可探索内容和持续更新，避免内容枯竭后失去兴趣",
+          "status": "inferred",
+          "temporal_scope": "current",
+          "confidence": 0.75,
+          "evidence": [
+            {
+              "segment_id": "S050",
+              "quote": "他需要的是一次大型的 bug 和优化修复",
+              "evidence_level": "E2",
+              "inference_type": "indirect"
+            },
+            {
+              "segment_id": "S051",
+              "quote": "他遗留的 bug 太多了",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S050",
+            "S051"
+          ]
+        },
+        {
+          "trait_id": "T024",
+          "dimension": "motivations_needs",
+          "trait_type": "motivation",
+          "statement": "有社交归属动机，与朋友一起玩是重要的游戏驱动力",
+          "status": "supported",
+          "temporal_scope": "recurring",
+          "confidence": 0.8,
+          "evidence": [
+            {
+              "segment_id": "S052",
+              "quote": "最开始当时刚开始玩的时候其实是比较重要的，因为我可能跟G1-FSY的这个社交圈比较接近",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S053",
+              "quote": "我们会比较喜欢这个可能射击手感比较接近",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S052",
+            "S053"
+          ]
+        }
+      ],
+      "perceptions_beliefs": [
+        {
+          "trait_id": "T025",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为绝地潜兵2的开发者箭头不尊重玩家，存在欺骗、低效更新和忽视bug等问题",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.95,
+          "evidence": [
+            {
+              "segment_id": "S054",
+              "quote": "这根本上就是一个尊重问题。",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S055",
+              "quote": "我们需要你把之前的东西弄好，另外尊重玩家",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S056",
+              "quote": "箭头这个做事风格让我很不爽",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S057",
+              "quote": "他在 devlog 里会他有一个一直对你说谎的历史",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S058",
+              "quote": "这不就是明摆着骗人吗？",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S059",
+              "quote": "他对着我当着我的脸说谎了",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S054",
+            "S055",
+            "S056",
+            "S057",
+            "S058",
+            "S059"
+          ]
+        },
+        {
+          "trait_id": "T026",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为穿越火线社区存在喷子，导致自己厌恶并停止游玩",
+          "status": "supported",
+          "temporal_scope": "historical",
+          "confidence": 0.8,
+          "evidence": [
+            {
+              "segment_id": "S060",
+              "quote": "因为当时有很多网上的喷子，我也信了他们那一套，然后我就不玩 穿越火线 了",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S061",
+              "quote": "对 穿越火线 有一种厌恶感",
+              "evidence_level": "E2",
+              "inference_type": "indirect"
+            }
+          ],
+          "supporting_segments": [
+            "S060",
+            "S061"
+          ]
+        },
+        {
+          "trait_id": "T027",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为绝地潜兵2的深度虽深但一旦研究明白就会变得浅显，导致内容枯竭",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.8,
+          "evidence": [
+            {
+              "segment_id": "S062",
+              "quote": "这个游戏的深度挺深的，它有各种各样的怪的机制，虽然其实一旦研究明白之后就会很浅显",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S062"
+          ]
+        },
+        {
+          "trait_id": "T028",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为开发者不玩自己做的游戏，也不测试游戏，导致bug和平衡问题",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "S063",
+              "quote": "他深刻的让我意识到箭头这帮人，他是不玩自己做的游戏的",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S064",
+              "quote": "没有被炒过鸡蛋，没有被落地炸过",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S063",
+            "S064"
+          ]
+        },
+        {
+          "trait_id": "T029",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为绝地潜兵2的敌人强度合理但刷新率不合理，团队合作可以应对强敌",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S065",
+              "quote": "这是一个很强的敌人，我也理解你可以做一个很强的敌人",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S066",
+              "quote": "我可能和四个队友合作好，我可以在大概5分钟的情况下炸掉一个",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S067",
+              "quote": "我觉得强度是合理的，我觉得你再难的敌人也可以被解决，我觉得他是他的刷新力度是很不合理的",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S065",
+            "S066",
+            "S067"
+          ]
+        },
+        {
+          "trait_id": "T030",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为开发者虽然修复了潜行机制，但之前更新破坏了潜行玩法",
+          "status": "supported",
+          "temporal_scope": "historical",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S068",
+              "quote": "他确实是加强了消音器，让这个消音器可以用了，而且也改完完全全改了这个怪物的锁敌机制",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S069",
+              "quote": "他确实是做了一些详细的改动，让这个潜行的内容，也就是他的新的潜行任务和潜行的这个玩法可以实现了",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S070",
+              "quote": "到9月份的24年9月份的时候，只要周围有炸。只要有子弹，周周围不管再远的子弹飞过怪，还可以立刻的锁定到你",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S068",
+            "S069",
+            "S070"
+          ]
+        },
+        {
+          "trait_id": "T031",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "self_identity",
+          "statement": "自比被家暴的小女孩，对绝地潜兵2又爱又恨，难以离开",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.8,
+          "evidence": [
+            {
+              "segment_id": "S071",
+              "quote": "我就像一个天天被家暴的小女孩一样，天天被家暴的老婆一样，我不想走，我她在教我",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S071"
+          ]
+        },
+        {
+          "trait_id": "T032",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为Mod创作有利于游戏寿命，内容创作者对游戏热度贡献大",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S072",
+              "quote": "有一些玩家可以自定义修改东西，我觉得也是有利于利好的",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S073",
+              "quote": "如果不是有那么多的内容创作者给这个游戏加以修改的话，我觉得 l4d2肯定不会有现在这么高的成就和火和热度",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S072",
+            "S073"
+          ]
+        },
+        {
+          "trait_id": "T033",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为开发者误解玩家需求，想喂蛋糕但玩家想要汤",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.8,
+          "evidence": [
+            {
+              "segment_id": "S074",
+              "quote": "他说这个他说箭头一直想喂给玩家蛋糕，但是玩家其实想要的是汤。",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S074"
+          ]
+        },
+        {
+          "trait_id": "T034",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为游戏内数据不清晰，开发者通过机制暗搓搓操控玩家行为",
+          "status": "inferred",
+          "temporal_scope": "current",
+          "confidence": 0.75,
+          "evidence": [
+            {
+              "segment_id": "S075",
+              "quote": "箭头更容易的暗搓的让你做他想做的事情",
+              "evidence_level": "E2",
+              "inference_type": "indirect"
+            },
+            {
+              "segment_id": "S076",
+              "quote": "游戏内这个数据很不清晰",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S075",
+            "S076"
+          ]
+        },
+        {
+          "trait_id": "T035",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为一些玩家隐藏信息是不尊重行为",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.8,
+          "evidence": [
+            {
+              "segment_id": "S077",
+              "quote": "他就喜欢藏着掖着，这又是一个尊重问题。",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S077"
+          ]
+        },
+        {
+          "trait_id": "T036",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为绝地潜兵2的西方语境讽刺对东方玩家不太相关，且自己缺乏老科幻电影背景",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S078",
+              "quote": "他说的语境，他所处的环境是西方语境，所以对东方玩家来说没那么重要",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S079",
+              "quote": "一一方面是老的科幻电影，我看的少是跟我自己的受众有关系",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S078",
+            "S079"
+          ]
+        },
+        {
+          "trait_id": "T037",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为Mod创作者做的是造福所有玩家的事情",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.8,
+          "evidence": [
+            {
+              "segment_id": "S080",
+              "quote": "你做的事情是人类之光是造福所有玩家的事情",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S080"
+          ]
+        }
+      ]
+    },
+    "patterns": [
+      {
+        "pattern_id": "P001",
+        "description": "钻研-精通-厌倦循环：玩家投入大量时间钻研游戏机制，达到精通后因内容枯竭而失去兴趣，停止游玩，直到重大更新才回归",
+        "related_traits": [
+          "T004",
+          "T008",
+          "T007",
+          "T012",
+          "T019",
+          "T027"
+        ],
+        "confidence": 0.9
+      },
+      {
+        "pattern_id": "P002",
+        "description": "对开发者又爱又恨的矛盾情感：玩家深爱游戏但强烈不满开发者的不尊重、欺骗和低效更新，自比被家暴者难以离开",
+        "related_traits": [
+          "T022",
+          "T025",
+          "T028",
+          "T031",
+          "T033"
+        ],
+        "confidence": 0.95
+      },
+      {
+        "pattern_id": "P003",
+        "description": "高难度挑战驱动：玩家偏好高难度、需要策略和快速决策的内容，从中获得心流体验，并以此作为游戏核心乐趣",
+        "related_traits": [
+          "T014",
+          "T015",
+          "T020",
+          "T021"
+        ],
+        "confidence": 0.95
+      }
+    ],
+    "contradictions": [],
+    "summary": "P002是一位自由职业的资深射击游戏玩家，目前活跃于《绝地潜兵2》《战术小队》《方舟》等游戏。他具有强烈的钻研和掌握动机，喜欢挑战高难度内容，在战斗中享受高强度决策带来的心流体验。然而，他对《绝地潜兵2》的开发者箭头存在强烈不满，认为其不尊重玩家、欺骗、低效更新且不测试游戏，这导致他多次停玩。他自比被家暴者，对游戏又爱又恨，难以彻底离开。他的游戏行为呈现钻研-精通-厌倦的循环：投入大量时间研究机制，精通后因内容枯竭而失去兴趣，直到重大更新才回归。他偏好PVE模式，与朋友一起玩是重要社交驱动力，也认可Mod对游戏寿命的积极作用。",
+    "review_candidates": [
+      {
+        "trait_id": "T023",
+        "reason": "该Trait基于E2推断，且证据中'他需要的是一次大型的 bug 和优化修复'可能更偏向于对当前问题的评价而非明确的需求表达，建议复核是否应归为perceptions_beliefs维度。"
+      },
+      {
+        "trait_id": "T034",
+        "reason": "该Trait基于E2推断，'箭头更容易的暗搓的让你做他想做的事情'可能更接近对开发者行为的评价而非稳定的信念，建议复核证据强度。"
+      }
+    ],
+    "_evidence_summary": {
+      "iceberg_label_types": 57,
+      "annotated_segments": 47,
+      "total_segments": 53
+    }
+  },
+  {
+    "profile_version": "1.0",
+    "respondent_id": "P001",
+    "generated_at": "2025-04-12T00:00:00Z",
+    "source_segments_count": 50,
+    "model": "user_profile_generator_v1",
+    "metadata": {
+      "respondent_id": "P001",
+      "display_name": "2-G1-FSY",
+      "source_files": [
+        "绝地潜兵2竞品研究-摸底期/座谈会笔录-G1.docx"
+      ],
+      "segment_count": 50,
+      "demographics": {
+        "name": "2-G1-FSY",
+        "age": null,
+        "gender": "",
+        "occupation": "",
+        "education": "",
+        "self_intro_raw": "到后面我们后来就一直会走到一起玩进去 OK 瘦了，对，然后目前来说大概就是这样，我现在会玩一些，比如说像灰墟战争，那个。P 就是 pve shooter 类的回去战争逃离塔科夫，然后会玩那个叫什么亚科夫大概就是大概就这样，我先讲了。\n对，但手手手比较残，可能会多玩一些合作类的就是射击游戏对的。"
+      },
+      "gaming_background": {
+        "current_games": [
+          "逃离塔科夫",
+          "cf",
+          "塔科夫",
+          "战地"
+        ],
+        "platform": [],
+        "experience_years": null,
+        "genre_experience": [],
+        "gaming_self_intro_raw": "到后面我们后来就一直会走到一起玩进去 OK 瘦了，对，然后目前来说大概就是这样，我现在会玩一些，比如说像灰墟战争，那个。P 就是 pve shooter 类的回去战争逃离塔科夫，然后会玩那个叫什么亚科夫大概就是大概就这样，我先讲了。\n对，但手手手比较残，可能会多玩一些合作类的就是射击游戏对的。"
+      }
+    },
+    "profile": {
+      "context": [
+        {
+          "trait_id": "T001",
+          "dimension": "context",
+          "trait_type": "social_context",
+          "statement": "游戏承担了生活中的社交功能，与固定朋友组队玩是常态",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.95,
+          "evidence": [
+            {
+              "segment_id": "seg_1",
+              "quote": "它其实承担了我生活当中一部分的社交的功能",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "seg_2",
+              "quote": "我们几个固定组排的队友又开始大概开始偶尔的，就比如说每周可能玩个两三次",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "seg_3",
+              "quote": "每周至少玩个3~4次，每次大概1~2个主大任务",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "seg_1",
+            "seg_2",
+            "seg_3"
+          ]
+        },
+        {
+          "trait_id": "T002",
+          "dimension": "context",
+          "trait_type": "time_context",
+          "statement": "游戏更新呈现脉冲式节奏，更新后高强度游玩一段时间后进入长草期",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "seg_4",
+              "quote": "它有一点像服务型的游戏，但是它的更新频率又不太高，所以导致你在每一次更新一个债券或者更新一个比较重要的 mo，你就会上去玩，然后高强度的玩好一会儿，那么就有一次脉冲",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "seg_5",
+              "quote": "在它下一次的大的更新，或者它下一次的这个债券，新的内容出现之前，你会处就处在一个长草的阶段",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "seg_4",
+            "seg_5"
+          ]
+        }
+      ],
+      "experience_capability": [
+        {
+          "trait_id": "T003",
+          "dimension": "experience_capability",
+          "trait_type": "capability",
+          "statement": "自认为手残，不是反应快或非常投入的玩家",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "seg_6",
+              "quote": "我手残，我并不是个反应非常快，或者说这个能够非常 tryhard 的一个玩家",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "seg_6"
+          ]
+        },
+        {
+          "trait_id": "T004",
+          "dimension": "experience_capability",
+          "trait_type": "experience",
+          "statement": "有丰富的游戏经验，达到过游戏满级并体验过所有内容",
+          "status": "supported",
+          "temporal_scope": "historical",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "seg_7",
+              "quote": "我到了50级的时候上限只有50级，我到了50级。舰船全部升级完了，要么改检全部检完了，一开始的几个债券也都买买光了",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "seg_7"
+          ]
+        }
+      ],
+      "behaviors": [
+        {
+          "trait_id": "T005",
+          "dimension": "behaviors",
+          "trait_type": "social_behavior",
+          "statement": "与固定朋友组队，每周玩3-4次，每次1-2个主任务",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.95,
+          "evidence": [
+            {
+              "segment_id": "seg_8",
+              "quote": "我们几个固定组排的队友又开始大概开始偶尔的，就比如说每周可能玩个两三次",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "seg_9",
+              "quote": "每周至少玩个3~4次，每次大概1~2个主大任务",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "seg_10",
+              "quote": "那我们又跟朋友就是每天",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "seg_8",
+            "seg_9",
+            "seg_10"
+          ]
+        },
+        {
+          "trait_id": "T006",
+          "dimension": "behaviors",
+          "trait_type": "play_behavior",
+          "statement": "喜欢尝试特殊机制任务，如commando模式，并享受其中的挑战",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "seg_11",
+              "quote": "我都打我打叫什么箭头，那个新的那个叫什么 commando 就是不准叫增援那个人那一系列任务",
+              "evidence_level": "E2",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "seg_12",
+              "quote": "我想有一些比较奇奇怪怪的机制，比如上次那个 commando 模式就是潜兵下来以后只能1分钟之内叫驱逐舰给一些增援，然后就驱逐舰就走了，然后你们整整局就相当于这个敌后武工队一样这样偷偷摸摸的打，我觉得这个就是比较有意思的一个尝试",
+              "evidence_level": "E2",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "seg_11",
+            "seg_12"
+          ]
+        },
+        {
+          "trait_id": "T007",
+          "dimension": "behaviors",
+          "trait_type": "consumption_behavior",
+          "statement": "在游戏内拍照并裱框，作为有意的见证",
+          "status": "supported",
+          "temporal_scope": "historical",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "seg_13",
+              "quote": "我把它装进那个相框裱了起来，就是其实是它是我们有意的见证吧",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "seg_14",
+              "quote": "在塞布斯坦也留下了一张照片",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "seg_13",
+            "seg_14"
+          ]
+        }
+      ],
+      "preferences": [
+        {
+          "trait_id": "T008",
+          "dimension": "preferences",
+          "trait_type": "social_preference",
+          "statement": "偏好与朋友一起玩，游戏本身不是最重要的，能一起交流才是关键",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.95,
+          "evidence": [
+            {
+              "segment_id": "seg_15",
+              "quote": "对我们来说可能玩的那个游戏并不是非常重要，就是大家能够一起说话",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "seg_16",
+              "quote": "因为大家的爱好也比较类似，所以我们就会一起一起一直玩一一直一起玩游戏",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "seg_17",
+              "quote": "能够在游戏里面聚一聚，讲讲话聊聊天，一起在那胡闹游戏也是很开心的事情",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "seg_15",
+            "seg_16",
+            "seg_17"
+          ]
+        },
+        {
+          "trait_id": "T009",
+          "dimension": "preferences",
+          "trait_type": "aesthetic_preference",
+          "statement": "偏好军事科幻美学，喜欢八九十年代对未来想象的冷冽风格",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "seg_18",
+              "quote": "差不多就那种可能八九十年代对于未来的想象，那种冷冽的黑色灰色的船体，然后那种钢板铺就的这个地板，然后带一点那种威权意味的那种军国主义的色彩",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "seg_19",
+              "quote": "他这个游戏的那个画风和他的那些人，比如人类舰船的这个风格你你其实放到光环里面完全不违和",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "seg_18",
+            "seg_19"
+          ]
+        },
+        {
+          "trait_id": "T010",
+          "dimension": "preferences",
+          "trait_type": "gameplay_preference",
+          "statement": "偏好合作游戏，认为对自己天生比较友好",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "seg_20",
+              "quote": "合作品它对我天生来说就比较友好",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "seg_20"
+          ]
+        },
+        {
+          "trait_id": "T011",
+          "dimension": "preferences",
+          "trait_type": "content_preference",
+          "statement": "希望有更多任务类型、奇奇怪怪的机制、新轨道武器和载具",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.95,
+          "evidence": [
+            {
+              "segment_id": "seg_21",
+              "quote": "我想要更多的任务类型吧",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "seg_22",
+              "quote": "我想有一些比较奇奇怪怪的机制",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "seg_23",
+              "quote": "对局内任务，还有一些地图类型，我觉得可以改一改",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "seg_24",
+              "quote": "出一些新的轨道类武器",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "seg_25",
+              "quote": "出一些新的载具让大家玩一玩",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "seg_21",
+            "seg_22",
+            "seg_23",
+            "seg_24",
+            "seg_25"
+          ]
+        }
+      ],
+      "motivations_needs": [
+        {
+          "trait_id": "T012",
+          "dimension": "motivations_needs",
+          "trait_type": "motivation",
+          "statement": "追求叙事沉浸感，希望在游戏中体验故事并留下个人见证",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.98,
+          "evidence": [
+            {
+              "segment_id": "seg_26",
+              "quote": "我想体验一下男玩个男一吧",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "seg_27",
+              "quote": "我们觉得我们要为了上海这战至最后一兵一卒",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "seg_28",
+              "quote": "我甚至在这个打完上海以后，我跟我朋友我们一起在上海拍一张照片",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "seg_29",
+              "quote": "我把它装进那个相框裱了起来，就是其实是它是我们有意的见证吧",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "seg_30",
+              "quote": "在塞布斯坦也留下了一张照片",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "seg_26",
+            "seg_27",
+            "seg_28",
+            "seg_29",
+            "seg_30"
+          ]
+        },
+        {
+          "trait_id": "T013",
+          "dimension": "motivations_needs",
+          "trait_type": "motivation",
+          "statement": "追求社交归属感，游戏是和朋友连接、交流的载体",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.95,
+          "evidence": [
+            {
+              "segment_id": "seg_31",
+              "quote": "你可以找几个朋友跟你一起玩",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "seg_32",
+              "quote": "因为大家的爱好也比较类似，所以我们就会一起一起一直玩一一直一起玩游戏",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "seg_33",
+              "quote": "对我们来说可能玩的那个游戏并不是非常重要，就是大家能够一起说话",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "seg_34",
+              "quote": "能够在游戏里面聚一聚，讲讲话聊聊天，一起在那胡闹游戏也是很开心的事情",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "seg_35",
+              "quote": "它其实承担了我生活当中一部分的社交的功能",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "seg_31",
+            "seg_32",
+            "seg_33",
+            "seg_34",
+            "seg_35"
+          ]
+        },
+        {
+          "trait_id": "T014",
+          "dimension": "motivations_needs",
+          "trait_type": "motivation",
+          "statement": "追求感官刺激和视觉美学，享受爆炸、火焰等宏大视觉效果带来的爽感",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "seg_36",
+              "quote": "这个游戏太爽了，怎么这么大的火，然后到处都是火",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "seg_37",
+              "quote": "他其实爆炸的那个范围并没有像他这个做出来的那个视觉效果那么大，我说，大一个炸弹，这个什么虫子炸飞了，我说可以，这游戏真爽！",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "seg_38",
+              "quote": "它的视觉效果看起来非常好",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "seg_39",
+              "quote": "它的视觉效果很爽",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "seg_36",
+            "seg_37",
+            "seg_38",
+            "seg_39"
+          ]
+        },
+        {
+          "trait_id": "T015",
+          "dimension": "motivations_needs",
+          "trait_type": "need",
+          "statement": "需要游戏提供新鲜感和刺激，希望有奇奇怪怪的机制来维持兴趣",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "seg_40",
+              "quote": "我想有一些比较奇奇怪怪的机制，比如上次那个 commando 模式就是潜兵下来以后只能1分钟之内叫驱逐舰给一些增援，然后就驱逐舰就走了，然后你们整整局就相当于这个敌后武工队一样这样偷偷摸摸的打，我觉得这个就是比较有意思的一个尝试",
+              "evidence_level": "E2",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "seg_41",
+              "quote": "我觉得可能也会比较有趣",
+              "evidence_level": "E2",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "seg_42",
+              "quote": "我觉得这也是对玩家可能新鲜度一个比较好维持的办法",
+              "evidence_level": "E2",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "seg_40",
+            "seg_41",
+            "seg_42"
+          ]
+        },
+        {
+          "trait_id": "T016",
+          "dimension": "motivations_needs",
+          "trait_type": "need",
+          "statement": "需要游戏提供放松和逃避现实的功能，合作游戏对此更友好",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "seg_43",
+              "quote": "合作品它对我天生来说就比较友好",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "seg_43"
+          ]
+        }
+      ],
+      "perceptions_beliefs": [
+        {
+          "trait_id": "T017",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为游戏的视觉效果是不可替代的核心吸引力，尤其是轨道火力网和飞鹰的爽感",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "seg_44",
+              "quote": "我觉得他的一个不可替代性就是他的。 他的轨道火力网和他的那个飞鹰的一个爽的程度",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "seg_45",
+              "quote": "它的视觉效果看起来非常好",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "seg_46",
+              "quote": "它的视觉效果很爽",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "seg_44",
+            "seg_45",
+            "seg_46"
+          ]
+        },
+        {
+          "trait_id": "T018",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为游戏平衡性调整导致爽感下降，虽然理解必要性但感到不爽",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.95,
+          "evidence": [
+            {
+              "segment_id": "seg_47",
+              "quote": "他的武器他都被平衡掉了以后这个武器并变得不爽了！ 大概平衡性导致爽感的下降。对于我来说比较痛的一个点",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "seg_48",
+              "quote": "不够爽。有些东西不够爽是？",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "seg_49",
+              "quote": "但是他还是并不太爽",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "seg_50",
+              "quote": "对他要做一个平衡性的维持，我可以理解他，但是他还是并不太爽",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "seg_47",
+            "seg_48",
+            "seg_49",
+            "seg_50"
+          ]
+        },
+        {
+          "trait_id": "T019",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为游戏数值抠门，开发者会暗中削弱武器来引导玩家，且手法过于明显破坏代入感",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.95,
+          "evidence": [
+            {
+              "segment_id": "seg_51",
+              "quote": "这个游戏是一个数值非常抠门的游戏",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "seg_52",
+              "quote": "中川主守就会给你下毒，就会给你在其他地方下毒",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "seg_53",
+              "quote": "他喜欢暗戳的引导玩家达成他想要的一个任务，目标就是他那个叙事的。目标。但是它这个暗戳的引导又过于的明显让玩家能看出来，显得显就显得不太聪明",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "seg_54",
+              "quote": "他利用一些改数值的方法，然后或者要么迫使要么就是这个引导玩家来达成他的一个叙事逻辑在。 然后又被玩家看得出来，我觉得他的败笔是被玩家看得出来。所以说会让你的爽，就是让你的代入感下降",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "seg_51",
+            "seg_52",
+            "seg_53",
+            "seg_54"
+          ]
+        },
+        {
+          "trait_id": "T020",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为游戏的讽刺叙事手法到位且有趣，能让人会心一笑",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "seg_55",
+              "quote": "他很多 mo 的讽刺和很多 mo 讽刺他游戏本身的这个背景的讽刺会让你感觉会心一笑的程度",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "seg_56",
+              "quote": "他的一些叙事手法，我觉得是很好，然后他本身的讽刺，其实我觉得是蛮到位的",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "seg_57",
+              "quote": "还有一些它的叙事的手法是隐藏在游戏本身的这个内容里面的，然后你不去找的话，不一定会发现",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "seg_55",
+            "seg_56",
+            "seg_57"
+          ]
+        },
+        {
+          "trait_id": "T021",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为当前更新方向无法维持游戏，任务类型重复，需要新内容",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "seg_58",
+              "quote": "我觉得更新频率倒不是问题，他按这个更新方向继续走下去，这个游戏绝对是维持不住的。",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "seg_59",
+              "quote": "现在我们那个大部分任务类型就是跑哪里炸哪里拿个什么东西，然后撤离，就大部分都是这样的任务类型",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "seg_60",
+              "quote": "轨道战备，现在好久我就好久没有新的轨道战备了",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "seg_61",
+              "quote": "载具就建成那个破坦克，那个东西不想提了",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "seg_58",
+            "seg_59",
+            "seg_60",
+            "seg_61"
+          ]
+        },
+        {
+          "trait_id": "T022",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为外挂反而能增强游戏的趣味性和社区互动，不希望反外挂做得太好",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "seg_62",
+              "quote": "就会变得很好玩",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "seg_63",
+              "quote": "这个他的就不论是从梗的创造，还是到那个就是玩家的这种反馈，我觉得都是很有趣的事情",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "seg_64",
+              "quote": "我这个反而是不希望他反外挂做的很好的一个游戏",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "seg_62",
+            "seg_63",
+            "seg_64"
+          ]
+        },
+        {
+          "trait_id": "T023",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为游戏是买断制与服务型游戏的混合体，付费点在于债券",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "seg_65",
+              "quote": "就是那种买断型游戏吧，因为也不能这样讲，但是它的每一次的债券就是一个付费点，又是一个吸引游戏的这个吸引玩家的一个这种兴趣点，那么我觉得它现在像是一种脉冲式的这个频率在往前前进。 我觉得他是个有点融合一和二的一个复合体了",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "seg_65"
+          ]
+        },
+        {
+          "trait_id": "T024",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为武器平衡范围对休闲玩家偏低，主手武器难以爽快地完成高难任务",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "seg_66",
+              "quote": "我觉得这个范围给的比较低，就是说你主手并不能非常爽的完成很多任务",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "seg_67",
+              "quote": "作为对于一些比较休闲比较轻度的玩家拿这些武器去打比较高难的任务，8~10高难的任务就会觉得这个武器数值不够",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "seg_66",
+            "seg_67"
+          ]
+        },
+        {
+          "trait_id": "T025",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为游戏中的敌人刷新率不公平，纯粹是为了击杀玩家而非提供成就感",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "seg_68",
+              "quote": "这个东西的存在好像不是为了让我打掉它有一个成就感一样，这个东西存在就纯粹是来杀你的",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "seg_68"
+          ]
+        },
+        {
+          "trait_id": "T026",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "self_identity",
+          "statement": "认为自己不是非常投入的硬核玩家，而是偏向休闲和社交",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "seg_69",
+              "quote": "我手残，我并不是个反应非常快，或者说这个能够非常 tryhard 的一个玩家",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "seg_69"
+          ]
+        }
+      ]
+    },
+    "patterns": [
+      {
+        "pattern_id": "P001",
+        "description": "社交驱动型玩家：游戏是社交的载体，与朋友一起玩比游戏本身更重要",
+        "related_traits": [
+          "T001",
+          "T008",
+          "T013"
+        ],
+        "confidence": 0.95
+      },
+      {
+        "pattern_id": "P002",
+        "description": "叙事沉浸与视觉爽感并重：追求故事代入感和宏大视觉体验，但平衡性调整和明显引导会破坏沉浸感",
+        "related_traits": [
+          "T012",
+          "T014",
+          "T017",
+          "T018",
+          "T019"
+        ],
+        "confidence": 0.9
+      },
+      {
+        "pattern_id": "P003",
+        "description": "内容消耗与新鲜感需求：达到满级后感到内容枯竭，渴望新任务、新机制、新武器来维持兴趣",
+        "related_traits": [
+          "T004",
+          "T011",
+          "T015",
+          "T021"
+        ],
+        "confidence": 0.9
+      }
+    ],
+    "contradictions": [
+      {
+        "description": "对游戏平衡性的矛盾态度：一方面理解平衡的必要性，另一方面又因平衡导致爽感下降而感到不满",
+        "traits_involved": [
+          "T018"
+        ],
+        "evidence": "理解平衡维护但认为不爽"
+      },
+      {
+        "description": "对游戏更新节奏的矛盾：认为更新频率不是问题，但更新方向无法维持游戏，同时渴望新内容",
+        "traits_involved": [
+          "T011",
+          "T021"
+        ],
+        "evidence": "认为更新频率不是问题，但方向不对；同时希望更多新内容"
+      }
+    ],
+    "summary": "P001是一名社交驱动型玩家，游戏承担了其生活中的社交功能，与固定朋友组队游玩是常态，游戏本身的重要性次于朋友间的交流。他追求叙事沉浸感，喜欢在游戏中体验故事并留下个人见证（如拍照裱框），同时享受宏大视觉特效带来的爽感。他自认为手残且非硬核玩家，偏好合作游戏。他对游戏的平衡性调整感到矛盾——理解必要性但认为导致爽感下降，并对开发者明显的数值引导手法感到不满，认为破坏了代入感。他欣赏游戏的讽刺叙事手法，但认为当前更新方向无法维持游戏，任务类型重复，渴望更多新内容（任务、机制、武器、载具）。他达到过满级，经历过内容枯竭期，需要新鲜感来维持兴趣。总体而言，他是一个注重社交连接、叙事体验和视觉爽感的休闲向玩家，对游戏内容更新和平衡性有较高期待。",
+    "review_candidates": [
+      {
+        "trait_id": "T006",
+        "reason": "行为证据为E2推断，关于commando模式的偏好可能不够稳定，需后续确认"
+      },
+      {
+        "trait_id": "T015",
+        "reason": "动机证据为E2推断，对新鲜感的需求可能随时间变化，需后续确认"
+      }
+    ],
+    "_evidence_summary": {
+      "iceberg_label_types": 44,
+      "annotated_segments": 43,
+      "total_segments": 50
+    }
+  },
+  {
+    "profile_version": "1.0",
+    "respondent_id": "P003",
+    "generated_at": "2025-04-12T12:00:00Z",
+    "source_segments_count": 30,
+    "model": "user_profile_generator_v1",
+    "metadata": {
+      "respondent_id": "P003",
+      "display_name": "5-G1-ZJW",
+      "source_files": [
+        "绝地潜兵2竞品研究-摸底期/座谈会笔录-G1.docx"
+      ],
+      "segment_count": 30,
+      "demographics": {
+        "name": "G1-ZJW",
+        "age": null,
+        "gender": "",
+        "occupation": "",
+        "education": null,
+        "self_intro_raw": "哈大家好，我叫G1-ZJW，然后我也是00年的，然后我刚开始的时候是小学时候开始从什么洛克王国开始的洛克王国赛尔号，然后到了初中，那时候跟朋友开始。打联盟还有 CF，然后到了高中时候开游戏开始玩游戏玩的多了，那时候我刚开始接触的是彩虹6号彩六玩了很久，到现在能有个5000多个小时了吧。一直在打这个游戏，然后那时候16年的时候又开始跟朋友打守望先锋，直到大学一直也一直在玩这个游戏，然后到后面玩了 apex 然后后面毕业了之后，就平时比如说打打星际，然后打打 a 打打彩六。基本上就固定玩这些游戏，然后像现在的话养老一些吧，玩玩暗黑地牢，然后我现在每天固定就是打打守望，打打星际打打联盟，基本上这几款游戏了。"
+      },
+      "gaming_background": {
+        "current_games": [
+          "Apex英雄",
+          "守望先锋",
+          "彩虹六号",
+          "穿越火线",
+          "cf",
+          "apex"
+        ],
+        "platform": [],
+        "experience_years": null,
+        "genre_experience": [],
+        "gaming_self_intro_raw": "哈大家好，我叫G1-ZJW，然后我也是00年的，然后我刚开始的时候是小学时候开始从什么洛克王国开始的洛克王国赛尔号，然后到了初中，那时候跟朋友开始。打联盟还有 CF，然后到了高中时候开游戏开始玩游戏玩的多了，那时候我刚开始接触的是彩虹6号彩六玩了很久，到现在能有个5000多个小时了吧。一直在打这个游戏，然后那时候16年的时候又开始跟朋友打守望先锋，直到大学一直也一直在玩这个游戏，然后到后面玩了 apex 然后后面毕业了之后，就平时比如说打打星际，然后打打 a 打打彩六。基本上就固定玩这些游戏，然后像现在的话养老一些吧，玩玩暗黑地牢，然后我现在每天固定就是打打守望，打打星际打打联盟，基本上这几款游戏了。"
+      }
+    },
+    "profile": {
+      "context": [
+        {
+          "trait_id": "T001",
+          "dimension": "context",
+          "trait_type": "life_context",
+          "statement": "工作限制了游戏时间和社交游戏的频率，与大学时期相比PVE占比下降",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "S001",
+              "quote": "因为我已经工作这么多年了，跟我要是还在大学的话，那其实这个 PVE 这个占比可能会超过50%",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S001"
+          ]
+        }
+      ],
+      "experience_capability": [
+        {
+          "trait_id": "T002",
+          "dimension": "experience_capability",
+          "trait_type": "experience",
+          "statement": "在彩虹六号上有超过5000小时的游戏经验，属于高时长玩家",
+          "status": "supported",
+          "temporal_scope": "historical",
+          "confidence": 0.8,
+          "evidence": [
+            {
+              "segment_id": "S002",
+              "quote": "彩虹六号玩了很久，到现在能有个5000多个小时了吧",
+              "evidence_level": "E2",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S002"
+          ]
+        },
+        {
+          "trait_id": "T003",
+          "dimension": "experience_capability",
+          "trait_type": "capability",
+          "statement": "属于高级玩家，具备较高的游戏能力和理解",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S003",
+              "quote": "能力等级: advanced",
+              "evidence_level": "E2",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S003"
+          ]
+        }
+      ],
+      "behaviors": [
+        {
+          "trait_id": "T004",
+          "dimension": "behaviors",
+          "trait_type": "social_behavior",
+          "statement": "长期与朋友组队开黑，社交游戏行为频繁且稳定",
+          "status": "supported",
+          "temporal_scope": "recurring",
+          "confidence": 0.95,
+          "evidence": [
+            {
+              "segment_id": "S004",
+              "quote": "那时候跟朋友开始。打联盟还有 穿越火线",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S005",
+              "quote": "那时候16年的时候又开始跟朋友打守望先锋",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S006",
+              "quote": "大家一起每天晚上一起开黑",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S007",
+              "quote": "每天晚上都在玩吧",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S008",
+              "quote": "跟朋友一直在打，一直在打，打的很疯狂，每天都在玩",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S004",
+            "S005",
+            "S006",
+            "S007",
+            "S008"
+          ]
+        },
+        {
+          "trait_id": "T005",
+          "dimension": "behaviors",
+          "trait_type": "cessation_behavior",
+          "statement": "因内容消耗和疲惫感逐渐停止游玩某些游戏，出现流失行为",
+          "status": "supported",
+          "temporal_scope": "historical",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "S009",
+              "quote": "开始慢慢的就不怎么玩这个游戏",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S010",
+              "quote": "一直没有去启动它",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S011",
+              "quote": "没有东西让我继续玩",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S009",
+            "S010",
+            "S011"
+          ]
+        },
+        {
+          "trait_id": "T006",
+          "dimension": "behaviors",
+          "trait_type": "switch_mode",
+          "statement": "在感到疲惫或内容耗尽后，会主动切换游戏与朋友一起玩",
+          "status": "supported",
+          "temporal_scope": "recurring",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "S012",
+              "quote": "然后就想着去跟朋友玩别的游戏了",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S013",
+              "quote": "然后就想去换别的游戏玩了。",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S012",
+            "S013"
+          ]
+        },
+        {
+          "trait_id": "T007",
+          "dimension": "behaviors",
+          "trait_type": "current_behavior",
+          "statement": "当前每天固定游玩守望先锋、星际争霸和英雄联盟，并独自打竞技模式",
+          "status": "inferred",
+          "temporal_scope": "current",
+          "confidence": 0.7,
+          "evidence": [
+            {
+              "segment_id": "S014",
+              "quote": "现在每天固定就是打打守望先锋，打打星际打打联盟",
+              "evidence_level": "E2",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S015",
+              "quote": "只有我自己一个人，比如说打累了，然后我自己休息会儿，一个人会打会儿竞技什么的",
+              "evidence_level": "E2",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S014",
+            "S015"
+          ]
+        }
+      ],
+      "preferences": [
+        {
+          "trait_id": "T008",
+          "dimension": "preferences",
+          "trait_type": "social_preference",
+          "statement": "偏好与朋友一起游戏，社交是游戏的核心组成部分",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.95,
+          "evidence": [
+            {
+              "segment_id": "S016",
+              "quote": "小团体人一叫一起玩这个游戏",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S017",
+              "quote": "我们是有一个群的平时比如说看到什么好玩的游戏会发进来，然后问要不要一起玩，大家觉得诶，这个游戏挺有意思的，我们就一起买一起玩",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S018",
+              "quote": "对我来说跟朋友一起玩还是挺重要的吧",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S019",
+              "quote": "大部分游戏我基本上都会跟朋友一起玩嘛",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S016",
+            "S017",
+            "S018",
+            "S019"
+          ]
+        },
+        {
+          "trait_id": "T009",
+          "dimension": "preferences",
+          "trait_type": "aesthetic_preference",
+          "statement": "重视游戏的题材、画质和手感，对军国主义题材不感兴趣",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "S020",
+              "quote": "游戏的题材，然后游戏的画质，游戏的手感可能会更重要一点",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S021",
+              "quote": "我可能对这个军国主义这个题材没有那么感冒",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S020",
+            "S021"
+          ]
+        },
+        {
+          "trait_id": "T010",
+          "dimension": "preferences",
+          "trait_type": "content_preference",
+          "statement": "期待丰富的新内容和大型活动，以维持游戏新鲜感和回归动力",
+          "status": "inferred",
+          "temporal_scope": "current",
+          "confidence": 0.8,
+          "evidence": [
+            {
+              "segment_id": "S022",
+              "quote": "我们该解锁的都解锁的差不多了",
+              "evidence_level": "E2",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S023",
+              "quote": "没有什么新的东西",
+              "evidence_level": "E2",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S024",
+              "quote": "没有什么新的东西来吸引我",
+              "evidence_level": "E2",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S025",
+              "quote": "整一点什么老玩家回归给点礼物",
+              "evidence_level": "E2",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S026",
+              "quote": "再整一点大型活动",
+              "evidence_level": "E2",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S022",
+            "S023",
+            "S024",
+            "S025",
+            "S026"
+          ]
+        }
+      ],
+      "motivations_needs": [
+        {
+          "trait_id": "T011",
+          "dimension": "motivations_needs",
+          "trait_type": "motivation",
+          "statement": "与朋友一起团队合作是游戏的核心动机，社交归属感驱动游戏行为",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.95,
+          "evidence": [
+            {
+              "segment_id": "S027",
+              "quote": "大家一起每天晚上一起开黑",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S028",
+              "quote": "小团体人一叫一起玩这个游戏",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S029",
+              "quote": "我们是有一个群的平时比如说看到什么好玩的游戏会发进来，然后问要不要一起玩，大家觉得诶，这个游戏挺有意思的，我们就一起买一起玩",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S030",
+              "quote": "因为我现在凑不齐人凑不齐跟我一起玩的人",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S031",
+              "quote": "对我来说跟朋友一起玩还是挺重要的吧",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S032",
+              "quote": "大部分游戏我基本上都会跟朋友一起玩嘛",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S027",
+            "S028",
+            "S029",
+            "S030",
+            "S031",
+            "S032"
+          ]
+        },
+        {
+          "trait_id": "T012",
+          "dimension": "motivations_needs",
+          "trait_type": "need",
+          "statement": "需要持续的新刺激和爽感来维持游戏动力，否则容易流失",
+          "status": "inferred",
+          "temporal_scope": "current",
+          "confidence": 0.8,
+          "evidence": [
+            {
+              "segment_id": "S033",
+              "quote": "玩家自定义爽一点是说白了就是我玩的爽，我才会继续玩你的游戏",
+              "evidence_level": "E2",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S034",
+              "quote": "让我有点回归的动力",
+              "evidence_level": "E2",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S033",
+            "S034"
+          ]
+        },
+        {
+          "trait_id": "T013",
+          "dimension": "motivations_needs",
+          "trait_type": "expectation",
+          "statement": "期待游戏提供积极的社区氛围和共同目标活动，增强参与感",
+          "status": "inferred",
+          "temporal_scope": "current",
+          "confidence": 0.75,
+          "evidence": [
+            {
+              "segment_id": "S035",
+              "quote": "带一下，比如说社区氛围，让大家很有参与感的话，我觉得会比较好一点",
+              "evidence_level": "E2",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S036",
+              "quote": "比如说出点什么社区共同性的活动，比如说大家有个共同目标去做一点事情，让玩家有更多的参与度上来",
+              "evidence_level": "E2",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S035",
+            "S036"
+          ]
+        },
+        {
+          "trait_id": "T014",
+          "dimension": "motivations_needs",
+          "trait_type": "expectation",
+          "statement": "希望游戏尊重玩家时间，提供清晰的数据和更自由的玩法",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "S037",
+              "quote": "又要绕回这个尊重问题了",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S038",
+              "quote": "我希望在星际战争中，我能看到更详细的有关的数据",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S039",
+              "quote": "游戏内这个数据很不清晰",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S040",
+              "quote": "他箭头很喜欢教人玩游戏，这个真的很难受。 比如说玩家可能开发出各种奇奇怪怪的玩法来，我觉得你不应该管的那么严",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S037",
+            "S038",
+            "S039",
+            "S040"
+          ]
+        }
+      ],
+      "perceptions_beliefs": [
+        {
+          "trait_id": "T015",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为游戏内容消耗殆尽，缺乏新内容和新活动导致失去吸引力",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.95,
+          "evidence": [
+            {
+              "segment_id": "S041",
+              "quote": "我们该解锁的都解锁的差不多了",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S042",
+              "quote": "没有什么新的东西",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S043",
+              "quote": "没有什么新的东西来吸引我，让我重新启动这个游戏了",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S044",
+              "quote": "内容消耗完了，该升级都升级的差不多了，蓝币多多的没地方用了，然后没有东西让我继续玩",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S045",
+              "quote": "每天不是打打虫子就打打机器人，就感觉能不能整点新的活动",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S041",
+            "S042",
+            "S043",
+            "S044",
+            "S045"
+          ]
+        },
+        {
+          "trait_id": "T016",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为游戏虽好但缺乏持续吸引力，玩几把后容易感到疲惫和重复",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.95,
+          "evidence": [
+            {
+              "segment_id": "S046",
+              "quote": "对我来说游戏是个好游戏，确实是好玩的，但是我可能玩个两把就没有吸引我继续玩下去的点了。",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S047",
+              "quote": "会想玩这个游戏，但是打个两把吧，就感觉玩的好累，没有什么动力继续玩它了，然后就想去换别的游戏玩了。",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S048",
+              "quote": "玩的久了，就是一直刷，一直刷有点腻了",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S049",
+              "quote": "如果让我现在一个人玩，我可能因为一把时间也不是很短，打个一两把我就觉得一直玩好累，会那种疲惫感",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S046",
+            "S047",
+            "S048",
+            "S049"
+          ]
+        },
+        {
+          "trait_id": "T017",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为开发者过度限制玩家自由，导致游戏体验难受",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "S050",
+              "quote": "他箭头很喜欢教人玩游戏，这个真的很难受。 比如说玩家可能开发出各种奇奇怪怪的玩法来，我觉得你不应该管的那么严",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S051",
+              "quote": "这个真的很难受",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S052",
+              "quote": "这样我玩的很难受，很痛苦的。",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S050",
+            "S051",
+            "S052"
+          ]
+        },
+        {
+          "trait_id": "T018",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为社区氛围和共同目标能提升游戏体验",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "S053",
+              "quote": "带一下，比如说社区氛围，让大家很有参与感的话，我觉得会比较好一点",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S053"
+          ]
+        },
+        {
+          "trait_id": "T019",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "self_identity",
+          "statement": "认为游戏文化根植于军队文化，但个人对此题材不感兴趣",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "S054",
+              "quote": "他都是这些文化来源都是根植于军队文化的",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S055",
+              "quote": "他就是这样的一个文化",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S056",
+              "quote": "我可能对这个军国主义这个题材没有那么感冒",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S054",
+            "S055",
+            "S056"
+          ]
+        }
+      ]
+    },
+    "patterns": [
+      {
+        "pattern_id": "P001",
+        "description": "社交驱动游戏循环：与朋友组队开黑 → 内容消耗 → 疲惫感 → 切换新游戏 → 再次与朋友组队",
+        "related_traits": [
+          "T004",
+          "T005",
+          "T006",
+          "T008",
+          "T011",
+          "T015",
+          "T016"
+        ]
+      },
+      {
+        "pattern_id": "P002",
+        "description": "内容消耗导致流失：解锁全部内容后缺乏新刺激，导致失去动力并停止游玩",
+        "related_traits": [
+          "T005",
+          "T010",
+          "T012",
+          "T015"
+        ]
+      },
+      {
+        "pattern_id": "P003",
+        "description": "工作后游戏习惯变化：工作时间限制了社交游戏的频率和时长，单人游戏更容易产生疲惫感",
+        "related_traits": [
+          "T001",
+          "T016"
+        ]
+      }
+    ],
+    "contradictions": [],
+    "summary": "P003是一名高级PC玩家，当前主要游玩守望先锋、彩虹六号等PVP游戏。其核心游戏驱动力是与朋友一起团队合作和社交归属感，长期与朋友组队开黑，社交行为稳定且频繁。然而，工作后游戏时间受限，单人游戏易产生疲惫感。P003对游戏内容消耗非常敏感，一旦解锁全部内容、缺乏新活动或刺激，就会感到疲惫和重复，进而停止游玩并切换至其他游戏。他期待游戏提供丰富的新内容、大型活动、积极的社区氛围以及尊重玩家时间的设计，同时反感开发者过度限制玩家自由。在审美上，他重视题材、画质和手感，但对军国主义题材不感兴趣。总体而言，P003是一个社交驱动、内容敏感、易因内容耗尽而流失的玩家。",
+    "review_candidates": [
+      {
+        "trait_id": "T007",
+        "reason": "基于E2证据推断当前行为，置信度较低，需更多直接证据确认"
+      },
+      {
+        "trait_id": "T010",
+        "reason": "基于E2证据推断内容偏好，置信度中等，需更多直接陈述确认"
+      },
+      {
+        "trait_id": "T012",
+        "reason": "基于E2证据推断动机，置信度中等，需更多直接证据"
+      },
+      {
+        "trait_id": "T013",
+        "reason": "基于E2证据推断期望，置信度较低，需更多直接证据"
+      }
+    ],
+    "_evidence_summary": {
+      "iceberg_label_types": 31,
+      "annotated_segments": 28,
+      "total_segments": 30
+    }
+  },
+  {
+    "profile_version": "1.0",
+    "respondent_id": "P005",
+    "generated_at": "2025-04-16T12:00:00Z",
+    "source_segments_count": 21,
+    "model": "user_profile_generator_v1",
+    "metadata": {
+      "respondent_id": "P005",
+      "display_name": "1-G1-YJX",
+      "source_files": [
+        "绝地潜兵2竞品研究-摸底期/座谈会笔录-G1.docx"
+      ],
+      "segment_count": 21,
+      "demographics": {
+        "name": "1-G1-YJX",
+        "age": null,
+        "gender": "",
+        "occupation": "",
+        "education": "",
+        "self_intro_raw": "我这边可以听到你说话！ 行。 | 各位好，我叫G1-YJX，然后今年30岁，目前是从事美妆行业，然后我玩游戏的话估计得从零几年的时候上初中的时候就开始玩，最早不说从小学的时候可能就开始接触什么泡泡堂就是网页就是这种游戏传奇，然后等到了上初中的话就是 ipsppp 的。穿越火线，然后再到后面逆战王者，然后英雄联盟，然后再到后面的，比如说战地，再往到后面战术小队等等，这个大概就是一个游戏的一个演变史，然后对于游戏的一个需求，最早期上学的时候可能就是有什么玩什么，大家流行什么玩什么，现在因为工作以后自己有选择的空间了，可能就是会选择偏可能自己感兴趣 slg 主要两个方面，一个是 slg，一个是射击类 FPS，不管是 FPS 还是 RPG 那个射击类的，其实玩的都挺多的。 | 对。不是手游是有玩手游的手游玩的还行，主要是像偷偷玩，就是这些。 | 对。是的。因为现在有条件了，你小时候的话其实是没有那个条件的。 | 对我就算是应该算是比较浅显了，就他因为他这个游戏是24年年初的时候发售的，然后一开始的时候其实这种类型的游戏还得追溯到上次玩这种类型游戏还得追溯到小时候，我觉得还得要零几年的时候玩那个孤胆枪手了，然后怎么接触到这个游戏？是因为我是一个资深的 B 站。"
+      },
+      "gaming_background": {
+        "current_games": [
+          "穿越火线",
+          "战地",
+          "英雄联盟"
+        ],
+        "platform": [],
+        "experience_years": null,
+        "genre_experience": []
+      }
+    },
+    "profile": {
+      "context": [
+        {
+          "trait_id": "T001",
+          "dimension": "context",
+          "trait_type": "social_context",
+          "statement": "主要与固定朋友组队联机玩射击游戏，有固定的组排队伍",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.95,
+          "evidence": [
+            {
+              "segment_id": "S001",
+              "quote": "主要的目的还是跟朋友一起联机玩，因为我们有一个固定的组排的队伍",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S002",
+              "quote": "到后面我们后来就一直会走到一起玩",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S003",
+              "quote": "跟一些上海本地或者说在一些上海的一些朋友，然后一起玩",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S001",
+            "S002",
+            "S003"
+          ]
+        },
+        {
+          "trait_id": "T002",
+          "dimension": "context",
+          "trait_type": "life_context",
+          "statement": "处于工作阶段，游戏时间有限，一周玩一两次",
+          "status": "inferred",
+          "temporal_scope": "current",
+          "confidence": 0.7,
+          "evidence": [
+            {
+              "segment_id": "S004",
+              "quote": "一周可能会玩个一两次，自己就玩个一两把",
+              "evidence_level": "E2",
+              "inference_type": "contextual"
+            }
+          ],
+          "supporting_segments": [
+            "S004"
+          ]
+        }
+      ],
+      "experience_capability": [
+        {
+          "trait_id": "T003",
+          "dimension": "experience_capability",
+          "trait_type": "capability",
+          "statement": "自认为手残，反应慢，不适合玩PVP射击游戏",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.95,
+          "evidence": [
+            {
+              "segment_id": "S005",
+              "quote": "我其实不是很适合玩 pvp shooter，因为我就我这个比较菜嘛",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S006",
+              "quote": "手手手比较残",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S007",
+              "quote": "我手残，我并不是个反应非常快，或者说这个能够非常 tryhard 的一个玩家",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S005",
+            "S006",
+            "S007"
+          ]
+        }
+      ],
+      "behaviors": [
+        {
+          "trait_id": "T004",
+          "dimension": "behaviors",
+          "trait_type": "social_behavior",
+          "statement": "主要与朋友组队联机玩合作类射击游戏，会主动加好友维持社交",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.95,
+          "evidence": [
+            {
+              "segment_id": "S001",
+              "quote": "主要的目的还是跟朋友一起联机玩，因为我们有一个固定的组排的队伍",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S002",
+              "quote": "到后面我们后来就一直会走到一起玩",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S003",
+              "quote": "可能会多玩一些合作类的就是射击游戏",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S008",
+              "quote": "我会故意的去加他们的好友会跟他们去聊，感觉哥们就是我们配合的挺好，然后加个好友，后面我们一起玩",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S001",
+            "S002",
+            "S003",
+            "S008"
+          ]
+        },
+        {
+          "trait_id": "T005",
+          "dimension": "behaviors",
+          "trait_type": "play_behavior",
+          "statement": "朋友弃游后自己玩频率也降低，偶尔自己玩一两把",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "S004",
+              "quote": "一周可能会玩个一两次，自己就玩个一两把",
+              "evidence_level": "E2",
+              "inference_type": "contextual"
+            },
+            {
+              "segment_id": "S009",
+              "quote": "他们后面弃游了，那我这边的话我玩的频率自然而然也就降低了",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S004",
+            "S009"
+          ]
+        },
+        {
+          "trait_id": "T006",
+          "dimension": "behaviors",
+          "trait_type": "historical_behavior",
+          "statement": "逐步意识到不适合PVP后转向PVE射击游戏",
+          "status": "supported",
+          "temporal_scope": "historical",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "S010",
+              "quote": "逐步意识到我其实不是很适合玩 pvp shooter，那就开始转转战 pvp shooter",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S010"
+          ]
+        }
+      ],
+      "preferences": [
+        {
+          "trait_id": "T007",
+          "dimension": "preferences",
+          "trait_type": "mode_preference",
+          "statement": "偏好PVE合作射击游戏，认为PVE对自己更友好",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.95,
+          "evidence": [
+            {
+              "segment_id": "S003",
+              "quote": "可能会多玩一些合作类的就是射击游戏",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S011",
+              "quote": "PVE 游戏对我来说，天生来说，它对我就比较友好",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S003",
+            "S011"
+          ]
+        },
+        {
+          "trait_id": "T008",
+          "dimension": "preferences",
+          "trait_type": "content_preference",
+          "statement": "喜欢体验不同人生和世界的游戏内容",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S012",
+              "quote": "玩一些那种就是体验不同的人生体验不同的世界的这样的游戏比较多",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S012"
+          ]
+        }
+      ],
+      "motivations_needs": [
+        {
+          "trait_id": "T009",
+          "dimension": "motivations_needs",
+          "trait_type": "motivation",
+          "statement": "玩游戏的主要目的是与朋友一起联机，满足社交归属需求",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.95,
+          "evidence": [
+            {
+              "segment_id": "S001",
+              "quote": "主要的目的还是跟朋友一起联机玩，因为我们有一个固定的组排的队伍",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S013",
+              "quote": "这种 PVE 游戏归根结底还是得要跟认识的人一起玩",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S008",
+              "quote": "我会故意的去加他们的好友会跟他们去聊，感觉哥们就是我们配合的挺好，然后加个好友，后面我们一起玩",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S014",
+              "quote": "游戏也是一种社交，你要是完全没有社交的话，那游戏就是就 P 就没有价值了",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S001",
+            "S013",
+            "S008",
+            "S014"
+          ]
+        },
+        {
+          "trait_id": "T010",
+          "dimension": "motivations_needs",
+          "trait_type": "motivation",
+          "statement": "玩游戏是为了打发无聊时间，放松逃避",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "S015",
+              "quote": "主要是打发无聊的时间",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S011",
+              "quote": "PVE 游戏对我来说，天生来说，它对我就比较友好",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S015",
+            "S011"
+          ]
+        },
+        {
+          "trait_id": "T011",
+          "dimension": "motivations_needs",
+          "trait_type": "need",
+          "statement": "需要游戏有更好的社区氛围和宣传",
+          "status": "inferred",
+          "temporal_scope": "current",
+          "confidence": 0.75,
+          "evidence": [
+            {
+              "segment_id": "S016",
+              "quote": "我们需要的其实是一个更好的氛围",
+              "evidence_level": "E2",
+              "inference_type": "implied"
+            },
+            {
+              "segment_id": "S017",
+              "quote": "他有序归有序，然后你像很多，你像这除了我们这种深度的玩家，其实有多少人，他会正经的他去了解这个剧情的你你得要宣传你你你哪怕不在国内宣传。",
+              "evidence_level": "E2",
+              "inference_type": "implied"
+            }
+          ],
+          "supporting_segments": [
+            "S016",
+            "S017"
+          ]
+        },
+        {
+          "trait_id": "T012",
+          "dimension": "motivations_needs",
+          "trait_type": "need",
+          "statement": "希望游戏数值稳定，手感一致，避免频繁调整影响体验",
+          "status": "inferred",
+          "temporal_scope": "current",
+          "confidence": 0.75,
+          "evidence": [
+            {
+              "segment_id": "S018",
+              "quote": "导致我自己我也摸不准，这是之前的话导致一个版本我自己好不容易养成养出的一个手感，可能等到下一个版本，我就得重新要去适应这个。是我不太满意的点。",
+              "evidence_level": "E2",
+              "inference_type": "implied"
+            }
+          ],
+          "supporting_segments": [
+            "S018"
+          ]
+        }
+      ],
+      "perceptions_beliefs": [
+        {
+          "trait_id": "T013",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "belief",
+          "statement": "认为PVE游戏必须与认识的人一起玩才有价值",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "S013",
+              "quote": "这种 PVE 游戏归根结底还是得要跟认识的人一起玩",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S013"
+          ]
+        },
+        {
+          "trait_id": "T014",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "belief",
+          "statement": "认为游戏本身就是一种社交活动，没有社交则游戏无价值",
+          "status": "supported",
+          "temporal_scope": "stable",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "S014",
+              "quote": "游戏也是一种社交，你要是完全没有社交的话，那游戏就是就 P 就没有价值了",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S014"
+          ]
+        },
+        {
+          "trait_id": "T015",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为游戏数值策划有问题，导致手感不一致，武器定位模糊",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.95,
+          "evidence": [
+            {
+              "segment_id": "S019",
+              "quote": "他在数值策划上面的，就是说我一直强调的是一个手感",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S020",
+              "quote": "他那个策划数值的话，其实伤害就是变来变去",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S021",
+              "quote": "它没有一个明确的一个风格",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S022",
+              "quote": "我觉得他的数值策划其实是有问题",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S023",
+              "quote": "它的武器的一个定位，它其实是存在问题的",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S024",
+              "quote": "导致我影响到它改了数值以后，导致我的手感其实是一直在变来变去的",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S019",
+            "S020",
+            "S021",
+            "S022",
+            "S023",
+            "S024"
+          ]
+        },
+        {
+          "trait_id": "T016",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为游戏内容重复，地图和武器换汤不换药",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "S025",
+              "quote": "翻来覆去就地图，其实就是换汤不换药嘛，都是那些玩意儿，然后武器最后也都是那些玩意儿",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S025"
+          ]
+        },
+        {
+          "trait_id": "T017",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为开发者没有利用好社群，尊重问题最严重",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "S026",
+              "quote": "尊重是尊重问题，这是最严重的。",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S027",
+              "quote": "问题是他没把社群用起来",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S026",
+            "S027"
+          ]
+        },
+        {
+          "trait_id": "T018",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "causal_attribution",
+          "statement": "认为朋友弃游导致自己玩频率降低",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "S009",
+              "quote": "他们后面弃游了，那我这边的话我玩的频率自然而然也就降低了",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S009"
+          ]
+        }
+      ]
+    },
+    "patterns": [
+      "社交驱动游戏：主要动机是社交归属，行为上以朋友组队为核心，偏好PVE合作模式，认为游戏无社交则无价值",
+      "低门槛偏好：自认手残，偏好PVE友好环境，反感数值频繁变动破坏手感",
+      "朋友依赖：朋友弃游直接导致自己玩频率降低，社交关系是游戏持续性的关键"
+    ],
+    "contradictions": [],
+    "summary": "P005是一位工作阶段的PC游戏玩家，当前玩穿越火线、战地、英雄联盟。他自认手残、反应慢，不适合PVP射击游戏，因此历史行为上从PVP转向PVE合作射击游戏。他的核心动机是社交归属，主要与固定朋友组队联机，会主动加好友维持社交关系，认为游戏本身就是社交活动，没有社交则游戏无价值。他偏好PVE模式，认为PVE对自己更友好，同时喜欢体验不同人生和世界的游戏内容。他玩游戏主要是打发无聊时间，放松逃避。在认知上，他批评游戏数值策划有问题导致手感不一致、武器定位模糊，内容重复换汤不换药，开发者没有利用好社群，且尊重问题最严重。他期待更好的社区氛围和宣传，以及稳定的数值手感。朋友弃游直接导致他玩频率降低，社交关系是其游戏持续性的关键。",
+    "review_candidates": [
+      "T002：life_context 基于单条E2证据推断，置信度较低，需更多证据确认工作状态与游戏频率的关联",
+      "T011：positive_community 需求基于E2推断，可进一步确认具体期望",
+      "T012：continuous_challenge 需求基于E2推断，可进一步确认是否期望持续挑战而非稳定手感"
+    ],
+    "_evidence_summary": {
+      "iceberg_label_types": 23,
+      "annotated_segments": 20,
+      "total_segments": 21
+    }
+  },
+  {
+    "profile_version": "1.0",
+    "respondent_id": "P004",
+    "generated_at": "2025-04-16T12:00:00Z",
+    "source_segments_count": 30,
+    "model": "profile_generation_expert",
+    "metadata": {
+      "respondent_id": "P004",
+      "display_name": "6-G1-MYJ",
+      "source_files": [
+        "绝地潜兵2竞品研究-摸底期/座谈会笔录-G1.docx"
+      ],
+      "segment_count": 30,
+      "demographics": {
+        "name": "6-G1-MYJ",
+        "age": null,
+        "gender": "",
+        "occupation": "",
+        "education": "",
+        "self_intro_raw": "很好。 | 你好！ | 对我在寝室。 | Ok. Ok. | 大家好，我是G1-MYJ，我是03年的23岁，所以相比前面几家玩家，几位玩家来说可能比较小，资历一点，然后玩的游戏种类也可能稍微是软和一点的。我觉得我自己的游戏品类玩的是比较广的。首先我和大家的这个游戏经历都是差不多，我从小学的时候也是从 FPS 开始入坑的，那个时候会在浏览器上玩一些页游的设计，不过到初中我就开始接触了一些真正的游戏作品，比方说最早的战地，然后还有像 PVE 的话有 l4d2，然后到高中。就开始玩那些逃离塔科夫是一个朋友带我入坑的，然后包括像彩虹6号那个时候也是玩了很久，在 steam 库上大概高中的时候就玩了。 四五百个小时，然后到现在为止，我刚刚忘记说了一点，我现在从事的职业就是兼职来说是也是教育行业的，除此之外，除了 FPS 游戏之外，我觉得还有一些别的品类的游戏，比方说载具射击战争类型在库里面也有800800多个小时，然后还有一些，像二次元游戏，像一些 roguelike 的游戏，比方说是杀戮尖塔一和二。 还有以上的结合，我有一些结束，然后在大学的时候被被室友陷害，玩了英雄联盟，然后差不多是因为基本上每天晚上都会玩嘛，所以玩了差不多2000个小时左右。 除此之外，我觉得我个人在游戏当中关注的一点就是我可能会比较看重自定义的内容，这和我可能是初中阶段就开始玩 minecraft 有关系，所以我会。主动的去尝试在游戏当中能不能进行一些创作，迄今为止，我在世界里面去开发一些整合包和模组，有一些小小的贡献，然后和他前面几位玩家提到那个逃离卡和夫，我现在那个离线版的社区也是开发了几个插件，所以我可能是一个比较软和的玩家，我也会去自己去创作一些东西，我是差不多这样的想法，除此之外。"
+      },
+      "gaming_background": {
+        "current_games": [
+          "l4d",
+          "塔科夫",
+          "战地",
+          "英雄联盟",
+          "minecraft"
+        ],
+        "platform": [
+          "steam",
+          "pc"
+        ],
+        "experience_years": null,
+        "genre_experience": []
+      }
+    },
+    "profile": {
+      "context": [
+        {
+          "trait_id": "T001",
+          "dimension": "context",
+          "trait_type": "life_context",
+          "statement": "学生时期游戏选择受限于流行趋势，工作后有自主选择权",
+          "status": "supported",
+          "temporal_scope": "historical",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S1",
+              "quote": "最早期上学的时候可能就是有什么玩什么，大家流行什么玩什么",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S2",
+              "quote": "现在因为工作以后自己有选择的空间了，可能就是会选择偏可能自己感兴趣 slg 主要两个方面，一个是 slg，一个是射击类 FPS",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S1",
+            "S2"
+          ]
+        },
+        {
+          "trait_id": "T002",
+          "dimension": "context",
+          "trait_type": "social_context",
+          "statement": "现实社交圈缺乏共同游戏兴趣，主要与线上固定队友或野人互动",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S3",
+              "quote": "我的现在兼职的工作所处的圈子也是他们基本上不会和我有同相同爱好",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S4",
+              "quote": "我现在学校所属的专业也是一个男女比例特别悬殊，包括我在网上的一个社交圈，他们是一个一个比较硬核的 我的世界 的玩家群体",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S5",
+              "quote": "排野人其实我也会尝试会去和他们有一些互动",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S6",
+              "quote": "我的一个固牌队友跟我一起就是来为我庆生",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S3",
+            "S4",
+            "S5",
+            "S6"
+          ]
+        }
+      ],
+      "experience_capability": [
+        {
+          "trait_id": "T003",
+          "dimension": "experience_capability",
+          "trait_type": "capability",
+          "statement": "自评为非强力非深度玩家，但能独立钻研游戏并开发模组",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S7",
+              "quote": "我并不是一个非常强力的，也不是一个非常深度的玩家",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S8",
+              "quote": "我刚刚说了品类很多的游戏基本上都是我一个人去钻研",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S9",
+              "quote": "我在世界里面去开发一些整合包和模组，有一些小小的贡献",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S10",
+              "quote": "我现在那个离线版的社区也是开发了几个插件",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S7",
+            "S8",
+            "S9",
+            "S10"
+          ]
+        },
+        {
+          "trait_id": "T004",
+          "dimension": "experience_capability",
+          "trait_type": "experience",
+          "statement": "有丰富的多品类游戏经验，包括SLG、FPS、沙盒等",
+          "status": "supported",
+          "temporal_scope": "historical",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S2",
+              "quote": "现在因为工作以后自己有选择的空间了，可能就是会选择偏可能自己感兴趣 slg 主要两个方面，一个是 slg，一个是射击类 FPS",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S11",
+              "quote": "和我之前接触的游戏都不一样",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S2",
+            "S11"
+          ]
+        }
+      ],
+      "behaviors": [
+        {
+          "trait_id": "T005",
+          "dimension": "behaviors",
+          "trait_type": "current_behavior",
+          "statement": "单人开始游戏并自行探索，高难时依赖队友指导",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "S12",
+              "quote": "我是单人开始游玩的，自己开始探索",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S13",
+              "quote": "我打高难的时候，队友相当于是一个对我来说指导的作用",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S12",
+            "S13"
+          ]
+        },
+        {
+          "trait_id": "T006",
+          "dimension": "behaviors",
+          "trait_type": "social_behavior",
+          "statement": "偶尔与室友一起玩，排野人时尝试互动，有固定队友",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "S14",
+              "quote": "我的室友也开始关注到游戏，然后我会偶尔玩了一玩了几把",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S5",
+              "quote": "排野人其实我也会尝试会去和他们有一些互动",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S6",
+              "quote": "我的一个固牌队友跟我一起就是来为我庆生",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S14",
+            "S5",
+            "S6"
+          ]
+        },
+        {
+          "trait_id": "T007",
+          "dimension": "behaviors",
+          "trait_type": "consumption_behavior",
+          "statement": "通过视频和攻略决定回坑，遇到困难时主动查攻略",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "S15",
+              "quote": "通过视频我才决定回坑游玩",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S16",
+              "quote": "我们先看到一些，不管是我关注主播也好，也是一些其他人的创出来的视频也好，还有一些在游戏里面的整合也好",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S17",
+              "quote": "我们都是一起去查攻略",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S18",
+              "quote": "遇到了一个我完全处理不了情景，我才会想去主动查攻略",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S15",
+            "S16",
+            "S17",
+            "S18"
+          ]
+        },
+        {
+          "trait_id": "T008",
+          "dimension": "behaviors",
+          "trait_type": "cessation_behavior",
+          "statement": "近期对游戏感到冷落，因内容缺乏新意而动力不足",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.8,
+          "evidence": [
+            {
+              "segment_id": "S19",
+              "quote": "最近我还是对这个游戏。有点冷落",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S20",
+              "quote": "没什么新意，就没什么继续玩的动力了",
+              "evidence_level": "E2",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S19",
+            "S20"
+          ]
+        },
+        {
+          "trait_id": "T009",
+          "dimension": "behaviors",
+          "trait_type": "community_engage",
+          "statement": "在Minecraft社区开发整合包和模组，有创作贡献",
+          "status": "supported",
+          "temporal_scope": "historical",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S9",
+              "quote": "我在世界里面去开发一些整合包和模组，有一些小小的贡献",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S10",
+              "quote": "我现在那个离线版的社区也是开发了几个插件",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S9",
+            "S10"
+          ]
+        }
+      ],
+      "preferences": [
+        {
+          "trait_id": "T010",
+          "dimension": "preferences",
+          "trait_type": "gameplay_preference",
+          "statement": "偏好SLG和FPS品类，喜欢有战术深度和自定义内容的游戏",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S2",
+              "quote": "现在因为工作以后自己有选择的空间了，可能就是会选择偏可能自己感兴趣 slg 主要两个方面，一个是 slg，一个是射击类 FPS",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S21",
+              "quote": "战术选择我觉得还是很丰富的",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S22",
+              "quote": "我个人在游戏当中关注的一点就是我可能会比较看重自定义的内容",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S2",
+            "S21",
+            "S22"
+          ]
+        },
+        {
+          "trait_id": "T011",
+          "dimension": "preferences",
+          "trait_type": "social_preference",
+          "statement": "偏好与固定队友或愿意开麦的国人队友互动，匹配系统体验不佳",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S23",
+              "quote": "绝地潜兵它这个匹配我觉得有一点奇怪，就是我其实很难匹配到愿意开麦的国人队友",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S24",
+              "quote": "很多时候都是和一帮老外在进行互动，当然这互动是没问题的，但是这个就肯定不会变成我这个结交了新朋友",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S23",
+            "S24"
+          ]
+        },
+        {
+          "trait_id": "T012",
+          "dimension": "preferences",
+          "trait_type": "content_preference",
+          "statement": "喜欢有大型事件和氛围感的叙事内容，以及新颖的体验",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "S25",
+              "quote": "我对这个游戏的兴趣，主要就是来自于一些大型的事件",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S26",
+              "quote": "有一个很强的氛围感",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S27",
+              "quote": "对我来说，当时是耳目一新的体验",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S25",
+            "S26",
+            "S27"
+          ]
+        }
+      ],
+      "motivations_needs": [
+        {
+          "trait_id": "T013",
+          "dimension": "motivations_needs",
+          "trait_type": "motivation",
+          "statement": "被大型叙事事件和氛围感驱动，追求沉浸式叙事体验",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.95,
+          "evidence": [
+            {
+              "segment_id": "S25",
+              "quote": "我对这个游戏的兴趣，主要就是来自于一些大型的事件",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S26",
+              "quote": "有一个很强的氛围感",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S28",
+              "quote": "我觉得这个叙事，我是可以接受的，我是觉得这个东西还是挺",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S29",
+              "quote": "能够让我感觉是有一部叙事的作品，我是有一个整体上的叙事",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S30",
+              "quote": "我觉得这本身是一个。很多元的讽刺，我们可以从很多角度来解读，但是不妨碍它每一层都可以被人值得讨论。所以我们也可以看到它的社群是一个非常积极，非常活跃化的社群，因为它有太多可以讨论的内容。",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S25",
+            "S26",
+            "S28",
+            "S29",
+            "S30"
+          ]
+        },
+        {
+          "trait_id": "T014",
+          "dimension": "motivations_needs",
+          "trait_type": "motivation",
+          "statement": "喜欢探索和收集，积累足够兴趣后才主动入坑",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "S2",
+              "quote": "现在因为工作以后自己有选择的空间了，可能就是会选择偏可能自己感兴趣 slg 主要两个方面，一个是 slg，一个是射击类 FPS",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S31",
+              "quote": "我基本上不太会在游戏首发就一开始入坑，除非是一些特别我关注的系列作品",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S32",
+              "quote": "我先积累了足够的兴趣，我才会主动去玩",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S27",
+              "quote": "对我来说，当时是耳目一新的体验",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S2",
+            "S31",
+            "S32",
+            "S27"
+          ]
+        },
+        {
+          "trait_id": "T015",
+          "dimension": "motivations_needs",
+          "trait_type": "motivation",
+          "statement": "有创作和表达的需求，喜欢在游戏中自定义和开发内容",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S22",
+              "quote": "我个人在游戏当中关注的一点就是我可能会比较看重自定义的内容",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S33",
+              "quote": "我会主动的去尝试在游戏当中能不能进行一些创作",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S9",
+              "quote": "我在世界里面去开发一些整合包和模组，有一些小小的贡献",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S10",
+              "quote": "我现在那个离线版的社区也是开发了几个插件",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S22",
+            "S33",
+            "S9",
+            "S10"
+          ]
+        },
+        {
+          "trait_id": "T016",
+          "dimension": "motivations_needs",
+          "trait_type": "need",
+          "statement": "希望游戏尊重玩家时间，避免强制改变玩法才能维持体验",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.8,
+          "evidence": [
+            {
+              "segment_id": "S34",
+              "quote": "我感觉有一种被强迫的感觉我必须要去选择一些新的东西才能完成，获得我之前原先有的这些体验",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S34"
+          ]
+        },
+        {
+          "trait_id": "T017",
+          "dimension": "motivations_needs",
+          "trait_type": "need",
+          "statement": "渴望在战略层面有更多参与感，不满足于仅限战术层面",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S35",
+              "quote": "我作为一个人能够参与到的这个东西，还是只局限于战术的层面",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S36",
+              "quote": "玩家想要打哪里，想要去干什么事情背后好像都有剧本，能在战略层面上参与到这样一个星际战争是一个比较遗憾的东西",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S37",
+              "quote": "如果能在 hell diver two 里面看到这种玩家更有主动，更积极，能决定一个战场的走向。 我觉得是值得去，我是很期待的",
+              "evidence_level": "E2",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S35",
+            "S36",
+            "S37"
+          ]
+        },
+        {
+          "trait_id": "T018",
+          "dimension": "motivations_needs",
+          "trait_type": "need",
+          "statement": "期待游戏官方与社群双向互动，而非单向输出",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S38",
+              "quote": "它就应该和这个社群产生一种双向的互动，而不是这样，只有单向的输出。",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S39",
+              "quote": "我真的希望在运营的层面，能够有一些自觉就是他能够有一些改进的地方",
+              "evidence_level": "E2",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S40",
+              "quote": "游戏的官方好像表现出一种和这个社群正相悖的发展的策略，这个是我觉得很遗憾的事情",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S38",
+            "S39",
+            "S40"
+          ]
+        }
+      ],
+      "perceptions_beliefs": [
+        {
+          "trait_id": "T019",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "self_identity",
+          "statement": "认为自己是一个比较软和的玩家，会自己去创作一些东西",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S41",
+              "quote": "我可能是一个比较软和的玩家，我也会去自己去创作一些东西",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S41"
+          ]
+        },
+        {
+          "trait_id": "T020",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "self_identity",
+          "statement": "认为自己不是非常强力或深度的玩家",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S7",
+              "quote": "我并不是一个非常强力的，也不是一个非常深度的玩家",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S7"
+          ]
+        },
+        {
+          "trait_id": "T021",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "self_identity",
+          "statement": "认为自己不会在游戏首发时入坑，会先积累足够兴趣",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S31",
+              "quote": "我基本上不太会在游戏首发就一开始入坑",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S32",
+              "quote": "我先积累了足够的兴趣，我才会主动去玩",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S31",
+            "S32"
+          ]
+        },
+        {
+          "trait_id": "T022",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为游戏叙事有结构、可接受，且不影响爽快感",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "S42",
+              "quote": "我觉得二代的叙事它大多还是在一些主要的事件当中给你慢慢推进的，就是它随着一些战报，还有官方去给了一些小的动画，还有那些超级地球的发言，这些东西其实有意的去告诉你它的叙事，并不是完全的没有章法的",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S28",
+              "quote": "我觉得这个叙事，我是可以接受的",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S43",
+              "quote": "它能够在不影响游戏主体内容就是爽快程度的同时，能够让我感觉是有一部叙事的作品",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S42",
+            "S28",
+            "S43"
+          ]
+        },
+        {
+          "trait_id": "T023",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为游戏叙事是多层次的讽刺，值得讨论",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S30",
+              "quote": "我觉得这本身是一个。很多元的讽刺，我们可以从很多角度来解读",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S30"
+          ]
+        },
+        {
+          "trait_id": "T024",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为游戏战术选择丰富，与之前接触的游戏不同",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S21",
+              "quote": "战术选择我觉得还是很丰富的",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S11",
+              "quote": "和我之前接触的游戏都不一样",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S21",
+            "S11"
+          ]
+        },
+        {
+          "trait_id": "T025",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为更新后敌人变强而非自己变弱，导致公式化玩法失效",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "S44",
+              "quote": "有一次更新之后，我觉得我之前累积到的这个版本答案，或者说一些公式化的玩法，就没有特别好的舒适游玩了",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S45",
+              "quote": "感觉我没有被人变弱，当时敌人变强了",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S46",
+              "quote": "有一些中很多中甲敌人，他的这个装甲类型改为了重甲，就是必须，我必须要选择穿透更高的武器",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S47",
+              "quote": "盾虫它这个攻击欲望也是特别的逆天",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S44",
+            "S45",
+            "S46",
+            "S47"
+          ]
+        },
+        {
+          "trait_id": "T026",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为新手期的爽感已消失，需要更高难度才能获得同等体验",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S48",
+              "quote": "没有一开始就是我刚入坑新手期可能前三四十个小时的那种爽感了",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S49",
+              "quote": "我现在觉得我可能要到南四南五才能获得我原先的体验",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S48",
+            "S49"
+          ]
+        },
+        {
+          "trait_id": "T027",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为游戏官方不倾听社群，运营策略与社群相悖",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.9,
+          "evidence": [
+            {
+              "segment_id": "S38",
+              "quote": "它就应该和这个社群产生一种双向的互动，而不是这样，只有单向的输出。",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S40",
+              "quote": "游戏的官方好像表现出一种和这个社群正相悖的发展的策略，这个是我觉得很遗憾的事情",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S50",
+              "quote": "有利好玩家的改动。 得保留下来，就不能是什么有利好玩家的东西出现，你就11天之内光速改掉，然后有那些非常影响游戏玩家体体验那些东西可能一两年都没有改动",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S38",
+            "S40",
+            "S50"
+          ]
+        },
+        {
+          "trait_id": "T028",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为游戏底子好，外挂反而能增强乐趣",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S51",
+              "quote": "这个游戏，我觉得是非常少数的外挂会让游戏变更好玩的游戏",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S52",
+              "quote": "因为它这游戏底子非常好，本身就很爽，然后外挂会让人变得更大，就场面会变得更大。",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S51",
+            "S52"
+          ]
+        },
+        {
+          "trait_id": "T029",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为游戏内容缺乏新意，导致动力不足",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.8,
+          "evidence": [
+            {
+              "segment_id": "S53",
+              "quote": "没什么新意",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S20",
+              "quote": "没什么新意，就没什么继续玩的动力了",
+              "evidence_level": "E2",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S53",
+            "S20"
+          ]
+        },
+        {
+          "trait_id": "T030",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为有模组支持的游戏框架过硬、质量高",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S54",
+              "quote": "我觉得一个游戏如果能有这个二创的团体，特别是对于这个游戏内容做直接修改的，那我觉得这个游戏本身的框架一定是一个过硬，并且足够好",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S54"
+          ]
+        },
+        {
+          "trait_id": "T031",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为游戏社群强大、有创意、愿意付出",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S55",
+              "quote": "就代表它有一个非常强大的玩家群体，然后是玩家群体非常有创意，愿意为游戏付出的玩家群体",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S55"
+          ]
+        },
+        {
+          "trait_id": "T032",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "self_identity",
+          "statement": "认为自己即使对开发者不满，仍对游戏本身忠诚",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S56",
+              "quote": "即使这个开发者，或者说这个社区运营并不尽如人意，那我对这个游戏的热爱，或者我对游戏本身的这个忠诚可能还是一直是会是矢志不渝的",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S56"
+          ]
+        },
+        {
+          "trait_id": "T033",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为匹配系统难以匹配到愿意开麦的国人队友，社交互动困难",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S23",
+              "quote": "绝地潜兵它这个匹配我觉得有一点奇怪，就是我其实很难匹配到愿意开麦的国人队友",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            },
+            {
+              "segment_id": "S24",
+              "quote": "很多时候都是和一帮老外在进行互动，当然这互动是没问题的，但是这个就肯定不会变成我这个结交了新朋友",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S23",
+            "S24"
+          ]
+        },
+        {
+          "trait_id": "T034",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为队友在游戏中像NPC，难以深入互动",
+          "status": "supported",
+          "temporal_scope": "current",
+          "confidence": 0.85,
+          "evidence": [
+            {
+              "segment_id": "S57",
+              "quote": "队友会帮我标点，我会跟着队友，然后我去打一下我该做的输出，然后更多时候他们就相当于是一个 NPC 因为很难互动",
+              "evidence_level": "E3",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S57"
+          ]
+        },
+        {
+          "trait_id": "T035",
+          "dimension": "perceptions_beliefs",
+          "trait_type": "evaluation",
+          "statement": "认为开发者不认真做游戏，缺乏热情",
+          "status": "inferred",
+          "temporal_scope": "current",
+          "confidence": 0.7,
+          "evidence": [
+            {
+              "segment_id": "S58",
+              "quote": "这个制作主他没有让我感觉到他是在认真做自己游戏",
+              "evidence_level": "E2",
+              "inference_type": "direct"
+            }
+          ],
+          "supporting_segments": [
+            "S58"
+          ]
+        }
+      ]
+    },
+    "patterns": [
+      {
+        "pattern_id": "P001",
+        "description": "叙事驱动与社群归属：玩家被大型叙事事件和氛围感吸引，同时渴望与社群双向互动，对官方忽视社群感到失望",
+        "related_traits": [
+          "T013",
+          "T018",
+          "T027",
+          "T031"
+        ],
+        "confidence": 0.85
+      },
+      {
+        "pattern_id": "P002",
+        "description": "探索与创作循环：玩家喜欢探索新内容、积累兴趣后入坑，并在游戏中通过自定义和模组开发进行创作",
+        "related_traits": [
+          "T014",
+          "T015",
+          "T009",
+          "T030"
+        ],
+        "confidence": 0.85
+      },
+      {
+        "pattern_id": "P003",
+        "description": "体验衰减与被迫改变：更新后敌人变强、公式化玩法失效，玩家感到被迫改变玩法才能维持原有体验，导致挫败和冷落",
+        "related_traits": [
+          "T025",
+          "T026",
+          "T016",
+          "T008",
+          "T029"
+        ],
+        "confidence": 0.9
+      },
+      {
+        "pattern_id": "P004",
+        "description": "社交需求与匹配障碍：玩家有固定队友但现实社交圈缺乏共同兴趣，游戏内匹配系统难以找到愿意开麦的国人队友，社交互动受限",
+        "related_traits": [
+          "T002",
+          "T006",
+          "T011",
+          "T033",
+          "T034"
+        ],
+        "confidence": 0.85
+      }
+    ],
+    "contradictions": [],
+    "summary": "P004是一位有丰富多品类游戏经验的玩家，自评为非强力但能独立钻研并开发模组的玩家。他偏好SLG和FPS，被大型叙事事件和氛围感驱动，喜欢探索新内容并在游戏中创作。他渴望在战略层面有更多参与感，并期待官方与社群双向互动。当前他对游戏感到冷落，主要因为更新后敌人变强、公式化玩法失效，导致被迫改变玩法才能维持体验，同时内容缺乏新意。他对游戏叙事和战术深度评价积极，但对官方运营策略和匹配系统感到失望。尽管对开发者不满，他仍对游戏本身保持忠诚。",
+    "review_candidates": [
+      {
+        "trait_id": "T035",
+        "reason": "单条E2证据推断开发者不认真做游戏，置信度较低，需更多证据确认"
+      }
+    ],
+    "_evidence_summary": {
+      "iceberg_label_types": 48,
+      "annotated_segments": 30,
+      "total_segments": 30
+    }
+  }
+]

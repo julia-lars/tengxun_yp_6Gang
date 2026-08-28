@@ -15,7 +15,7 @@ from sentence_transformers import SentenceTransformer
 # ── 配置 ──
 DB_URL = os.getenv("DATABASE_URL", "postgres://dev:dev@localhost:5432/webtutor")
 # 模型已通过 ModelScope 下载到本地（HuggingFace 连不上）
-MODEL_NAME = "/home/iris/.cache/modelscope/models/BAAI--bge-large-zh-v1.5/snapshots/master"
+MODEL_NAME = os.path.expanduser("~/models/bge-m3/BAAI/bge-m3")
 BATCH_SIZE = 32
 
 # ── 广告关键词 ──

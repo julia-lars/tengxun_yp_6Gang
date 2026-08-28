@@ -1,450 +1,533 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-按 docs/Embedding规范.md 对 source_segments 生成 embedding 并写回 PG。
+Segment Embedding 生成脚本 v3.0
+
+按 docs/Embedding规范.md v3.0 从 Label 文件（merged）生成 Segment Embedding。
+
+核心流程：
+  1. 读取 Label 文件（merged JSON）
+  2. 过滤有效 Segment（is_player_evidence=true 且 cleaned_text 非空）
+  3. embedding_text = cleaned_text（默认不改写）
+  4. 批量 encode（bge-m3，L2 normalize）
+  5. 收集 metadata（iceberg/M1-M5 + framework + validity）
+  6. 输出 JSON + 质量检查报告
 
 用法:
-  python3 scripts/embed_segments.py                # 处理所有 embedding_version IS NULL 的片段
-  python3 scripts/embed_segments.py --limit 200    # 只处理前 200 条（测试）
-  python3 scripts/embed_segments.py --dry-run      # 只统计分档，不编码不写库
+  python3 scripts/embed_segments.py                                    # 全量跑
+  python3 scripts/embed_segments.py --dry-run                           # 只分析不输出
+  python3 scripts/embed_segments.py --input 瓦洛兰特海外人群玩法研究    # 指定单个项目
+  python3 scripts/embed_segments.py --batch-size 64                     # 自定义 batch size
 
-分档（Embedding规范 §3.2）:
-  A 完整嵌入  meta.rs == "auto_pass"   -> 标签描述 + 原声 + 语境
-  B 仅原声    meta.rs == "review" 或无标签  -> 仅原声
-  C 不嵌入    meta.rs == "skip" 或 len(原文)<10 -> embedding = NULL
-
-标签阈值（§3.3）: 单个标签 c>=0.6 且 e!="E0" 才进入标签描述节。
+依赖: pip install sentence-transformers torch
 """
+
+import argparse
 import json
 import os
+import re
 import sys
-
-import psycopg2
-import psycopg2.extras
-from sentence_transformers import SentenceTransformer
+import unicodedata
+from collections import Counter
+from datetime import datetime, timezone
+from pathlib import Path
 
 # ── 配置 ──
-DB_URL = os.getenv("DATABASE_URL", "postgres://dev:dev@localhost:5432/webtutor")
-# bge-m3 通过 ModelScope 下载后的本地路径（--local_dir 指定，与文档 §2 一致）
-MODEL_PATH = os.getenv("EMBED_MODEL_PATH", os.path.expanduser("~/models/bge-m3/BAAI/bge-m3"))
-EMBED_VERSION = "bge-m3@v1"
+SCRIPT_DIR = Path(__file__).resolve().parent
+PROJECT_ROOT = SCRIPT_DIR.parent
+
+MERGED_DIR = PROJECT_ROOT / "data" / "群体画像v2.0_merged"
+EMBED_OUTPUT_DIR = PROJECT_ROOT / "data" / "embed" / "segments"
+
+# Embedding 模型配置
+EMBEDDING_MODEL_NAME = "BAAI/bge-m3"
+EMBEDDING_VERSION = "v3.0"
+EMBEDDING_DIMENSION = 1024
 BATCH_SIZE = 32
 
-# ── 英文 key -> 中文 映射表（与 Embedding规范 §4 对齐）──
+# 六大 Dimension（用于从 framework 推断 dimension）
+DIMENSION_ORDER = [
+    "context",
+    "experience_capability",
+    "behaviors",
+    "preferences",
+    "motivations_needs",
+    "perceptions_beliefs",
+]
 
-M1_MAP = {
-    "competitive_proof": "竞技证明", "ability_growth": "能力成长", "dominance": "支配优越",
-    "team_cooperation": "团队协作", "social_belonging": "社交归属", "stimulation": "射击爽感",
-    "relaxation_escape": "放松逃避", "strategy_mastery": "策略掌控",
-    "exploration_collection": "探索收集", "narrative_immersion": "叙事沉浸",
-    "sensory_aesthetics": "视听审美", "expression_creation": "表达创造",
-}
-
-M2_MAP = {
-    "fair_competition": "公平竞技", "skill_determines": "技术决定", "rich_content": "丰富内容",
-    "social_convenience": "社交便利", "low_barrier": "低门槛", "immersive_experience": "沉浸体验",
-    "positive_community": "正向社区", "continuous_challenge": "持续挑战", "respect_time": "尊重时间",
-    "monetization_fair": "付费公平", "teammate_communication": "队友沟通",
-    "teammate_competence": "队友能力匹配", "teammate_stability": "队友情绪稳定",
-}
-
-M3_CAT_MAP = {
-    "fairness_perception": "公平性", "difficulty_perception": "难度", "depth_perception": "深度",
-    "quality_perception": "品质", "monetization_perception": "商业化", "meta_perception": "版本环境",
-    "self_ability": "自我能力", "self_identity": "自我身份", "self_limitation": "自我限制",
-    "teammate_perception": "对队友", "opponent_perception": "对对手", "developer_perception": "对厂商",
-    "community_perception": "对社区", "causal_attribution": "因果归因",
-}
-
-M4_MAP = {
-    "excitement": "兴奋", "achievement": "成就感", "flow": "心流", "joy": "快乐",
-    "social_warmth": "社交温暖", "anger_frustration": "愤怒挫败", "anxiety_tension": "焦虑紧张",
-    "boredom_burnout": "无聊倦怠", "disappointment": "失望失落", "numbness": "麻木无所谓",
-}
-M4_VAL = {"pos": "积极", "neg": "消极", "neu": "中性"}
-M4_INT = {"low": "低", "medium": "中", "high": "高"}
-M4_TRG = {
-    "win_loss": "胜负", "growth": "成长", "team": "队友", "matchmaking": "匹配",
-    "monetization": "付费", "cheat": "外挂", "performance": "表现", "content": "内容", "social": "社交",
-}
-
-M5_MAP = {
-    "ranked_grind": "排位上分", "deliberate_practice": "刻意练习", "watch_guides": "看攻略学习",
-    "social_play": "社交开黑", "casual_play": "休闲匹配", "switch_mode": "切换模式产品",
-    "return": "回流", "avoid_strangers": "回避陌生人", "content_share": "内容分享",
-    "spending": "消费氪金", "quit_break": "退坑休息", "smurf": "换号炸鱼",
-    "watch_esports": "追比赛电竞", "community_engage": "社区参与",
-}
-M5_FREQ = {"daily": "每日", "regular": "经常", "occasional": "偶尔", "past": "过去", "planned": "计划中"}
-
-ABILITY_LVL = {
-    "novice": "新手", "beginner": "入门", "intermediate": "进阶", "advanced": "高手",
-    "expert": "专家", "unknown": "未知",
-}
-SKILL_MAP = {
-    "aim-flick": "拉枪", "aim-micro": "微调", "aim-recoil": "压枪", "aim-tracking": "跟枪",
-    "aim-prefire": "预瞄", "move-basic": "基础身法", "move-peek": "闪身", "move-stop": "急停",
-    "move-react": "快速反应", "info-sound": "听声辨位", "info-spot": "复杂场景识敌",
-    "info-state": "状态资源收集", "tactics-predict": "敌情预测", "tactics-utility": "投掷物技能",
-    "tactics-route": "路线规划", "tactics-retreat": "战撤决策", "tactics-position": "有利位置",
-    "tactics-map": "地图记忆", "know-rules": "规则目标", "know-mechanic": "核心机制",
-    "know-meta": "角色武器版本理解",
-}
-COG_MAP = {
-    "reasoning": "推理", "procedural_motor": "程序化动作", "game_knowledge": "游戏知识",
-    "visual_spatial": "视觉空间", "auditory_processing": "听觉处理", "motor_control": "运动控制",
-    "processing_speed": "加工速度", "reaction_speed": "反应速度", "psychomotor_speed": "心理运动速度",
-    "short_term_memory": "短时记忆", "long_term_memory": "长时记忆",
-}
-
-STYLE_COMBAT = {"passive": "苟活", "balanced": "灵活", "aggressive": "刚枪"}
-STYLE_DECISION = {"strategic": "策略", "contextual": "情境", "instinctive": "本能"}
-STYLE_VICTORY = {"team": "团队", "balanced": "平衡", "individual": "个人"}
-STYLE_GROWTH = {"progression": "数值", "mixed": "混合", "skill": "操作"}
-STYLE_SOCIAL = {"friends": "熟人", "flexible": "均可", "solo": "单人"}
-
-PLATFORM_MAP = {
-    "pc": "PC", "console": "主机", "mobile": "移动", "multi_platform": "多平台",
-    "cloud_other": "云及其他", "unknown": "未知",
-}
-MODE_STRUCT = {
-    "pure_pve": "纯PVE", "pve_main": "PVE为主", "balanced": "平衡", "pvp_main": "PVP为主",
-    "pure_pvp": "纯PVP", "contextual": "视情境",
-}
-MODE_SUB_N = {
-    "team_deathmatch": "团队死斗", "bomb_defusal": "爆破拆弹", "battle_royale": "大逃杀",
-    "extraction": "撤离", "large_scale": "大战场", "coop_pve": "合作PVE", "story_pve": "剧情PVE",
-    "boss_loot": "BOSS掉落", "party_mode": "派对模式", "open_world": "开放世界",
-}
-MODE_SUB_A = {
-    "liked": "喜欢", "accepted": "接受", "neutral": "中立", "disliked": "不喜欢",
-    "rejected": "拒绝", "not_experienced": "未体验",
-}
-SS_STAGE = {
-    "novice_understanding": "新手理解期", "rapid_improvement": "快速成长期",
-    "stable_mastery": "稳定精通期", "plateau": "平台期", "churn": "流失期", "unknown": "未知",
-}
-SS_FLOW = {
-    "clear_goals": "清晰目标", "immediate_feedback": "即时反馈", "skill_challenge_balance": "技能挑战平衡",
-    "sense_of_control": "掌控感", "focus": "专注", "action_awareness_merge": "行动意识融合",
-    "selflessness": "忘我", "time_distortion": "时间失真", "autotelic": "自驱动",
-}
-ASSET_LABELS = [("time", "时间"), ("ability_asset", "能力"), ("energy", "精力"),
-                ("emotion", "情绪"), ("money", "金钱")]
-
-# product_tags 仅纳入枚举类短标签；migration_trigger/churn_reason 等「原文」字段已在原声节覆盖
-PRODUCT_KEYS = ["city_tier", "life_stage", "device", "setting", "art_style", "perspective",
-                "ttk", "match_length", "social_structure", "spending_level", "payment_method",
-                "spending_motive", "fairness_boundary", "info_channel", "content_type", "trust_source"]
-PRODUCT_KEY_ZH = {
-    "city_tier": "城市", "life_stage": "人生阶段", "device": "设备", "setting": "题材",
-    "art_style": "画风", "perspective": "视角", "ttk": "TTK", "match_length": "对局时长",
-    "social_structure": "社交结构", "spending_level": "付费水平", "payment_method": "付费方式",
-    "spending_motive": "付费动机", "fairness_boundary": "付费边界", "info_channel": "信息渠道",
-    "content_type": "内容类型", "trust_source": "信任来源",
-}
+# M1-M5 级别映射
+ICEBERG_LEVELS = ["M1_motivation", "M2_expectation", "M3_perception", "M4_feeling", "M5_behavior"]
 
 
-# ── 工具 ──
+def load_model():
+    """加载 bge-m3 模型"""
+    from sentence_transformers import SentenceTransformer
 
-def _tag_ok(t: dict) -> bool:
-    """单个标签是否进入标签描述节（§3.3）：c>=0.6 且 e!="E0"。"""
-    c = t.get("c", 0.8)
-    e = t.get("e")
-    return c >= 0.6 and e != "E0"
-
-
-def _is_unknown(v) -> bool:
-    """unknown/未知/空值不进入嵌入文本（§3.3）。"""
-    return v is None or v == "" or v in ("unknown", "未知")
+    print(f"📥 加载模型: {EMBEDDING_MODEL_NAME} ...")
+    model = SentenceTransformer(EMBEDDING_MODEL_NAME)
+    print(f"   模型维度: {model.get_sentence_embedding_dimension()}")
+    return model
 
 
-def _map(name, m):
-    return m.get(name, name)
+def load_merged_files(input_filter=None):
+    """加载 merged 目录中的所有 JSON 文件。
 
+    Args:
+        input_filter: 可选，指定文件名关键词过滤
 
-def _chain_name(s):
-    if not s:
-        return ""
-    if isinstance(s, str) and ":" in s:
-        layer, key = s.split(":", 1)
-        m = {"M1": M1_MAP, "M2": M2_MAP, "M4": M4_MAP, "M5": M5_MAP}.get(layer)
-        return m.get(key, key) if m else key
-    return str(s)
+    Returns:
+        [(file_path, data_dict), ...]
+    """
+    if not MERGED_DIR.exists():
+        print(f"❌ Merged 目录不存在: {MERGED_DIR}")
+        return []
 
-
-def classify_tier(seg: dict, label: dict) -> str:
-    """A/B/C 分档（§3.2）。"""
-    rs = (label or {}).get("meta", {}).get("rs")
-    text = (seg.get("cleaned_text") or seg.get("original_text") or "").strip()
-    if rs == "skip" or len(text) < 10:
-        return "C"
-    if rs == "auto_pass":
-        return "A"
-    return "B"
-
-
-def build_embed_text(seg: dict, label: dict, tier: str) -> str:
-    text = (seg.get("cleaned_text") or seg.get("original_text") or "").strip()
-    if tier == "C":
-        return ""
-    if tier == "B":
-        return f"原声：{text}" if text else ""
-
-    ib = (label or {}).get("iceberg") or {}
-    fw = (label or {}).get("framework") or {}
-    pt = (label or {}).get("product_tags") or {}
-    sections = []
-
-    # 诉求 M1（primary 优先）
-    m1 = ib.get("M1") or []
-    valid = [t for t in m1 if _tag_ok(t)]
-    if valid:
-        valid = sorted(valid, key=lambda t: 0 if t.get("primary") else 1)
-        sections.append("诉求：" + "、".join(_map(t.get("v", ""), M1_MAP) for t in valid))
-
-    # 期待 M2
-    m2 = ib.get("M2") or []
-    valid = [_map(t.get("v", ""), M2_MAP) for t in m2 if _tag_ok(t)]
-    if valid:
-        sections.append("期待：" + "、".join(valid))
-
-    # 认知 M3
-    m3 = ib.get("M3") or []
-    parts = [f"{_map(t.get('cat', ''), M3_CAT_MAP)}（{t.get('v', '')}）" for t in m3 if _tag_ok(t)]
-    if parts:
-        sections.append("认知：" + "；".join(parts))
-
-    # 感受 M4
-    m4 = ib.get("M4") or []
-    parts = []
-    for t in m4:
-        if not _tag_ok(t):
+    files = []
+    for fpath in sorted(MERGED_DIR.glob("*.json")):
+        if fpath.name.startswith("."):
             continue
-        subs = []
-        if t.get("val"):
-            subs.append(_map(t["val"], M4_VAL))
-        if t.get("int"):
-            subs.append(_map(t["int"], M4_INT))
-        if t.get("trg"):
-            subs.append(_map(t["trg"], M4_TRG))
-        parts.append(f"{_map(t.get('v', ''), M4_MAP)}（{'/'.join(subs)}）")
-    if parts:
-        sections.append("感受：" + "；".join(parts))
-
-    # 行为 M5
-    m5 = ib.get("M5") or []
-    parts = []
-    for t in m5:
-        if not _tag_ok(t):
+        if input_filter and input_filter not in fpath.stem:
             continue
-        name = _map(t.get("v", ""), M5_MAP)
-        parts.append(f"{name}（{_map(t['freq'], M5_FREQ)}）" if t.get("freq") else name)
-    if parts:
-        sections.append("行为：" + "；".join(parts))
+        files.append(fpath)
 
-    # 因果链
-    chain = ib.get("causal_chain") or []
-    parts = [f"{_chain_name(c[0])}→{_chain_name(c[1])}"
-             for c in chain if isinstance(c, (list, tuple)) and len(c) >= 2]
-    if parts:
-        sections.append("因果：" + "；".join(parts))
+    if not files:
+        print(f"❌ 未找到 merged JSON 文件（filter={input_filter}）")
+        return []
 
-    # 能力
-    ab = fw.get("ability") or {}
-    if ab:
-        bits = []
-        if ab.get("lvl") and not _is_unknown(ab["lvl"]):
-            bits.append(f"等级{_map(ab['lvl'], ABILITY_LVL)}")
-        if ab.get("str"):
-            bits.append("强项" + "、".join(_map(x, SKILL_MAP) for x in ab["str"]))
-        if ab.get("wk"):
-            bits.append("短板" + "、".join(_map(x, SKILL_MAP) for x in ab["wk"]))
-        if ab.get("cog_str"):
-            bits.append("认知强" + "、".join(_map(x, COG_MAP) for x in ab["cog_str"]))
-        if ab.get("cog_wk"):
-            bits.append("认知弱" + "、".join(_map(x, COG_MAP) for x in ab["cog_wk"]))
-        if bits:
-            sections.append("能力：" + "；".join(bits))
+    results = []
+    for fpath in files:
+        with open(fpath, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        results.append((fpath, data))
 
-    # 风格
-    st = fw.get("style") or {}
-    bits = []
-    for key, submap, label in (
-        ("combat", STYLE_COMBAT, "战斗"), ("decision", STYLE_DECISION, "决策"),
-        ("victory", STYLE_VICTORY, "求胜"), ("growth", STYLE_GROWTH, "成长"),
-        ("social", STYLE_SOCIAL, "社交"),
-    ):
-        if st.get(key) and not _is_unknown(st[key]):
-            bits.append(f"{label}{_map(st[key], submap)}")
-    if bits:
-        sections.append("风格：" + "，".join(bits))
+    print(f"📥 加载了 {len(results)} 个 merged 文件")
+    return results
 
-    # 平台
-    pl = fw.get("platform") or {}
-    if pl and pl.get("p") and not _is_unknown(pl["p"]):
-        name = _map(pl["p"], PLATFORM_MAP)
-        if pl.get("s"):
-            name += f"，{_map(pl['s'], PLATFORM_MAP)}"
-        sections.append("平台：" + name)
 
-    # 模式
-    md = fw.get("mode") or {}
-    if md:
-        parts = []
-        if md.get("struct") and not _is_unknown(md["struct"]):
-            parts.append(_map(md["struct"], MODE_STRUCT))
-        subs = md.get("sub") or []
-        subparts = []
-        for s in subs:
-            if isinstance(s, dict) and s.get("n") and not _is_unknown(s["n"]):
-                n = _map(s["n"], MODE_SUB_N)
-                a = _map(s["a"], MODE_SUB_A) if s.get("a") else None
-                subparts.append(f"{n}（{a}）" if a else n)
-        if subparts:
-            parts.append("、".join(subparts))
-        if parts:
-            sections.append("模式：" + "；".join(parts))
+def normalize_text(text):
+    """Unicode NFC 规范化 + 空白字符处理（规范 §27.1.6, §27.1.7）"""
+    text = unicodedata.normalize("NFC", text)
+    text = text.strip()
+    text = " ".join(text.split())
+    return text
 
-    # 资产
-    assets = fw.get("assets") or {}
-    bits = [f"{label}{assets[key]}" for key, label in ASSET_LABELS
-            if assets.get(key) and not _is_unknown(assets[key])]
-    if bits:
-        sections.append("资产：" + " ".join(bits))
 
-    # 甜区
-    ss = fw.get("sweet_spot") or {}
-    if ss:
-        bits = []
-        if ss.get("stage") and not _is_unknown(ss["stage"]):
-            bits.append(_map(ss["stage"], SS_STAGE))
-        flow = ss.get("flow") or []
-        if flow:
-            bits.append("心流" + "、".join(_map(x, SS_FLOW) for x in flow))
-        if ss.get("peak") and not _is_unknown(ss["peak"]):
-            bits.append(f"峰值{ss['peak']}")
-        if bits:
-            sections.append("甜区：" + "；".join(bits))
+def is_valid_segment(seg):
+    """判断 Segment 是否有效，应生成 Embedding。
 
-    # 产品标签（仅枚举类短标签，值域本身已是中文 §4.11；原文类字段已在原声节覆盖）
-    if pt:
-        vals = []
-        for k in PRODUCT_KEYS:
-            v = pt.get(k)
-            if not _is_unknown(v):
-                vals.append(f"{PRODUCT_KEY_ZH.get(k, k)}:{v}")
-        if vals:
-            sections.append("产品标签：" + "，".join(vals))
+    规则（规范 §11）：
+    - is_player_evidence 为 true
+    - cleaned_text 非空且非纯空白
+    """
+    # 检查 validity
+    validity = seg.get("annotation", {}).get("validity", {})
+    if not validity.get("is_player_evidence", True):
+        return False
 
-    # 原声
-    if text:
-        sections.append("原声：" + text)
+    # 检查文本
+    text = seg.get("cleaned_text", "")
+    if not text or not text.strip():
+        return False
 
-    # 语境
-    pq = (seg.get("preceding_question") or "").strip()
-    role = seg.get("speaker_role") or "interviewee"
-    if pq and role == "interviewee":
-        sections.append("语境：上文提问：" + pq)
+    return True
 
-    return "\n".join(sections)
+
+def extract_iceberg_values(seg):
+    """从 annotation.iceberg 提取 M1-M5 标注值。
+
+    Returns:
+        {m_level: [value_string, ...]}
+    """
+    result = {}
+    ice = seg.get("annotation", {}).get("iceberg", {})
+    for level in ICEBERG_LEVELS:
+        items = ice.get(level, [])
+        if items:
+            result[level] = [item.get("value") for item in items if item.get("value")]
+    return result
+
+
+def extract_framework_summary(seg):
+    """从 annotation.framework 提取结构化的 framework 标注。
+
+    Returns:
+        {framework_key: value}（过滤掉 None、unknown、空列表）
+    """
+    fw = seg.get("annotation", {}).get("framework", {})
+    result = {}
+    for key, val in fw.items():
+        if val is None:
+            continue
+        if isinstance(val, dict):
+            # 提取有意义的子字段
+            sub = {}
+            for sk, sv in val.items():
+                if sv is None:
+                    continue
+                if isinstance(sv, str) and sv in ("unknown", "未知", ""):
+                    continue
+                if isinstance(sv, list) and len(sv) == 0:
+                    continue
+                sub[sk] = sv
+            if sub:
+                result[key] = sub
+        elif isinstance(val, list):
+            if len(val) > 0:
+                result[key] = val
+        elif isinstance(val, str) and val not in ("unknown", "未知", ""):
+            result[key] = val
+    return result
+
+
+def extract_confidence(seg):
+    """从 annotation 中提取置信度。
+
+    优先取 annotation.meta.confidence，否则取 iceberg 中各项的平均值。
+    """
+    meta = seg.get("annotation", {}).get("meta", {})
+    if "confidence" in meta and meta["confidence"] is not None:
+        return meta["confidence"]
+
+    # 从 iceberg 各项取平均值
+    confidences = []
+    ice = seg.get("annotation", {}).get("iceberg", {})
+    for level in ICEBERG_LEVELS:
+        for item in ice.get(level, []):
+            c = item.get("confidence")
+            if c is not None:
+                confidences.append(c)
+    if confidences:
+        return sum(confidences) / len(confidences)
+    return None
+
+
+def build_embedding_text(seg):
+    """生成 embedding_text。
+
+    规则（规范 §5, §6）：
+    - 默认 embedding_text = cleaned_text
+    - 仅当语义无法独立理解时才补充最小必要 context
+    - 本版本 demo 采用纯规则判断，不调用 LLM
+
+    Returns:
+        (embedding_text, needs_context)
+    """
+    text = seg.get("cleaned_text", "")
+    text = normalize_text(text)
+
+    if not text:
+        return "", False
+
+    # 简单规则：如果文本 < 5 字且包含指代词，标记为需要上下文
+    # 但根据规范 §5.1，默认不改写
+    needs_context = False
+    return text, needs_context
+
+
+def collect_embedding_inputs(merged_data):
+    """收集中所有有效 Segment，构建 embedding 输入。
+
+    Returns:
+        (units_without_embedding, embedding_texts, skipped_count)
+    """
+    units = []
+    texts = []
+    skipped = 0
+    dup_skipped = 0
+    seen_segment_ids = set()  # 跨项目去重：同一个 unique_segment_id 只保留第一个
+
+    for fpath, data in merged_data:
+        project_name = data.get("project", fpath.stem)
+        meta = data.get("meta", {})
+
+        for seg in data.get("segments", []):
+            if not is_valid_segment(seg):
+                skipped += 1
+                continue
+
+            segment_id = seg["segment_id"]
+            cleaned_text = normalize_text(seg.get("cleaned_text", ""))
+
+            if not cleaned_text:
+                skipped += 1
+                continue
+
+            # 用项目名 + segment_id 生成全局唯一 ID
+            proj_slug = re.sub(r'[^a-zA-Z0-9一-鿿]', '', project_name)[:20]
+            unique_segment_id = f"{proj_slug}_{segment_id}"
+
+            if unique_segment_id in seen_segment_ids:
+                dup_skipped += 1
+                continue
+            seen_segment_ids.add(unique_segment_id)
+
+            embedding_id = f"E_{unique_segment_id}"
+
+            embedding_text, needs_context = build_embedding_text(seg)
+
+            # 提取 iceberg M1-M5
+            iceberg_values = extract_iceberg_values(seg)
+
+            # 提取 framework
+            framework = extract_framework_summary(seg)
+
+            # 提取 confidence
+            confidence = extract_confidence(seg)
+
+            # 提取 evidence IDs
+            evidence = seg.get("annotation", {}).get("evidence", [])
+            evidence_ids = [e.get("id") for e in evidence if e.get("id")]
+
+            # 提取 validity
+            validity = seg.get("annotation", {}).get("validity", {})
+
+            unit = {
+                "embedding_id": embedding_id,
+                "segment_id": unique_segment_id,
+                "original_segment_id": segment_id,
+                "respondent_id": seg.get("speaker_id", ""),
+                "source_file": seg.get("source_file", ""),
+                "project": project_name,
+                "embedding_text": embedding_text,
+                "needs_context": needs_context,
+                # iceberg M1-M5
+                "iceberg": iceberg_values,
+                # framework
+                "framework": framework,
+                # evidence
+                "evidence_ids": evidence_ids,
+                # validity
+                "is_player_evidence": validity.get("is_player_evidence", True),
+                "skip_reason": validity.get("skip_reason"),
+                "requires_context": validity.get("requires_context", False),
+                # confidence
+                "confidence": confidence,
+                # annotation version
+                "annotation_version": seg.get("annotation", {}).get("annotation_version"),
+                # model info
+                "embedding_model": EMBEDDING_MODEL_NAME,
+                "embedding_version": EMBEDDING_VERSION,
+                "dimension_size": EMBEDDING_DIMENSION,
+                "normalized": True,
+                "truncated": False,
+                "embedding": None,
+                "created_at": datetime.now(timezone.utc).isoformat(),
+            }
+
+            units.append(unit)
+            texts.append(embedding_text)
+
+    return units, texts, skipped, dup_skipped
+
+
+def generate_embeddings(model, texts, batch_size=BATCH_SIZE):
+    """批量生成 embedding 向量。
+
+    Args:
+        model: sentence-transformers 模型
+        texts: 输入文本列表
+        batch_size: 批次大小
+
+    Returns:
+        向量列表 [[float, ...], ...]
+    """
+    print(f"🔢 生成 Embedding: {len(texts)} 条文本, batch_size={batch_size} ...")
+
+    # bge-m3 的 encode 默认 normalize_embeddings=False
+    # 规范要求 L2 normalize
+    embeddings = model.encode(
+        texts,
+        batch_size=batch_size,
+        normalize_embeddings=True,
+        show_progress_bar=True,
+    )
+
+    # 转换为 Python list
+    return embeddings.tolist()
+
+
+def run_quality_checks(units, total_segments, skipped):
+    """执行自动化质量检查（规范 §26）。"""
+    checks = {
+        "total_segments_in_label": total_segments,
+        "valid_segments": len(units),
+        "skipped": skipped,
+        "coverage": len(units) / total_segments if total_segments > 0 else 0,
+    }
+
+    # segment_id 重复检查
+    segment_ids = [u["segment_id"] for u in units]
+    id_counts = Counter(segment_ids)
+    duplicates = {k: v for k, v in id_counts.items() if v > 1}
+    checks["segment_id_duplicates"] = len(duplicates)
+    checks["segment_id_duplicate_list"] = list(duplicates.keys())
+
+    # embedding_id 重复检查
+    eids = [u["embedding_id"] for u in units]
+    eid_counts = Counter(eids)
+    eid_dups = {k: v for k, v in eid_counts.items() if v > 1}
+    checks["embedding_id_duplicates"] = len(eid_dups)
+
+    # embedding_text 空值检查
+    empty_texts = [u for u in units if not u["embedding_text"].strip()]
+    checks["empty_embedding_text"] = len(empty_texts)
+
+    # embedding 维度检查
+    wrong_dim = [u for u in units if u["embedding"] and len(u["embedding"]) != EMBEDDING_DIMENSION]
+    checks["wrong_dimension"] = len(wrong_dim)
+
+    # truncated 检查
+    truncated = [u for u in units if u["truncated"]]
+    checks["truncated_count"] = len(truncated)
+
+    # 各项目统计
+    project_counts = Counter(u["project"] for u in units)
+    checks["projects"] = dict(project_counts)
+
+    # iceberg M1-M5 覆盖率
+    has_iceberg = sum(1 for u in units if u["iceberg"])
+    checks["has_iceberg_rate"] = has_iceberg / len(units) if units else 0
+
+    checks["passed"] = (
+        checks["segment_id_duplicates"] == 0
+        and checks["empty_embedding_text"] == 0
+        and checks["wrong_dimension"] == 0
+    )
+
+    return checks
+
+
+def save_output(units, checks, input_filter=None):
+    """保存 Embedding 输出 JSON 文件。"""
+    EMBED_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+
+    # 文件名
+    if input_filter:
+        fname = f"{input_filter}_segment_embeddings.json"
+    else:
+        fname = "segment_embeddings.json"
+
+    output_path = EMBED_OUTPUT_DIR / fname
+
+    # 分离 embedding 为独立文件（避免 JSON 过大）
+    # 主文件存 metadata（不含向量）
+    metadata_units = []
+    for u in units:
+        mu = {k: v for k, v in u.items() if k != "embedding"}
+        metadata_units.append(mu)
+
+    output = {
+        "meta": {
+            "embedding_model": EMBEDDING_MODEL_NAME,
+            "embedding_version": EMBEDDING_VERSION,
+            "dimension_size": EMBEDDING_DIMENSION,
+            "normalized": True,
+            "total_units": len(units),
+            "skipped": checks["skipped"],
+            "generated_at": datetime.now(timezone.utc).isoformat(),
+        },
+        "quality_checks": checks,
+        "units": metadata_units,
+    }
+
+    with open(output_path, "w", encoding="utf-8") as f:
+        json.dump(output, f, ensure_ascii=False, indent=2)
+
+    # 向量单独存为 .npy 格式（对齐 segment_id 顺序）
+    vectors_path = output_path.with_suffix(".npy")
+    import numpy as np
+
+    vectors = np.array([u["embedding"] for u in units], dtype=np.float32)
+    np.save(vectors_path, vectors)
+
+    # 同时保存 segment_id 映射文件
+    mapping_path = output_path.with_name(output_path.stem + "_ids.json")
+    id_mapping = [u["segment_id"] for u in units]
+    with open(mapping_path, "w", encoding="utf-8") as f:
+        json.dump(id_mapping, f, ensure_ascii=False, indent=2)
+
+    return output_path
 
 
 def main():
-    dry = "--dry-run" in sys.argv
-    limit = None
-    if "--limit" in sys.argv:
-        limit = int(sys.argv[sys.argv.index("--limit") + 1])
+    parser = argparse.ArgumentParser(description="Segment Embedding 生成脚本 v3.0")
+    parser.add_argument("--dry-run", action="store_true", help="只分析不输出文件")
+    parser.add_argument("--input", type=str, default=None, help="指定项目名称（如：瓦洛兰特海外人群玩法研究）")
+    parser.add_argument("--batch-size", type=int, default=BATCH_SIZE, help=f"批次大小（默认 {BATCH_SIZE}）")
+    parser.add_argument("--no-embed", action="store_true", help="跳过向量生成，只输出 metadata")
+    args = parser.parse_args()
 
-    print(f"📥 加载模型: {MODEL_PATH}")
-    model = SentenceTransformer(MODEL_PATH)
-    dim = model.get_sentence_embedding_dimension()
-    print(f"   向量维度: {dim}")
+    # ── Step 1: 加载 merged 文件 ──
+    print("=" * 60)
+    print("📥 Step 1: 加载 Label 文件（merged）")
+    merged_files = load_merged_files(args.input)
+    if not merged_files:
+        sys.exit(1)
 
-    conn = psycopg2.connect(DB_URL)
-    cur = conn.cursor()
+    total_segments = sum(len(data.get("segments", [])) for _, data in merged_files)
+    total_respondents = sum(len(data.get("respondents", [])) for _, data in merged_files)
+    print(f"   总 Segment 数: {total_segments}")
+    print(f"   总 Respondent 数: {total_respondents}")
 
-    # 未处理 = embedding_version IS NULL（首次全部，重跑只补漏）
-    cur.execute(
-        """SELECT id, source_file, speaker_id, speaker_role, preceding_question,
-                  original_text, cleaned_text, annotation
-           FROM source_segments
-           WHERE embedding_version IS NULL
-           ORDER BY id"""
-    )
-    rows = cur.fetchall()
-    if limit:
-        rows = rows[:limit]
-    print(f"📊 待处理 {len(rows)} 条\n")
+    # ── Step 2: 收集有效 Segment ──
+    print(f"\n📋 Step 2: 收集有效 Segment")
+    units, texts, skipped, dup_skipped = collect_embedding_inputs(merged_files)
+    print(f"   有效 Segment: {len(units)}")
+    print(f"   跳过（无效）: {skipped}")
+    print(f"   跳过（重复）: {dup_skipped}")
 
-    if dry:
-        tiers = {"A": 0, "B": 0, "C": 0}
-        for r in rows:
-            seg = {
-                "source_file": r[1], "speaker_id": r[2], "speaker_role": r[3],
-                "preceding_question": r[4], "original_text": r[5], "cleaned_text": r[6],
-            }
-            label = r[7] if isinstance(r[7], dict) else (json.loads(r[7]) if r[7] else None)
-            tiers[classify_tier(seg, label)] += 1
-        print(f"   分档: A={tiers['A']} B={tiers['B']} C={tiers['C']}")
-        conn.close()
-        return
+    if not units:
+        print("❌ 无有效 Segment，退出")
+        sys.exit(1)
 
-    done_a = done_b = done_c = 0
-    for i in range(0, len(rows), BATCH_SIZE):
-        batch = rows[i: i + BATCH_SIZE]
-        texts = []
-        metas = []
-        for r in batch:
-            seg = {
-                "source_file": r[1], "speaker_id": r[2], "speaker_role": r[3],
-                "preceding_question": r[4], "original_text": r[5], "cleaned_text": r[6],
-            }
-            label = r[7] if isinstance(r[7], dict) else (json.loads(r[7]) if r[7] else None)
-            tier = classify_tier(seg, label)
-            text = build_embed_text(seg, label, tier)
-            texts.append(text)
-            metas.append((r[0], tier, text))
+    # ── Step 3: 生成 Embedding ──
+    if not args.no_embed:
+        print(f"\n🔢 Step 3: 生成 Embedding 向量")
+        model = load_model()
+        vectors = generate_embeddings(model, texts, args.batch_size)
 
-        # 仅对非空文本编码
-        idx = [k for k, (_, _, t) in enumerate(metas) if t]
-        vecs = [None] * len(metas)
-        if idx:
-            enc = model.encode([texts[k] for k in idx], normalize_embeddings=True, batch_size=BATCH_SIZE)
-            for k, v in zip(idx, enc):
-                vecs[k] = v.tolist()
+        # 将向量写入 units
+        for i, vec in enumerate(vectors):
+            units[i]["embedding"] = vec
+        print(f"   生成 {len(vectors)} 条向量")
+    else:
+        print(f"\n⏭️  Step 3: 跳过（--no-embed）")
 
-        for (seg_id, tier, _), vec in zip(metas, vecs):
-            if tier == "C":
-                cur.execute(
-                    "UPDATE source_segments SET embedding_version=%s, embedded_at=now() WHERE id=%s",
-                    (EMBED_VERSION, seg_id),
-                )
-                done_c += 1
-            else:
-                cur.execute(
-                    "UPDATE source_segments SET embedding=%s::vector, embedding_version=%s, embedded_at=now() WHERE id=%s",
-                    (json.dumps(vec), EMBED_VERSION, seg_id),
-                )
-                if tier == "A":
-                    done_a += 1
-                else:
-                    done_b += 1
+    # ── Step 4: 质量检查 ──
+    print(f"\n✅ Step 4: 质量检查")
+    checks = run_quality_checks(units, total_segments, skipped + dup_skipped)
+    print(f"   Coverage: {checks['coverage']:.2%}")
+    print(f"   segment_id 重复: {checks['segment_id_duplicates']}")
+    print(f"   embedding_text 空值: {checks['empty_embedding_text']}")
+    print(f"   维度错误: {checks['wrong_dimension']}")
+    print(f"   truncated: {checks['truncated_count']}")
+    print(f"   iceberg 覆盖率: {checks['has_iceberg_rate']:.2%}")
+    print(f"   结果: {'✅ PASS' if checks['passed'] else '❌ FAIL'}")
 
-        conn.commit()
-        done = min(i + BATCH_SIZE, len(rows))
-        print(f"\r⏳ [{done}/{len(rows)}] A={done_a} B={done_b} C={done_c}", end="", flush=True)
+    # 各项目分布
+    print(f"\n   项目分布:")
+    for proj, count in checks.get("projects", {}).items():
+        print(f"     {proj}: {count}")
 
-    cur.close()
-    conn.close()
-    print("\n")
-    print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
-    print("✅ Embedding 完成")
-    print(f"   A 完整嵌入: {done_a} 条")
-    print(f"   B 仅原声:   {done_b} 条")
-    print(f"   C 不嵌入:   {done_c} 条（embedding=NULL，已标记 embedding_version）")
-    print(f"   模型/版本:   {EMBED_VERSION}")
-    print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+    # ── Step 5: 保存 ──
+    if not args.dry_run:
+        print(f"\n💾 Step 5: 保存输出")
+        output_path = save_output(units, checks, args.input)
+        print(f"   Metadata: {output_path}")
+        print(f"   Vectors:  {output_path.with_suffix('.npy')}")
+        print(f"   ID Map:   {output_path.with_name(output_path.stem + '_ids.json')}")
+    else:
+        print(f"\n🔍 Dry-run 模式，不保存文件")
+
+    # ── 总结 ──
+    print("\n" + "=" * 60)
+    print("📊 生成总结")
+    print(f"   输入文件数: {len(merged_files)}")
+    print(f"   总 Segment 数: {total_segments}")
+    print(f"   有效 Segment: {len(units)}")
+    print(f"   跳过（无效）: {skipped}")
+    print(f"   输出目录: {EMBED_OUTPUT_DIR}")
+    print("=" * 60)
 
 
 if __name__ == "__main__":

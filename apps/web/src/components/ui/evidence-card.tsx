@@ -25,6 +25,17 @@ const matchLevelLabel: Record<string, string> = {
   inferred: "推断",
 };
 
+/** 将 iceberg 中的值转为可渲染的字符串（可能是对象如 {c, e, v, freq}） */
+function safeLabel(v: unknown): string {
+  if (typeof v === "string") return v;
+  if (typeof v === "object" && v !== null) {
+    const obj = v as Record<string, unknown>;
+    if (typeof obj.v === "string") return obj.v;
+    return JSON.stringify(v);
+  }
+  return String(v);
+}
+
 export function EvidenceCard({
   sourceFile,
   originalText,
@@ -37,7 +48,7 @@ export function EvidenceCard({
   className,
 }: EvidenceCardProps) {
   const iceberg = (annotation as Record<string, unknown>)?.iceberg as
-    | Record<string, string[]>
+    | Record<string, unknown[]>
     | undefined;
 
   return (
@@ -59,9 +70,9 @@ export function EvidenceCard({
       {iceberg && Object.keys(iceberg).length > 0 && (
         <div className="flex flex-wrap gap-1">
           {Object.entries(iceberg).map(([key, vals]) =>
-            (Array.isArray(vals) ? vals : [vals]).map((v) => (
-              <Badge key={`${key}-${v}`} variant="secondary" className="text-[10px]">
-                {key}: {v}
+            (Array.isArray(vals) ? vals : [vals]).map((v, idx) => (
+              <Badge key={`${key}-${idx}`} variant="secondary" className="text-[10px]">
+                {key}: {safeLabel(v)}
               </Badge>
             )),
           )}

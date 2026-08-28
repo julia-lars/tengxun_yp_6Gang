@@ -48,7 +48,7 @@ export function SessionCard({
           <div className="flex-1 min-w-0">
             {/* 第一行：标题 + 画像名 + 类型 + 轮次时间（右移） */}
             <div className="flex items-center gap-2">
-              <span className="font-semibold text-sm text-(--color-content-primary) truncate group-hover:text-(--color-brand-500) transition-colors">
+              <span className="font-normal text-sm text-(--color-content-primary) truncate group-hover:text-(--color-brand-500) transition-colors">
                 {title}
               </span>
               <span className="text-xs text-black flex-shrink-0">

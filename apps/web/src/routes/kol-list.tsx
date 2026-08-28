@@ -94,7 +94,7 @@ export function KolListPage() {
         {kols.map((kol) => (
           <Card
             key={kol.id}
-            className="h-full group transition-all duration-200 hover:border-(--color-brand-300) hover:shadow-md hover:-translate-y-0.5"
+            className="h-full group transition-all duration-200 hover:border-(--color-brand-300) hover:shadow-md hover:-translate-y-0.5 flex flex-col"
           >
             <CardHeader className="pb-3">
               <div className="flex items-center gap-3">
@@ -109,26 +109,28 @@ export function KolListPage() {
                 </div>
               </div>
             </CardHeader>
-            <CardContent className="space-y-3">
-              <p className="text-sm text-(--color-content-secondary) text-clamp-2">
+            <CardContent className="space-y-3 flex flex-col flex-1">
+              <p className="text-sm text-(--color-content-secondary) text-clamp-2 min-h-[2.5rem]">
                 {kol.description}
               </p>
-              {kol.sampleSegments && kol.sampleSegments.length > 0 && (
-                <div className="space-y-1.5">
-                  <p className="text-xs text-(--color-content-tertiary) font-medium">代表性发言</p>
-                  <div className="space-y-1">
-                    {kol.sampleSegments.slice(0, 2).map((seg) => (
-                      <p
-                        key={seg.slice(0, 30)}
-                        className="text-xs text-(--color-content-secondary) bg-(--color-surface-secondary) rounded-md px-2 py-1 text-clamp-2"
-                      >
-                        "{seg.slice(0, 150)}"
-                      </p>
-                    ))}
+              <div className="min-h-[3.5rem]">
+                {kol.sampleSegments && kol.sampleSegments.length > 0 && (
+                  <div className="space-y-1.5">
+                    <p className="text-xs text-(--color-content-tertiary) font-medium">代表性发言</p>
+                    <div className="space-y-1">
+                      {kol.sampleSegments.slice(0, 2).map((seg) => (
+                        <p
+                          key={seg.slice(0, 30)}
+                          className="text-xs text-(--color-content-secondary) bg-(--color-surface-secondary) rounded-md px-2 py-1 text-clamp-2"
+                        >
+                          "{seg.slice(0, 150)}"
+                        </p>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              )}
-              <div className="flex gap-2 pt-1">
+                )}
+              </div>
+              <div className="flex gap-2 pt-1 mt-auto">
                 <Button
                   asChild
                   variant="outline"

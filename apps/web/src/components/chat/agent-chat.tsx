@@ -4,7 +4,6 @@
 import {
   ArrowDown,
   ArrowLeft,
-  ChevronDown,
   ChevronRight,
   Copy,
   Download,
@@ -14,6 +13,7 @@ import {
   Send,
   Trash2,
   User,
+  X,
 } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router";
@@ -22,6 +22,7 @@ import { api } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { ConfidenceIndicator } from "@/components/ui/confidence-indicator";
 import { EvidenceCard } from "@/components/ui/evidence-card";
+import * as SheetPrimitive from "@radix-ui/react-dialog";
 import { SuggestionChip } from "@/components/ui/suggestion-chip";
 import { Textarea } from "@/components/ui/textarea";
 import { ThinkingDots } from "@/components/ui/thinking-dots";
@@ -58,6 +59,8 @@ export interface ChatMessage {
   content: string;
   evidenceIds?: number[];
   evidenceMeta?: EvidenceMeta[];
+  /** SSE 流中传输的完整证据数据（含原文，前端直接渲染） */
+  evidence?: EvidenceData[];
   confidence?: ConfidenceResult;
   suggestions?: string[];
   isBoundary?: boolean;
@@ -152,8 +155,8 @@ export function AgentChat({
   );
   const [agentInfo, setAgentInfo] = useState<AgentInfo>({ name: "" });
   const [thinking, setThinking] = useState(false);
-  // 内联展开的证据：记录哪些消息索引展开了证据
-  const [expandedEvidence, setExpandedEvidence] = useState<Set<number>>(new Set());
+  // 右侧 Sheet 面板：当前展示证据的消息索引，null 表示关闭
+  const [evidenceSheetIndex, setEvidenceSheetIndex] = useState<number | null>(null);
   const [showScrollButton, setShowScrollButton] = useState(false);
   const [isNearBottom, setIsNearBottom] = useState(true);
   const bottomRef = useRef<HTMLDivElement>(null);
@@ -234,6 +237,7 @@ export function AgentChat({
     let suggestions: string[] = [];
     let confidence: ConfidenceResult | undefined;
     let evidenceMeta: EvidenceMeta[] = [];
+    let evidenceData: EvidenceData[] = [];
 
     const controller = new AbortController();
     abortRef.current = controller;
@@ -294,13 +298,20 @@ export function AgentChat({
                   suggestions?: string[];
                   confidence?: ConfidenceResult;
                   evidenceMeta?: EvidenceMeta[];
+                  evidence?: EvidenceData[];
+                  message?: string;
                 };
+                if (parsed.type === "error") {
+                  if (parsed.message) toast.error(parsed.message);
+                  continue;
+                }
                 if (parsed.type === "meta") {
                   if (parsed.sessionId) setSessionId(parsed.sessionId);
                   if (parsed.ids) evidenceIds = parsed.ids;
                   if (parsed.suggestions) suggestions = parsed.suggestions;
                   if (parsed.confidence) confidence = parsed.confidence;
                   if (parsed.evidenceMeta) evidenceMeta = parsed.evidenceMeta;
+                  if (parsed.evidence) evidenceData = parsed.evidence;
                 }
                 if (parsed.type === "evidence" && parsed.ids) evidenceIds = parsed.ids;
                 if (parsed.sessionId) setSessionId(parsed.sessionId);
@@ -332,6 +343,7 @@ export function AgentChat({
             content: aiContent,
             evidenceIds,
             evidenceMeta,
+            evidence: evidenceData,
             confidence,
             suggestions,
           };
@@ -387,22 +399,31 @@ export function AgentChat({
     send(lastUserMsg.content);
   }, [messages, send]);
 
-  // 切换内联证据展开
-  const toggleEvidence = useCallback((msgIndex: number) => {
-    setExpandedEvidence((prev) => {
-      const next = new Set(prev);
-      if (next.has(msgIndex)) {
-        next.delete(msgIndex);
-      } else {
-        next.add(msgIndex);
-      }
-      return next;
-    });
+  // 打开右侧证据面板
+  const openEvidenceSheet = useCallback((msgIndex: number) => {
+    setEvidenceSheetIndex(msgIndex);
   }, []);
 
   // 获取某条消息对应的证据数据
+  // 优先从消息自带的 evidence 字段（SSE 实时传输），fallback 到 evidenceList
   const getEvidenceForMessage = useCallback(
     (msg: ChatMessage): EvidenceData[] => {
+      // 优先使用 SSE 流中传输的完整证据数据
+      if (msg.evidence && msg.evidence.length > 0) {
+        // 如果消息还有 evidenceMeta，补充 tagOverlap（evidence 中可能没有）
+        if (msg.evidenceMeta && msg.evidenceMeta.length > 0) {
+          const metaMap = new Map(msg.evidenceMeta.map((m) => [m.id, m]));
+          return msg.evidence.map((e) => {
+            const m = metaMap.get(e.id);
+            if (m) {
+              return { ...e, tagOverlap: e.tagOverlap ?? m.tagOverlap, similarity: e.similarity ?? m.similarity, matchLevel: e.matchLevel ?? m.matchLevel };
+            }
+            return e;
+          });
+        }
+        return msg.evidence;
+      }
+      // Fallback: 从 evidenceList 中按 evidenceIds 匹配
       if (!msg.evidenceIds || msg.evidenceIds.length === 0) return [];
       const list = (f.evidenceList ?? []).filter((e) => msg.evidenceIds!.includes(e.id));
       if (msg.evidenceMeta && msg.evidenceMeta.length > 0) {
@@ -509,7 +530,7 @@ export function AgentChat({
       setMessages([]);
       setSessionId(null);
       setSearchParams({});
-      setExpandedEvidence(new Set());
+      setEvidenceSheetIndex(null);
       toast.success("对话已清空");
     } catch {
       toast.error("清空失败，请重试");
@@ -624,7 +645,6 @@ export function AgentChat({
         )}
 
         {messages.map((m, i) => {
-          const isExpanded = expandedEvidence.has(i);
           const evidenceForMsg = getEvidenceForMessage(m);
 
           return (
@@ -679,20 +699,22 @@ export function AgentChat({
                   {/* 可信度 + 证据展开按钮 */}
                   <div className="flex items-center gap-2 flex-wrap">
                     {m.confidence && (
-                      <ConfidenceIndicator score={m.confidence.score} size="sm" showLabel />
+                      <ConfidenceIndicator
+                        score={m.confidence.score}
+                        breakdown={m.confidence.breakdown}
+                        flags={m.confidence.flags}
+                        size="sm"
+                        showLabel
+                      />
                     )}
 
                     {f.evidence && m.evidenceIds && m.evidenceIds.length > 0 && (
                       <button
                         type="button"
-                        onClick={() => toggleEvidence(i)}
+                        onClick={() => openEvidenceSheet(i)}
                         className="text-xs text-(--color-brand-500) hover:underline flex items-center gap-1"
                       >
-                        {isExpanded ? (
-                          <ChevronDown className="h-3 w-3" />
-                        ) : (
-                          <ChevronRight className="h-3 w-3" />
-                        )}
+                        <ChevronRight className="h-3 w-3" />
                         证据支持（{m.evidenceIds.length}条）
                       </button>
                     )}
@@ -748,25 +770,6 @@ export function AgentChat({
                       )}
                     </div>
                   )}
-                </div>
-              )}
-
-              {/* 内联展开的证据 */}
-              {f.evidence && isExpanded && evidenceForMsg.length > 0 && (
-                <div className="space-y-2 pl-5 border-l-2 border-(--color-border) ml-1">
-                  {evidenceForMsg.map((e) => (
-                    <EvidenceCard
-                      key={e.id}
-                      id={e.id}
-                      sourceFile={e.sourceFile}
-                      originalText={e.originalText}
-                      annotation={e.annotation}
-                      speakerId={e.speakerId}
-                      similarity={e.similarity}
-                      matchLevel={e.matchLevel}
-                      onCopy={() => copyMessage(e.originalText)}
-                    />
-                  ))}
                 </div>
               )}
 
@@ -868,6 +871,53 @@ export function AgentChat({
           )}
         </div>
       </div>
+
+      {/* 右侧证据详情 Sheet（无遮罩层） */}
+      {f.evidence && evidenceSheetIndex !== null && (() => {
+        const sheetMsg = messages[evidenceSheetIndex];
+        if (!sheetMsg || sheetMsg.role !== "assistant") return null;
+        const sheetEvidence = getEvidenceForMessage(sheetMsg);
+        return (
+          <SheetPrimitive.Root open modal={false} onOpenChange={(open) => { if (!open) setEvidenceSheetIndex(null); }}>
+            <SheetPrimitive.Portal>
+              <SheetPrimitive.Content
+                className="fixed z-50 inset-y-0 right-0 h-full w-[480px] max-w-[90vw] border-l border-(--color-border) bg-(--color-surface-primary) shadow-xl flex flex-col data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right"
+              >
+                <SheetPrimitive.Close className="absolute right-4 top-4 rounded-sm text-current opacity-70 ring-offset-(--color-background) transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-(--color-ring) focus:ring-offset-2 disabled:pointer-events-none z-10">
+                  <X className="h-4 w-4" />
+                  <span className="sr-only">Close</span>
+                </SheetPrimitive.Close>
+                <div className="flex flex-col space-y-2 text-center sm:text-left p-6 pb-0 shrink-0">
+                  <SheetPrimitive.Title className="text-lg font-semibold text-(--color-foreground)">
+                    证据支持
+                  </SheetPrimitive.Title>
+                </div>
+                <div className="flex-1 overflow-y-auto p-6 pt-4 space-y-3">
+                  {sheetEvidence.length === 0 ? (
+                    <p className="text-sm text-(--color-content-tertiary) text-center py-8">
+                      暂无证据数据
+                    </p>
+                  ) : (
+                    sheetEvidence.map((e) => (
+                      <EvidenceCard
+                        key={e.id}
+                        id={e.id}
+                        sourceFile={e.sourceFile}
+                        originalText={e.originalText}
+                        annotation={e.annotation}
+                        speakerId={e.speakerId}
+                        similarity={e.similarity}
+                        matchLevel={e.matchLevel}
+                        onCopy={() => copyMessage(e.originalText)}
+                      />
+                    ))
+                  )}
+                </div>
+              </SheetPrimitive.Content>
+            </SheetPrimitive.Portal>
+          </SheetPrimitive.Root>
+        );
+      })()}
     </div>
   );
 }

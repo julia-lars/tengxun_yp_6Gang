@@ -14,5 +14,9 @@
 !eval/README.md
 !群体画像/
 !群体画像/*.json
+!群体画像v2.0_merged/
+!群体画像v2.0_merged/*.json
+!群体画像v2.0_profile/
+!群体画像v2.0_profile/*.json
 !README.md
 !file_index.csv

@@ -268,7 +268,7 @@ export function PersonasPage() {
                         <Badge
                           key={opt.value}
                           variant={isActive ? "default" : "outline"}
-                          className={`cursor-pointer hover:opacity-80 transition-all duration-150 ${
+                          className={`cursor-pointer hover:opacity-80 transition-all duration-150 font-normal ${
                             disabled ? "opacity-30 cursor-not-allowed hover:opacity-30" : ""
                           }`}
                           onClick={() => {

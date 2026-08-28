@@ -9,7 +9,7 @@ import { streamSSE } from "hono/streaming";
 
 import { db } from "../db/client.js";
 import type { ChatMessage } from "../lib/llm.js";
-import { chatStream } from "../lib/llm.js";
+import { chat, chatStream } from "../lib/llm.js";
 import { embedQuery } from "../lib/embed.js";
 import type { ConfidenceResult, EvidenceMeta } from "@app/shared";
 import { classifyMatchLevel } from "../lib/confidence.js";
@@ -86,6 +86,8 @@ export async function streamChat(opts: {
   llmMessages: ChatMessage[];
   sessionId: number;
   evidenceIds: number[];
+  /** RAG 检索到的完整证据数据（含原文），通过 SSE 传给前端渲染 */
+  evidenceData?: EvidenceRow[];
   history: Array<{ role: string; content: string }>;
   userMessage: string;
   saveMessages: (updatedMessages: Array<Record<string, unknown>>) => Promise<void>;
@@ -94,17 +96,21 @@ export async function streamChat(opts: {
   confidence?: ConfidenceResult;
   /** 证据元数据列表 */
   evidenceMeta?: EvidenceMeta[];
+  /** 首轮对话完成后自动生成标题的回调 */
+  updateTitle?: (title: string) => Promise<void>;
 }): Promise<Response> {
   const {
     c,
     llmMessages,
     sessionId,
     evidenceIds,
+    evidenceData,
     history,
     userMessage,
     saveMessages,
     confidence,
     evidenceMeta,
+    updateTitle,
   } = opts;
 
   return streamSSE(c, async (stream) => {
@@ -116,13 +122,37 @@ export async function streamChat(opts: {
         await stream.writeSSE({ data: token });
       }
     } catch (e) {
-      console.error("对话引擎错误:", e);
+      const errMsg = e instanceof Error ? e.message : String(e);
+      console.error("对话引擎错误:", errMsg);
+      // 发送错误事件，让前端弹出提示
+      try {
+        await stream.writeSSE({
+          data: JSON.stringify({
+            type: "error",
+            message: errMsg.includes("401") ? "API Key 认证失败，请检查 Key 是否有效" : "LLM 服务异常，请稍后重试",
+          }),
+        });
+      } catch {
+        // 客户端已断开连接
+      }
       await stream.writeSSE({
         data: opts.errorMessage ?? "[暂时无法响应，请稍后重试]",
       });
     }
 
-    // 保存对话记录（含置信度和证据元数据）
+    // 构建 SSE 传输的完整证据数据
+    const evidencePayload = (evidenceData ?? []).map((e) => ({
+      id: e.id,
+      sourceFile: e.sourceLabel,
+      originalText: e.originalText,
+      annotation: e.annotation ?? null,
+      similarity: e.similarity ?? 0,
+      matchLevel: e.matchLevel ?? classifyMatchLevel(e.similarity ?? 0),
+      tagOverlap: e.tagOverlap ?? 0,
+      speakerId: e.speakerId ?? null,
+    }));
+
+    // 保存对话记录（含置信度和证据元数据 + 完整证据内容）
     const updatedMessages = [
       ...history,
       { role: "user", content: userMessage, timestamp: new Date().toISOString() },
@@ -131,6 +161,7 @@ export async function streamChat(opts: {
         content: fullResponse,
         evidenceIds,
         evidenceMeta: evidenceMeta ?? [],
+        evidence: evidencePayload,
         confidence: confidence ?? null,
         timestamp: new Date().toISOString(),
       },
@@ -138,7 +169,18 @@ export async function streamChat(opts: {
 
     await saveMessages(updatedMessages);
 
-    // 发送 meta 事件：evidence + sessionId + confidence + evidenceMeta
+    // 首轮对话完成后自动生成标题
+    let generatedTitle: string | undefined;
+    if (updateTitle && history.length === 0 && fullResponse) {
+      try {
+        generatedTitle = await generateTitle(userMessage, fullResponse);
+        await updateTitle(generatedTitle);
+      } catch (e) {
+        console.error("标题生成失败，使用默认标题:", e);
+      }
+    }
+
+    // 发送 meta 事件：evidence + sessionId + confidence + evidenceMeta + title + 完整证据数据
     try {
       await stream.writeSSE({
         data: JSON.stringify({
@@ -147,6 +189,8 @@ export async function streamChat(opts: {
           sessionId,
           confidence,
           evidenceMeta: evidenceMeta ?? [],
+          evidence: evidencePayload,
+          ...(generatedTitle ? { title: generatedTitle } : {}),
         }),
       });
     } catch {
@@ -196,4 +240,26 @@ export function formatEvidenceContext(
   return rows
     .map((e) => `${prefix(e)} ${e.originalText.slice(0, 300)}`)
     .join("\n---\n");
+}
+
+// ---- 6. 对话标题生成 ----
+
+/**
+ * 根据首轮对话内容自动生成简短标题（≤20字）。
+ */
+export async function generateTitle(userMessage: string, aiResponse: string): Promise<string> {
+  const prompt = [
+    "根据以下对话内容，生成一个简短的对话标题。",
+    "要求：不超过20个字，直接返回标题文本，不要加引号、不要加句号、不要加任何前缀说明。",
+    "",
+    `用户：${userMessage.slice(0, 200)}`,
+    `AI：${aiResponse.slice(0, 500)}`,
+  ].join("\n");
+
+  const result = await chat(
+    [{ role: "user", content: prompt }],
+    { temperature: 0.3, maxTokens: 64 },
+  );
+
+  return result.trim().slice(0, 30);
 }

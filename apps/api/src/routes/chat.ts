@@ -119,6 +119,8 @@ chatRoute.post("/", zValidator("json", chatRequestSchema), async (c) => {
   // 3. RAG 检索（使用共享引擎）
   const skipRAG = message.trim().length <= 5;
   let evidenceRows: EvidenceRow[] = [];
+  // 向量相似度阈值 — 余弦距离转换为相似度后低于此值的不保留
+  const SIMILARITY_THRESHOLD = 0.5;
 
   if (!skipRAG) {
     evidenceRows = await searchEvidence({
@@ -132,7 +134,7 @@ chatRoute.post("/", zValidator("json", chatRequestSchema), async (c) => {
               WHERE embedding IS NOT NULL
                 AND (annotation->'meta'->>'rs' IS NULL OR annotation->'meta'->>'rs' != 'skip')
               ORDER BY embedding <=> ${vecStr}::vector
-              LIMIT 3`,
+              LIMIT 10`,
         )) as unknown as Array<{
           id: number;
           original_text: string;
@@ -141,14 +143,16 @@ chatRoute.post("/", zValidator("json", chatRequestSchema), async (c) => {
           annotation: Record<string, unknown> | null;
           speaker_id: string | null;
         }>;
-        return rows.map((r) => ({
-          id: r.id,
-          originalText: r.original_text,
-          sourceLabel: r.source_file,
-          similarity: 1 - (r.distance ?? 0),
-          speakerId: r.speaker_id ?? undefined,
-          annotation: r.annotation,
-        }));
+        return rows
+          .map((r) => ({
+            id: r.id,
+            originalText: r.original_text,
+            sourceLabel: r.source_file,
+            similarity: 1 - (r.distance ?? 0),
+            speakerId: r.speaker_id ?? undefined,
+            annotation: r.annotation,
+          }))
+          .filter((r) => r.similarity >= SIMILARITY_THRESHOLD);
       },
       ilikeQuery: async () => {
         const rows = await db
@@ -163,7 +167,7 @@ chatRoute.post("/", zValidator("json", chatRequestSchema), async (c) => {
           .where(
             sql`${sourceSegments.originalText} ILIKE ${"%" + message.slice(0, 30) + "%"}`,
           )
-          .limit(3);
+          .limit(10);
         return rows.map((r) => ({
           id: r.id,
           originalText: r.originalText,
@@ -243,6 +247,7 @@ chatRoute.post("/", zValidator("json", chatRequestSchema), async (c) => {
     llmMessages,
     sessionId: session.id,
     evidenceIds: evidenceRows.map((e) => e.id),
+    evidenceData: evidenceRows,
     history,
     userMessage: message,
     errorMessage: "[模拟用户暂时无法响应，请稍后重试]",
@@ -252,6 +257,12 @@ chatRoute.post("/", zValidator("json", chatRequestSchema), async (c) => {
       await db
         .update(chatSessions)
         .set({ messages: updatedMessages as never, updatedAt: new Date() })
+        .where(eq(chatSessions.id, session.id));
+    },
+    updateTitle: async (title) => {
+      await db
+        .update(chatSessions)
+        .set({ title, updatedAt: new Date() })
         .where(eq(chatSessions.id, session.id));
     },
   });

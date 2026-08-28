@@ -23,7 +23,7 @@ export function SimpleFilter({ value, onChange, onClear }: SimpleFilterProps) {
 
         return (
           <div key={q.id}>
-            <p className="text-sm font-semibold text-(--color-muted-foreground) mb-2">
+            <p className="text-sm font-medium text-(--color-muted-foreground) mb-2">
               <span className="mr-1.5">{idx + 1}.</span>
               {q.title}
               {q.subtitle && (
