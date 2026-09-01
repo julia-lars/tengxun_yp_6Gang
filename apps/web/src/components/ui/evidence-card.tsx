@@ -1,14 +1,14 @@
 // 证据溯源卡片 — 内联展开式，简洁展示原文与来源
 import { Copy, FileText, User } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Badge } from "./badge";
-
 interface EvidenceCardProps {
   id: number;
   sourceFile: string;
   originalText: string;
   annotation?: Record<string, unknown> | null;
   speakerId?: string;
+  /** 该条发言对应的上一条主持人的提问（语境还原） */
+  precedingQuestion?: string | null;
   confidence?: number;
   /** 向量相似度 (0-1) */
   similarity?: number;
@@ -25,32 +25,18 @@ const matchLevelLabel: Record<string, string> = {
   inferred: "推断",
 };
 
-/** 将 iceberg 中的值转为可渲染的字符串（可能是对象如 {c, e, v, freq}） */
-function safeLabel(v: unknown): string {
-  if (typeof v === "string") return v;
-  if (typeof v === "object" && v !== null) {
-    const obj = v as Record<string, unknown>;
-    if (typeof obj.v === "string") return obj.v;
-    return JSON.stringify(v);
-  }
-  return String(v);
-}
-
 export function EvidenceCard({
   sourceFile,
   originalText,
   annotation,
   speakerId,
+  precedingQuestion,
   similarity,
   matchLevel,
   isActive,
   onCopy,
   className,
 }: EvidenceCardProps) {
-  const iceberg = (annotation as Record<string, unknown>)?.iceberg as
-    | Record<string, unknown[]>
-    | undefined;
-
   return (
     <div
       className={cn(
@@ -66,16 +52,10 @@ export function EvidenceCard({
         {originalText}
       </blockquote>
 
-      {/* 冰山标签 */}
-      {iceberg && Object.keys(iceberg).length > 0 && (
-        <div className="flex flex-wrap gap-1">
-          {Object.entries(iceberg).map(([key, vals]) =>
-            (Array.isArray(vals) ? vals : [vals]).map((v, idx) => (
-              <Badge key={`${key}-${idx}`} variant="secondary" className="text-[10px]">
-                {key}: {safeLabel(v)}
-              </Badge>
-            )),
-          )}
+      {/* 前置问题（语境还原） */}
+      {precedingQuestion && (
+        <div className="text-xs text-(--color-muted-foreground) bg-(--color-muted)/30 rounded px-2 py-1.5 leading-relaxed">
+          <span className="font-medium">前置问题：</span>{precedingQuestion}
         </div>
       )}
 
