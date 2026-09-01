@@ -226,6 +226,7 @@ export async function streamChat(opts: {
       matchLevel: e.matchLevel ?? classifyMatchLevel(e.similarity ?? 0),
       tagOverlap: e.tagOverlap ?? 0,
       speakerId: e.speakerId ?? null,
+      precedingQuestion: e.precedingQuestion ?? null,
     }));
 
     // 先发送 meta 事件（证据 + 置信度），前端立即显示，不等标题生成
