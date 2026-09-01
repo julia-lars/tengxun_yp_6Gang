@@ -13,7 +13,6 @@ import {
   Send,
   Trash2,
   User,
-  X,
 } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router";
@@ -21,8 +20,7 @@ import { toast } from "sonner";
 import { api } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { ConfidenceIndicator } from "@/components/ui/confidence-indicator";
-import { EvidenceCard } from "@/components/ui/evidence-card";
-import * as SheetPrimitive from "@radix-ui/react-dialog";
+import { EvidenceSheet } from "@/components/chat/evidence-sheet";
 import { SuggestionChip } from "@/components/ui/suggestion-chip";
 import { Textarea } from "@/components/ui/textarea";
 import { ThinkingDots } from "@/components/ui/thinking-dots";
@@ -61,6 +59,8 @@ export interface ChatMessage {
   evidenceMeta?: EvidenceMeta[];
   /** SSE 流中传输的完整证据数据（含原文，前端直接渲染） */
   evidence?: EvidenceData[];
+  /** 逐句证据映射（LLM 标注每句话被哪些证据支撑） */
+  sentenceEvidence?: SentenceEvidenceResult;
   confidence?: ConfidenceResult;
   suggestions?: string[];
   isBoundary?: boolean;
@@ -76,6 +76,24 @@ export interface EvidenceData {
   matchLevel?: "direct" | "partial" | "inferred";
   tagOverlap?: number;
   speakerId?: string;
+  /** 该条发言对应的上一条主持人的提问（语境还原） */
+  precedingQuestion?: string | null;
+  /** LLM 判断的匹配理由（证据-回答相关性） */
+  relevanceReason?: string | null;
+  /** LLM 判断的相关性分数（0-1），独立于向量相似度 */
+  relevanceScore?: number | null;
+}
+
+export interface SentenceEvidenceMapping {
+  sentenceIndex: number;
+  sentenceText: string;
+  supportingEvidenceIds: number[];
+}
+
+export interface SentenceEvidenceResult {
+  sentences: SentenceEvidenceMapping[];
+  userQuestion: string;
+  answerText: string;
 }
 
 export interface AgentInfo {
@@ -86,6 +104,17 @@ export interface AgentInfo {
 export interface SessionRestoreResult {
   messages: ChatMessage[];
   valid: boolean;
+  title?: string;
+  /** 总消息数，用于判断是否还有更多历史消息可加载 */
+  totalMessages?: number;
+  /** 是否还有更早的消息 */
+  hasMore?: boolean;
+}
+
+/** 加载更多历史消息的返回结果 */
+export interface LoadMoreResult {
+  messages: ChatMessage[];
+  hasMore: boolean;
 }
 
 export interface AgentChatProps {
@@ -99,6 +128,8 @@ export interface AgentChatProps {
   chatEndpoint: string;
   buildRequestBody: (message: string, sessionId: number | null) => Record<string, unknown>;
   restoreSession: (sessionId: number) => Promise<SessionRestoreResult>;
+  /** 加载更早的历史消息（offset = 已加载数） */
+  loadMoreMessages?: (sessionId: number, offset: number) => Promise<LoadMoreResult>;
   avatarClassName?: string;
   avatarContent?: React.ReactNode;
   features?: {
@@ -128,6 +159,8 @@ const defaultFeatures: Required<AgentChatProps["features"]> = {
   typingCursor: true,
 };
 
+const MESSAGE_PAGE_SIZE = 40;
+
 export function AgentChat({
   type,
   agentId,
@@ -139,6 +172,7 @@ export function AgentChat({
   chatEndpoint,
   buildRequestBody,
   restoreSession,
+  loadMoreMessages,
   avatarClassName,
   avatarContent,
   features,
@@ -157,17 +191,28 @@ export function AgentChat({
   const [thinking, setThinking] = useState(false);
   // 右侧 Sheet 面板：当前展示证据的消息索引，null 表示关闭
   const [evidenceSheetIndex, setEvidenceSheetIndex] = useState<number | null>(null);
+  // 逐句证据映射交互状态
+  const [activeSentenceIndex, setActiveSentenceIndex] = useState<number | null>(null);
+  const [highlightedEvidenceIds, setHighlightedEvidenceIds] = useState<Set<number>>(new Set());
   const [showScrollButton, setShowScrollButton] = useState(false);
   const [isNearBottom, setIsNearBottom] = useState(true);
+  // 无限滚动向上加载历史消息
+  const [hasMore, setHasMore] = useState(false);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const loadedCountRef = useRef(0); // 已加载的消息数（用于计算 offset）
   const bottomRef = useRef<HTMLDivElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
+  const loadMoreSentinelRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const abortRef = useRef<AbortController | null>(null);
 
-  // 恢复会话
+  // 恢复会话（仅在 URL 带有 session 参数时恢复，send 中新建的 sessionId 不触发）
   useEffect(() => {
-    if (!sessionId) return;
-    restoreSession(sessionId)
+    const urlSid = Number(searchParams.get("session")) || null;
+    if (!urlSid) return;
+    // 如果 messages 已有内容，说明是 send 中新建的 session，不需要恢复
+    if (messages.length > 0) return;
+    restoreSession(urlSid)
       .then((result) => {
         if (!result.valid) {
           setSessionId(null);
@@ -175,6 +220,8 @@ export function AgentChat({
           return;
         }
         setMessages(result.messages);
+        setHasMore(result.hasMore ?? false);
+        loadedCountRef.current = result.messages.length;
         setTimeout(() => {
           bottomRef.current?.scrollIntoView({ behavior: "auto" });
         }, 100);
@@ -185,7 +232,7 @@ export function AgentChat({
         setSessionId(null);
         setSearchParams({});
       });
-  }, [sessionId, setSearchParams]);
+  }, [sessionId, searchParams, setSearchParams]);
 
   // 滚动监听
   useEffect(() => {
@@ -212,10 +259,51 @@ export function AgentChat({
     }
   }, [messages, isNearBottom, thinking]);
 
+  // 无限滚动：滚动到已加载消息末尾时，加载更早的历史消息
+  useEffect(() => {
+    const sentinel = loadMoreSentinelRef.current;
+    const container = chatContainerRef.current;
+    if (!sentinel || !container || !loadMoreMessages || !sessionId) return;
+
+    let loading = false;
+
+    const observer = new IntersectionObserver(
+      async (entries) => {
+        const entry = entries[0];
+        if (!entry?.isIntersecting || loading) return;
+        if (!hasMore) return;
+
+        loading = true;
+        setIsLoadingMore(true);
+
+        try {
+          const result = await loadMoreMessages(sessionId, loadedCountRef.current);
+          // 更早的消息追加在末尾（时间线是从新到旧排列）
+          setMessages((prev) => [...prev, ...result.messages]);
+          setHasMore(result.hasMore);
+          loadedCountRef.current += result.messages.length;
+        } catch (err) {
+          console.error("加载历史消息失败:", err);
+        } finally {
+          loading = false;
+          setIsLoadingMore(false);
+        }
+      },
+      {
+        root: container,
+        rootMargin: "200px",
+        threshold: 0,
+      },
+    );
+
+    observer.observe(sentinel);
+    return () => observer.disconnect();
+  }, [hasMore, loadMoreMessages, sessionId]);
+
   // 更新 sessionId
   useEffect(() => {
     if (sessionId) {
-      setSearchParams({ session: String(sessionId) });
+      setSearchParams({ session: String(sessionId) }, { replace: true });
     }
   }, [sessionId]);
 
@@ -238,6 +326,7 @@ export function AgentChat({
     let confidence: ConfidenceResult | undefined;
     let evidenceMeta: EvidenceMeta[] = [];
     let evidenceData: EvidenceData[] = [];
+    let sentenceEvidence: SentenceEvidenceResult | undefined;
 
     const controller = new AbortController();
     abortRef.current = controller;
@@ -274,6 +363,7 @@ export function AgentChat({
       let buffer = "";
 
       if (f.thinking) setThinking(false);
+      const assistantMsgIndex = messages.length; // 当前即将添加的 assistant 消息索引
       setMessages((prev) => [
         ...prev,
         { role: "assistant", content: "", timestamp: new Date().toISOString() },
@@ -299,6 +389,7 @@ export function AgentChat({
                   confidence?: ConfidenceResult;
                   evidenceMeta?: EvidenceMeta[];
                   evidence?: EvidenceData[];
+                  sentenceEvidence?: SentenceEvidenceResult;
                   message?: string;
                 };
                 if (parsed.type === "error") {
@@ -312,6 +403,28 @@ export function AgentChat({
                   if (parsed.confidence) confidence = parsed.confidence;
                   if (parsed.evidenceMeta) evidenceMeta = parsed.evidenceMeta;
                   if (parsed.evidence) evidenceData = parsed.evidence;
+                  if (parsed.sentenceEvidence) sentenceEvidence = parsed.sentenceEvidence;
+                  // 立即更新消息，让证据面板即时显示，不等流结束
+                  setMessages((prev) => {
+                    const next = [...prev];
+                    const last = next[next.length - 1];
+                    if (last?.role === "assistant") {
+                      next[next.length - 1] = {
+                        ...last,
+                        evidenceIds,
+                        evidenceMeta,
+                        evidence: evidenceData,
+                        sentenceEvidence,
+                        confidence,
+                        suggestions,
+                      };
+                    }
+                    return next;
+                  });
+                  // 自动打开证据面板，与对话结果同时出现
+                  if (evidenceData.length > 0) {
+                    setEvidenceSheetIndex(assistantMsgIndex);
+                  }
                 }
                 if (parsed.type === "evidence" && parsed.ids) evidenceIds = parsed.ids;
                 if (parsed.sessionId) setSessionId(parsed.sessionId);
@@ -344,6 +457,7 @@ export function AgentChat({
             evidenceIds,
             evidenceMeta,
             evidence: evidenceData,
+            sentenceEvidence,
             confidence,
             suggestions,
           };
@@ -401,8 +515,42 @@ export function AgentChat({
 
   // 打开右侧证据面板
   const openEvidenceSheet = useCallback((msgIndex: number) => {
+    setActiveSentenceIndex(null);
+    setHighlightedEvidenceIds(new Set());
     setEvidenceSheetIndex(msgIndex);
   }, []);
+
+  // 逐句交互：点击句子 → 高亮对应证据
+  const handleSentenceClick = useCallback((index: number) => {
+    setActiveSentenceIndex(index);
+    if (evidenceSheetIndex !== null) {
+      const msg = messages[evidenceSheetIndex];
+      const sEvidence = msg?.sentenceEvidence;
+      if (sEvidence) {
+        const mapping = sEvidence.sentences.find((s) => s.sentenceIndex === index);
+        if (mapping) {
+          setHighlightedEvidenceIds(new Set(mapping.supportingEvidenceIds));
+        }
+      }
+    }
+  }, [evidenceSheetIndex, messages]);
+
+  // 逐句交互：点击证据卡片 → 反向定位对应句子
+  const handleEvidenceClick = useCallback((evidenceId: number) => {
+    if (evidenceSheetIndex !== null) {
+      const msg = messages[evidenceSheetIndex];
+      const sEvidence = msg?.sentenceEvidence;
+      if (sEvidence) {
+        const firstSentence = sEvidence.sentences.find(
+          (s) => s.supportingEvidenceIds.includes(evidenceId),
+        );
+        if (firstSentence) {
+          setActiveSentenceIndex(firstSentence.sentenceIndex);
+          setHighlightedEvidenceIds(new Set(firstSentence.supportingEvidenceIds));
+        }
+      }
+    }
+  }, [evidenceSheetIndex, messages]);
 
   // 获取某条消息对应的证据数据
   // 优先从消息自带的 evidence 字段（SSE 实时传输），fallback 到 evidenceList
@@ -531,6 +679,8 @@ export function AgentChat({
       setSessionId(null);
       setSearchParams({});
       setEvidenceSheetIndex(null);
+      setHasMore(false);
+      loadedCountRef.current = 0;
       toast.success("对话已清空");
     } catch {
       toast.error("清空失败，请重试");
@@ -813,6 +963,22 @@ export function AgentChat({
           </div>
         )}
 
+        {/* 底部哨兵 + 加载指示器：滚动到此触发加载更早的历史消息 */}
+        <div ref={loadMoreSentinelRef} className="h-0.5" />
+
+        {isLoadingMore && (
+          <div className="flex justify-center py-2">
+            <div className="flex items-center gap-2 text-xs text-(--color-content-tertiary)">
+              <div className="thinking-dots gap-1">
+                <span className="dot" style={{ width: 3, height: 3, background: "var(--color-content-tertiary)" }} />
+                <span className="dot" style={{ width: 3, height: 3, background: "var(--color-content-tertiary)", animationDelay: "0.15s" }} />
+                <span className="dot" style={{ width: 3, height: 3, background: "var(--color-content-tertiary)", animationDelay: "0.3s" }} />
+              </div>
+              加载更早的对话...
+            </div>
+          </div>
+        )}
+
         <div ref={bottomRef} />
 
         {f.scrollButton && showScrollButton && (
@@ -872,50 +1038,28 @@ export function AgentChat({
         </div>
       </div>
 
-      {/* 右侧证据详情 Sheet（无遮罩层） */}
+      {/* 右侧证据详情 Sheet（逐句标注模式） */}
       {f.evidence && evidenceSheetIndex !== null && (() => {
         const sheetMsg = messages[evidenceSheetIndex];
         if (!sheetMsg || sheetMsg.role !== "assistant") return null;
         const sheetEvidence = getEvidenceForMessage(sheetMsg);
+        const userQuestion = messages[evidenceSheetIndex - 1]?.content ?? "";
         return (
-          <SheetPrimitive.Root open modal={false} onOpenChange={(open) => { if (!open) setEvidenceSheetIndex(null); }}>
-            <SheetPrimitive.Portal>
-              <SheetPrimitive.Content
-                className="fixed z-50 inset-y-0 right-0 h-full w-[480px] max-w-[90vw] border-l border-(--color-border) bg-(--color-surface-primary) shadow-xl flex flex-col data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right"
-              >
-                <SheetPrimitive.Close className="absolute right-4 top-4 rounded-sm text-current opacity-70 ring-offset-(--color-background) transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-(--color-ring) focus:ring-offset-2 disabled:pointer-events-none z-10">
-                  <X className="h-4 w-4" />
-                  <span className="sr-only">Close</span>
-                </SheetPrimitive.Close>
-                <div className="flex flex-col space-y-2 text-center sm:text-left p-6 pb-0 shrink-0">
-                  <SheetPrimitive.Title className="text-lg font-semibold text-(--color-foreground)">
-                    证据支持
-                  </SheetPrimitive.Title>
-                </div>
-                <div className="flex-1 overflow-y-auto p-6 pt-4 space-y-3">
-                  {sheetEvidence.length === 0 ? (
-                    <p className="text-sm text-(--color-content-tertiary) text-center py-8">
-                      暂无证据数据
-                    </p>
-                  ) : (
-                    sheetEvidence.map((e) => (
-                      <EvidenceCard
-                        key={e.id}
-                        id={e.id}
-                        sourceFile={e.sourceFile}
-                        originalText={e.originalText}
-                        annotation={e.annotation}
-                        speakerId={e.speakerId}
-                        similarity={e.similarity}
-                        matchLevel={e.matchLevel}
-                        onCopy={() => copyMessage(e.originalText)}
-                      />
-                    ))
-                  )}
-                </div>
-              </SheetPrimitive.Content>
-            </SheetPrimitive.Portal>
-          </SheetPrimitive.Root>
+          <EvidenceSheet
+            evidenceData={sheetEvidence}
+            sentenceEvidence={sheetMsg.sentenceEvidence}
+            userQuestion={userQuestion}
+            activeSentenceIndex={activeSentenceIndex}
+            highlightedEvidenceIds={highlightedEvidenceIds}
+            onSentenceClick={handleSentenceClick}
+            onEvidenceClick={handleEvidenceClick}
+            onCopy={copyMessage}
+            onClose={() => {
+              setEvidenceSheetIndex(null);
+              setActiveSentenceIndex(null);
+              setHighlightedEvidenceIds(new Set());
+            }}
+          />
         );
       })()}
     </div>
