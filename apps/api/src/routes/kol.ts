@@ -302,9 +302,11 @@ kolRoute.post("/chat", zValidator("json", kolChatRequestSchema), async (c) => {
   });
 });
 
-// GET /api/kol/chat/sessions —— 列出某个 KOL 的会话
+// GET /api/kol/chat/sessions —— 列出某个 KOL 的会话（支持分页：?offset=N&limit=N）
 kolRoute.get("/chat/sessions", async (c) => {
   const kolId = c.req.query("kolId");
+  const offset = Number(c.req.query("offset")) || 0;
+  const limit = Number(c.req.query("limit")) || 50;
   const conditions = kolId ? eq(kolChatSessions.kolId, Number(kolId)) : undefined;
 
   const rows = await db
@@ -312,7 +314,17 @@ kolRoute.get("/chat/sessions", async (c) => {
     .from(kolChatSessions)
     .where(conditions)
     .orderBy(desc(kolChatSessions.updatedAt))
-    .limit(50);
+    .limit(limit)
+    .offset(offset);
+
+  // 总数
+  const [countRow] = await db
+    .select({ count: sql<number>`count(*)` })
+    .from(kolChatSessions)
+    .where(conditions);
+
+  const total = Number(countRow?.count ?? 0);
+  const hasMore = offset + limit < total;
 
   const result: KolChatSession[] = rows.map((r) => ({
     id: r.id,
@@ -323,24 +335,41 @@ kolRoute.get("/chat/sessions", async (c) => {
     updatedAt: r.updatedAt.toISOString(),
   }));
 
-  return c.json(result);
+  return c.json({ data: result, total, hasMore });
 });
 
-// GET /api/kol/chat/sessions/:id —— 单个会话历史
+// GET /api/kol/chat/sessions/:id —— 单个会话历史（支持分页：?offset=N&limit=N）
 kolRoute.get("/chat/sessions/:id", async (c) => {
   const id = Number(c.req.param("id"));
   if (Number.isNaN(id)) return c.json({ error: "无效的会话 ID" }, 400);
+
+  const offset = Number(c.req.query("offset")) || 0;
+  const limit = Number(c.req.query("limit")) || 0;
 
   const session = await db.query.kolChatSessions.findFirst({
     where: eq(kolChatSessions.id, id),
   });
   if (!session) return c.json({ error: "会话不存在" }, 404);
 
-  const result: KolChatSession = {
+  const allMessages = (session.messages as KolChatSession["messages"]) ?? [];
+  const totalMessages = allMessages.length;
+
+  // 分页切片：从末尾往前取（offset 0 = 最新消息）
+  let slicedMessages = allMessages;
+  if (limit > 0) {
+    const start = Math.max(0, totalMessages - offset - limit);
+    const end = totalMessages - offset;
+    slicedMessages = allMessages.slice(start, end);
+  }
+  const hasMore = limit > 0 ? (totalMessages - offset - limit) > 0 : false;
+
+  const result = {
     id: session.id,
     kolId: session.kolId,
     title: session.title,
-    messages: (session.messages as KolChatSession["messages"]) ?? [],
+    messages: slicedMessages,
+    totalMessages,
+    hasMore,
     createdAt: session.createdAt.toISOString(),
     updatedAt: session.updatedAt.toISOString(),
   };

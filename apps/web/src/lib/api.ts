@@ -10,6 +10,8 @@ import type {
   KolProfileSummary,
   OutlineGenerateRequest,
   OutlineJobStatus,
+  PaginatedChatSession,
+  PaginatedKolChatSession,
   PersonaDetail,
   PersonaSummary,
   PipelineConfig,
@@ -108,10 +110,24 @@ export const api = {
 
   getPersona: (id: number) => request<PersonaDetail>(`/api/personas/${id}`),
 
-  getChatSessions: (personaId?: number) =>
-    request<ChatSession[]>(`/api/chat/sessions${personaId ? `?personaId=${personaId}` : ""}`),
+  getChatSessions: (personaId?: number, pagination?: { offset?: number; limit?: number }) => {
+    const params = new URLSearchParams();
+    if (personaId) params.set("personaId", String(personaId));
+    if (pagination?.offset !== undefined) params.set("offset", String(pagination.offset));
+    if (pagination?.limit !== undefined) params.set("limit", String(pagination.limit));
+    const qs = params.toString();
+    return request<{ data: ChatSession[]; total: number; hasMore: boolean }>(`/api/chat/sessions${qs ? `?${qs}` : ""}`);
+  },
 
   getChatSession: (id: number) => request<ChatSession>(`/api/chat/sessions/${id}`),
+
+  /** 分页获取会话消息（无限滚动向上加载） */
+  getChatSessionMessages: (id: number, offset: number, limit: number) => {
+    const params = new URLSearchParams();
+    params.set("offset", String(offset));
+    params.set("limit", String(limit));
+    return request<PaginatedChatSession>(`/api/chat/sessions/${id}?${params}`);
+  },
 
   deleteChatSession: (id: number) =>
     request<{ success: boolean }>(`/api/chat/sessions/${id}`, { method: "DELETE" }),
@@ -119,9 +135,24 @@ export const api = {
   // KOL
   listKol: () => request<KolProfileSummary[]>("/api/kol"),
   getKol: (id: number) => request<KolProfileDetail>(`/api/kol/${id}`),
-  listKolChatSessions: (kolId?: number) =>
-    request<KolChatSession[]>(`/api/kol/chat/sessions${kolId ? `?kolId=${kolId}` : ""}`),
+  listKolChatSessions: (kolId?: number, pagination?: { offset?: number; limit?: number }) => {
+    const params = new URLSearchParams();
+    if (kolId) params.set("kolId", String(kolId));
+    if (pagination?.offset !== undefined) params.set("offset", String(pagination.offset));
+    if (pagination?.limit !== undefined) params.set("limit", String(pagination.limit));
+    const qs = params.toString();
+    return request<{ data: KolChatSession[]; total: number; hasMore: boolean }>(`/api/kol/chat/sessions${qs ? `?${qs}` : ""}`);
+  },
   getKolChatSession: (id: number) => request<KolChatSession>(`/api/kol/chat/sessions/${id}`),
+
+  /** 分页获取 KOL 会话消息（无限滚动向上加载） */
+  getKolChatSessionMessages: (id: number, offset: number, limit: number) => {
+    const params = new URLSearchParams();
+    params.set("offset", String(offset));
+    params.set("limit", String(limit));
+    return request<PaginatedKolChatSession>(`/api/kol/chat/sessions/${id}?${params}`);
+  },
+
   deleteKolChatSession: (id: number) =>
     request<{ success: boolean }>(`/api/kol/chat/sessions/${id}`, { method: "DELETE" }),
 

@@ -76,8 +76,26 @@ export const sseEvidenceSchema = z.object({
   matchLevel: z.enum(["direct", "partial", "inferred"]),
   tagOverlap: z.number().min(0).max(1),
   speakerId: z.string().nullable().optional(),
+  precedingQuestion: z.string().nullable().optional(),
+  relevanceScore: z.number().min(0).max(1).nullable().optional(),
+  relevanceReason: z.string().nullable().optional(),
 });
 export type SSEEvidence = z.infer<typeof sseEvidenceSchema>;
+
+// 逐句证据映射 — 标注 AI 回答中每句话被哪些证据支撑
+export const sentenceEvidenceMappingSchema = z.object({
+  sentenceIndex: z.number().int().nonnegative(),
+  sentenceText: z.string(),
+  supportingEvidenceIds: z.array(z.number().int().positive()),
+});
+export type SentenceEvidenceMapping = z.infer<typeof sentenceEvidenceMappingSchema>;
+
+export const sentenceEvidenceResultSchema = z.object({
+  sentences: z.array(sentenceEvidenceMappingSchema),
+  userQuestion: z.string(),
+  answerText: z.string(),
+});
+export type SentenceEvidenceResult = z.infer<typeof sentenceEvidenceResultSchema>;
 
 export const chatMessageSchema = z.object({
   role: z.enum(["user", "assistant"]),
@@ -85,6 +103,7 @@ export const chatMessageSchema = z.object({
   evidenceIds: z.array(z.number().int().positive()).optional(),
   evidenceMeta: z.array(evidenceMetaSchema).optional(),
   evidence: z.array(sseEvidenceSchema).optional(),
+  sentenceEvidence: sentenceEvidenceResultSchema.optional(),
   confidence: confidenceResultSchema.optional(),
   suggestions: z.array(z.string()).optional(),
   timestamp: z.string(),
@@ -103,10 +122,19 @@ export const chatSessionSchema = z.object({
   personaId: z.number().int().positive(),
   title: z.string().nullable().optional(),
   messages: z.array(chatMessageSchema),
+  messageCount: z.number().int().nonnegative().optional(),
+  preview: z.string().optional(),
   createdAt: z.string(),
   updatedAt: z.string(),
 });
 export type ChatSession = z.infer<typeof chatSessionSchema>;
+
+// 分页会话响应（无限滚动向上加载历史消息）
+export const paginatedChatSessionSchema = chatSessionSchema.extend({
+  totalMessages: z.number().int().nonnegative(),
+  hasMore: z.boolean(),
+});
+export type PaginatedChatSession = z.infer<typeof paginatedChatSessionSchema>;
 
 // ---- KOL ----
 export const kolProfileSummarySchema = z.object({
@@ -139,17 +167,25 @@ export const kolChatSessionSchema = z.object({
   kolId: z.number().int().positive(),
   title: z.string().nullable().optional(),
   messages: z.array(chatMessageSchema),
+  messageCount: z.number().int().nonnegative().optional(),
+  preview: z.string().optional(),
   createdAt: z.string(),
   updatedAt: z.string(),
 });
 export type KolChatSession = z.infer<typeof kolChatSessionSchema>;
+
+// 分页 KOL 会话响应
+export const paginatedKolChatSessionSchema = kolChatSessionSchema.extend({
+  totalMessages: z.number().int().nonnegative(),
+  hasMore: z.boolean(),
+});
+export type PaginatedKolChatSession = z.infer<typeof paginatedKolChatSessionSchema>;
 
 // ---- 数据流水线 ----
 export const pipelineConfigSchema = z.object({
   target: z.enum(["personas", "kol"]).optional(),
   fileNames: z.array(z.string()).optional().default([]),
   uploadedFileIds: z.array(z.string()).optional().default([]),
-  enableClustering: z.boolean().optional().default(false),
   enableKol: z.boolean().optional(),
   kolId: z.number().int().positive().optional(),
   notes: z.string().optional(),
@@ -178,6 +214,14 @@ export const pipelineStatusSchema = z.object({
     segmentsTagged: z.number(),
     segmentsEmbedded: z.number(),
     errors: z.array(z.string()),
+    cleaningStatusDistribution: z.object({
+      kept: z.number(),
+      needs_review: z.number(),
+      removed_noise: z.number(),
+      removed_flow: z.number(),
+      removed_duplicate: z.number(),
+      removed_irrelevant: z.number(),
+    }).optional(),
   }),
   startedAt: z.string(),
   completedAt: z.string().nullable(),
