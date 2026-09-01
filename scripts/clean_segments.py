@@ -1,7 +1,9 @@
-"""Clean all 3 segments files: remove non-game, very short, or meaningless content."""
+"""Clean all 3 segments files: remove non-game, very short, or meaningless content.
+DEPRECATED: 此为 v1.0 遗留脚本，仅处理 3 个文件。请使用 clean_segments_v2_demo.py 进行 v2.0 全量清洗。
+"""
 import json, re, os
 
-indir = r'data\群体画像'
+indir = os.path.join("data", "群体画像")
 files = [
     'segments_漫威争锋中美用户洞察研究.json',
     'segments_美国HD端射击市场用户细分研究.json',

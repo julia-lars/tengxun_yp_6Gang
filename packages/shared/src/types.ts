@@ -144,6 +144,7 @@ export const kolProfileSummarySchema = z.object({
   description: z.string(),
   videoCount: z.number().int().nonnegative(),
   sampleSegments: z.array(z.string()).optional(),
+  tags: z.array(z.string()).optional(),
   createdAt: z.string(),
 });
 export type KolProfileSummary = z.infer<typeof kolProfileSummarySchema>;
@@ -352,3 +353,31 @@ export const batchInterviewStatusSchema = z.object({
   error: z.string().optional(),
 });
 export type BatchInterviewStatus = z.infer<typeof batchInterviewStatusSchema>;
+
+// ---- 边界检测 (V0.2 Boundary Engine) ----
+
+export const boundaryResultSchema = z.object({
+  final: z.enum(["IN", "OUT"]),
+  method: z.enum(["exact_cache", "canonical_cache", "hard_rule", "embedding_clear_out", "matrix_out", "llm_judge"]),
+  B1_domain: z.enum(["IN", "OUT"]),
+  B2_topic_coverage: z.enum(["IN", "OUT"]),
+  B3_question_type_capability: z.enum(["IN", "OUT"]),
+  B4_evidence_sufficiency: z.enum(["IN", "OUT"]),
+  embedding: z.object({
+    top_region: z.string(),
+    region_score: z.number(),
+    candidate_zone: z.enum(["CLEAR_OUT", "CANDIDATE"]),
+    hn_proximity_warning: z.boolean(),
+  }).optional(),
+  coverage_check: z.object({
+    matched_region: z.string(),
+    matched_intent: z.string(),
+    matrix_result: z.enum(["MATRIX_IN", "MATRIX_OUT", "MATRIX_TBD"]),
+  }).optional(),
+  boundary_version: z.string(),
+  threshold_version: z.string(),
+  knowledge_space_version: z.string(),
+  timestamp: z.string(),
+  latency_ms: z.number(),
+});
+export type BoundaryResult = z.infer<typeof boundaryResultSchema>;

@@ -9,6 +9,20 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { api } from "../lib/api.js";
 
+/** camelCase → snake_case 转换 */
+function camelToSnake(str: string): string {
+  return str.replace(/[A-Z]/g, (letter) => `_${letter.toLowerCase()}`);
+}
+
+/** 将对象的 camelCase key 转为 snake_case */
+function keysToSnakeCase(obj: Record<string, unknown>): Record<string, unknown> {
+  const result: Record<string, unknown> = {};
+  for (const [key, value] of Object.entries(obj)) {
+    result[camelToSnake(key)] = value;
+  }
+  return result;
+}
+
 // 表字段配置
 const TABLE_FIELDS: Record<string, Array<{
   key: string;
@@ -45,6 +59,21 @@ const TABLE_FIELDS: Record<string, Array<{
     { key: "group_code", label: "组别代号", type: "text" },
     { key: "background", label: "背景信息 (JSON)", type: "json" },
   ],
+  "kol-profiles": [
+    { key: "name", label: "KOL 名称", type: "text", required: true },
+    { key: "bilibili_uid", label: "B站 UID", type: "text" },
+    { key: "persona_card", label: "人物卡 (JSON)", type: "json", required: true },
+    { key: "style_profile", label: "风格画像 (JSON)", type: "json", required: true },
+    { key: "source_texts", label: "来源文本 (JSON数组)", type: "json" },
+  ],
+  "kol-segments": [
+    { key: "kol_id", label: "KOL ID", type: "number", required: true },
+    { key: "bvid", label: "BV 号", type: "text", required: true },
+    { key: "title", label: "标题", type: "text", required: true },
+    { key: "original_text", label: "原始文本", type: "textarea", required: true },
+    { key: "source_url", label: "来源链接", type: "text" },
+    { key: "ad_label", label: "广告标签", type: "text" },
+  ],
 };
 
 export function AdminRecordPage() {
@@ -58,11 +87,13 @@ export function AdminRecordPage() {
 
   const fields = table ? TABLE_FIELDS[table] : undefined;
   const meta = table
-    ? {
+    ? ({
       "source-segments": "用户原声片段",
       personas: "用户画像",
       respondents: "受访者",
-    }[table]
+      "kol-profiles": "KOL 画像",
+      "kol-segments": "KOL 语料",
+    } as Record<string, string>)[table]
     : undefined;
 
   // 加载现有数据
@@ -70,7 +101,7 @@ export function AdminRecordPage() {
     if (isNew || !table) return;
     setLoading(true);
     api.adminGet<Record<string, unknown>>(table, Number(id))
-      .then((res) => setFormData(res.data))
+      .then((res) => setFormData(keysToSnakeCase(res.data)))
       .catch((e) => setError(String(e)))
       .finally(() => setLoading(false));
   }, [table, id, isNew]);

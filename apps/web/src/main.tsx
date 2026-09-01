@@ -21,6 +21,7 @@ import { AdminDashboard } from "./routes/admin-dashboard.js";
 import { AdminTablePage } from "./routes/admin-table.js";
 import { AdminRecordPage } from "./routes/admin-record.js";
 import { AdminImportPage } from "./routes/admin-import.js";
+import { AdminAuditLogPage } from "./routes/admin-audit-log.js";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,7 @@ const router = createBrowserRouter([
       // 管理后台
       { path: "admin", element: <AdminDashboard /> },
       { path: "admin/import", element: <AdminImportPage /> },
+      { path: "admin/audit-log", element: <AdminAuditLogPage /> },
       { path: "admin/:table", element: <AdminTablePage /> },
       { path: "admin/:table/:id", element: <AdminRecordPage /> },
     ],

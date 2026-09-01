@@ -19,6 +19,10 @@ import {
 import { sourceSegmentsAdminRoute } from "./source-segments.js";
 import { personasAdminRoute } from "./personas.js";
 import { respondentsAdminRoute } from "./respondents.js";
+import { kolProfilesAdminRoute } from "./kol-profiles.js";
+import { kolSegmentsAdminRoute } from "./kol-segments.js";
+import { chatSessionsAdminRoute } from "./chat-sessions.js";
+import { kolChatSessionsAdminRoute } from "./kol-chat-sessions.js";
 
 export const adminRoute = new Hono();
 
@@ -66,30 +70,83 @@ adminRoute.get("/stats", async (c) => {
 
 // ---- 审计日志查询 ----
 
+// 最近操作（仪表盘用）
+adminRoute.get("/recent-activity", async (c) => {
+  try {
+    const limit = Math.min(Number(c.req.query("limit")) || 5, 20);
+    const { auditLog } = await import("../../db/schema.js");
+
+    const rows = await db
+      .select()
+      .from(auditLog)
+      .orderBy(sql`${auditLog.changedAt} DESC`)
+      .limit(limit);
+
+    return c.json({ data: rows });
+  } catch (e) {
+    return c.json({ error: `查询失败: ${String(e)}` }, 500);
+  }
+});
+
+// 审计日志分页查询
 adminRoute.get("/audit-log", async (c) => {
   try {
-    const limit = Math.min(Number(c.req.query("limit")) || 50, 100);
+    const page = Math.max(Number(c.req.query("page")) || 1, 1);
+    const limit = Math.min(Number(c.req.query("limit")) || 20, 100);
+    const offset = (page - 1) * limit;
     const tableName = c.req.query("table");
+    const action = c.req.query("action");
+    const from = c.req.query("from");
+    const to = c.req.query("to");
 
     const { auditLog } = await import("../../db/schema.js");
 
-    let rows;
+    // 构建条件
+    const conditions: ReturnType<typeof sql>[] = [];
+
     if (tableName) {
-      rows = await db
-        .select()
-        .from(auditLog)
-        .where(sql`${auditLog.tableName} = ${tableName}`)
-        .orderBy(sql`${auditLog.changedAt} DESC`)
-        .limit(limit);
-    } else {
-      rows = await db
-        .select()
-        .from(auditLog)
-        .orderBy(sql`${auditLog.changedAt} DESC`)
-        .limit(limit);
+      conditions.push(sql`${auditLog.tableName} = ${tableName}`);
+    }
+    if (action && ["INSERT", "UPDATE", "DELETE"].includes(action)) {
+      conditions.push(sql`${auditLog.action} = ${action}`);
+    }
+    if (from) {
+      conditions.push(sql`${auditLog.changedAt} >= ${from}`);
+    }
+    if (to) {
+      conditions.push(sql`${auditLog.changedAt} <= ${to}`);
     }
 
-    return c.json({ data: rows });
+    const where = conditions.length > 0
+      ? sql`${sql.join(conditions, sql` AND `)}`
+      : undefined;
+
+    // 查询总数
+    const countResult = await db
+      .select({ count: sql<number>`count(*)::int` })
+      .from(auditLog)
+      .where(where);
+
+    const total = countResult[0]?.count ?? 0;
+
+    // 查询数据
+    const rows = await db
+      .select()
+      .from(auditLog)
+      .where(where)
+      .orderBy(sql`${auditLog.changedAt} DESC`)
+      .limit(limit)
+      .offset(offset);
+
+    return c.json({
+      data: rows,
+      pagination: {
+        page,
+        limit,
+        total,
+        totalPages: Math.ceil(total / limit),
+      },
+    });
   } catch (e) {
     return c.json({ error: `审计日志查询失败: ${String(e)}` }, 500);
   }
@@ -100,3 +157,7 @@ adminRoute.get("/audit-log", async (c) => {
 adminRoute.route("/source-segments", sourceSegmentsAdminRoute);
 adminRoute.route("/personas", personasAdminRoute);
 adminRoute.route("/respondents", respondentsAdminRoute);
+adminRoute.route("/kol-profiles", kolProfilesAdminRoute);
+adminRoute.route("/kol-segments", kolSegmentsAdminRoute);
+adminRoute.route("/chat-sessions", chatSessionsAdminRoute);
+adminRoute.route("/kol-chat-sessions", kolChatSessionsAdminRoute);

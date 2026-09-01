@@ -42,6 +42,8 @@ export interface CrudConfig<T extends PgTable> {
   beforeUpdate?: (id: number, data: Record<string, unknown>) => Promise<Record<string, unknown>>;
   /** 最大分页限制 */
   maxLimit?: number;
+  /** 只读模式：仅暴露 GET 列表、GET 详情、DELETE，不暴露 POST/PUT（如对话记录） */
+  readOnly?: boolean;
 }
 
 // ---- 通用查询 Schema ----
@@ -166,9 +168,10 @@ export function createCrudRoutes<T extends PgTable>(config: CrudConfig<T>) {
   });
 
   // ============================================================
-  // POST / — 新增记录
+  // POST / — 新增记录（readOnly 模式下跳过）
   // ============================================================
-  route.post("/", async (c) => {
+  if (!config.readOnly) {
+    route.post("/", async (c) => {
     try {
       const body = await c.req.json<Record<string, unknown>>();
 
@@ -221,11 +224,13 @@ export function createCrudRoutes<T extends PgTable>(config: CrudConfig<T>) {
       return c.json({ error: `新增失败: ${String(e)}` }, 500);
     }
   });
+  } // end readOnly check for POST
 
   // ============================================================
-  // PUT /:id — 更新记录
+  // PUT /:id — 更新记录（readOnly 模式下跳过）
   // ============================================================
-  route.put("/:id", async (c) => {
+  if (!config.readOnly) {
+    route.put("/:id", async (c) => {
     try {
       const id = Number(c.req.param("id"));
       if (Number.isNaN(id)) return c.json({ error: "无效的 ID" }, 400);
@@ -290,6 +295,7 @@ export function createCrudRoutes<T extends PgTable>(config: CrudConfig<T>) {
       return c.json({ error: `更新失败: ${String(e)}` }, 500);
     }
   });
+  } // end readOnly check for PUT
 
   // ============================================================
   // DELETE /:id — 删除记录
@@ -329,6 +335,40 @@ export function createCrudRoutes<T extends PgTable>(config: CrudConfig<T>) {
     } catch (e) {
       console.error(`[crud] ${config.tableName} 删除失败:`, e);
       return c.json({ error: `删除失败: ${String(e)}` }, 500);
+    }
+  });
+
+  // ============================================================
+  // POST /batch-delete — 批量删除记录
+  // ============================================================
+  route.post("/batch-delete", async (c) => {
+    try {
+      const body = await c.req.json<{ ids: number[] }>();
+      if (!body.ids || !Array.isArray(body.ids) || body.ids.length === 0) {
+        return c.json({ error: "请提供要删除的 ID 列表" }, 400);
+      }
+
+      // 删除前逐条校验
+      if (config.onBeforeDelete) {
+        for (const id of body.ids) {
+          const check = await config.onBeforeDelete(id);
+          if (!check.allowed) {
+            return c.json({
+              error: `记录 #${id}: ${check.reason ?? "不允许删除"}`,
+            }, 403);
+          }
+        }
+      }
+
+      const idCol = (config.table as Record<string, unknown>)["id"] as ReturnType<typeof sql>;
+      const result = await db
+        .delete(config.table)
+        .where(sql`${idCol} = ANY(ARRAY[${sql.join(body.ids, sql`, `)}]::int[])`);
+
+      return c.json({ success: true, deleted: body.ids.length });
+    } catch (e) {
+      console.error(`[crud] ${config.tableName} 批量删除失败:`, e);
+      return c.json({ error: `批量删除失败: ${String(e)}` }, 500);
     }
   });
 

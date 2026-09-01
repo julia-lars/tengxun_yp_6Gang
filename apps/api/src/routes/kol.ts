@@ -7,6 +7,7 @@ import type { KolChatSession, KolProfileDetail, KolProfileSummary, EvidenceMeta 
 import { kolChatRequestSchema } from "@app/shared";
 import { zValidator } from "@hono/zod-validator";
 import { desc, eq, inArray, sql } from "drizzle-orm";
+import { streamSSE } from "hono/streaming";
 import { Hono } from "hono";
 
 import { db } from "../db/client.js";
@@ -25,6 +26,7 @@ import {
   calculateConfidence,
   classifyMatchLevel,
 } from "../lib/confidence.js";
+import { checkBoundary } from "../lib/boundary-engine.js";
 
 export const kolRoute = new Hono();
 
@@ -40,13 +42,27 @@ kolRoute.get("/", async (c) => {
   const result: KolProfileSummary[] = rows.map((r) => {
     const card = r.personaCard as Record<string, unknown>;
     const style = r.styleProfile as Record<string, unknown>;
+    const identity = (card.identity as string) ?? "";
+    const toneSummary = (card.toneSummary as string) ?? "";
+    const contentFocus = (card.contentFocus as string[]) ?? [];
+    const tone = (style.tone as string) ?? "";
+    const platformPreference = (card.platformPreference as string) ?? "";
+
+    // 构建特征标签
+    const tags: string[] = [
+      ...contentFocus.slice(0, 3),
+      ...(platformPreference && platformPreference !== "未知" ? [`平台: ${platformPreference}`] : []),
+      ...(tone && tone !== "—" ? [`语气: ${tone}`] : []),
+    ];
+
     return {
       id: r.id,
       name: r.name,
       bilibiliUid: r.bilibiliUid,
-      description: (card.identity as string) ?? "",
+      description: [identity, toneSummary].filter(Boolean).join("。"),
       videoCount: (style.videoCount as number) ?? 0,
-      sampleSegments: (r.sourceTexts as string[])?.slice(0, 3) ?? [],
+      sampleSegments: (r.sourceTexts as string[])?.slice(0, 4) ?? [],
+      tags,
       createdAt: r.createdAt.toISOString(),
     };
   });
@@ -75,6 +91,7 @@ kolRoute.get("/:id", async (c) => {
     description: ((row.personaCard as Record<string, unknown>).identity as string) ?? "",
     videoCount: ((row.styleProfile as Record<string, unknown>).videoCount as number) ?? 0,
     sampleSegments: row.segments.map((s) => s.originalText.slice(0, 200)),
+    tags: [],
     createdAt: row.createdAt.toISOString(),
     personaCard: row.personaCard as Record<string, unknown>,
     styleProfile: row.styleProfile as Record<string, unknown>,
@@ -120,36 +137,39 @@ kolRoute.post("/chat", zValidator("json", kolChatRequestSchema), async (c) => {
     message,
   });
 
-  // 3. RAG 检索（使用共享引擎）
-  const evidenceRows: EvidenceRow[] = await searchEvidence({
-    message,
-    vectorQuery: async (vecStr) => {
-      let rawRows = (await db.execute(
-        sql`SELECT id, original_text, title,
-                   embedding <=> ${vecStr}::vector AS distance
-            FROM kol_segments
-            WHERE kol_id = ${kolId}
-              AND embedding IS NOT NULL
-              AND (ad_label IS NULL OR ad_label != '广告口播')
-              AND embedding <=> ${vecStr}::vector < ${KOL_SIMILARITY_THRESHOLD}
-            ORDER BY embedding <=> ${vecStr}::vector
-            LIMIT 10`,
-      )) as unknown as Array<{
-        id: number;
-        original_text: string;
-        title: string;
-        distance: number;
-      }>;
+  // 3. 边界检测（V0.2 Boundary Engine）— 在所有 RAG 之前执行
+  const boundaryResult = await checkBoundary(message, {
+    skipCache: false,
+  });
+  const isBoundaryQuestion = boundaryResult.final === "OUT";
 
-      // 阈值过严时兜底
-      if (rawRows.length === 0) {
-        rawRows = (await db.execute(
+  // 边界外：直接返回拒答，不调用 LLM
+  if (isBoundaryQuestion) {
+    const rejectReason = boundaryResult.method === "hard_rule"
+      ? "这个问题不在我的内容领域内，我无法回答。"
+      : boundaryResult.method === "embedding_clear_out"
+      ? "抱歉，这个问题超出了我的知识范围，我没有相关的信息可以回答。"
+      : boundaryResult.method === "matrix_out"
+      ? "抱歉，我目前没有足够的数据来回答这个问题。"
+      : "抱歉，根据我的知识库，我无法回答这个问题。";
+
+    return streamSSE(c, async (stream) => {
+      await stream.writeSSE({ data: rejectReason });
+    });
+  }
+
+  // 4. RAG 检索（使用共享引擎）
+  const evidenceRows: EvidenceRow[] = await searchEvidence({
+      message,
+      vectorQuery: async (vecStr) => {
+        let rawRows = (await db.execute(
           sql`SELECT id, original_text, title,
                      embedding <=> ${vecStr}::vector AS distance
               FROM kol_segments
               WHERE kol_id = ${kolId}
                 AND embedding IS NOT NULL
                 AND (ad_label IS NULL OR ad_label != '广告口播')
+                AND embedding <=> ${vecStr}::vector < ${KOL_SIMILARITY_THRESHOLD}
               ORDER BY embedding <=> ${vecStr}::vector
               LIMIT 10`,
         )) as unknown as Array<{
@@ -158,37 +178,55 @@ kolRoute.post("/chat", zValidator("json", kolChatRequestSchema), async (c) => {
           title: string;
           distance: number;
         }>;
-      }
 
-      return rawRows.map((r) => ({
-        id: r.id,
-        originalText: r.original_text,
-        sourceLabel: r.title,
-        similarity: 1 - (r.distance ?? 0),
-      }));
-    },
-    ilikeQuery: async () => {
-      const rows = await db
-        .select({
-          id: kolSegments.id,
-          originalText: kolSegments.originalText,
-          title: kolSegments.title,
-        })
-        .from(kolSegments)
-        .where(
-          sql`${kolSegments.kolId} = ${kolId}
-              AND (${kolSegments.adLabel} IS NULL OR ${kolSegments.adLabel} != '广告口播')
-              AND ${kolSegments.originalText} ILIKE ${"%" + escapeLike(message.slice(0, 30)) + "%"}`,
-        )
-        .limit(10);
-      return rows.map((r) => ({
-        id: r.id,
-        originalText: r.originalText,
-        sourceLabel: r.title,
-        similarity: 0.5, // ILIKE 兜底给中等相似度
-      }));
-    },
-  });
+        // 阈值过严时兜底
+        if (rawRows.length === 0) {
+          rawRows = (await db.execute(
+            sql`SELECT id, original_text, title,
+                       embedding <=> ${vecStr}::vector AS distance
+                FROM kol_segments
+                WHERE kol_id = ${kolId}
+                  AND embedding IS NOT NULL
+                  AND (ad_label IS NULL OR ad_label != '广告口播')
+                ORDER BY embedding <=> ${vecStr}::vector
+                LIMIT 10`,
+          )) as unknown as Array<{
+            id: number;
+            original_text: string;
+            title: string;
+            distance: number;
+          }>;
+        }
+
+        return rawRows.map((r) => ({
+          id: r.id,
+          originalText: r.original_text,
+          sourceLabel: r.title,
+          similarity: 1 - (r.distance ?? 0),
+        }));
+      },
+      ilikeQuery: async () => {
+        const rows = await db
+          .select({
+            id: kolSegments.id,
+            originalText: kolSegments.originalText,
+            title: kolSegments.title,
+          })
+          .from(kolSegments)
+          .where(
+            sql`${kolSegments.kolId} = ${kolId}
+                AND (${kolSegments.adLabel} IS NULL OR ${kolSegments.adLabel} != '广告口播')
+                AND ${kolSegments.originalText} ILIKE ${"%" + escapeLike(message.slice(0, 30)) + "%"}`,
+          )
+          .limit(10);
+        return rows.map((r) => ({
+          id: r.id,
+          originalText: r.originalText,
+          sourceLabel: r.title,
+          similarity: 0.5, // ILIKE 兜底给中等相似度
+        }));
+      },
+    });
 
   const evidenceContext = formatEvidenceContext(
     evidenceRows,
@@ -219,7 +257,7 @@ kolRoute.post("/chat", zValidator("json", kolChatRequestSchema), async (c) => {
     tagOverlapRatio: 0.5, // KOL 没有画像标签体系，给中性值
     sampleCount: estimatedSampleCount,
     hasDirectQuote,
-    isBoundaryQuestion: false,
+    isBoundaryQuestion: false, // 边界外已提前返回，此处必为 false
   });
 
   const evidenceMeta: EvidenceMeta[] = evidenceRows.map((e) => {
@@ -228,7 +266,7 @@ kolRoute.post("/chat", zValidator("json", kolChatRequestSchema), async (c) => {
     return { id: e.id, similarity, matchLevel, tagOverlap: 0.5 };
   });
 
-  // 4. 构建 System Prompt（KOL 特有逻辑）
+  // 4.5 构建 System Prompt（KOL 特有逻辑）
   const personaCard = kol.personaCard as Record<string, unknown>;
   const styleProfile = kol.styleProfile as Record<string, unknown>;
   const evalFramework = personaCard.evaluationFramework as Record<string, string> | undefined;

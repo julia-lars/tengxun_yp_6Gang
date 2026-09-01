@@ -103,9 +103,152 @@ export function calculateConfidence(input: ConfidenceInput): ConfidenceResult {
 
 // ---- 辅助函数 ----
 
+import { cnLabelToEnKey } from "./tag-label-map.js";
+
+// ---- v2 标签一致性：5 维度独立评估 × 覆盖率惩罚 ----
+
+const DIMENSIONS = ["needs", "ability", "style", "platform", "mode"] as const;
+type Dimension = (typeof DIMENSIONS)[number];
+
 /**
- * 计算证据标签与画像标签的重叠比例。
- * 将 persona tagSpec 的值与 evidence annotation 中的标签做匹配。
+ * 从 persona v1 tagSpec 提取 5 个维度的英文标签集合。
+ * tagSpec 格式：{诉求: string | string[], 能力: string, 风格: string[], 平台: string, 模式: string}
+ */
+function extractPersonaDimensions(tagSpec: Record<string, unknown>): Record<Dimension, Set<string>> {
+  const dims: Record<Dimension, Set<string>> = {
+    needs: new Set(),
+    ability: new Set(),
+    style: new Set(),
+    platform: new Set(),
+    mode: new Set(),
+  };
+
+  // 诉求 → needs
+  const needsRaw = tagSpec["诉求"];
+  if (Array.isArray(needsRaw)) {
+    for (const v of needsRaw) {
+      if (typeof v === "string") {
+        for (const en of cnLabelToEnKey(v)) {
+          if (en !== "unknown") dims.needs.add(en);
+        }
+      }
+    }
+  } else if (typeof needsRaw === "string") {
+    for (const en of cnLabelToEnKey(needsRaw)) {
+      if (en !== "unknown") dims.needs.add(en);
+    }
+  }
+
+  // 能力 → ability
+  const abilityRaw = tagSpec["能力"];
+  if (typeof abilityRaw === "string") {
+    for (const en of cnLabelToEnKey(abilityRaw)) {
+      if (en !== "unknown") dims.ability.add(en);
+    }
+  }
+
+  // 风格 → style（5 轴：combat, decision, victory, growth, social）
+  const styleRaw = tagSpec["风格"];
+  if (Array.isArray(styleRaw)) {
+    for (const v of styleRaw) {
+      if (typeof v === "string") {
+        for (const en of cnLabelToEnKey(v)) {
+          if (en !== "unknown") dims.style.add(en);
+        }
+      }
+    }
+  }
+
+  // 平台 → platform
+  const platformRaw = tagSpec["平台"];
+  if (typeof platformRaw === "string") {
+    for (const en of cnLabelToEnKey(platformRaw)) {
+      if (en !== "unknown") dims.platform.add(en);
+    }
+  }
+
+  // 模式 → mode
+  const modeRaw = tagSpec["模式"];
+  if (typeof modeRaw === "string") {
+    for (const en of cnLabelToEnKey(modeRaw)) {
+      if (en !== "unknown") dims.mode.add(en);
+    }
+  }
+
+  return dims;
+}
+
+/**
+ * 从 evidence framework 提取 5 个维度的标签集合。
+ * 仅使用 framework 受控词汇，不包含 iceberg 自由文本。
+ * unknown 值被过滤，不参与比较。
+ */
+function extractEvidenceDimensions(annotation: Record<string, unknown>): Record<Dimension, Set<string>> {
+  const dims: Record<Dimension, Set<string>> = {
+    needs: new Set(),
+    ability: new Set(),
+    style: new Set(),
+    platform: new Set(),
+    mode: new Set(),
+  };
+
+  const framework = annotation.framework as Record<string, unknown> | undefined;
+  if (!framework) return dims;
+
+  // needs: primary + secondary
+  const needs = framework.needs as Record<string, unknown> | undefined;
+  if (needs) {
+    if (typeof needs.primary === "string" && needs.primary !== "unknown") dims.needs.add(needs.primary);
+    if (Array.isArray(needs.secondary)) {
+      for (const s of needs.secondary) {
+        if (typeof s === "string" && s !== "unknown") dims.needs.add(s);
+      }
+    }
+  }
+
+  // ability: level
+  const ability = framework.ability as Record<string, unknown> | undefined;
+  if (ability) {
+    if (typeof ability.level === "string" && ability.level !== "unknown") dims.ability.add(ability.level);
+  }
+
+  // style: 5 轴
+  const style = framework.style as Record<string, unknown> | undefined;
+  if (style) {
+    for (const axis of ["combat", "decision", "victory", "growth", "social"] as const) {
+      const v = style[axis];
+      if (typeof v === "string" && v !== "unknown") dims.style.add(v);
+    }
+  }
+
+  // platform: primary
+  const platform = framework.platform as Record<string, unknown> | undefined;
+  if (platform) {
+    if (typeof platform.primary === "string" && platform.primary !== "unknown") dims.platform.add(platform.primary);
+  }
+
+  // mode: structure
+  const mode = framework.mode as Record<string, unknown> | undefined;
+  if (mode) {
+    if (typeof mode.structure === "string" && mode.structure !== "unknown") dims.mode.add(mode.structure);
+  }
+
+  return dims;
+}
+
+/**
+ * 计算证据标签与画像标签的维度级一致性（v2）。
+ *
+ * 5 个维度独立评估：needs / ability / style / platform / mode。
+ * - 证据在某维度有信息且与 persona 一致 → 该维度得分高
+ * - 证据在某维度有信息但与 persona 矛盾 → 该维度得分低
+ * - 证据在某维度无信息（unknown）→ 该维度沉默，不影响总分
+ *
+ * 单条 evidence 得分 = agreement × coverage
+ *   agreement = 有信息维度的平均一致性
+ *   coverage  = 有信息维度数 / 5
+ *
+ * 最终得分 = 所有 evidence 得分的平均值。
  */
 export function computeTagOverlap(
   personaTagSpec: Record<string, unknown>,
@@ -113,61 +256,43 @@ export function computeTagOverlap(
 ): number {
   if (evidenceAnnotations.length === 0) return 0;
 
-  // 提取画像标签的所有值（扁平化）
-  const personaTagValues = new Set<string>();
-  for (const val of Object.values(personaTagSpec)) {
-    if (Array.isArray(val)) {
-      for (const v of val) {
-        if (typeof v === "string") personaTagValues.add(v.toLowerCase());
-      }
-    } else if (typeof val === "string") {
-      personaTagValues.add(val.toLowerCase());
-    }
-  }
+  const personaDims = extractPersonaDimensions(personaTagSpec);
 
-  if (personaTagValues.size === 0) return 0.5; // 无法比较时给中性值
+  // 检查 persona 是否有任何维度标签
+  const hasAnyPersonaLabel = Object.values(personaDims).some((s) => s.size > 0);
+  if (!hasAnyPersonaLabel) return 0.5;
 
-  // 对每条证据计算标签重叠度
   const overlaps = evidenceAnnotations.map((annotation) => {
-    if (!annotation) return 0;
+    if (!annotation) return 0.5; // 无 annotation → 中性
 
-    // 提取证据中所有标签值
-    const evidenceTagValues = new Set<string>();
-    const iceberg = annotation.iceberg as Record<string, string[]> | undefined;
-    const framework = annotation.framework as Record<string, unknown> | undefined;
+    const evidenceDims = extractEvidenceDimensions(annotation);
 
-    if (iceberg) {
-      for (const vals of Object.values(iceberg)) {
-        if (Array.isArray(vals)) {
-          for (const v of vals) {
-            if (typeof v === "string") evidenceTagValues.add(v.toLowerCase());
-          }
-        }
+    let dimScoresSum = 0;
+    let informedCount = 0;
+
+    for (const dim of DIMENSIONS) {
+      const pSet = personaDims[dim];
+      const eSet = evidenceDims[dim];
+
+      if (eSet.size === 0) continue; // 沉默维度：evidence 无信息
+      if (pSet.size === 0) continue; // persona 未定义此维度
+
+      // evidence 标签落入 persona 标签集的比例
+      let matchCount = 0;
+      for (const label of eSet) {
+        if (pSet.has(label)) matchCount++;
       }
-    }
-    if (framework) {
-      for (const val of Object.values(framework)) {
-        if (typeof val === "string") evidenceTagValues.add(val.toLowerCase());
-        if (Array.isArray(val)) {
-          for (const v of val) {
-            if (typeof v === "string") evidenceTagValues.add(v.toLowerCase());
-          }
-        }
-      }
+      dimScoresSum += matchCount / eSet.size;
+      informedCount++;
     }
 
-    if (evidenceTagValues.size === 0) return 0;
+    if (informedCount === 0) return 0.5; // 全部沉默 → 中性
 
-    // 计算交集比例
-    let matchCount = 0;
-    for (const tag of personaTagValues) {
-      if (evidenceTagValues.has(tag)) matchCount++;
-    }
-
-    return matchCount / personaTagValues.size;
+    const agreement = dimScoresSum / informedCount;
+    const coverage = informedCount / 5;
+    return agreement * coverage;
   });
 
-  // 取所有证据的平均重叠度
   return overlaps.reduce((sum, o) => sum + o, 0) / overlaps.length;
 }
 

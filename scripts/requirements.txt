@@ -1,0 +1,23 @@
+# 腾讯用户画像 (6Gang) — Python 脚本依赖
+# 安装: pip3 install -r scripts/requirements.txt
+
+# 文档解析
+python-docx>=1.0.0
+openpyxl>=3.1.0
+
+# Embedding 模型
+sentence-transformers>=2.7.0
+torch>=2.0.0
+
+# Embedding 微服务
+fastapi>=0.110.0
+uvicorn>=0.29.0
+
+# 数据库
+psycopg2-binary>=2.9.0
+
+# 数据处理
+numpy>=1.24.0
+
+# HTTP 请求（AI 打标 API 调用）
+requests>=2.31.0

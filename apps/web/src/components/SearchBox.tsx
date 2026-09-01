@@ -33,7 +33,7 @@ export function SearchBox() {
     const [p, k, s] = await Promise.all([
       api.listPersonas().catch(() => [] as PersonaSummary[]),
       api.listKol().catch(() => [] as KolProfileSummary[]),
-      api.getChatSessions().catch(() => [] as ChatSession[]),
+      api.getChatSessions().then((r) => r.data).catch(() => [] as ChatSession[]),
     ]);
     setPersonas(p);
     setKols(k);

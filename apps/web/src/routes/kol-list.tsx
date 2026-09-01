@@ -113,18 +113,27 @@ export function KolListPage() {
               <p className="text-sm text-(--color-content-secondary) text-clamp-2 min-h-[2.5rem]">
                 {kol.description}
               </p>
-              <div className="min-h-[3.5rem]">
+              {/* 特征标签 */}
+              {kol.tags && kol.tags.length > 0 && (
+                <div className="flex flex-wrap gap-1">
+                  {kol.tags.map((t) => (
+                    <span key={t} className="inline-block text-[10px] px-1.5 py-0.5 rounded bg-(--color-surface-secondary) text-(--color-content-secondary)">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              )}
+              <div className="min-h-[4rem]">
                 {kol.sampleSegments && kol.sampleSegments.length > 0 && (
                   <div className="space-y-1.5">
                     <p className="text-xs text-(--color-content-tertiary) font-medium">代表性发言</p>
-                    <div className="space-y-1">
-                      {kol.sampleSegments.slice(0, 2).map((seg) => (
-                        <p
-                          key={seg.slice(0, 30)}
-                          className="text-xs text-(--color-content-secondary) bg-(--color-surface-secondary) rounded-md px-2 py-1 text-clamp-2"
-                        >
-                          "{seg.slice(0, 150)}"
-                        </p>
+                    <div className="space-y-1.5">
+                      {kol.sampleSegments.slice(0, 1).map((seg) => (
+                        <div key={seg.slice(0, 30)} className="bg-(--color-surface-secondary) rounded-md px-2 py-1.5">
+                          <p className="text-xs text-(--color-content-secondary) leading-relaxed line-clamp-2">
+                            "{seg.slice(0, 100)}"
+                          </p>
+                        </div>
                       ))}
                     </div>
                   </div>

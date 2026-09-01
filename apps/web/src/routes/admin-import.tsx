@@ -123,7 +123,7 @@ export function AdminImportPage() {
         <button
           type="button"
           onClick={() => navigate(-1)}
-          className="text-sm text-blue-500 hover:underline inline-flex items-center gap-1 cursor-pointer"
+          className="inline-flex items-center gap-1 text-sm text-(--color-muted-foreground) hover:text-(--color-primary) transition-colors cursor-pointer"
         >
           <ArrowLeft className="h-3 w-3" />
           返回仪表盘

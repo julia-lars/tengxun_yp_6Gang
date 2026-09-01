@@ -230,70 +230,127 @@ def load_existing_data(filepath: Path) -> Optional[dict]:
         return json.load(f)
 
 
-# ── 音频下载 ────────────────────────────────────────────
+# ── 音频下载（B站 playurl API + ffmpeg） ─────────────────
+
+def _bilibili_api_download(bvid: str, output_path: Path, retries: int = 3) -> bool:
+    """通过 B站 view API 获取 cid，playurl API 获取音频流，ffmpeg 下载并转 WAV"""
+    for attempt in range(retries):
+        try:
+            # 1. 通过 view API 获取 cid 和 aid
+            view_r = requests.get(
+                f"https://api.bilibili.com/x/web-interface/view?bvid={bvid}",
+                headers=HEADERS, timeout=15,
+            )
+            if view_r.status_code == 412:
+                wait = (attempt + 1) * 10
+                print(f"    ⚠️ 412 限流(view)，{wait}s 后重试 ({attempt+1}/{retries})...", flush=True)
+                time.sleep(wait)
+                continue
+            view_r.raise_for_status()
+            view_data = view_r.json()
+            if view_data["code"] != 0:
+                print(f"    ⚠️ view API 错误: code={view_data['code']}", flush=True)
+                return False
+            cid = view_data["data"]["cid"]
+            aid = view_data["data"]["aid"]
+
+            # 2. 获取音频流 URL
+            playurl_params = {
+                "avid": aid,
+                "cid": cid,
+                "bvid": bvid,
+                "fnval": "4048",
+                "fnver": "0",
+                "fourk": "1",
+            }
+            playurl_r = requests.get(
+                "https://api.bilibili.com/x/player/playurl",
+                params=playurl_params,
+                headers=HEADERS,
+                timeout=15,
+            )
+            if playurl_r.status_code == 412:
+                wait = (attempt + 1) * 10
+                print(f"    ⚠️ 412 限流(playurl)，{wait}s 后重试...", flush=True)
+                time.sleep(wait)
+                continue
+            playurl_r.raise_for_status()
+            playurl_data = playurl_r.json()
+
+            if playurl_data["code"] != 0:
+                print(f"    ⚠️ playurl API 错误: code={playurl_data['code']}", flush=True)
+                return False
+
+            # 提取音频流
+            dash = playurl_data.get("data", {}).get("dash", {})
+            audio_streams = dash.get("audio", [])
+            if not audio_streams:
+                print(f"    ⚠️ 无音频流: {bvid}", flush=True)
+                return False
+
+            # 选最高码率
+            audio_url = audio_streams[0]["baseUrl"]
+
+            # 3. 用 requests 下载音频流（ffmpeg 传 Cookie 不兼容 B站 CDN）
+            print(f"    📥 下载音频: {bvid}", flush=True)
+            m4s_path = output_path.with_suffix(".m4s")
+            audio_r = requests.get(audio_url, headers=HEADERS, timeout=180, stream=True)
+            if audio_r.status_code != 200:
+                print(f"    ⚠️ 音频下载失败: HTTP {audio_r.status_code}", flush=True)
+                return False
+            with open(m4s_path, "wb") as f:
+                for chunk in audio_r.iter_content(chunk_size=8192):
+                    f.write(chunk)
+
+            # 4. ffmpeg 转 WAV (16kHz mono)
+            print(f"    🔄 ffmpeg 转码: {bvid}", flush=True)
+            result = subprocess.run([
+                "perl", "-e",
+                "alarm 180; exec @ARGV; die 'exec failed: $!'",
+                "ffmpeg", "-y",
+                "-i", str(m4s_path),
+                "-acodec", "pcm_s16le",
+                "-ar", "16000",
+                "-ac", "1",
+                str(output_path),
+            ], capture_output=True, text=True, timeout=190)
+
+            # 清理 m4s
+            try:
+                m4s_path.unlink()
+            except OSError:
+                pass
+
+            if result.returncode == 0 and output_path.exists():
+                return True
+            if result.returncode != 0:
+                stderr = result.stderr[-300:] if result.stderr else ""
+                print(f"    ⚠️ ffmpeg 转码失败 (code={result.returncode}): {stderr[:200]}", flush=True)
+            try:
+                output_path.unlink()
+            except OSError:
+                pass
+            return False
+
+        except Exception as e:
+            if attempt < retries - 1:
+                time.sleep(5)
+            continue
+
+    return False
+
 
 def download_audio(bvid: str, output_dir: Path) -> Optional[Path]:
-    """
-    使用 yt-dlp 下载B站视频音频
-    返回下载后的音频文件路径，失败返回 None
-    """
+    """下载 B站视频音频为 WAV，返回文件路径或 None"""
     output_path = output_dir / f"{bvid}.wav"
     if output_path.exists():
         print(f"    ⏭️  音频已存在: {output_path.name}")
         return output_path
 
-    url = f"https://www.bilibili.com/video/{bvid}"
-
-    # 写入临时 Netscape 格式 cookie 文件（yt-dlp 兼容）
-    cookie_file = None
-    bili_cookie = os.getenv("BILI_COOKIE", "")
-    if bili_cookie:
-        cookie_file = output_dir / f".cookies_{os.getpid()}.txt"
-        with open(cookie_file, "w") as f:
-            f.write("# Netscape HTTP Cookie File\n")
-            for item in bili_cookie.split(";"):
-                item = item.strip()
-                if "=" in item:
-                    k, _, v = item.partition("=")
-                    f.write(f".bilibili.com\tTRUE\t/\tFALSE\t0\t{k.strip()}\t{v.strip()}\n")
-
-    cmd = [
-        sys.executable, "-m", "yt_dlp",
-        "-f", "ba*",
-        "-x",
-        "--audio-format", "wav",
-        "--audio-quality", "0",
-        "-o", str(output_dir / f"{bvid}.%(ext)s"),
-        "--no-playlist",
-        "--socket-timeout", "30",
-        "--retries", "3",
-    ]
-    if cookie_file:
-        cmd += ["--cookies", str(cookie_file)]
-    cmd.append(url)
-
-    print(f"    📥 下载音频: {bvid}")
-    try:
-        result = subprocess.run(cmd, capture_output=True, text=True, timeout=300)
-        if cookie_file:
-            try: cookie_file.unlink()
-            except OSError: pass
-        if result.returncode != 0:
-            stderr = result.stderr[-500:] if result.stderr else ""
-            print(f"    ⚠️ yt-dlp 失败: {stderr[:200]}")
-            return None
-        # 检查输出文件
-        wav_files = list(output_dir.glob(f"{bvid}*"))
-        if wav_files:
-            final_path = output_dir / f"{bvid}.wav"
-            if wav_files[0] != final_path:
-                wav_files[0].rename(final_path)
-            return final_path
-        print(f"    ⚠️ 未找到下载的音频文件")
-        return None
-    except subprocess.TimeoutExpired:
-        print(f"    ⚠️ 下载超时: {bvid}")
-        return None
+    print(f"    📥 下载音频: {bvid}", flush=True)
+    if _bilibili_api_download(bvid, output_path):
+        return output_path
+    return None
 
 
 # ── Whisper 转写 ─────────────────────────────────────────
@@ -304,14 +361,30 @@ def transcribe_audio(audio_path: Path) -> str:
     比 openai-whisper 快 3-4x，支持 int8 量化加速
     返回转写文本
     """
+    import signal
     from faster_whisper import WhisperModel
-    print(f"    🎙️  faster-whisper 转写: {audio_path.name}")
+    print(f"    🎙️  faster-whisper 转写: {audio_path.name}", flush=True)
     model = WhisperModel(WHISPER_MODEL, device="cpu", compute_type="int8",
                          cpu_threads=4, num_workers=2)
-    segments, info = model.transcribe(str(audio_path), language="zh",
-                                      beam_size=5, vad_filter=True)
-    text = "".join(seg.text for seg in segments)
-    return text.strip()
+
+    # 用 signal.alarm 实现超时保护（macOS fork 模式可用）
+    result = []
+
+    def _handler(signum, frame):
+        raise TimeoutError(f"whisper 转写超时: {audio_path.name}")
+
+    old_handler = signal.signal(signal.SIGALRM, _handler)
+    signal.alarm(600)  # 10分钟超时
+    try:
+        segments, info = model.transcribe(str(audio_path), language="zh",
+                                          beam_size=5, vad_filter=True)
+        text = "".join(seg.text for seg in segments)
+        result.append(text.strip())
+    finally:
+        signal.alarm(0)
+        signal.signal(signal.SIGALRM, old_handler)
+
+    return result[0] if result else ""
 
 
 # ── DeepSeek 标点恢复 ─────────────────────────────────────

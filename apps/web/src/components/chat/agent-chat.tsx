@@ -426,6 +426,17 @@ export function AgentChat({
                     setEvidenceSheetIndex(assistantMsgIndex);
                   }
                 }
+                if (parsed.type === "sentenceEvidence" && parsed.sentenceEvidence) {
+                  sentenceEvidence = parsed.sentenceEvidence;
+                  setMessages((prev) => {
+                    const next = [...prev];
+                    const last = next[next.length - 1];
+                    if (last?.role === "assistant") {
+                      next[next.length - 1] = { ...last, sentenceEvidence };
+                    }
+                    return next;
+                  });
+                }
                 if (parsed.type === "evidence" && parsed.ids) evidenceIds = parsed.ids;
                 if (parsed.sessionId) setSessionId(parsed.sessionId);
                 if (parsed.suggestions) suggestions = parsed.suggestions;

@@ -27,6 +27,7 @@ export function PersonaDetailPage() {
 
     api
       .getChatSessions(Number(id))
+      .then((r) => r.data)
       .then(setSessions)
       .catch(() => setSessions([]));
   }, [id]);
@@ -60,7 +61,7 @@ export function PersonaDetailPage() {
       <button
         type="button"
         onClick={() => navigate(-1)}
-        className="inline-flex items-center gap-1 text-sm text-[--color-muted-foreground] hover:text-[--color-primary] transition-colors cursor-pointer"
+        className="inline-flex items-center gap-1 text-sm text-(--color-muted-foreground) hover:text-(--color-primary) transition-colors cursor-pointer"
       >
         <ArrowLeft className="h-3 w-3" /> 返回画像列表
       </button>

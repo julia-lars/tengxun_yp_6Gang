@@ -56,6 +56,17 @@ export interface AdminListResponse<T> {
   };
 }
 
+export interface AuditLogEntry {
+  id: number;
+  tableName: string;
+  recordId: number;
+  action: string;
+  changedBy: string;
+  oldData: Record<string, unknown> | null;
+  newData: Record<string, unknown> | null;
+  changedAt: string;
+}
+
 export interface AdminStats {
   tables: Record<string, number>;
   sourceDistribution: Array<{ sourceFile: string; count: number }>;
@@ -243,12 +254,31 @@ export const api = {
   /** 获取仪表盘统计 */
   getAdminStats: () => request<AdminStats>("/api/admin/stats"),
 
+  /** 最近操作（仪表盘用） */
+  getRecentActivity: (limit?: number) => {
+    const qs = limit ? `?limit=${limit}` : "";
+    return request<{ data: AuditLogEntry[] }>(`/api/admin/recent-activity${qs}`);
+  },
+
   /** 审计日志 */
-  getAuditLog: (params?: { limit?: number; table?: string }) => {
+  getAuditLog: (params?: {
+    page?: number;
+    limit?: number;
+    table?: string;
+    action?: string;
+    from?: string;
+    to?: string;
+  }) => {
     const qs = new URLSearchParams();
+    if (params?.page) qs.set("page", String(params.page));
     if (params?.limit) qs.set("limit", String(params.limit));
     if (params?.table) qs.set("table", params.table);
-    return request<{ data: unknown[] }>(`/api/admin/audit-log${qs.toString() ? `?${qs}` : ""}`);
+    if (params?.action) qs.set("action", params.action);
+    if (params?.from) qs.set("from", params.from);
+    if (params?.to) qs.set("to", params.to);
+    return request<{ data: AuditLogEntry[]; pagination: { page: number; limit: number; total: number; totalPages: number } }>(
+      `/api/admin/audit-log${qs.toString() ? `?${qs}` : ""}`,
+    );
   },
 
   /** 通用表格列表 */
@@ -292,6 +322,13 @@ export const api = {
   adminDelete: (table: string, id: number) =>
     request<{ success: boolean }>(`/api/admin/${table}/${id}`, {
       method: "DELETE",
+    }),
+
+  /** 通用批量删除 */
+  adminBatchDelete: (table: string, ids: number[]) =>
+    request<{ success: boolean; deleted: number }>(`/api/admin/${table}/batch-delete`, {
+      method: "POST",
+      body: JSON.stringify({ ids }),
     }),
 
   // ====== 数据导入 ======

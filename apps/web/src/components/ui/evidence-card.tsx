@@ -47,17 +47,17 @@ export function EvidenceCard({
         className,
       )}
     >
+      {/* 前置问题 */}
+      {precedingQuestion && (
+        <div className="text-xs text-(--color-muted-foreground) bg-(--color-muted)/30 rounded px-2 py-1.5 leading-relaxed">
+          <span className="font-medium">问题：</span>{precedingQuestion}
+        </div>
+      )}
+
       {/* 原文引用 */}
       <blockquote className="leading-relaxed border-l-2 border-(--color-border) pl-3 py-1 text-(--color-foreground)">
         {originalText}
       </blockquote>
-
-      {/* 前置问题（语境还原） */}
-      {precedingQuestion && (
-        <div className="text-xs text-(--color-muted-foreground) bg-(--color-muted)/30 rounded px-2 py-1.5 leading-relaxed">
-          <span className="font-medium">前置问题：</span>{precedingQuestion}
-        </div>
-      )}
 
       {/* 元信息 */}
       <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-(--color-muted-foreground)">

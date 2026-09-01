@@ -35,8 +35,8 @@ export function HomePage() {
 
   useEffect(() => {
     Promise.all([
-      api.getChatSessions().catch(() => [] as ChatSession[]),
-      api.listKolChatSessions().catch(() => [] as KolChatSession[]),
+      api.getChatSessions().then((r) => r.data).catch(() => [] as ChatSession[]),
+      api.listKolChatSessions().then((r) => r.data).catch(() => [] as KolChatSession[]),
       api.listPersonas().catch(() => [] as PersonaSummary[]),
       api.listKol().catch(() => [] as KolProfileSummary[]),
     ]).then(([personaSessions, kolSessions, personas, kols]) => {

@@ -1,5 +1,6 @@
 // 管理后台 — 数据表格浏览页（通用）
 import {
+  ArrowLeft,
   ChevronLeft,
   ChevronRight,
   Pencil,
@@ -12,37 +13,68 @@ import { Link, useNavigate, useParams, useSearchParams } from "react-router";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { BatchActionBar } from "@/components/admin/batch-action-bar.js";
 import { api, type AdminListResponse } from "../lib/api.js";
 
 // 表配置
-const TABLE_META: Record<string, { label: string; columns: string[] }> = {
+const TABLE_META: Record<string, {
+  label: string;
+  columns: string[];
+  /** 是否允许新增记录 */
+  creatable: boolean;
+  /** 是否允许编辑记录 */
+  editable: boolean;
+  /** 是否允许删除记录 */
+  deletable: boolean;
+}> = {
   "source-segments": {
     label: "用户原声片段",
-    columns: ["id", "source_file", "speaker_id", "speaker_role", "original_text", "char_count", "created_at"],
+    columns: ["id", "sourceFile", "speakerId", "speakerRole", "originalText", "charCount", "createdAt"],
+    creatable: true,
+    editable: true,
+    deletable: true,
   },
   personas: {
     label: "用户画像",
-    columns: ["id", "name", "description", "sample_count", "cluster_id", "created_at"],
+    columns: ["id", "name", "description", "sampleCount", "clusterId", "createdAt"],
+    creatable: true,
+    editable: true,
+    deletable: true,
   },
   respondents: {
     label: "受访者",
-    columns: ["id", "source_file", "speaker_id", "display_name", "group_code", "created_at"],
+    columns: ["id", "sourceFile", "speakerId", "displayName", "groupCode", "createdAt"],
+    creatable: true,
+    editable: true,
+    deletable: true,
   },
   "kol-profiles": {
     label: "KOL 画像",
-    columns: ["id", "name", "bilibili_uid", "created_at"],
+    columns: ["id", "name", "bilibiliUid", "createdAt"],
+    creatable: true,
+    editable: true,
+    deletable: true,
   },
   "kol-segments": {
     label: "KOL 语料",
-    columns: ["id", "kol_id", "title", "ad_label", "created_at"],
+    columns: ["id", "kolId", "bvid", "title", "adLabel", "createdAt"],
+    creatable: true,
+    editable: true,
+    deletable: true,
   },
   "chat-sessions": {
     label: "对话记录",
-    columns: ["id", "persona_id", "title", "updated_at"],
+    columns: ["id", "personaId", "title", "updatedAt"],
+    creatable: false,  // 对话记录由系统自动生成
+    editable: false,
+    deletable: true,
   },
   "kol-chat-sessions": {
     label: "KOL 对话",
-    columns: ["id", "kol_id", "title", "updated_at"],
+    columns: ["id", "kolId", "title", "updatedAt"],
+    creatable: false,  // 对话记录由系统自动生成
+    editable: false,
+    deletable: true,
   },
 };
 
@@ -57,6 +89,8 @@ export function AdminTablePage() {
   const [error, setError] = useState<string | null>(null);
   const [search, setSearch] = useState(searchParams.get("search") ?? "");
   const [deleteConfirm, setDeleteConfirm] = useState<number | null>(null);
+  const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
+  const [batchDeleting, setBatchDeleting] = useState(false);
 
   const meta = table ? TABLE_META[table] : undefined;
   const page = Number(searchParams.get("page") ?? "1");
@@ -117,6 +151,42 @@ export function AdminTablePage() {
     }
   };
 
+  const toggleSelect = (id: number) => {
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
+
+  const toggleSelectAll = () => {
+    if (!data) return;
+    const allIds = data.data.map((r) => r.id as number);
+    const allSelected = allIds.every((id) => selectedIds.has(id));
+    if (allSelected) {
+      setSelectedIds(new Set());
+    } else {
+      setSelectedIds(new Set(allIds));
+    }
+  };
+
+  const handleBatchDelete = async () => {
+    if (!table || selectedIds.size === 0) return;
+    if (!confirm(`确定要删除选中的 ${selectedIds.size} 条记录吗？此操作不可撤销。`)) return;
+
+    setBatchDeleting(true);
+    try {
+      await api.adminBatchDelete(table, Array.from(selectedIds));
+      setSelectedIds(new Set());
+      fetchData();
+    } catch (e) {
+      alert(`批量删除失败: ${e}`);
+    } finally {
+      setBatchDeleting(false);
+    }
+  };
+
   if (!meta) {
     return (
       <div className="py-10 text-center text-(--color-content-secondary)">
@@ -139,20 +209,22 @@ export function AdminTablePage() {
           <button
             type="button"
             onClick={() => navigate(-1)}
-            className="text-sm text-blue-500 hover:underline cursor-pointer"
+            className="inline-flex items-center gap-1 text-sm text-(--color-muted-foreground) hover:text-(--color-primary) transition-colors cursor-pointer"
           >
-            ← 返回仪表盘
+            <ArrowLeft className="h-3 w-3" /> 返回仪表盘
           </button>
           <h1 className="text-2xl font-bold text-(--color-content-primary) mt-1">
             {meta.label}
           </h1>
         </div>
-        <Link to={`/admin/${table}/new`}>
-          <Button size="sm" className="gap-1.5">
-            <Plus className="h-4 w-4" />
-            新增
-          </Button>
-        </Link>
+        {meta.creatable && (
+          <Link to={`/admin/${table}/new`}>
+            <Button size="sm" className="gap-1.5">
+              <Plus className="h-4 w-4" />
+              新增
+            </Button>
+          </Link>
+        )}
       </div>
 
       {/* 搜索 */}
@@ -189,6 +261,14 @@ export function AdminTablePage() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-neutral-200 bg-neutral-50">
+                  <th className="px-3 py-2.5 w-10">
+                    <input
+                      type="checkbox"
+                      className="rounded border-neutral-300"
+                      checked={data ? data.data.length > 0 && data.data.every((r) => selectedIds.has(r.id as number)) : false}
+                      onChange={toggleSelectAll}
+                    />
+                  </th>
                   {meta.columns.map((col) => (
                     <th
                       key={col}
@@ -212,7 +292,7 @@ export function AdminTablePage() {
                 {loading ? (
                   <tr>
                     <td
-                      colSpan={meta.columns.length + 1}
+                      colSpan={meta.columns.length + 2}
                       className="px-3 py-10 text-center text-(--color-content-tertiary)"
                     >
                       <div className="flex items-center justify-center gap-2">
@@ -224,7 +304,7 @@ export function AdminTablePage() {
                 ) : data?.data.length === 0 ? (
                   <tr>
                     <td
-                      colSpan={meta.columns.length + 1}
+                      colSpan={meta.columns.length + 2}
                       className="px-3 py-10 text-center text-(--color-content-tertiary)"
                     >
                       暂无数据
@@ -236,6 +316,14 @@ export function AdminTablePage() {
                       key={row.id as number}
                       className="border-b border-neutral-100 hover:bg-neutral-50"
                     >
+                      <td className="px-3 py-2">
+                        <input
+                          type="checkbox"
+                          className="rounded border-neutral-300"
+                          checked={selectedIds.has(row.id as number)}
+                          onChange={() => toggleSelect(row.id as number)}
+                        />
+                      </td>
                       {meta.columns.map((col) => (
                         <td
                           key={col}
@@ -247,40 +335,49 @@ export function AdminTablePage() {
                       ))}
                       <td className="px-3 py-2 text-right whitespace-nowrap">
                         <div className="flex items-center justify-end gap-1">
-                          <Link to={`/admin/${table}/${row.id}`}>
-                            <Button variant="ghost" size="icon" className="h-7 w-7">
-                              <Pencil className="h-3.5 w-3.5" />
-                            </Button>
-                          </Link>
-                          {deleteConfirm === (row.id as number) ? (
-                            <div className="flex items-center gap-1">
-                              <Button
-                                variant="destructive"
-                                size="sm"
-                                className="h-7 text-xs"
-                                onClick={() => handleDelete(row.id as number)}
-                              >
-                                确认
+                          {meta.editable ? (
+                            <Link to={`/admin/${table}/${row.id}`}>
+                              <Button variant="ghost" size="icon" className="h-7 w-7">
+                                <Pencil className="h-3.5 w-3.5" />
                               </Button>
+                            </Link>
+                          ) : (
+                            <Link to={`/admin/${table}/${row.id}`}>
+                              <Button variant="ghost" size="icon" className="h-7 w-7">
+                                <Pencil className="h-3.5 w-3.5" />
+                              </Button>
+                            </Link>
+                          )}
+                          {meta.deletable && (
+                            deleteConfirm === (row.id as number) ? (
+                              <div className="flex items-center gap-1">
+                                <Button
+                                  variant="destructive"
+                                  size="sm"
+                                  className="h-7 text-xs"
+                                  onClick={() => handleDelete(row.id as number)}
+                                >
+                                  确认
+                                </Button>
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  className="h-7 text-xs"
+                                  onClick={() => setDeleteConfirm(null)}
+                                >
+                                  取消
+                                </Button>
+                              </div>
+                            ) : (
                               <Button
                                 variant="ghost"
-                                size="sm"
-                                className="h-7 text-xs"
-                                onClick={() => setDeleteConfirm(null)}
-                              >
-                                取消
-                              </Button>
-                            </div>
-                          ) : (
-                            <Button
-                              variant="ghost"
-                              size="icon"
+                                size="icon"
                               className="h-7 w-7 text-red-500 hover:text-red-700"
                               onClick={() => setDeleteConfirm(row.id as number)}
                             >
                               <Trash2 className="h-3.5 w-3.5" />
                             </Button>
-                          )}
+                          ))}
                         </div>
                       </td>
                     </tr>
@@ -320,6 +417,13 @@ export function AdminTablePage() {
           </div>
         </div>
       )}
+      {/* 批量操作浮栏 */}
+      <BatchActionBar
+        selectedCount={selectedIds.size}
+        onBatchDelete={handleBatchDelete}
+        onClearSelection={() => setSelectedIds(new Set())}
+        deleting={batchDeleting}
+      />
     </div>
   );
 }

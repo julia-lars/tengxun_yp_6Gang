@@ -6,6 +6,7 @@
 import { type ChatRequest, type ChatSession, type EvidenceMeta, chatRequestSchema } from "@app/shared";
 import { zValidator } from "@hono/zod-validator";
 import { and, desc, eq, inArray, sql } from "drizzle-orm";
+import { streamSSE } from "hono/streaming";
 import { Hono } from "hono";
 
 import { db } from "../db/client.js";
@@ -24,6 +25,7 @@ import {
   computeTagOverlap,
   classifyMatchLevel,
 } from "../lib/confidence.js";
+import { checkBoundary } from "../lib/boundary-engine.js";
 import { formatSpokenStyleRules } from "../lib/prompt-rules.js";
 
 export const chatRoute = new Hono();
@@ -248,7 +250,28 @@ chatRoute.post("/", zValidator("json", chatRequestSchema), async (c) => {
     message,
   });
 
-  // 3. RAG 检索（使用共享引擎）
+  // 3. 边界检测（V0.2 Boundary Engine）— 在所有 RAG 之前执行
+  const boundaryResult = await checkBoundary(message, {
+    skipCache: false,
+  });
+  const isBoundaryQuestion = boundaryResult.final === "OUT";
+
+  // 边界外：直接返回拒答，不调用 LLM
+  if (isBoundaryQuestion) {
+    const rejectReason = boundaryResult.method === "hard_rule"
+      ? "该问题不属于射击游戏领域，我无法回答。"
+      : boundaryResult.method === "embedding_clear_out"
+      ? "抱歉，这个问题超出了我的知识范围，我没有相关的信息可以回答。"
+      : boundaryResult.method === "matrix_out"
+      ? "抱歉，我目前没有足够的数据来回答这个问题。"
+      : "抱歉，根据我的知识库，我无法回答这个问题。";
+
+    return streamSSE(c, async (stream) => {
+      await stream.writeSSE({ data: rejectReason });
+    });
+  }
+
+  // 4. RAG 检索（使用共享引擎）
   const skipRAG = message.trim().length <= 5;
   let evidenceRows: EvidenceRow[] = [];
   // 向量相似度阈值 — 余弦距离转换为相似度后低于此值的不保留
@@ -352,7 +375,7 @@ chatRoute.post("/", zValidator("json", chatRequestSchema), async (c) => {
     tagOverlapRatio,
     sampleCount: persona?.sampleCount ?? 50,
     hasDirectQuote,
-    isBoundaryQuestion: false,
+    isBoundaryQuestion: false, // 边界外已提前返回，此处必为 false
   });
 
   const evidenceMeta: EvidenceMeta[] = evidenceRows.map((e) => {
@@ -362,7 +385,7 @@ chatRoute.post("/", zValidator("json", chatRequestSchema), async (c) => {
     return { id: e.id, similarity, matchLevel, tagOverlap };
   });
 
-  // 4. 构建 System Prompt
+  // 4.5 构建 System Prompt
   const systemPrompt = buildSystemPrompt(
     personaName,
     personaDescription,

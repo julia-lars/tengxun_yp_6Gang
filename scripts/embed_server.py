@@ -12,8 +12,8 @@ from pydantic import BaseModel
 from sentence_transformers import SentenceTransformer
 
 app = FastAPI(title="BGE-M3 Embedding Server")
-# bge-m3 通过 ModelScope 下载到本地，与 embed_segments.py 保持一致
-MODEL_PATH = os.path.expanduser("~/models/bge-m3/BAAI/bge-m3")
+# 优先从环境变量读取本地模型路径，否则让 sentence-transformers 自动下载
+MODEL_PATH = os.environ.get("BGE_M3_MODEL_PATH", "BAAI/bge-m3")
 model = SentenceTransformer(MODEL_PATH)
 
 

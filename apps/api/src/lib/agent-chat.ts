@@ -245,6 +245,23 @@ export async function streamChat(opts: {
       // 客户端已断开连接
     }
 
+    // 逐句证据映射（异步执行，不阻塞 meta 事件，完成后单独发送）
+    if (userMessage && fullResponse && (evidenceData ?? []).length > 0) {
+      try {
+        const sentenceEvidence = await mapSentencesToEvidence(fullResponse, evidenceData!, userMessage);
+        if (sentenceEvidence.sentences.length > 0) {
+          await stream.writeSSE({
+            data: JSON.stringify({
+              type: "sentenceEvidence",
+              sentenceEvidence,
+            }),
+          });
+        }
+      } catch (e) {
+        console.error("逐句证据映射失败:", e);
+      }
+    }
+
     // 首轮对话完成后自动生成标题
     if (updateTitle && history.length === 0 && fullResponse) {
       try {

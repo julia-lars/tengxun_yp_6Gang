@@ -18,11 +18,23 @@
 
 from docx import Document
 from openpyxl import load_workbook
-import json, re, os, sys
+import json, re, os, sys, pathlib
 from collections import Counter, OrderedDict
 
-BASE = "/Users/jessicajyan/Desktop/腾讯用户画像-data/data/虚拟用户-笔录 for 元培"
-OUT = "/Users/jessicajyan/tengxun_yp_6Gang/data/群体画像v2.0"
+# 项目根目录（脚本所在目录的上一级）
+PROJECT_ROOT = pathlib.Path(__file__).resolve().parent.parent
+
+# 输入目录：原始访谈文件（可通过 PIPELINE_SRC_DIR 环境变量覆盖）
+BASE = os.environ.get(
+    "PIPELINE_SRC_DIR",
+    str(PROJECT_ROOT / "data" / "source")
+)
+
+# 输出目录：与下游 clean_segments_v2_demo.py 的输入目录对齐
+OUT = os.environ.get(
+    "PIPELINE_OUT_DIR",
+    str(PROJECT_ROOT / "data" / "群体画像v2.0_data")
+)
 
 MAX_PQ_LENGTH = 200  # §6.7 PQ 长度上限
 

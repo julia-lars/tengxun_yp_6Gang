@@ -16,6 +16,7 @@
     "db:seed-personas": "bun run src/db/seed-personas.ts",
     "db:seed-kol": "bun run src/db/seed-kol.ts",
     "db:seed-kol-test": "bun run src/db/seed-kol-test.ts",
+    "db:seed-data": "bun run src/db/seed-data.ts",
     "db:studio": "drizzle-kit studio"
   },
   "dependencies": {

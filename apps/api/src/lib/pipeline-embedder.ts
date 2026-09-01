@@ -1,6 +1,6 @@
 // --------------------------------------------------------------
 // 向量嵌入 — 为标注后的片段生成语义向量
-// 使用本地 embed server (bge-large-zh-v1.5)；不可用时跳过嵌入，embedding 保持 null 供后续重跑
+// 使用本地 embed server (bge-m3)；不可用时跳过嵌入，embedding 保持 null 供后续重跑
 // --------------------------------------------------------------
 
 import { EMBED_SERVER_URL, embedQuery } from "./embed.js";
@@ -17,7 +17,7 @@ export interface EmbeddedSegment extends TaggedSegment {
 
 // ---- 配置 ----
 
-const EMBED_VERSION = "bge-large-zh-v1.5";
+const EMBED_VERSION = "bge-m3";
 const MIN_TEXT_LENGTH = 10; // 最短文本长度（低于此跳过嵌入）
 
 // ---- 嵌入函数 ----
