@@ -284,6 +284,7 @@ kolRoute.post("/chat", zValidator("json", kolChatRequestSchema), async (c) => {
     evidenceData: evidenceRows,
     history,
     userMessage: message,
+    userQuestion: message,
     errorMessage: "[KOL分身暂时无法响应，请稍后重试]",
     confidence: confidenceResult,
     evidenceMeta,

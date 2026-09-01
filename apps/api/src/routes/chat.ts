@@ -391,6 +391,7 @@ chatRoute.post("/", zValidator("json", chatRequestSchema), async (c) => {
     evidenceData: evidenceRows,
     history,
     userMessage: message,
+    userQuestion: message,
     errorMessage: "[模拟用户暂时无法响应，请稍后重试]",
     confidence: confidenceResult,
     evidenceMeta,

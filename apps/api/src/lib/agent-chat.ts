@@ -174,6 +174,8 @@ export async function streamChat(opts: {
   evidenceMeta?: EvidenceMeta[];
   /** 首轮对话完成后自动生成标题的回调 */
   updateTitle?: (title: string) => Promise<void>;
+  /** 用户问题原文（用于逐句证据映射） */
+  userQuestion?: string;
 }): Promise<Response> {
   const {
     c,
@@ -187,6 +189,7 @@ export async function streamChat(opts: {
     confidence,
     evidenceMeta,
     updateTitle,
+    userQuestion: userQ,
   } = opts;
 
   return streamSSE(c, async (stream) => {
@@ -229,6 +232,16 @@ export async function streamChat(opts: {
       precedingQuestion: e.precedingQuestion ?? null,
     }));
 
+    // 逐句证据映射（LLM 拆分句子 → 证据 ID）
+    let sentenceEvidence: SentenceEvidenceResult | undefined;
+    if (userQ && fullResponse && (evidenceData ?? []).length > 0) {
+      try {
+        sentenceEvidence = await mapSentencesToEvidence(fullResponse, evidenceData!, userQ);
+      } catch (e) {
+        console.error("逐句证据映射失败:", e);
+      }
+    }
+
     // 先发送 meta 事件（证据 + 置信度），前端立即显示，不等标题生成
     try {
       await stream.writeSSE({
@@ -239,6 +252,7 @@ export async function streamChat(opts: {
           confidence,
           evidenceMeta: evidenceMeta ?? [],
           evidence: evidencePayload,
+          sentenceEvidence,
         }),
       });
     } catch {
