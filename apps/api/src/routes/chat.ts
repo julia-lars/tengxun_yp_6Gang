@@ -24,6 +24,7 @@ import {
   computeTagOverlap,
   classifyMatchLevel,
 } from "../lib/confidence.js";
+import { formatSpokenStyleRules } from "../lib/prompt-rules.js";
 
 export const chatRoute = new Hono();
 
@@ -199,6 +200,7 @@ function buildSystemPrompt(
     "2. 回答必须符合你的角色设定，不能前后矛盾。",
     "3. 被问到不了解的事（超出你的游戏经验），就说不知道。",
     "4. 不要使用'作为一个人工智能'、'根据我的训练数据'等表述。",
+    ...formatSpokenStyleRules(5),
     "",
     "## 你可能知道的背景信息",
     evidenceContext || "(暂无相关背景信息)",
