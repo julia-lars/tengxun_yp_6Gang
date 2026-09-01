@@ -1049,6 +1049,7 @@ export function AgentChat({
             evidenceData={sheetEvidence}
             sentenceEvidence={sheetMsg.sentenceEvidence}
             userQuestion={userQuestion}
+            answerText={sheetMsg.content}
             activeSentenceIndex={activeSentenceIndex}
             highlightedEvidenceIds={highlightedEvidenceIds}
             onSentenceClick={handleSentenceClick}

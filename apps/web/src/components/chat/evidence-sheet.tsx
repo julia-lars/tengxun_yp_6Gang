@@ -8,6 +8,7 @@ interface EvidenceSheetProps {
   evidenceData: EvidenceData[];
   sentenceEvidence?: SentenceEvidenceResult;
   userQuestion: string;
+  answerText?: string;
   activeSentenceIndex: number | null;
   highlightedEvidenceIds: Set<number>;
   onSentenceClick: (index: number) => void;
@@ -20,6 +21,7 @@ export function EvidenceSheet({
   evidenceData,
   sentenceEvidence,
   userQuestion,
+  answerText,
   activeSentenceIndex,
   highlightedEvidenceIds,
   onSentenceClick,
@@ -51,13 +53,13 @@ export function EvidenceSheet({
     }
   }, [highlightedEvidenceIds]);
 
-  // 渲染回答文本：有 sentenceEvidence 时逐句高亮，否则显示纯文本
+  // 渲染回答文本：有 sentenceEvidence 时逐句高亮，否则显示消息内容
   const renderAnswer = () => {
     if (!sentenceEvidence || sentenceEvidence.sentences.length === 0) {
       // 降级：显示纯文本
       return (
         <p className="text-sm text-(--color-content-secondary) leading-relaxed whitespace-pre-wrap">
-          {sentenceEvidence?.answerText ?? "(无回答内容)"}
+          {sentenceEvidence?.answerText || answerText || "(无回答内容)"}
         </p>
       );
     }
