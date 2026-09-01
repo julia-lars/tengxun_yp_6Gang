@@ -43,7 +43,7 @@ export function ConfidenceIndicator({
   const hasDetail = breakdown || (flags && flags.length > 0);
 
   return (
-    <div className="relative inline-flex flex-col">
+    <div className={cn("relative inline-flex flex-col", hasDetail && expanded && "z-20")}>
       {/* 点击空白关闭遮罩 */}
       {hasDetail && expanded && (
         <div className="fixed inset-0 z-10" onClick={() => setExpanded(false)} />
@@ -54,7 +54,7 @@ export function ConfidenceIndicator({
           "flex items-center gap-1 font-medium transition-colors",
           size === "sm" ? "text-xs" : "text-sm",
           color,
-          hasDetail ? "cursor-pointer hover:underline z-20 relative" : "cursor-default",
+          hasDetail ? "cursor-pointer hover:underline" : "cursor-default",
         )}
         onClick={() => hasDetail && setExpanded(!expanded)}
         title={hasDetail ? "点击查看详情" : undefined}
