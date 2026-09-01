@@ -1,6 +1,7 @@
 // 置信度指示器 — 可点击展开三维分解详情
 import { ChevronDown, ChevronUp } from "lucide-react";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { cn } from "@/lib/utils";
 
 interface ConfidenceIndicatorProps {
@@ -37,18 +38,99 @@ export function ConfidenceIndicator({
 }: ConfidenceIndicatorProps) {
   const { label, color } = getLevel(score);
   const [expanded, setExpanded] = useState(false);
+  const [popoverStyle, setPopoverStyle] = useState<React.CSSProperties>({});
+  const triggerRef = useRef<HTMLButtonElement>(null);
 
   if (!showLabel) return null;
 
   const hasDetail = breakdown || (flags && flags.length > 0);
 
+  // 计算展开内容的位置（相对于 trigger 按钮）
+  const recalcPosition = () => {
+    if (!triggerRef.current) return;
+    const rect = triggerRef.current.getBoundingClientRect();
+    setPopoverStyle({
+      position: "fixed",
+      top: rect.bottom + 4,
+      left: rect.left,
+      zIndex: 60,
+    });
+  };
+
+  const handleToggle = () => {
+    if (!hasDetail) return;
+    const next = !expanded;
+    setExpanded(next);
+    if (next) {
+      // 展开时计算位置，延迟一帧确保 DOM 更新
+      requestAnimationFrame(recalcPosition);
+    }
+  };
+
+  // 窗口大小变化时重新计算位置
+  useEffect(() => {
+    if (!expanded) return;
+    const onResize = () => recalcPosition();
+    window.addEventListener("resize", onResize);
+    // 滚动容器可能改变 trigger 位置，用 scroll 事件处理
+    window.addEventListener("scroll", onResize, true);
+    return () => {
+      window.removeEventListener("resize", onResize);
+      window.removeEventListener("scroll", onResize, true);
+    };
+  }, [expanded]);
+
+  const popover = hasDetail && expanded && (
+    <div
+      className="w-48 rounded-lg border border-(--color-border) bg-(--color-surface-primary) shadow-lg p-3 space-y-2"
+      style={popoverStyle}
+    >
+      {breakdown && (
+        <div className="space-y-1">
+          <p className="text-xs font-medium text-(--color-content-secondary)">三维分解</p>
+          <div className="space-y-0.5">
+            <div className="flex justify-between text-xs">
+              <span className="text-(--color-content-tertiary)">证据匹配度</span>
+              <span className="font-medium text-(--color-content-primary)">{Math.round(breakdown.evidenceScore * 100)}%</span>
+            </div>
+            <div className="flex justify-between text-xs">
+              <span className="text-(--color-content-tertiary)">标签一致性</span>
+              <span className="font-medium text-(--color-content-primary)">{Math.round(breakdown.consistencyScore * 100)}%</span>
+            </div>
+            <div className="flex justify-between text-xs">
+              <span className="text-(--color-content-tertiary)">样本量</span>
+              <span className="font-medium text-(--color-content-primary)">{Math.round(breakdown.sampleScore * 100)}%</span>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {flags && flags.length > 0 && (
+        <div className="space-y-1">
+          <p className="text-xs font-medium text-(--color-content-secondary)">风险标记</p>
+          <div className="flex flex-wrap gap-1">
+            {flags.map((f) => (
+              <span
+                key={f}
+                className="text-[10px] text-(--color-content-tertiary) bg-(--color-surface-secondary) px-1.5 py-0.5 rounded"
+              >
+                {flagLabel[f] ?? f}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+
   return (
-    <div className={cn("relative inline-flex flex-col", hasDetail && expanded && "z-20")}>
+    <div className="relative inline-flex flex-col">
       {/* 点击空白关闭遮罩 */}
       {hasDetail && expanded && (
-        <div className="fixed inset-0 z-10" onClick={() => setExpanded(false)} />
+        <div className="fixed inset-0 z-50" onClick={() => setExpanded(false)} />
       )}
       <button
+        ref={triggerRef}
         type="button"
         className={cn(
           "flex items-center gap-1 font-medium transition-colors",
@@ -56,7 +138,7 @@ export function ConfidenceIndicator({
           color,
           hasDetail ? "cursor-pointer hover:underline" : "cursor-default",
         )}
-        onClick={() => hasDetail && setExpanded(!expanded)}
+        onClick={handleToggle}
         title={hasDetail ? "点击查看详情" : undefined}
       >
         可信度: {label} ({Math.round(score * 100)}%)
@@ -67,45 +149,8 @@ export function ConfidenceIndicator({
         )}
       </button>
 
-      {hasDetail && expanded && (
-        <div className="absolute top-full left-0 mt-1 z-20 w-48 rounded-lg border border-(--color-border) bg-(--color-surface-primary) shadow-lg p-3 space-y-2">
-          {breakdown && (
-            <div className="space-y-1">
-              <p className="text-xs font-medium text-(--color-content-secondary)">三维分解</p>
-              <div className="space-y-0.5">
-                <div className="flex justify-between text-xs">
-                  <span className="text-(--color-content-tertiary)">证据匹配度</span>
-                  <span className="font-medium text-(--color-content-primary)">{Math.round(breakdown.evidenceScore * 100)}%</span>
-                </div>
-                <div className="flex justify-between text-xs">
-                  <span className="text-(--color-content-tertiary)">标签一致性</span>
-                  <span className="font-medium text-(--color-content-primary)">{Math.round(breakdown.consistencyScore * 100)}%</span>
-                </div>
-                <div className="flex justify-between text-xs">
-                  <span className="text-(--color-content-tertiary)">样本量</span>
-                  <span className="font-medium text-(--color-content-primary)">{Math.round(breakdown.sampleScore * 100)}%</span>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {flags && flags.length > 0 && (
-            <div className="space-y-1">
-              <p className="text-xs font-medium text-(--color-content-secondary)">风险标记</p>
-              <div className="flex flex-wrap gap-1">
-                {flags.map((f) => (
-                  <span
-                    key={f}
-                    className="text-[10px] text-(--color-content-tertiary) bg-(--color-surface-secondary) px-1.5 py-0.5 rounded"
-                  >
-                    {flagLabel[f] ?? f}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-      )}
+      {/* 通过 Portal 渲染到 body，避免被父级 overflow/stacking context 裁剪 */}
+      {createPortal(popover, document.body)}
     </div>
   );
 }
