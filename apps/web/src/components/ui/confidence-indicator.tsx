@@ -16,9 +16,9 @@ interface ConfidenceIndicatorProps {
 }
 
 function getLevel(score: number): { label: string; color: string } {
-  if (score >= 0.8) return { label: "高", color: "text-(--color-success-500)" };
-  if (score >= 0.6) return { label: "中", color: "text-(--color-warning-500)" };
-  return { label: "低", color: "text-(--color-danger-500)" };
+  if (score >= 0.8) return { label: "高", color: "text-green-600 dark:text-green-400" };
+  if (score >= 0.6) return { label: "中", color: "text-yellow-600 dark:text-yellow-400" };
+  return { label: "低", color: "text-red-600 dark:text-red-400" };
 }
 
 const flagLabel: Record<string, string> = {
@@ -44,13 +44,17 @@ export function ConfidenceIndicator({
 
   return (
     <div className="relative inline-flex flex-col">
+      {/* 点击空白关闭遮罩 */}
+      {hasDetail && expanded && (
+        <div className="fixed inset-0 z-10" onClick={() => setExpanded(false)} />
+      )}
       <button
         type="button"
         className={cn(
           "flex items-center gap-1 font-medium transition-colors",
           size === "sm" ? "text-xs" : "text-sm",
           color,
-          hasDetail ? "cursor-pointer hover:underline" : "cursor-default",
+          hasDetail ? "cursor-pointer hover:underline z-20 relative" : "cursor-default",
         )}
         onClick={() => hasDetail && setExpanded(!expanded)}
         title={hasDetail ? "点击查看详情" : undefined}
