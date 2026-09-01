@@ -25,7 +25,11 @@
     "db:seed-personas": "bun --filter @app/api db:seed-personas",
     "db:seed-kol-test": "bun --filter @app/api db:seed-kol-test",
     "db:studio": "bun --filter @app/api db:studio",
-    "db:reset": "bun run db:down && docker volume rm web-dev-tutorial_pgdata 2>/dev/null || true && bun run db:up && sleep 3 && bun run db:migrate && bun run db:seed"
+    "db:reset": "bun run db:down && docker volume rm web-dev-tutorial_pgdata 2>/dev/null || true && bun run db:up && sleep 3 && bun run db:migrate && bun run db:seed",
+    "pipeline:run": "bash scripts/run_pipeline.sh",
+    "pipeline:run:resume": "bash scripts/run_pipeline.sh --resume",
+    "pipeline:run:dry-run": "bash scripts/run_pipeline.sh --dry-run",
+    "pipeline:embed-server": "python3 scripts/embed_server.py"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.5.3",

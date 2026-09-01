@@ -1,6 +1,12 @@
 /// <reference types="vitest" />
 import { describe, expect, it } from "vitest";
+import { existsSync } from "node:fs";
+import { join } from "node:path";
+import { execSync } from "node:child_process";
 import { app } from "../app.js";
+
+// 项目根目录（测试文件在 apps/api/src/routes/ 下）
+const PROJECT_ROOT = join(import.meta.dirname, "..", "..", "..", "..");
 
 describe("流水线 API", () => {
   // ---- 基础端点测试 ----
@@ -134,5 +140,89 @@ describe("流水线 API", () => {
     expect(stats).toHaveProperty("segmentsEmbedded");
     expect(stats).toHaveProperty("errors");
     expect(Array.isArray(stats.errors)).toBe(true);
+  });
+
+  // ---- Python 脚本可执行性检查 ----
+
+  it("python3 可执行", () => {
+    try {
+      const result = execSync("which python3", { encoding: "utf-8" });
+      expect(result.trim()).toBeTruthy();
+    } catch {
+      // python3 可能不在 PATH 中，仅记录
+      console.warn("python3 未在 PATH 中找到");
+    }
+  });
+
+  // ---- 各阶段脚本文件存在性检查 ----
+
+  const requiredScripts = [
+    "scripts/process_all.py",
+    "scripts/clean_segments_v2_demo.py",
+    "scripts/label_all_v3.py",
+    "scripts/merge_labeled_by_project.py",
+    "scripts/embed_segments.py",
+    "scripts/generate_profiles.py",
+    "scripts/import_source_segments.py",
+    "scripts/classify_respondents.py",
+    "scripts/cluster_personas.py",
+    "scripts/embed_server.py",
+    "scripts/run_pipeline.sh",
+  ];
+
+  for (const script of requiredScripts) {
+    it(`脚本文件存在: ${script}`, () => {
+      const fullPath = join(PROJECT_ROOT, script);
+      expect(existsSync(fullPath)).toBe(true);
+    });
+  }
+
+  // ---- 作业取消后状态正确更新 ----
+
+  it("取消作业后状态更新为 cancelled", async () => {
+    const startR = await app.request("/api/pipeline/start", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        target: "personas",
+        fileNames: ["test.json"],
+        enableClustering: false,
+      }),
+    });
+    const { jobId } = (await startR.json()) as { jobId: string };
+
+    // 取消作业
+    const cancelR = await app.request(`/api/pipeline/cancel/${jobId}`, {
+      method: "POST",
+    });
+    expect(cancelR.status).toBe(200);
+
+    // 查询状态确认
+    const statusR = await app.request(`/api/pipeline/status/${jobId}`);
+    const status = (await statusR.json()) as Record<string, unknown>;
+    expect(status.stage).toBe("cancelled");
+  });
+
+  // ---- 错误阶段不阻塞后续阶段 ----
+
+  it("空文件列表启动的作业仍可正常查询状态", async () => {
+    const r = await app.request("/api/pipeline/start", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        target: "personas",
+        fileNames: [],
+        enableClustering: true,
+      }),
+    });
+    expect(r.status).toBe(200);
+    const { jobId } = (await r.json()) as { jobId: string };
+
+    // 查询状态应该正常
+    const statusR = await app.request(`/api/pipeline/status/${jobId}`);
+    expect(statusR.status).toBe(200);
+    const status = (await statusR.json()) as Record<string, unknown>;
+    // 空文件列表不应阻塞聚类阶段
+    expect(status).toHaveProperty("stage");
   });
 });

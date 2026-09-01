@@ -188,6 +188,7 @@ export const pipelineConfigSchema = z.object({
   fileNames: z.array(z.string()).optional().default([]),
   uploadedFileIds: z.array(z.string()).optional().default([]),
   enableKol: z.boolean().optional(),
+  enableClustering: z.boolean().optional(),
   kolId: z.number().int().positive().optional(),
   notes: z.string().optional(),
 });

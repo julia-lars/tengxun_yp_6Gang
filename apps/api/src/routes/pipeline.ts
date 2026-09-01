@@ -162,16 +162,6 @@ pipelineRoute.post(
 
 // ---- 查询作业状态 ----
 
-// 阶段权重（用于阶段切换时动态校准 estimatedTotalMs）
-const STAGE_WEIGHTS: Record<string, number> = {
-  uploading: 10,
-  extracting: 5,
-  cleaning: 15,
-  tagging: 35,
-  embedding: 25,
-  clustering: 10,
-};
-
 // GET /api/pipeline/status/:jobId
 pipelineRoute.get("/status/:jobId", async (c) => {
   const { jobId } = c.req.param();
@@ -487,7 +477,11 @@ async function executePipeline(jobId: string, config: PipelineConfig) {
               stdout: "pipe",
               stderr: "pipe",
               env: {
-                ...process.env,
+                ...Object.fromEntries(
+                  Object.entries(process.env).filter(
+                    ([, v]) => v !== undefined,
+                  ) as [string, string][],
+                ),
                 PIPELINE_SRC_DIR: uploadDir,
                 PIPELINE_OUT_DIR: join(process.cwd(), "data", "群体画像v2.0_data"),
               },
@@ -500,8 +494,8 @@ async function executePipeline(jobId: string, config: PipelineConfig) {
 
           // 解析输出获取统计信息
           const statsMatch = stdout.match(/Stats:\s*(\d+)\s*respondents?,\s*(\d+)\s*segments?/i);
-          const respCount = statsMatch ? parseInt(statsMatch[1]) : 0;
-          const segCount = statsMatch ? parseInt(statsMatch[2]) : 0;
+          const respCount = statsMatch?.[1] ? parseInt(statsMatch[1]) : 0;
+          const segCount = statsMatch?.[2] ? parseInt(statsMatch[2]) : 0;
 
           if (exitCode !== 0) {
             await update({
@@ -545,7 +539,7 @@ async function executePipeline(jobId: string, config: PipelineConfig) {
           // 解析输出获取统计
           const cleanedMatch = stdout.match(/cleaned[:\s]*(\d+)/i) ||
             stdout.match(/保留[:\s]*(\d+)/i);
-          const cleanedCount = cleanedMatch ? parseInt(cleanedMatch[1]) : 0;
+          const cleanedCount = cleanedMatch?.[1] ? parseInt(cleanedMatch[1]) : 0;
 
           if (exitCode !== 0) {
             await update({
@@ -587,7 +581,7 @@ async function executePipeline(jobId: string, config: PipelineConfig) {
           const taggedMatch = stdout.match(/labeled[:\s]*(\d+)/i) ||
             stdout.match(/标注完成[:\s]*(\d+)/i) ||
             stdout.match(/Done[:\s]*(\d+)/i);
-          const taggedCount = taggedMatch ? parseInt(taggedMatch[1]) : 0;
+          const taggedCount = taggedMatch?.[1] ? parseInt(taggedMatch[1]) : 0;
 
           if (exitCode !== 0) {
             await update({
@@ -636,7 +630,7 @@ async function executePipeline(jobId: string, config: PipelineConfig) {
 
           const embedMatch = stdout.match(/embedded[:\s]*(\d+)/i) ||
             stdout.match(/嵌入完成[:\s]*(\d+)/i);
-          const embedCount = embedMatch ? parseInt(embedMatch[1]) : 0;
+          const embedCount = embedMatch?.[1] ? parseInt(embedMatch[1]) : 0;
 
           if (exitCode !== 0) {
             await update({

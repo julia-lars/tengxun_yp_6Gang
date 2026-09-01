@@ -49,86 +49,100 @@ export async function writeSegmentsToDb(
   }
 
   try {
-    // 1. 构建受访者去重集
-    const respondentMap = new Map<string, RespondentInfo>();
-    for (const seg of segments) {
-      const key = `${seg.sourceFile}::${seg.speakerId}`;
-      if (!seg.speakerId || respondentMap.has(key)) continue;
+    // 在事务中写入，保证原子性
+    await db.transaction(async (tx) => {
+      // 1. 构建受访者去重集
+      const respondentMap = new Map<string, RespondentInfo>();
+      for (const seg of segments) {
+        const key = `${seg.sourceFile}::${seg.speakerId}`;
+        if (!seg.speakerId || respondentMap.has(key)) continue;
 
-      respondentMap.set(key, {
-        sourceFile: seg.sourceFile,
-        speakerId: seg.speakerId,
-        displayName: seg.speakerId,
-        groupCode: classifySourceFile(seg.sourceFile),
-      });
-    }
-
-    // 2. 写入受访者（去重）
-    const respondents = Array.from(respondentMap.values());
-    for (const resp of respondents) {
-      try {
-        await db
-          .insert(schema.respondents)
-          .values({
-            sourceFile: resp.sourceFile,
-            speakerId: resp.speakerId,
-            displayName: resp.displayName,
-            groupCode: resp.groupCode,
-          })
-          .onConflictDoNothing();
-        result.respondentsInserted++;
-      } catch (e) {
-        result.errors.push(`写入受访者失败 (${resp.speakerId}): ${String(e)}`);
-      }
-    }
-
-    // 3. 写入片段
-    for (const seg of segments) {
-      try {
-        // 确保 speaker_role 是有效值
-        const speakerRole =
-          seg.speakerRole === "moderator" ? "moderator" : "interviewee";
-
-        await db.insert(schema.sourceSegments).values({
+        respondentMap.set(key, {
           sourceFile: seg.sourceFile,
-          segmentIndex: seg.segmentIndex,
           speakerId: seg.speakerId,
-          speakerRole,
-          precedingQuestion: seg.precedingQuestion,
-          originalText: seg.originalText,
-          cleanedText: seg.cleanedText,
-          charCount: seg.charCount,
-          annotation: seg.annotation,
-          embedding: seg.embedding,
-          embeddingVersion: seg.embeddingVersion,
-          embeddedAt: seg.embedding ? new Date() : null,
+          displayName: seg.speakerId,
+          groupCode: classifySourceFile(seg.sourceFile),
         });
-
-        result.segmentsInserted++;
-      } catch (e) {
-        result.errors.push(
-          `写入片段失败 (${seg.sourceFile}#${seg.segmentIndex}): ${String(e)}`,
-        );
       }
-    }
+
+      // 2. 写入受访者（去重）
+      const respondents = Array.from(respondentMap.values());
+      for (const resp of respondents) {
+        try {
+          await tx
+            .insert(schema.respondents)
+            .values({
+              sourceFile: resp.sourceFile,
+              speakerId: resp.speakerId,
+              displayName: resp.displayName,
+              groupCode: resp.groupCode,
+            })
+            .onConflictDoNothing();
+          result.respondentsInserted++;
+        } catch (e) {
+          result.errors.push(`写入受访者失败 (${resp.speakerId}): ${String(e)}`);
+        }
+      }
+
+      // 3. 写入片段
+      for (const seg of segments) {
+        try {
+          // 确保 speaker_role 是有效值
+          const speakerRole =
+            seg.speakerRole === "moderator" ? "moderator" : "interviewee";
+
+          await tx.insert(schema.sourceSegments).values({
+            sourceFile: seg.sourceFile,
+            segmentIndex: seg.segmentIndex,
+            speakerId: seg.speakerId,
+            speakerRole,
+            precedingQuestion: seg.precedingQuestion,
+            originalText: seg.originalText,
+            cleanedText: seg.cleanedText,
+            charCount: seg.charCount,
+            annotation: seg.annotation,
+            embedding: seg.embedding,
+            embeddingVersion: seg.embeddingVersion,
+            embeddedAt: seg.embedding ? new Date() : null,
+          });
+
+          result.segmentsInserted++;
+        } catch (e) {
+          result.errors.push(
+            `写入片段失败 (${seg.sourceFile}#${seg.segmentIndex}): ${String(e)}`,
+          );
+        }
+      }
+    });
   } catch (e) {
-    result.errors.push(`数据库写入异常: ${String(e)}`);
+    result.errors.push(`数据库事务异常: ${String(e)}`);
   }
 
   return result;
 }
 
 /**
- * 根据来源文件名分类
- * 与 load_segments.py 的 sheet_from_source_file() 保持一致
+ * 根据来源文件名分类（覆盖全部 14 个项目类型）
  */
 function classifySourceFile(sourceFile: string): string {
-  if (sourceFile.includes("漫威")) return "中美用户洞察";
-  if (sourceFile.includes("用户细分")) return "用户细分研究";
-  if (sourceFile.includes("生态与决策")) return "用户生态与决策链路";
-  if (sourceFile.includes("行为") || sourceFile.includes("乐趣")) return "玩家行为乐趣整理";
-  if (sourceFile.includes("经验认知")) return "经验认知乐趣对比";
-  return "未知";
+  const m = sourceFile;
+
+  if (m.includes("漫威")) return "漫威争锋中美用户洞察研究";
+  if (m.includes("用户细分")) return "美国HD端射击市场用户细分研究";
+  if (m.includes("生态与决策")) return "美国HD端用户生态与决策链路研究";
+  if (m.includes("Deadlock") || m.includes("deadlock")) return "Deadlock竞品研究";
+  if (m.includes("IMUR") || m.includes("AI模拟")) return "IMUR AI模拟用户基座数据采集";
+  if (m.includes("竞技品类")) return "竞技品类基础研究";
+  if (m.includes("绝地潜兵") && m.includes("摸底")) return "绝地潜兵2竞品研究-摸底期";
+  if (m.includes("绝地潜兵") && m.includes("拓圈")) return "绝地潜兵2竞品研究-拓圈期";
+  if (m.includes("枪战") || m.includes("长线新手")) return "枪战类长线新手体验研究";
+  if (m.includes("生存撤离") || m.includes("新手引导")) return "生存撤离类新手引导体验研究";
+  if (m.includes("搜打撤")) return "搜打撤品类研究";
+  if (m.includes("瓦洛兰特")) return "瓦洛兰特海外人群玩法研究";
+  if (m.includes("玩家能力") || m.includes("射击产品")) return "玩家能力对射击产品规模影响研究";
+  if (m.includes("萤火突击")) return "萤火突击竞品研究";
+
+  return sourceFile || "未知";
 }
 
 /**

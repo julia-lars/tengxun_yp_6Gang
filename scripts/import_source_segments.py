@@ -4,15 +4,15 @@
 将新 merged 数据 + Segment Embedding 向量导入 source_segments 表。
 
 流程：
-  1. 清空 source_segments 表
-  2. 遍历 14 个 merged 文件，提取 segment
-  3. 关联 Segment Embedding 向量（按 segment_id 匹配）
-  4. 关联 respondents.persona_ids（按 respondent_id 匹配）
-  5. 批量写入 source_segments
+  1. 遍历 14 个 merged 文件，提取 segment
+  2. 关联 Segment Embedding 向量（按 segment_id 匹配）
+  3. 关联 respondents.persona_ids（按 respondent_id 匹配）
+  4. 按 source_file 增量 upsert（不删除已有数据，仅更新/插入当前项目）
 
 用法:
   python3 scripts/import_source_segments.py --dry-run
   python3 scripts/import_source_segments.py
+  python3 scripts/import_source_segments.py --source-file "漫威争锋中美用户洞察研究"  # 只导入单个项目
 """
 
 import argparse
@@ -232,7 +232,12 @@ def build_db_rows(segments, embed_map, persona_map):
 def main():
     parser = argparse.ArgumentParser(description="导入新 source_segments 数据")
     parser.add_argument("--dry-run", action="store_true", help="只分析不执行")
-    parser.add_argument("--no-clear", action="store_true", help="不清空旧数据，追加导入")
+    parser.add_argument(
+        "--source-file",
+        type=str,
+        default=None,
+        help="只导入指定 source_file 的项目（增量更新单个项目）",
+    )
     args = parser.parse_args()
 
     # ── Step 1: 加载数据 ──
@@ -268,19 +273,21 @@ def main():
             print(f"\n🔍 Dry-run 模式，不写入数据库")
             return
 
-        # ── Step 4: 写入数据库 ──
+        # ── Step 4: 写入数据库（增量 upsert） ──
         cur = conn.cursor()
 
-        if not args.no_clear:
-            print(f"\n🗑️  清空 source_segments 表 ...")
-            cur.execute("DELETE FROM source_segments")
-            # 重置序列
-            cur.execute("ALTER SEQUENCE source_segments_id_seq RESTART WITH 1")
-            print(f"   已删除旧数据")
+        # 如果指定了 --source-file，先删除该 source_file 的旧数据再插入
+        if args.source_file:
+            print(f"\n🗑️  删除 source_file='{args.source_file}' 的旧数据 ...")
+            cur.execute(
+                "DELETE FROM source_segments WHERE source_file = %s",
+                (args.source_file,),
+            )
+            print(f"   已删除 {cur.rowcount} 条")
 
         print(f"\n💾 写入 {len(rows)} 条 segments ...")
 
-        # 批量插入（每批 500 条）
+        # 批量 upsert（每批 500 条）
         batch_size = 500
         total_inserted = 0
         for i in range(0, len(rows), batch_size):
@@ -291,7 +298,18 @@ def main():
                    (source_file, segment_index, speaker_id, speaker_role,
                     preceding_question, original_text, cleaned_text, char_count,
                     annotation, embedding, embedding_version, persona_ids)
-                   VALUES %s""",
+                   VALUES %s
+                   ON CONFLICT (source_file, segment_index, speaker_id)
+                   DO UPDATE SET
+                     speaker_role = EXCLUDED.speaker_role,
+                     preceding_question = EXCLUDED.preceding_question,
+                     original_text = EXCLUDED.original_text,
+                     cleaned_text = EXCLUDED.cleaned_text,
+                     char_count = EXCLUDED.char_count,
+                     annotation = EXCLUDED.annotation,
+                     embedding = EXCLUDED.embedding,
+                     embedding_version = EXCLUDED.embedding_version,
+                     persona_ids = EXCLUDED.persona_ids""",
                 batch,
                 template="(%s, %s, %s, %s, %s, %s, %s, %s, %s::jsonb, %s::vector, %s, %s::integer[])",
             )
