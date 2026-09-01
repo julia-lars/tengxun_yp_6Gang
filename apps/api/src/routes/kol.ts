@@ -6,7 +6,7 @@
 import type { KolChatSession, KolProfileDetail, KolProfileSummary, EvidenceMeta } from "@app/shared";
 import { kolChatRequestSchema } from "@app/shared";
 import { zValidator } from "@hono/zod-validator";
-import { desc, eq, sql } from "drizzle-orm";
+import { desc, eq, inArray, sql } from "drizzle-orm";
 import { Hono } from "hono";
 
 import { db } from "../db/client.js";
@@ -390,5 +390,26 @@ kolRoute.delete("/chat/sessions/:id", async (c) => {
 
   await db.delete(kolChatSessions).where(eq(kolChatSessions.id, id));
 
+  return c.json({ success: true });
+});
+
+// POST /api/kol/chat/sessions/batch-delete —— 批量删除 KOL 会话
+// body: { ids?: number[], kolId?: number } — ids 指定删除，kolId 删除该 KOL 全部，都不传删除全部
+kolRoute.post("/chat/sessions/batch-delete", async (c) => {
+  const body = await c.req.json().catch(() => ({}));
+  const { ids, kolId } = body as { ids?: number[]; kolId?: number };
+
+  if (ids && ids.length > 0) {
+    await db.delete(kolChatSessions).where(inArray(kolChatSessions.id, ids));
+    return c.json({ success: true, deletedCount: ids.length });
+  }
+
+  if (kolId !== undefined) {
+    await db.delete(kolChatSessions).where(eq(kolChatSessions.kolId, kolId));
+    return c.json({ success: true });
+  }
+
+  // 删除全部
+  await db.delete(kolChatSessions);
   return c.json({ success: true });
 });

@@ -45,6 +45,7 @@ export function HistoryPage() {
   const [search, setSearch] = useState("");
   const [filterAgent, setFilterAgent] = useState<string>(""); // "" 表示全部
   const [batchMode, setBatchMode] = useState(false);
+  const [selectAll, setSelectAll] = useState(false);
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [agentOptions, setAgentOptions] = useState<AgentOption[]>([]);
   const [agentNameMap, setAgentNameMap] = useState<{ persona: Map<number, string>; kol: Map<number, string> }>({
@@ -266,11 +267,13 @@ export function HistoryPage() {
   // 进入/退出批量模式时清空选中
   const enterBatchMode = useCallback(() => {
     setBatchMode(true);
+    setSelectAll(false);
     setSelected(new Set());
   }, []);
 
   const exitBatchMode = useCallback(() => {
     setBatchMode(false);
+    setSelectAll(false);
     setSelected(new Set());
   }, []);
 
@@ -283,17 +286,65 @@ export function HistoryPage() {
     });
   }, []);
 
+  // 全选所有历史对话（包括未加载的），不受筛选影响
+  const selectAllScope = useMemo(() => {
+    if (!filterAgent) return { label: "全部历史对话", count: totalCount };
+    const agentName = agentOptions.find((o) => o.value === filterAgent)?.label ?? "";
+    return { label: agentName, count: totalCount };
+  }, [filterAgent, totalCount, agentOptions]);
+
   const toggleSelectAll = useCallback(() => {
-    setSelected((prev) => {
-      if (prev.size === filtered.length && filtered.length > 0) {
-        return new Set();
-      }
-      return new Set(filtered.map(itemKey));
-    });
-  }, [filtered, itemKey]);
+    if (selectAll) {
+      setSelectAll(false);
+      setSelected(new Set());
+    } else {
+      setSelectAll(true);
+      setSelected(new Set()); // 全选模式下清空 selected，避免混淆
+    }
+  }, [selectAll]);
 
   const handleBatchDelete = useCallback(async () => {
-    if (selected.size === 0) return;
+    if (!selectAll && selected.size === 0) return;
+
+    if (selectAll) {
+      // 全选模式：调用批量删除接口
+      const confirmMsg = filterAgent
+        ? `确定要删除「${selectAllScope.label}」下的全部历史对话吗？此操作不可恢复。`
+        : "确定要删除全部历史对话吗？此操作不可恢复。";
+      if (!window.confirm(confirmMsg)) return;
+
+      try {
+        // 根据筛选条件决定删除范围
+        if (filterAgent) {
+          const [type, idStr] = filterAgent.split("-");
+          const agentId = Number(idStr);
+          if (type === "persona") {
+            await api.batchDeleteChatSessions({ personaId: agentId });
+          } else {
+            await api.batchDeleteKolChatSessions({ kolId: agentId });
+          }
+        } else {
+          // 删除全部 persona 和 KOL 会话
+          await Promise.all([
+            api.batchDeleteChatSessions({}),
+            api.batchDeleteKolChatSessions({}),
+          ]);
+        }
+        toast.success("已删除全部对话");
+        // 重新加载页面
+        setItems([]);
+        setTotalCount(0);
+        setSelectAll(false);
+        setBatchMode(false);
+        // 重新触发初始加载
+        window.location.reload();
+      } catch {
+        toast.error("删除失败，请重试");
+      }
+      return;
+    }
+
+    // 逐个删除模式
     if (!window.confirm(`确定要删除选中的 ${selected.size} 条对话记录吗？此操作不可恢复。`)) return;
 
     let successCount = 0;
@@ -324,9 +375,9 @@ export function HistoryPage() {
     } else {
       toast.success(`已删除 ${successCount} 条对话`);
     }
-  }, [selected, itemKey]);
+  }, [selectAll, selected, filterAgent, selectAllScope, itemKey]);
 
-  const allSelected = filtered.length > 0 && selected.size === filtered.length;
+  const allSelected = selectAll;
 
   const formatTime = (dateStr: string) => {
     const d = new Date(dateStr);
@@ -456,17 +507,17 @@ export function HistoryPage() {
                 onChange={toggleSelectAll}
                 className="h-4 w-4 rounded border-(--color-border) accent-(--color-primary) cursor-pointer"
               />
-              全选
+              {selectAll ? `已选全部 (${totalCount})` : "全选"}
             </label>
             <Button
               variant="destructive"
               size="sm"
               onClick={handleBatchDelete}
-              disabled={selected.size === 0}
+              disabled={!selectAll && selected.size === 0}
               className="gap-1"
             >
               <Trash2 className="h-3.5 w-3.5" />
-              删除 ({selected.size})
+              {selectAll ? "删除全部" : `删除 (${selected.size})`}
             </Button>
             <Button variant="outline" size="default" onClick={exitBatchMode} className="gap-1 font-normal">
               <X className="h-4 w-4" /> 取消

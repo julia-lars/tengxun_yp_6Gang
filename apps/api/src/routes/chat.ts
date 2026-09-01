@@ -5,7 +5,7 @@
 
 import { type ChatRequest, type ChatSession, type EvidenceMeta, chatRequestSchema } from "@app/shared";
 import { zValidator } from "@hono/zod-validator";
-import { and, desc, eq, sql } from "drizzle-orm";
+import { and, desc, eq, inArray, sql } from "drizzle-orm";
 import { Hono } from "hono";
 
 import { db } from "../db/client.js";
@@ -263,6 +263,7 @@ chatRoute.post("/", zValidator("json", chatRequestSchema), async (c) => {
               FROM source_segments
               WHERE embedding IS NOT NULL
                 AND (annotation->'meta'->>'rs' IS NULL OR annotation->'meta'->>'rs' != 'skip')
+                AND (cleaning_status IS NULL OR cleaning_status NOT IN ('removed_noise', 'removed_flow', 'removed_duplicate', 'removed_irrelevant'))
               ORDER BY embedding <=> ${vecStr}::vector
               LIMIT 10`,
         )) as unknown as Array<{
@@ -295,6 +296,7 @@ chatRoute.post("/", zValidator("json", chatRequestSchema), async (c) => {
               FROM source_segments
               WHERE similarity(original_text, ${message}) > 0.1
                 AND (annotation->'meta'->>'rs' IS NULL OR annotation->'meta'->>'rs' != 'skip')
+                AND (cleaning_status IS NULL OR cleaning_status NOT IN ('removed_noise', 'removed_flow', 'removed_duplicate', 'removed_irrelevant'))
               ORDER BY sim DESC
               LIMIT 10`,
         ) as unknown as Array<{
@@ -500,5 +502,26 @@ chatRoute.delete("/sessions/:id", async (c) => {
 
   await db.delete(chatSessions).where(eq(chatSessions.id, id));
 
+  return c.json({ success: true });
+});
+
+// POST /api/chat/sessions/batch-delete —— 批量删除会话
+// body: { ids?: number[], personaId?: number } — ids 指定删除，personaId 删除该画像全部，都不传删除全部
+chatRoute.post("/sessions/batch-delete", async (c) => {
+  const body = await c.req.json().catch(() => ({}));
+  const { ids, personaId } = body as { ids?: number[]; personaId?: number };
+
+  if (ids && ids.length > 0) {
+    await db.delete(chatSessions).where(inArray(chatSessions.id, ids));
+    return c.json({ success: true, deletedCount: ids.length });
+  }
+
+  if (personaId !== undefined) {
+    const result = await db.delete(chatSessions).where(eq(chatSessions.personaId, personaId));
+    return c.json({ success: true });
+  }
+
+  // 删除全部
+  await db.delete(chatSessions);
   return c.json({ success: true });
 });

@@ -132,6 +132,13 @@ export const api = {
   deleteChatSession: (id: number) =>
     request<{ success: boolean }>(`/api/chat/sessions/${id}`, { method: "DELETE" }),
 
+  /** 批量删除 Persona 会话：传 ids 删除指定，传 personaId 删除该画像全部，都不传删除全部 */
+  batchDeleteChatSessions: (body: { ids?: number[]; personaId?: number }) =>
+    request<{ success: boolean; deletedCount?: number }>("/api/chat/sessions/batch-delete", {
+      method: "POST",
+      body: JSON.stringify(body),
+    }),
+
   // KOL
   listKol: () => request<KolProfileSummary[]>("/api/kol"),
   getKol: (id: number) => request<KolProfileDetail>(`/api/kol/${id}`),
@@ -155,6 +162,13 @@ export const api = {
 
   deleteKolChatSession: (id: number) =>
     request<{ success: boolean }>(`/api/kol/chat/sessions/${id}`, { method: "DELETE" }),
+
+  /** 批量删除 KOL 会话：传 ids 删除指定，传 kolId 删除该 KOL 全部，都不传删除全部 */
+  batchDeleteKolChatSessions: (body: { ids?: number[]; kolId?: number }) =>
+    request<{ success: boolean; deletedCount?: number }>("/api/kol/chat/sessions/batch-delete", {
+      method: "POST",
+      body: JSON.stringify(body),
+    }),
 
   // 数据流水线
   uploadPipelineFiles: async (files: File[]) => {
