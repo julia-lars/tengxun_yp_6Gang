@@ -67,6 +67,7 @@ export function InterviewOutlinePage() {
   const [outlineProgress, setOutlineProgress] = useState(0);
   const [outlineJobId, setOutlineJobId] = useState<string | null>(null);
   const [outline, setOutline] = useState<InterviewOutline | null>(null);
+  const [outlineHistory, setOutlineHistory] = useState<InterviewOutline[]>([]);
   const [expandedSections, setExpandedSections] = useState<Set<string>>(
     new Set(),
   );
@@ -90,10 +91,11 @@ export function InterviewOutlinePage() {
       api.listOutlines(),
       api.listBatchInterviewJobs(),
     ]).then(([outlinesResult, jobsResult]) => {
-      // 1. 恢复最新大纲
+      // 1. 恢复最新大纲和历史列表
       if (outlinesResult.status === "fulfilled" && outlinesResult.value.length > 0) {
         const latest = outlinesResult.value[0]!;
         setOutline(latest);
+        setOutlineHistory(outlinesResult.value);
         setExpandedSections(new Set(latest.sections.map((_, i: number) => String(i))));
       }
 
@@ -158,13 +160,13 @@ export function InterviewOutlinePage() {
     try {
       await api.cancelOutlineGeneration(outlineJobId);
       toast.success("大纲生成已取消");
+      if (pollRef.current) clearInterval(pollRef.current);
+      setGenerating(false);
+      setOutlineJobId(null);
+      setSearchParams({}, { replace: true });
     } catch (e) {
       toast.error(`取消失败: ${String(e)}`);
     }
-    if (pollRef.current) clearInterval(pollRef.current);
-    setGenerating(false);
-    setOutlineJobId(null);
-    setSearchParams({}, { replace: true });
   }, [outlineJobId, setSearchParams]);
 
   // 轮询大纲生成状态
@@ -177,6 +179,10 @@ export function InterviewOutlinePage() {
         setEstimatedRemainingMs(status.estimatedRemainingMs);
         if (status.status === "completed" && status.result) {
           setOutline(status.result);
+          setOutlineHistory((prev) => {
+            const filtered = prev.filter((o) => o.id !== status.result!.id);
+            return [status.result!, ...filtered];
+          });
           setExpandedSections(new Set(status.result.sections.map((_, i: number) => String(i))));
           setGenerating(false);
           setOutlineJobId(null);
@@ -202,7 +208,7 @@ export function InterviewOutlinePage() {
 
   // 优化单个问题
   const refineQuestion = useCallback(
-    async (question: string) => {
+    async (sectionIdx: number, questionIdx: number, question: string) => {
       setRefining(true);
       setEditingQuestion(question);
       try {
@@ -216,10 +222,28 @@ export function InterviewOutlinePage() {
             )
             .join("、"),
         });
+        // 更新 outline 中对应的问题
+        setOutline((prev) => {
+          if (!prev) return prev;
+          const updated = { ...prev, sections: prev.sections.map((s, sIdx) => {
+            if (sIdx !== sectionIdx) return s;
+            return {
+              ...s,
+              questions: s.questions.map((q, qIdx) => {
+                if (qIdx !== questionIdx) return q;
+                return {
+                  ...q,
+                  question: result.refined,
+                  followUps: result.suggestedFollowUps ?? q.followUps,
+                };
+              }),
+            };
+          })};
+          return updated;
+        });
         toast.success("问题已优化", {
           description: result.rationale.slice(0, 100),
         });
-        // 在实际应用中，这里应该更新 outline 中的问题
       } catch {
         toast.error("优化失败");
       } finally {
@@ -461,17 +485,34 @@ export function InterviewOutlinePage() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              {outline ? (
-                <div className="space-y-2">
-                  <div className="p-2 rounded-md bg-(--color-brand-50)">
-                    <p className="text-sm font-medium text-(--color-brand-700) truncate">
-                      {outline.theme}
-                    </p>
-                    <p className="text-[10px] text-(--color-brand-500)">
-                      {outline.sections.length} 章节 ·{" "}
-                      {outline.totalDurationMinutes} 分钟
-                    </p>
-                  </div>
+              {outlineHistory.length > 0 ? (
+                <div className="space-y-1.5 max-h-64 overflow-y-auto">
+                  {outlineHistory.map((o) => (
+                    <button
+                      key={o.id}
+                      type="button"
+                      className={cn(
+                        "w-full text-left p-2 rounded-md transition-colors cursor-pointer",
+                        outline?.id === o.id
+                          ? "bg-(--color-brand-50) ring-1 ring-(--color-brand-200)"
+                          : "hover:bg-(--color-surface-secondary)",
+                      )}
+                      onClick={() => {
+                        setOutline(o);
+                        setExpandedSections(new Set(o.sections.map((_, i: number) => String(i))));
+                      }}
+                    >
+                      <p className="text-sm font-medium truncate">
+                        {o.theme}
+                      </p>
+                      <p className="text-[10px] text-(--color-content-tertiary)">
+                        {o.sections.length} 章节 · {o.totalDurationMinutes} 分钟
+                        {o.targetPersona && o.targetPersona !== "通用" && (
+                          <> · {o.targetPersona}</>
+                        )}
+                      </p>
+                    </button>
+                  ))}
                 </div>
               ) : (
                 <p className="text-xs text-(--color-content-tertiary)">
@@ -660,7 +701,7 @@ export function InterviewOutlinePage() {
                                   className="h-7 w-7 flex-shrink-0"
                                   onClick={(e) => {
                                     e.stopPropagation();
-                                    refineQuestion(q.question);
+                                    refineQuestion(sIdx, qIdx, q.question);
                                   }}
                                   disabled={refining}
                                 >

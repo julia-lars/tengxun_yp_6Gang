@@ -53,3 +53,4 @@ data/embed/
 
 # 临时音频文件
 data/kol/_temp_audio/
+apps/api/local.db

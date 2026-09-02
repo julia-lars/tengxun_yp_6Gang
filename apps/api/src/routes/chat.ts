@@ -18,6 +18,7 @@ import {
   streamChat,
   compressHistory,
   formatEvidenceContext,
+  reformulateQueryForSearch,
   type EvidenceRow,
 } from "../lib/agent-chat.js";
 import {
@@ -250,21 +251,23 @@ chatRoute.post("/", zValidator("json", chatRequestSchema), async (c) => {
     message,
   });
 
-  // 3. 边界检测（V0.2 Boundary Engine）— 在所有 RAG 之前执行
+  // 3. 边界检测（V0.3 Boundary Engine — 游戏相关性）— 在所有 RAG 之前执行
+  // 提取最近 3 轮对话作为上下文，帮助 LLM Judge 消歧义模糊问题
+  const recentMessages = session.messages.slice(-6);
+  const contextForBoundary = recentMessages.length > 0
+    ? recentMessages.map((m) => `${m.role === "user" ? "用户" : "助手"}: ${m.content}`).join("\n")
+    : undefined;
+
   const boundaryResult = await checkBoundary(message, {
     skipCache: false,
+    context: contextForBoundary,
+    useLLMJudge: true,
   });
-  const isBoundaryQuestion = boundaryResult.final === "OUT";
+  const isOutOfDomain = boundaryResult.final === "OUT";
 
-  // 边界外：直接返回拒答，不调用 LLM
-  if (isBoundaryQuestion) {
-    const rejectReason = boundaryResult.method === "hard_rule"
-      ? "该问题不属于射击游戏领域，我无法回答。"
-      : boundaryResult.method === "embedding_clear_out"
-      ? "抱歉，这个问题超出了我的知识范围，我没有相关的信息可以回答。"
-      : boundaryResult.method === "matrix_out"
-      ? "抱歉，我目前没有足够的数据来回答这个问题。"
-      : "抱歉，根据我的知识库，我无法回答这个问题。";
+  // 边界外：明确非游戏领域，直接返回拒答
+  if (isOutOfDomain) {
+    const rejectReason = "该问题不属于射击游戏领域，我无法回答。";
 
     return streamSSE(c, async (stream) => {
       await stream.writeSSE({ data: rejectReason });
@@ -278,8 +281,13 @@ chatRoute.post("/", zValidator("json", chatRequestSchema), async (c) => {
   const SIMILARITY_THRESHOLD = 0.5;
 
   if (!skipRAG) {
+    // 查询语义改写：将口语化问题改写为搜索关键词，消除表面词汇歧义
+    // 如 "你一般什么时候玩游戏" → "游戏时间安排 游戏时段 日常游戏习惯"
+    // 避免与 "你不知道什么时候出现人" 因共享"什么时候"而错误匹配
+    const searchQuery = await reformulateQueryForSearch(message);
+
     evidenceRows = await searchEvidence({
-      message,
+      message: searchQuery,
       vectorQuery: async (vecStr) => {
         const rows = (await db.execute(
           sql`SELECT id, original_text, source_file,
@@ -290,7 +298,7 @@ chatRoute.post("/", zValidator("json", chatRequestSchema), async (c) => {
                 AND (annotation->'meta'->>'rs' IS NULL OR annotation->'meta'->>'rs' != 'skip')
                 AND (cleaning_status IS NULL OR cleaning_status NOT IN ('removed_noise', 'removed_flow', 'removed_duplicate', 'removed_irrelevant'))
               ORDER BY embedding <=> ${vecStr}::vector
-              LIMIT 10`,
+              LIMIT 20`,
         )) as unknown as Array<{
           id: number;
           original_text: string;
@@ -323,7 +331,7 @@ chatRoute.post("/", zValidator("json", chatRequestSchema), async (c) => {
                 AND (annotation->'meta'->>'rs' IS NULL OR annotation->'meta'->>'rs' != 'skip')
                 AND (cleaning_status IS NULL OR cleaning_status NOT IN ('removed_noise', 'removed_flow', 'removed_duplicate', 'removed_irrelevant'))
               ORDER BY sim DESC
-              LIMIT 10`,
+              LIMIT 20`,
         ) as unknown as Array<{
           id: number;
           original_text: string;
@@ -353,7 +361,7 @@ chatRoute.post("/", zValidator("json", chatRequestSchema), async (c) => {
 
   // 3.5 计算置信度 + 增强证据元数据
   const evidenceAnnotations = evidenceRows.map((e) => e.annotation ?? null);
-  const tagOverlapRatio = computeTagOverlap(tagSpec, evidenceAnnotations);
+  const tagOverlapRatio = computeTagOverlap(tagSpec, evidenceAnnotations, motivationChain as Record<string, unknown>);
 
   const similarities = evidenceRows
     .map((e) => e.similarity ?? 0)
@@ -373,7 +381,6 @@ chatRoute.post("/", zValidator("json", chatRequestSchema), async (c) => {
     topSimilarity,
     avgSimilarity,
     tagOverlapRatio,
-    sampleCount: persona?.sampleCount ?? 50,
     hasDirectQuote,
     isBoundaryQuestion: false, // 边界外已提前返回，此处必为 false
   });

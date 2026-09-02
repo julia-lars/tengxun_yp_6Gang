@@ -31,7 +31,7 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = SCRIPT_DIR.parent
 
 MERGED_DIR = PROJECT_ROOT / "data" / "群体画像v2.0_merged"
-EMBED_DIR = PROJECT_ROOT / "data" / "embed" / "profiles"
+EMBED_DIR = PROJECT_ROOT / "data" / "embed" / "segments"
 PROFILE_DIR = PROJECT_ROOT / "data" / "群体画像v2.0_profile"
 
 DATABASE_URL = os.environ.get("DATABASE_URL", "postgres://dev:dev@localhost:5432/webtutor")
@@ -71,26 +71,30 @@ def load_merged_segments():
 
 
 def load_embedding_vectors():
-    """加载所有项目目录下的 Segment Embedding 向量和 metadata。
+    """加载 Segment Embedding 向量和 metadata。
+
+    embed_segments.py 输出格式：
+      data/embed/segments/segment_embeddings.json  — 所有项目的 metadata（不含向量）
+      data/embed/segments/segment_embeddings.npy   — 向量数组（对齐 units 顺序）
 
     Returns:
         {segment_id: {"vector": [...], "respondent_id": "...", "embedding_version": "..."}}
     """
     embed_map = {}
-    for proj_dir in sorted(EMBED_DIR.iterdir()):
-        if not proj_dir.is_dir():
-            continue
-        json_path = proj_dir / "segment_embeddings.json"
-        npy_path = proj_dir / "segment_embeddings.npy"
-        if not json_path.exists() or not npy_path.exists():
-            continue
+    json_path = EMBED_DIR / "segment_embeddings.json"
+    npy_path = EMBED_DIR / "segment_embeddings.npy"
 
-        with open(json_path, "r", encoding="utf-8") as f:
-            data = json.load(f)
-        vectors = np.load(npy_path)
+    if not json_path.exists() or not npy_path.exists():
+        print(f"   ⚠️ Embedding 文件不存在: {json_path} / {npy_path}")
+        return embed_map
 
-        for i, unit in enumerate(data["units"]):
-            sid = unit["segment_id"]
+    with open(json_path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    vectors = np.load(npy_path)
+
+    for i, unit in enumerate(data.get("units", [])):
+        sid = unit.get("segment_id", "")
+        if sid:
             embed_map[sid] = {
                 "vector": vectors[i].tolist(),
                 "respondent_id": unit.get("respondent_id", ""),

@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { PageHeader } from "@/components/shared/page-header";
 import { api } from "../lib/api.js";
 
 /** camelCase → snake_case 转换 */
@@ -21,6 +22,17 @@ function keysToSnakeCase(obj: Record<string, unknown>): Record<string, unknown> 
     result[camelToSnake(key)] = value;
   }
   return result;
+}
+
+/** 根据内容计算 Textarea 行数，全部展开（留 4 行缓冲防止自动换行溢出） */
+function calcRows(content: string, min: number): number {
+  const lines = content.split("\n").length;
+  // 粗略估计长行自动换行需要的额外行数（按每行约 80 个字符）
+  const wrapExtra = content.split("\n").reduce(
+    (sum, line) => sum + Math.max(0, Math.ceil(line.length / 80) - 1),
+    0,
+  );
+  return Math.max(lines + wrapExtra + 4, min);
 }
 
 // 表字段配置
@@ -146,26 +158,28 @@ export function AdminRecordPage() {
   }
 
   return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <div>
+    <div className="space-y-6">
+      <div className="sticky top-0 z-10 -mt-6 pt-6 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 bg-neutral-50">
+        <div className="pb-2 border-b border-neutral-200">
           <button
             type="button"
             onClick={() => navigate(-1)}
-            className="text-sm text-blue-500 hover:underline inline-flex items-center gap-1 cursor-pointer"
+            className="inline-flex items-center gap-1 text-sm text-(--color-content-secondary) hover:text-(--color-brand-500) transition-colors cursor-pointer"
           >
-            <ArrowLeft className="h-3 w-3" />
-            返回列表
+            <ArrowLeft className="h-3 w-3" /> 返回上一页
           </button>
-          <h1 className="text-2xl font-bold text-(--color-content-primary) mt-1">
-            {isNew ? `新增${meta}` : `编辑${meta} #${id}`}
-          </h1>
         </div>
-        <Button onClick={handleSave} disabled={saving} className="gap-1.5">
-          <Save className="h-4 w-4" />
-          {saving ? "保存中..." : "保存"}
-        </Button>
       </div>
+      <PageHeader
+        title={isNew ? `新增${meta}` : `编辑${meta} #${id}`}
+        description={`管理 ${meta} 字段信息`}
+        actions={
+          <Button onClick={handleSave} disabled={saving} className="gap-1.5">
+            <Save className="h-4 w-4" />
+            {saving ? "保存中..." : "保存"}
+          </Button>
+        }
+      />
 
       {error && (
         <div className="text-red-500 text-sm p-3 bg-red-50 rounded-lg">{error}</div>
@@ -188,8 +202,8 @@ export function AdminRecordPage() {
                     id={`field-${field.key}`}
                     value={String(formData[field.key] ?? "")}
                     onChange={(e) => handleChange(field.key, e.target.value)}
-                    rows={field.key.includes("text") ? 5 : 3}
-                    className="font-mono text-sm"
+                    rows={calcRows(String(formData[field.key] ?? ""), field.key.includes("text") ? 5 : 3)}
+                    className="font-mono text-sm resize-y"
                   />
                 ) : field.type === "json" ? (
                   <>
@@ -201,8 +215,13 @@ export function AdminRecordPage() {
                           : String(formData[field.key] ?? "")
                       }
                       onChange={(e) => handleChange(field.key, e.target.value)}
-                      rows={4}
-                      className="font-mono text-sm"
+                      rows={calcRows(
+                        typeof formData[field.key] === "object" && formData[field.key] !== null
+                          ? JSON.stringify(formData[field.key], null, 2)
+                          : String(formData[field.key] ?? ""),
+                        4,
+                      )}
+                      className="font-mono text-sm resize-y"
                       placeholder='{"key": "value"}'
                     />
                     <p className="text-xs text-(--color-content-tertiary)">

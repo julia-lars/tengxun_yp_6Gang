@@ -12,8 +12,6 @@ export interface ConfidenceInput {
   avgSimilarity: number;
   /** 证据标签与画像标签的重叠比例 (0-1) */
   tagOverlapRatio: number;
-  /** 画像总样本量 */
-  sampleCount: number;
   /** 是否包含直引级别的证据 */
   hasDirectQuote: boolean;
   /** 是否超出画像知识边界（由 LLM 或规则判断） */
@@ -29,10 +27,12 @@ export interface ConfidenceResult {
   breakdown: {
     evidenceScore: number;
     consistencyScore: number;
-    sampleScore: number;
+    evidenceCountScore: number;
   };
   /** 风险标记 */
   flags: string[];
+  /** 实际检索到的证据条数 */
+  evidenceCount: number;
 }
 
 // 权重配置 — 证据匹配度占主导，标签一致性为辅，样本量做兜底
@@ -55,15 +55,14 @@ export function calculateConfidence(input: ConfidenceInput): ConfidenceResult {
   // 2. 标签一致性得分：直接使用标签重叠比例
   const consistencyScore = input.tagOverlapRatio;
 
-  // 3. 样本量得分：阈值参考产品文档 7.2 节
-  const sampleScore =
-    input.sampleCount >= 30 ? 1 : input.sampleCount >= 10 ? 0.6 : 0.3;
+  // 3. 证据量得分：线性映射，15 条满分
+  const evidenceCountScore = Math.min(1, Math.round((input.evidenceCount / 15) * 100) / 100);
 
   // 4. 加权综合
   let score =
     evidenceScore * WEIGHTS.evidence +
     consistencyScore * WEIGHTS.consistency +
-    sampleScore * WEIGHTS.sample;
+    evidenceCountScore * WEIGHTS.sample;
 
   // 5. 调节项
   // 边界问题降权：没有直接证据的推测性回答
@@ -84,7 +83,7 @@ export function calculateConfidence(input: ConfidenceInput): ConfidenceResult {
 
   // 7. 风险标记
   const flags: string[] = [];
-  if (input.sampleCount < 10) flags.push("low_sample");
+  if (input.evidenceCount < 3) flags.push("low_evidence");
   if (input.evidenceCount === 0) flags.push("inferred");
   if (input.isBoundaryQuestion) flags.push("boundary");
   if (score < 0.5) flags.push("low_confidence");
@@ -95,9 +94,10 @@ export function calculateConfidence(input: ConfidenceInput): ConfidenceResult {
     breakdown: {
       evidenceScore: Math.round(evidenceScore * 100) / 100,
       consistencyScore: Math.round(consistencyScore * 100) / 100,
-      sampleScore: Math.round(sampleScore * 100) / 100,
+      evidenceCountScore: Math.round(evidenceCountScore * 100) / 100,
     },
     flags,
+    evidenceCount: input.evidenceCount,
   };
 }
 
@@ -195,7 +195,7 @@ function extractEvidenceDimensions(annotation: Record<string, unknown>): Record<
   const framework = annotation.framework as Record<string, unknown> | undefined;
   if (!framework) return dims;
 
-  // needs: primary + secondary
+  // needs: primary / secondary
   const needs = framework.needs as Record<string, unknown> | undefined;
   if (needs) {
     if (typeof needs.primary === "string" && needs.primary !== "unknown") dims.needs.add(needs.primary);
@@ -206,10 +206,10 @@ function extractEvidenceDimensions(annotation: Record<string, unknown>): Record<
     }
   }
 
-  // ability: level
+  // ability: lvl = level
   const ability = framework.ability as Record<string, unknown> | undefined;
   if (ability) {
-    if (typeof ability.level === "string" && ability.level !== "unknown") dims.ability.add(ability.level);
+    if (typeof ability.lvl === "string" && ability.lvl !== "unknown") dims.ability.add(ability.lvl);
   }
 
   // style: 5 轴
@@ -250,9 +250,50 @@ function extractEvidenceDimensions(annotation: Record<string, unknown>): Record<
  *
  * 最终得分 = 所有 evidence 得分的平均值。
  */
+/**
+ * 从 persona motivationChain.causal_paths 中提取所有英文标签。
+ * causal_paths 格式：["M1:ability_growth→M5:deliberate_practice", ...]
+ */
+function extractCausalPathLabels(motivationChain: Record<string, unknown>): Set<string> {
+  const labels = new Set<string>();
+  const paths = motivationChain.causal_paths;
+  if (Array.isArray(paths)) {
+    for (const path of paths) {
+      if (typeof path === "string") {
+        for (const part of path.split("→")) {
+          const label = part.split(":")[1];
+          if (label) labels.add(label);
+        }
+      }
+    }
+  }
+  return labels;
+}
+
+/**
+ * 从 evidence annotation.iceberg 中提取所有英文标签值。
+ * iceberg 格式：{M1_motivation: [{value: "ability_growth", ...}], M2_expectation: [...], ...}
+ */
+function extractIcebergLabels(annotation: Record<string, unknown>): Set<string> {
+  const labels = new Set<string>();
+  const iceberg = annotation.iceberg as Record<string, unknown> | undefined;
+  if (!iceberg) return labels;
+
+  for (const key of ["M1_motivation", "M2_expectation", "M3_perception", "M4_feeling", "M5_behavior"]) {
+    const items = iceberg[key] as Array<{ value: string }> | undefined;
+    if (Array.isArray(items)) {
+      for (const item of items) {
+        if (item.value && item.value !== "unknown") labels.add(item.value);
+      }
+    }
+  }
+  return labels;
+}
+
 export function computeTagOverlap(
   personaTagSpec: Record<string, unknown>,
   evidenceAnnotations: Array<Record<string, unknown> | null>,
+  motivationChain?: Record<string, unknown>,
 ): number {
   if (evidenceAnnotations.length === 0) return 0;
 
@@ -267,6 +308,8 @@ export function computeTagOverlap(
 
     const evidenceDims = extractEvidenceDimensions(annotation);
 
+    // ---- 路径 1: framework 维度匹配 ----
+    let frameworkScore: number | null = null;
     let dimScoresSum = 0;
     let informedCount = 0;
 
@@ -277,7 +320,6 @@ export function computeTagOverlap(
       if (eSet.size === 0) continue; // 沉默维度：evidence 无信息
       if (pSet.size === 0) continue; // persona 未定义此维度
 
-      // evidence 标签落入 persona 标签集的比例
       let matchCount = 0;
       for (const label of eSet) {
         if (pSet.has(label)) matchCount++;
@@ -286,11 +328,29 @@ export function computeTagOverlap(
       informedCount++;
     }
 
-    if (informedCount === 0) return 0.5; // 全部沉默 → 中性
+    if (informedCount > 0) {
+      const agreement = dimScoresSum / informedCount;
+      const coverage = Math.min(1, informedCount / 2);
+      frameworkScore = agreement * coverage; // [0, 1]
+    }
 
-    const agreement = dimScoresSum / informedCount;
-    const coverage = informedCount / 5;
-    return agreement * coverage;
+    // ---- 路径 2: iceberg 标签与动机链匹配 ----
+    let icebergScore: number | null = null;
+    if (motivationChain) {
+      const personaLabels = extractCausalPathLabels(motivationChain);
+      const evidenceLabels = extractIcebergLabels(annotation);
+      if (evidenceLabels.size > 0 && personaLabels.size > 0) {
+        let matchCount = 0;
+        for (const label of evidenceLabels) {
+          if (personaLabels.has(label)) matchCount++;
+        }
+        icebergScore = matchCount / evidenceLabels.size; // [0, 1]
+      }
+    }
+
+    // 取两条路径中的最高分，映射到 [0.5, 1.0]
+    const bestScore = Math.max(frameworkScore ?? 0, icebergScore ?? 0);
+    return 0.5 + 0.5 * bestScore;
   });
 
   return overlaps.reduce((sum, o) => sum + o, 0) / overlaps.length;

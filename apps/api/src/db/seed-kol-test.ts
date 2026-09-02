@@ -22,6 +22,9 @@ const TEST_KOLS = [
       platformPreference: "PC",
       specialty: "善于从游戏设计角度分析产品，能指出机制层面的优劣势",
       toneSummary: "批判性、专业、直接",
+      representativeTopics: ["武器平衡", "匹配机制", "操作手感", "新手引导"],
+      audiencePositioning: "核心FPS玩家和追求竞技深度的硬核用户",
+      contentFormats: ["深度测评", "赛季点评"],
     },
     styleProfile: {
       catchphrases: ["不是哥们", "说句实话", "这东西本质上是"],
@@ -31,6 +34,8 @@ const TEST_KOLS = [
       signaturePatterns: ["进来，告诉你XXX", "XXX这点我得说道说道"],
       videoCount: 42,
       totalPlayCount: 3500000,
+      pacingStyle: "快节奏直切主题",
+      vocabularyStyle: "专业术语与口语化表达结合",
     },
     sourceTexts: [
       "这款射击游戏的手感确实不错，枪械的反馈很到位。但是匹配机制真的有问题，经常遇到实力差距很大的对局。",
@@ -53,6 +58,9 @@ const TEST_KOLS = [
       platformPreference: "多平台",
       specialty: "擅长用生活化的比喻解释游戏设计，让硬核内容变得通俗易懂",
       toneSummary: "幽默、亲切、接地气",
+      representativeTopics: ["上手门槛", "游戏文化", "玩家心理", "版本更新"],
+      audiencePositioning: "广泛的休闲玩家和游戏文化爱好者",
+      contentFormats: ["游戏杂谈", "文化解读"],
     },
     styleProfile: {
       catchphrases: ["说实话", "有意思的是", "你知道吧"],
@@ -62,6 +70,8 @@ const TEST_KOLS = [
       signaturePatterns: ["这游戏吧，有意思的地方在于", "你想想看"],
       videoCount: 56,
       totalPlayCount: 4200000,
+      pacingStyle: "娓娓道来，善用铺垫",
+      vocabularyStyle: "通俗易懂，善用生活化比喻",
     },
     sourceTexts: [
       "说实话，这游戏的上手难度真的劝退了不少人。但是一旦你熬过新手期，后面的内容还是挺丰富的。",

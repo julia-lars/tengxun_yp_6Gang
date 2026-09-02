@@ -20,6 +20,7 @@ import {
   searchEvidence,
   streamChat,
   formatEvidenceContext,
+  reformulateQueryForSearch,
   type EvidenceRow,
 } from "../lib/agent-chat.js";
 import {
@@ -79,10 +80,18 @@ kolRoute.get("/:id", async (c) => {
 
   const row = await db.query.kolProfiles.findFirst({
     where: eq(kolProfiles.id, id),
-    with: { segments: { limit: 5 } },
+    with: { segments: { limit: 100 } },
   });
 
   if (!row) return c.json({ error: "KOL 不存在" }, 404);
+
+  // 从所有 kol_segments 统计真实总字数（不限 20 条）
+  const [segStats] = await db
+    .select({ totalChars: sql<number>`COALESCE(SUM(LENGTH(${kolSegments.originalText})), 0)` })
+    .from(kolSegments)
+    .where(eq(kolSegments.kolId, id));
+
+  const totalWordCount = Number(segStats?.totalChars ?? 0);
 
   const result: KolProfileDetail = {
     id: row.id,
@@ -90,12 +99,13 @@ kolRoute.get("/:id", async (c) => {
     bilibiliUid: row.bilibiliUid,
     description: ((row.personaCard as Record<string, unknown>).identity as string) ?? "",
     videoCount: ((row.styleProfile as Record<string, unknown>).videoCount as number) ?? 0,
-    sampleSegments: row.segments.map((s) => s.originalText.slice(0, 200)),
+    sampleSegments: row.segments.map((s) => s.originalText.slice(0, 500)),
     tags: [],
     createdAt: row.createdAt.toISOString(),
     personaCard: row.personaCard as Record<string, unknown>,
     styleProfile: row.styleProfile as Record<string, unknown>,
     sourceTexts: (row.sourceTexts as string[]) ?? [],
+    totalWordCount,
   };
 
   return c.json(result);
@@ -137,21 +147,15 @@ kolRoute.post("/chat", zValidator("json", kolChatRequestSchema), async (c) => {
     message,
   });
 
-  // 3. 边界检测（V0.2 Boundary Engine）— 在所有 RAG 之前执行
+  // 3. 边界检测（V0.3 Boundary Engine — 游戏相关性）— 在所有 RAG 之前执行
   const boundaryResult = await checkBoundary(message, {
     skipCache: false,
   });
-  const isBoundaryQuestion = boundaryResult.final === "OUT";
+  const isOutOfDomain = boundaryResult.final === "OUT";
 
-  // 边界外：直接返回拒答，不调用 LLM
-  if (isBoundaryQuestion) {
-    const rejectReason = boundaryResult.method === "hard_rule"
-      ? "这个问题不在我的内容领域内，我无法回答。"
-      : boundaryResult.method === "embedding_clear_out"
-      ? "抱歉，这个问题超出了我的知识范围，我没有相关的信息可以回答。"
-      : boundaryResult.method === "matrix_out"
-      ? "抱歉，我目前没有足够的数据来回答这个问题。"
-      : "抱歉，根据我的知识库，我无法回答这个问题。";
+  // 边界外：明确非游戏领域，直接返回拒答
+  if (isOutOfDomain) {
+    const rejectReason = "这个问题不在我的内容领域内，我无法回答。";
 
     return streamSSE(c, async (stream) => {
       await stream.writeSSE({ data: rejectReason });
@@ -159,8 +163,9 @@ kolRoute.post("/chat", zValidator("json", kolChatRequestSchema), async (c) => {
   }
 
   // 4. RAG 检索（使用共享引擎）
+  const searchQuery = await reformulateQueryForSearch(message);
   const evidenceRows: EvidenceRow[] = await searchEvidence({
-      message,
+      message: searchQuery,
       vectorQuery: async (vecStr) => {
         let rawRows = (await db.execute(
           sql`SELECT id, original_text, title,
@@ -247,15 +252,11 @@ kolRoute.post("/chat", zValidator("json", kolChatRequestSchema), async (c) => {
     (e) => (e.matchLevel ?? classifyMatchLevel(e.similarity ?? 0)) === "direct",
   );
 
-  const videoCount = ((kol.styleProfile as Record<string, unknown>).videoCount as number) ?? 0;
-  const estimatedSampleCount = Math.max(videoCount, evidenceRows.length);
-
   const confidenceResult = calculateConfidence({
     evidenceCount: evidenceRows.length,
     topSimilarity,
     avgSimilarity,
     tagOverlapRatio: 0.5, // KOL 没有画像标签体系，给中性值
-    sampleCount: estimatedSampleCount,
     hasDirectQuote,
     isBoundaryQuestion: false, // 边界外已提前返回，此处必为 false
   });

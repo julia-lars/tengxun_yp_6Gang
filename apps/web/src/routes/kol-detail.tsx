@@ -46,6 +46,18 @@ export function KolDetailPage() {
   const tone = (styleProfile.tone as string) ?? "";
   const specialty = (personaCard.specialty as string) ?? "";
   const toneSummary = (personaCard.toneSummary as string) ?? "";
+  const avgSentenceLength = (styleProfile.avgSentenceLength as number) ?? 0;
+  const firstPersonStyle = (styleProfile.firstPersonStyle as string) ?? "";
+  const identity = (personaCard.identity as string) ?? "";
+  const catchphrases = (styleProfile.catchphrases as string[]) ?? [];
+  const signaturePatterns = (styleProfile.signaturePatterns as string[]) ?? [];
+  const totalPlayCount = (styleProfile.totalPlayCount as number) ?? 0;
+  const representativeTopics = (personaCard.representativeTopics as string[]) ?? [];
+  const audiencePositioning = (personaCard.audiencePositioning as string) ?? "";
+  const contentFormats = (personaCard.contentFormats as string[]) ?? [];
+  const pacingStyle = (styleProfile.pacingStyle as string) ?? "";
+  const vocabularyStyle = (styleProfile.vocabularyStyle as string) ?? "";
+  const totalWordCount = kol.totalWordCount ?? kol.sourceTexts.reduce((sum, t) => sum + t.length, 0);
 
   const introText = [kol.description, toneSummary].filter(Boolean).join("。");
 
@@ -81,15 +93,17 @@ export function KolDetailPage() {
       </div>
 
       {/* 对话按钮 */}
-      <Link to={`/kol/${kol.id}/chat`} className="block">
-        <Button size="lg" className="w-full sm:w-auto text-base px-8 py-6 bg-(--color-brand-500) hover:bg-(--color-brand-600) text-white">
-          <MessageCircle className="h-5 w-5 mr-2" />
-          与「{kol.name}」开始对话
-        </Button>
-      </Link>
+      <div className="mt-4">
+        <Link to={`/kol/${kol.id}/chat`}>
+          <Button size="lg" variant="outline" className="text-base px-8 py-6 bg-white">
+            <MessageCircle className="h-5 w-5 mr-2" />
+            与「{kol.name}」开始对话
+          </Button>
+        </Link>
+      </div>
 
       {/* 人设画像 */}
-      <Card className="border-l-4 border-l-(--color-brand-300) overflow-hidden">
+      <Card className="overflow-hidden">
         <CardHeader className="pb-2">
           <CardTitle className="text-lg font-serif">人设画像</CardTitle>
         </CardHeader>
@@ -102,38 +116,97 @@ export function KolDetailPage() {
               </Badge>
             ))}
             {platformPreference && platformPreference !== "未知" && (
-              <Badge variant="outline" className="bg-white text-xs">
+              <Badge className="bg-(--color-brand-50) text-(--color-brand-700) border-(--color-brand-200) text-xs">
                 {platformPreference}
               </Badge>
             )}
             {tone && tone !== "—" && (
-              <Badge variant="outline" className="bg-white text-xs">
+              <Badge className="bg-(--color-brand-50) text-(--color-brand-700) border-(--color-brand-200) text-xs">
                 {tone}
               </Badge>
             )}
           </div>
 
           {/* 基本信息 */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+          <div className="flex flex-col gap-3 text-sm">
+            {identity && identity !== "未知" && (
+              <div className="flex gap-2">
+                <span className="text-(--color-muted-foreground) shrink-0">身份定位</span>
+                <span>{identity}</span>
+              </div>
+            )}
             <div className="flex gap-2">
               <span className="text-(--color-muted-foreground) shrink-0">内容领域</span>
-              <span>{contentFocus.join(" · ")}</span>
-            </div>
-            <div className="flex gap-2">
-              <span className="text-(--color-muted-foreground) shrink-0">平台偏好</span>
-              <span>{platformPreference && platformPreference !== "未知" ? platformPreference : "—"}</span>
+              <span>{contentFocus.length > 0 ? contentFocus.join(" · ") : "—"}</span>
             </div>
             <div className="flex gap-2">
               <span className="text-(--color-muted-foreground) shrink-0">语气基调</span>
               <span>{tone && tone !== "—" ? tone : "—"}</span>
             </div>
-            {specialty && specialty !== "未知" && (
-              <div className="sm:col-span-2 flex gap-2">
-                <span className="text-(--color-muted-foreground) shrink-0">专长特色</span>
-                <span>{specialty}</span>
+            {toneSummary && toneSummary !== "未知" && (
+              <div className="flex gap-2">
+                <span className="text-(--color-muted-foreground) shrink-0">语气概括</span>
+                <span>{toneSummary}</span>
+              </div>
+            )}
+            <div className="flex gap-2">
+              <span className="text-(--color-muted-foreground) shrink-0">平台偏好</span>
+              <span>{platformPreference && platformPreference !== "未知" ? platformPreference : "—"}</span>
+            </div>
+            <div className="flex gap-2">
+              <span className="text-(--color-muted-foreground) shrink-0">专场特色</span>
+              <span>{specialty && specialty !== "未知" ? specialty : "—"}</span>
+            </div>
+            {audiencePositioning && audiencePositioning !== "未知" && (
+              <div className="flex gap-2">
+                <span className="text-(--color-muted-foreground) shrink-0">受众定位</span>
+                <span>{audiencePositioning}</span>
+              </div>
+            )}
+            {kol.bilibiliUid && (
+              <div className="flex gap-2">
+                <span className="text-(--color-muted-foreground) shrink-0">B站主页</span>
+                <a
+                  href={`https://space.bilibili.com/${kol.bilibiliUid}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-(--color-brand-500) hover:underline text-sm"
+                >
+                  查看空间 ↗
+                </a>
               </div>
             )}
           </div>
+
+          {/* 内容形式 & 代表性议题 */}
+          {(contentFormats.length > 0 || representativeTopics.length > 0) && (
+            <div className="border-t border-(--color-border) pt-4 space-y-3">
+              {contentFormats.length > 0 && (
+                <div className="space-y-1.5">
+                  <p className="text-xs text-(--color-muted-foreground) font-medium">内容形式</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {contentFormats.map((cf) => (
+                      <Badge key={cf} className="bg-(--color-brand-50) text-(--color-brand-700) border-(--color-brand-200) text-xs">
+                        {cf}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {representativeTopics.length > 0 && (
+                <div className="space-y-1.5">
+                  <p className="text-xs text-(--color-muted-foreground) font-medium">代表性议题</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {representativeTopics.map((rt) => (
+                      <Badge key={rt} className="bg-(--color-brand-50) text-(--color-brand-700) border-(--color-brand-200) text-xs">
+                        {rt}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
 
           {/* 评价体系 */}
           {evalFramework && (
@@ -151,6 +224,28 @@ export function KolDetailPage() {
               </div>
             </div>
           )}
+
+          {/* 统计信息 */}
+          <div className="flex items-center gap-4 text-xs text-(--color-muted-foreground) border-t border-(--color-border) pt-4">
+            <span className="inline-flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-(--color-brand-300)" />
+              已分析 {kol.videoCount} 个视频
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-(--color-brand-300)" />
+              {kol.sourceTexts.length} 条语料片段
+            </span>
+            {totalWordCount > 0 && (
+              <span className="inline-flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-(--color-brand-300)" />
+                {(() => {
+                  if (totalWordCount < 1000) return `约 ${totalWordCount} 字语料`;
+                  if (totalWordCount < 10000) return `约 ${(totalWordCount / 1000).toFixed(1)} 千字语料`;
+                  return `约 ${(totalWordCount / 10000).toFixed(1)} 万字语料`;
+                })()}
+              </span>
+            )}
+          </div>
         </CardContent>
       </Card>
 
@@ -166,41 +261,139 @@ export function KolDetailPage() {
               <p className="text-sm text-(--color-foreground) leading-relaxed">{speechHabits}</p>
             </div>
           )}
-          <div className="flex items-center gap-4 text-xs text-(--color-muted-foreground)">
-            <span className="inline-flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-(--color-brand-300)" />
-              已分析 {kol.videoCount} 个视频
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-(--color-brand-300)" />
-              {kol.sourceTexts.length} 条语料片段
-            </span>
+          {catchphrases.length > 0 && (
+            <div className="space-y-2">
+              <p className="text-xs text-(--color-muted-foreground) font-medium">口头禅</p>
+              <div className="flex flex-wrap gap-1.5">
+                {catchphrases.map((cp) => (
+                  <Badge key={cp} variant="secondary" className="text-xs">
+                    {cp}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+          )}
+          {signaturePatterns.length > 0 && (
+            <div className="space-y-2">
+              <p className="text-xs text-(--color-muted-foreground) font-medium">表达特征</p>
+              <div className="flex flex-col gap-1">
+                {signaturePatterns.map((sp) => (
+                  <p key={sp} className="text-sm text-(--color-foreground)">· {sp}</p>
+                ))}
+              </div>
+            </div>
+          )}
+          <div className="flex flex-col gap-3 text-sm">
+            {tone && tone !== "—" && (
+              <div className="flex gap-2">
+                <span className="text-(--color-muted-foreground) shrink-0">语气倾向</span>
+                <span>{tone}</span>
+              </div>
+            )}
+            {avgSentenceLength > 0 && (
+              <div className="flex gap-2">
+                <span className="text-(--color-muted-foreground) shrink-0">平均句长</span>
+                <span>约 {avgSentenceLength} 字</span>
+              </div>
+            )}
+            {firstPersonStyle && firstPersonStyle !== "未知" && (
+              <div className="flex gap-2">
+                <span className="text-(--color-muted-foreground) shrink-0">第一人称</span>
+                <span>{firstPersonStyle}</span>
+              </div>
+            )}
+            {totalPlayCount > 0 && (
+              <div className="flex gap-2">
+                <span className="text-(--color-muted-foreground) shrink-0">总播放量</span>
+                <span>{(totalPlayCount / 10000).toFixed(1)} 万</span>
+              </div>
+            )}
+            {pacingStyle && pacingStyle !== "未知" && (
+              <div className="flex gap-2">
+                <span className="text-(--color-muted-foreground) shrink-0">内容节奏</span>
+                <span>{pacingStyle}</span>
+              </div>
+            )}
+            {vocabularyStyle && vocabularyStyle !== "未知" && (
+              <div className="flex gap-2">
+                <span className="text-(--color-muted-foreground) shrink-0">词汇风格</span>
+                <span>{vocabularyStyle}</span>
+              </div>
+            )}
           </div>
         </CardContent>
       </Card>
 
       {/* 代表性发言 */}
-      {kol.sampleSegments && kol.sampleSegments.length > 0 && (
+      {(() => {
+        const repTexts = kol.sampleSegments?.length ? kol.sampleSegments : kol.sourceTexts;
+        if (!repTexts || repTexts.length === 0) return null;
+        return (
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-lg font-serif">代表性发言</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
-              {kol.sampleSegments.slice(0, 4).map((seg, i) => (
-                <div key={i} className="relative pl-4 border-l-2 border-(--color-brand-200) hover:border-(--color-brand-300) transition-colors">
-                  <span className="absolute left-0 top-0 text-(--color-brand-200) text-lg leading-none -translate-x-[0.6rem] -translate-y-1 select-none">
-                    &ldquo;
-                  </span>
-                  <p className="text-sm text-(--color-muted-foreground) leading-relaxed italic line-clamp-2 pl-2">
-                    {seg.slice(0, 150)}
-                  </p>
-                </div>
-              ))}
+              {(() => {
+                const segs = repTexts;
+                if (segs.length <= 5) {
+                  return segs.map((seg, i) => (
+                    <div key={i} className="relative pl-4 border-l-2 border-(--color-brand-200) hover:border-(--color-brand-300) transition-colors">
+                      <span className="absolute left-0 top-0 text-(--color-brand-200) text-lg leading-none -translate-x-[0.6rem] -translate-y-1 select-none">
+                        &ldquo;
+                      </span>
+                      <p className="text-sm text-(--color-muted-foreground) leading-relaxed line-clamp-4 pl-2">
+                        {seg.slice(0, 500)}
+                      </p>
+                    </div>
+                  ));
+                }
+
+                // 去重后按长度排序，均匀选取 5 段（短、较短、中、较长、长）
+                const seen = new Set<string>();
+                const uniqueSegs = segs.filter((s) => {
+                  if (seen.has(s)) return false;
+                  seen.add(s);
+                  return true;
+                });
+                const sorted = uniqueSegs.sort((a, b) => a.length - b.length);
+
+                const picked: string[] = [];
+                const positions = [
+                  0,
+                  Math.floor(sorted.length * 0.25),
+                  Math.floor(sorted.length * 0.5),
+                  Math.floor(sorted.length * 0.75),
+                  sorted.length - 1,
+                ];
+                for (const pos of positions) {
+                  const seg = sorted[Math.min(pos, sorted.length - 1)];
+                  if (seg && !picked.includes(seg)) picked.push(seg);
+                }
+
+                // 若去重后不足 5 段，从排序列表中补充其他不同长度的片段
+                for (const seg of sorted) {
+                  if (picked.length >= 5) break;
+                  if (!picked.includes(seg)) picked.push(seg);
+                }
+
+                return picked.map((seg, i) => (
+                  <div key={i} className="relative pl-4 border-l-2 border-(--color-brand-200) hover:border-(--color-brand-300) transition-colors">
+                    <span className="absolute left-0 top-0 text-(--color-brand-200) text-lg leading-none -translate-x-[0.6rem] -translate-y-1 select-none">
+                      &ldquo;
+                    </span>
+                    <p className="text-sm text-(--color-muted-foreground) leading-relaxed line-clamp-4 pl-2">
+                      {seg.slice(0, 500)}
+                    </p>
+                  </div>
+                ));
+              })()}
             </div>
           </CardContent>
         </Card>
-      )}
+        );
+      })()}
     </div>
   );
 }

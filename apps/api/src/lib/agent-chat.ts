@@ -125,6 +125,52 @@ export interface EvidenceRow {
 }
 
 /**
+ * 查询语义改写：将用户口语化问题改写为搜索优化关键词。
+ *
+ * 解决向量检索中因表面词汇重叠（如"什么时候"）导致的语义混淆：
+ * - "你一般什么时候玩游戏"（时间询问）和"你不知道什么时候出现人"（不确定性）
+ *   在 BGE 模型中因共享"什么时候"而产生错误的高相似度匹配。
+ *
+ * 改写后，查询加入时间/频率/场景等语义锚点，embedding 会被拉向正确的语义空间。
+ */
+export async function reformulateQueryForSearch(userMessage: string): Promise<string> {
+  // 短问题不需要改写（≤8 字的问题通常语义已经很聚焦）
+  if (userMessage.trim().length <= 8) return userMessage;
+
+  const prompt = [
+    "将以下用户问题改写为用于向量检索的搜索关键词。",
+    "",
+    "规则：",
+    "1. 提取问题的核心语义概念，去除口语化表达",
+    "2. 用空格分隔的关键词形式输出，不要输出完整句子",
+    "3. 保留原问题中的关键实体（游戏名、产品名、人名等）",
+    "4. 添加语义相关的同义词或上位词，帮助消除歧义",
+    "5. 输出长度控制在 20-50 字",
+    "",
+    "示例：",
+    "用户问题：你一般什么时候玩游戏",
+    "输出：游戏时间安排 游戏时段 日常游戏习惯 什么时间玩游戏 游戏频率",
+    "",
+    "用户问题：你觉得这个游戏好玩吗",
+    "输出：游戏体验评价 游戏乐趣 好玩程度 游戏满意度 游戏吸引力",
+    "",
+    `用户问题：${userMessage}`,
+    "输出：",
+  ].join("\n");
+
+  try {
+    const result = await chat(
+      [{ role: "user", content: prompt }],
+      { temperature: 0, maxTokens: 128 },
+    );
+    return result.trim() || userMessage;
+  } catch (e) {
+    console.error("查询改写失败，使用原始问题:", e);
+    return userMessage;
+  }
+}
+
+/**
  * 向量检索 + ILIKE 兜底。自动处理 pgvector 查询失败时的降级。
  */
 export async function searchEvidence(opts: {
@@ -217,17 +263,22 @@ export async function streamChat(opts: {
     }
 
     // 构建 SSE 传输的完整证据数据
-    const evidencePayload = (evidenceData ?? []).map((e) => ({
-      id: e.id,
-      sourceFile: e.sourceLabel,
-      originalText: e.originalText,
-      annotation: e.annotation ?? null,
-      similarity: e.similarity ?? 0,
-      matchLevel: e.matchLevel ?? classifyMatchLevel(e.similarity ?? 0),
-      tagOverlap: e.tagOverlap ?? 0,
-      speakerId: e.speakerId ?? null,
-      precedingQuestion: e.precedingQuestion ?? null,
-    }));
+    // 优先使用 evidenceMeta 中的 tagOverlap / similarity / matchLevel（调用方已计算）
+    const metaMap = new Map((evidenceMeta ?? []).map((m) => [m.id, m]));
+    const evidencePayload = (evidenceData ?? []).map((e) => {
+      const m = metaMap.get(e.id);
+      return {
+        id: e.id,
+        sourceFile: e.sourceLabel,
+        originalText: e.originalText,
+        annotation: e.annotation ?? null,
+        similarity: m?.similarity ?? e.similarity ?? 0,
+        matchLevel: m?.matchLevel ?? e.matchLevel ?? classifyMatchLevel(e.similarity ?? 0),
+        tagOverlap: m?.tagOverlap ?? e.tagOverlap ?? 0,
+        speakerId: e.speakerId ?? null,
+        precedingQuestion: e.precedingQuestion ?? null,
+      };
+    });
 
     // 先发送 meta 事件（证据 + 置信度），前端立即显示
     try {

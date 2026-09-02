@@ -46,7 +46,7 @@ export type PersonaDetail = z.infer<typeof personaDetailSchema>;
 export const confidenceBreakdownSchema = z.object({
   evidenceScore: z.number().min(0).max(1),
   consistencyScore: z.number().min(0).max(1),
-  sampleScore: z.number().min(0).max(1),
+  evidenceCountScore: z.number().min(0).max(1),
 });
 export type ConfidenceBreakdown = z.infer<typeof confidenceBreakdownSchema>;
 
@@ -55,6 +55,7 @@ export const confidenceResultSchema = z.object({
   level: z.enum(["high", "medium", "low"]),
   breakdown: confidenceBreakdownSchema,
   flags: z.array(z.string()),
+  evidenceCount: z.number().int().nonnegative(),
 });
 export type ConfidenceResult = z.infer<typeof confidenceResultSchema>;
 
@@ -153,6 +154,7 @@ export const kolProfileDetailSchema = kolProfileSummarySchema.extend({
   personaCard: z.record(z.string(), z.unknown()),
   styleProfile: z.record(z.string(), z.unknown()),
   sourceTexts: z.array(z.string()),
+  totalWordCount: z.number().int().nonnegative().optional(),
 });
 export type KolProfileDetail = z.infer<typeof kolProfileDetailSchema>;
 
@@ -270,6 +272,21 @@ export const outlineGenerateRequestSchema = z.object({
 });
 export type OutlineGenerateRequest = z.infer<typeof outlineGenerateRequestSchema>;
 
+export const refineQuestionRequestSchema = z.object({
+  question: z.string().min(1).max(2000),
+  theme: z.string().min(1).max(500),
+  personaContext: z.string().max(2000).optional(),
+});
+export type RefineQuestionRequest = z.infer<typeof refineQuestionRequestSchema>;
+
+export const refineQuestionResponseSchema = z.object({
+  original: z.string(),
+  refined: z.string(),
+  rationale: z.string(),
+  suggestedFollowUps: z.array(z.string()).optional(),
+});
+export type RefineQuestionResponse = z.infer<typeof refineQuestionResponseSchema>;
+
 export const outlineJobStatusSchema = z.object({
   jobId: z.string(),
   status: z.enum(["pending", "running", "completed", "failed", "cancelled"]),
@@ -355,26 +372,12 @@ export const batchInterviewStatusSchema = z.object({
 });
 export type BatchInterviewStatus = z.infer<typeof batchInterviewStatusSchema>;
 
-// ---- 边界检测 (V0.2 Boundary Engine) ----
+// ---- 边界检测 (V0.3 Boundary Engine — 游戏相关性) ----
 
 export const boundaryResultSchema = z.object({
-  final: z.enum(["IN", "OUT"]),
-  method: z.enum(["exact_cache", "canonical_cache", "hard_rule", "embedding_clear_out", "matrix_out", "llm_judge"]),
-  B1_domain: z.enum(["IN", "OUT"]),
-  B2_topic_coverage: z.enum(["IN", "OUT"]),
-  B3_question_type_capability: z.enum(["IN", "OUT"]),
-  B4_evidence_sufficiency: z.enum(["IN", "OUT"]),
-  embedding: z.object({
-    top_region: z.string(),
-    region_score: z.number(),
-    candidate_zone: z.enum(["CLEAR_OUT", "CANDIDATE"]),
-    hn_proximity_warning: z.boolean(),
-  }).optional(),
-  coverage_check: z.object({
-    matched_region: z.string(),
-    matched_intent: z.string(),
-    matrix_result: z.enum(["MATRIX_IN", "MATRIX_OUT", "MATRIX_TBD"]),
-  }).optional(),
+  final: z.enum(["IN", "OUT", "AMBIGUOUS"]),
+  method: z.enum(["exact_cache", "canonical_cache", "game_relevance_rule"]),
+  B1_domain: z.enum(["IN", "OUT", "AMBIGUOUS"]),
   boundary_version: z.string(),
   threshold_version: z.string(),
   knowledge_space_version: z.string(),

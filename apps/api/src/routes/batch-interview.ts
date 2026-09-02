@@ -47,6 +47,7 @@ batchInterviewRoute.post(
     );
 
     const now = new Date();
+    const estimatedCompletionAt = new Date(now.getTime() + estimatedTotalMs);
 
     // 持久化作业到 DB
     await db.insert(batchInterviewJobs).values({
@@ -59,6 +60,7 @@ batchInterviewRoute.post(
       totalRounds: 0,
       progressByPersona: {},
       startedAt: now,
+      estimatedCompletionAt,
       config: config as any,
     });
 
@@ -72,7 +74,7 @@ batchInterviewRoute.post(
       totalRounds: 0,
       progressByPersona: {},
       startedAt: now.toISOString(),
-      estimatedCompletionAt: null,
+      estimatedCompletionAt: estimatedCompletionAt.toISOString(),
     };
 
     // 异步执行
@@ -144,9 +146,12 @@ batchInterviewRoute.get("/status/:jobId", async (c) => {
         .catch(() => {});
     }
 
-    // 时间驱动进度（单调，不回退）
-    const rawProgress = Math.round((elapsed / status.estimatedTotalMs) * 100);
-    status.progress = Math.max(job.progress ?? 0, Math.min(99, rawProgress));
+    // 基于实际完成画像数计算进度（单调，不回退），时间驱动作为兜底
+    const actualProgress = (job.totalPersonas ?? 1) > 0
+      ? Math.round(((job.completedPersonas ?? []).length / (job.totalPersonas ?? 1)) * 100)
+      : 0;
+    const timeProgress = Math.round((elapsed / status.estimatedTotalMs) * 100);
+    status.progress = Math.max(job.progress ?? 0, Math.min(99, Math.max(actualProgress, timeProgress)));
     status.estimatedRemainingMs = Math.max(0, status.estimatedTotalMs - elapsed);
 
     // 异步更新 DB 进度
@@ -215,7 +220,7 @@ batchInterviewRoute.post("/cancel/:jobId", async (c) => {
   // 标记作业为已取消，后续清理由 executeBatchInterview 中的检查完成
   await db
     .update(batchInterviewJobs)
-    .set({ status: "cancelled" })
+    .set({ status: "cancelled", completedAt: new Date() })
     .where(eq(batchInterviewJobs.jobId, jobId))
     .execute();
 
@@ -332,6 +337,7 @@ async function executeBatchInterview(
     await updateJob({
       status: "completed",
       progress: 100,
+      completedAt: new Date(),
       completedPersonas: results.map((r) => r.personaId),
     });
   } catch (e) {
@@ -418,6 +424,20 @@ async function interviewPersona(
   const rounds: InterviewResult["rounds"] = [];
 
   for (let qi = 0; qi < questions.length; qi++) {
+    // 每 5 个问题检查一次取消状态
+    if (qi % 5 === 0) {
+      const currentJob = await db
+        .select()
+        .from(batchInterviewJobs)
+        .where(eq(batchInterviewJobs.jobId, jobId))
+        .limit(1);
+      if (currentJob[0]?.status === "cancelled") {
+        console.log(`批量访谈作业 ${jobId} 在画像 ${personaName} 问题 ${qi + 1} 前被取消`);
+        // 返回现有结果（如果有的话）
+        break;
+      }
+    }
+
     const question = questions[qi]!;
     // 更新当前进度：正在访谈哪个画像、哪个问题
     const currentJob = await db
@@ -455,10 +475,16 @@ async function interviewPersona(
 
       messages.push({ role: "user", content: question });
 
-      const answer = await chat(messages, {
-        temperature: 0.8,
-        maxTokens: 1024,
-      });
+      const QUESTION_TIMEOUT_MS = 60_000;
+      const answer = await Promise.race([
+        chat(messages, {
+          temperature: 0.8,
+          maxTokens: 1024,
+        }),
+        new Promise<string>((_, reject) =>
+          setTimeout(() => reject(new Error("LLM 调用超时")), QUESTION_TIMEOUT_MS),
+        ),
+      ]);
 
       rounds.push({
         question,
@@ -530,16 +556,22 @@ async function extractInsights(
   ].join("\n");
 
   try {
-    const response = await chat(
-      [
-        { role: "system", content: systemPrompt },
-        {
-          role: "user",
-          content: `被访者：${personaName}\n\n访谈记录：\n${conversationText.slice(0, 3000)}`,
-        },
-      ],
-      { temperature: 0.5, maxTokens: 1024 },
-    );
+    const INSIGHT_TIMEOUT_MS = 60_000;
+    const response = await Promise.race([
+      chat(
+        [
+          { role: "system", content: systemPrompt },
+          {
+            role: "user",
+            content: `被访者：${personaName}\n\n访谈记录：\n${conversationText.slice(0, 3000)}`,
+          },
+        ],
+        { temperature: 0.5, maxTokens: 1024 },
+      ),
+      new Promise<string>((_, reject) =>
+        setTimeout(() => reject(new Error("洞察提取超时")), INSIGHT_TIMEOUT_MS),
+      ),
+    ]);
 
     const jsonMatch = response.match(/\[[\s\S]*\]/);
     if (jsonMatch) return JSON.parse(jsonMatch[0]) as string[];
@@ -592,16 +624,22 @@ async function generateReport(
     [];
 
   try {
-    const response = await chat(
-      [
-        { role: "system", content: systemPrompt },
-        {
-          role: "user",
-          content: `以下是对 ${results.length} 个用户画像的批量访谈结果摘要：\n\n${summaryText.slice(0, 6000)}\n\n请生成综合分析报告。`,
-        },
-      ],
-      { temperature: 0.5, maxTokens: 3072 },
-    );
+    const REPORT_TIMEOUT_MS = 120_000;
+    const response = await Promise.race([
+      chat(
+        [
+          { role: "system", content: systemPrompt },
+          {
+            role: "user",
+            content: `以下是对 ${results.length} 个用户画像的批量访谈结果摘要：\n\n${summaryText.slice(0, 6000)}\n\n请生成综合分析报告。`,
+          },
+        ],
+        { temperature: 0.5, maxTokens: 3072 },
+      ),
+      new Promise<string>((_, reject) =>
+        setTimeout(() => reject(new Error("报告生成超时")), REPORT_TIMEOUT_MS),
+      ),
+    ]);
 
     const jsonMatch = response.match(/\{[\s\S]*\}/);
     if (jsonMatch) {
@@ -635,15 +673,15 @@ async function generateReport(
 
 function generateDefaultQuestions(config: BatchInterviewConfig): string[] {
   return [
-    "你平时最喜欢玩哪些射击游戏？为什么喜欢它们？",
-    "你每天大概花多少时间玩游戏？什么时间段玩？",
-    "你觉得一款好玩的射击游戏最重要的是什么？",
-    "你会因为什么原因放弃一款射击游戏？",
-    "你如何看待游戏中的付费内容？你愿意为什么付费？",
-    "你通常通过什么渠道了解新游戏？",
-    "和朋友一起玩比自己玩更有趣吗？为什么？",
-    "你觉得现在的射击游戏有什么让你不满意的地方？",
-    "有没有一款游戏让你特别投入？是什么让你沉浸其中？",
-    "对于新游戏，你最看重什么（画面、玩法、社交、其他）？",
+    "你平时最喜欢使用哪些产品/服务？为什么喜欢它们？",
+    "你每天大概花多少时间使用这类产品？什么场景下使用？",
+    "你觉得一款好用的产品最重要的是什么？",
+    "你会因为什么原因放弃使用一款产品？",
+    "你如何看待产品中的付费内容？你愿意为什么付费？",
+    "你通常通过什么渠道了解新产品？",
+    "和朋友一起使用比自己使用更有趣吗？为什么？",
+    "你觉得现在的同类产品有什么让你不满意的地方？",
+    "有没有一款产品让你特别投入？是什么让你沉浸其中？",
+    "对于新产品，你最看重什么（体验、功能、社交、其他）？",
   ];
 }

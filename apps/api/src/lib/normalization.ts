@@ -25,8 +25,10 @@ export type QuestionType =
   | "predict"
   | "evaluate";
 
+export type DomainType = "shooting_game" | "non_game" | "other_game" | "ambiguous";
+
 export interface CanonicalQuery {
-  domain: "shooting_game" | "other";
+  domain: DomainType;
   game: string | null;
   entity: string | null;
   topic: TopicType | null;
@@ -98,6 +100,8 @@ const GAME_NAME_MAP: Record<string, string> = {
   "helldivers": "Helldivers", "地狱潜兵": "Helldivers",
   // The Finals
   "the finals": "TheFinals",
+  // 永劫无间
+  "永劫无间": "Naraka",
 };
 
 /** 武器名称标准化映射 */
@@ -405,35 +409,138 @@ export function signatureToString(sig: AnswerabilitySignature): string {
 // 辅助函数
 // ============================================================================
 
-function determineDomain(q: string, game: string | null): "shooting_game" | "other" {
-  // 明确非射击游戏关键词
-  const nonShootingKeywords = [
-    "王者荣耀", "原神", "英雄联盟", "lol", "dota", "dota2",
-    "股票", "天气", "写代码", "翻译", "总结", "聊天",
-    "崩坏", "星穹铁道", "明日方舟", "阴阳师", "碧蓝航线",
-    "魔兽世界", "wow", "ff14", "最终幻想14", "剑网三", "逆水寒",
-    "我的世界", "minecraft", "roblox", "among us", "鹅鸭杀",
-    "poker", "德州", "麻将", "围棋", "象棋",
+function determineDomain(q: string, game: string | null): DomainType {
+  const qLower = q.toLowerCase();
+
+  // --- Step 1: 明确非游戏领域（天气/股票/编程/烹饪等）---
+  const nonGameKeywords = [
+    "天气", "下雨", "股票", "基金", "投资", "买房", "房价",
+    "翻译", "总结", "写代码", "编程", "debug", "翻译成", "翻译为", "帮我写", "帮我做",
+    "总结一下", "推荐股票", "推荐基金", "天气预报", "今天天气", "明天天气",
+    "帮我查", "帮我搜", "搜索一下", "你是谁", "你能做什么", "你的功能",
+    "做饭", "菜谱", "烹饪", "旅游", "景点", "酒店", "餐厅", "推荐一家",
+    "音乐", "歌手", "歌曲", "电影", "电视剧", "综艺", "nba", "英超",
+    "新闻", "政治", "选举", "经济", "求职", "邮件", "简历",
+    "红烧肉", "iphone", "苹果股票",
+    "咖啡", "喝茶", "美食", "拍照", "摄影", "相机",
+    "高考", "考试", "练字", "药效", "看病", "吃药",
+    "麻将", "德州", "poker", "围棋", "象棋",
+    "电影院", "演唱会", "明星", "时尚", "化妆", "护肤", "健身", "减肥",
+    // 饮食/生活闲聊
+    "喜欢吃什么", "喜欢喝什么", "吃的什么", "口味", "味道",
+    "零食", "奶茶", "火锅", "烧烤", "饮料", "外卖",
+    "睡了吗", "在吗", "在干嘛", "吃了吗", "吃了没",
   ];
-  for (const kw of nonShootingKeywords) {
-    if (q.toLowerCase().includes(kw.toLowerCase())) return "other";
+  for (const kw of nonGameKeywords) {
+    if (qLower.includes(kw.toLowerCase())) return "non_game";
   }
 
-  // 如果识别到射击游戏 → shooting_game
+  // --- Step 2: 明确其他游戏领域（非射击游戏）---
+  // 必须不包含射击游戏引用
+  const otherGameKeywords = [
+    // MOBA / 类MOBA
+    "王者荣耀", "英雄联盟", "lol", "dota", "dota2",
+    // 二游 / 开放世界
+    "原神", "崩坏", "星穹铁道", "崩铁", "绝区零", "zzz",
+    "明日方舟", "阴阳师", "碧蓝航线", "碧蓝档案", "蔚蓝档案",
+    "少女前线", "少前", "公主连结", "赛马娘",
+    "幻塔", "鸣潮", "战双", "战双帕弥什", "深空之眼",
+    "重返未来", "无期迷途", "尘白禁区",
+    "永远的7日之都", "白夜极光", " nikke",
+    // 乙女 / 恋爱
+    "恋与制作人", "光与夜之恋", "未定事件簿", "乙女",
+    // MMORPG
+    "魔兽世界", "wow", "ff14", "最终幻想14", "剑网三", "逆水寒",
+    // 沙盒 / 生存
+    "我的世界", "minecraft", "roblox", "among us", "鹅鸭杀",
+    // 休闲 / 派对
+    "蛋仔派对", "动物森友会", "动森", "星露谷", "星露谷物语",
+    "模拟人生", "sims", "光遇",
+    // 格斗 / 动作
+    "鬼泣", "dmc", "怪物猎人", "mhw",
+    "塞尔达", "zelda", "宝可梦", "pokemon", "马里奥", "mario",
+    // 策略 / 卡牌
+    "炉石传说", "hearthstone", "云顶之弈", "tft",
+    "文明", "civilization", "三国杀", "游戏王",
+    "自走棋", "卡牌游戏",
+    // 载具战斗（非FPS）
+    "坦克世界", "战舰世界", "战争雷霆",
+    // 体育 / 竞速
+    "足球游戏", "篮球游戏", "nba2k", "fifa", "实况足球",
+    "赛车游戏", "竞速游戏", "极品飞车",
+    // 社交 / 派对
+    "狼人杀", "剧本杀", "第五人格",
+    // 游戏类型泛称（非射击类）
+    "格斗游戏", "音游", "节奏游戏", "养成游戏", "放置游戏",
+    "三消游戏", "跑酷游戏", "恐怖游戏", "解谜游戏",
+    "乙女游戏", "街霸", "拳皇",
+    // 二次元泛称
+    "二游", "二次元游戏",
+  ];
+
+  // 射击游戏引用关键词
+  const shootingRefKeywords = [
+    "cs2", "csgo", "cs:go", "valorant", "瓦罗兰特", "无畏契约", "瓦",
+    "pubg", "apex", "cod", "守望", "彩虹六号", "r6", "彩六",
+    "战地", "bf", "穿越火线", "cf", "cfhd", "cfm",
+    "三角洲", "暗区", "塔科夫", "fortnite", "堡垒之夜",
+    "fps", "射击", "枪", "爆头", "压枪",
+  ];
+
+  const hasShootingRef = shootingRefKeywords.some((kw) => qLower.includes(kw.toLowerCase()));
+
+  for (const kw of otherGameKeywords) {
+    if (qLower.includes(kw.toLowerCase())) {
+      // 如果同时提到射击游戏，仍然是射击游戏相关
+      if (hasShootingRef) return "shooting_game";
+      return "other_game";
+    }
+  }
+
+  // --- Step 3: 射击游戏领域 ---
   if (game) return "shooting_game";
 
-  // 射击游戏相关关键词
   const shootingKeywords = [
-    "射击", "fps", "枪", "爆头", "压枪", "排位", "段位",
-    "匹配", "竞技", "cs2", "csgo", "valorant", "pubg", "apex",
-    "cod", "守望", "彩虹六号", "战地", "穿越火线", "cf",
-    "三角洲", "暗区", "塔科夫", "逃离塔科夫",
+    "cs2", "csgo", "cs:go", "cs1.6", "cs 1.6",
+    "valorant", "瓦罗兰特", "无畏契约", "瓦",
+    "pubg", "绝地求生", "吃鸡",
+    "apex", "apex英雄", "apex legends",
+    "cod", "使命召唤", "call of duty",
+    "overwatch", "守望先锋", "守望",
+    "cf", "cfm", "cfhd", "穿越火线",
+    "r6", "彩虹六号", "彩六", "rainbow six",
+    "战地", "bf", "battlefield",
+    "fortnite", "堡垒之夜",
+    "destiny", "命运2",
+    "warzone", "战区",
+    "三角洲", "delta force", "三角洲行动",
+    "暗区", "暗区突围", "arenabreakout",
+    "萤火突击", "firefly",
+    "deadlock", "死锁",
+    "helldivers", "地狱潜兵",
+    "the finals",
+    "marvelrivals", "漫威争锋",
+    "fps", "射击", "枪", "爆头", "压枪", "排位", "段位",
+    "匹配", "kd", "kda", "adr", "rating",
+    "后坐力", "弹道", "皮肤", "饰品", "手感", "枪感",
+    "地图", "dust2", "mirage", "inferno", "nuke", "anubis",
+    "ak", "ak47", "ak-47", "m4", "m4a4", "m4a1", "awp", "大狙",
+    "deagle", "沙漠之鹰", "p90", "ump", "mp5", "mp7", "mp9",
+    "vandal", "phantom", "operator", "spectre",
+    "rush", "eco", "force buy", "save", "fake",
+    "entry", "突破手", "awper", "狙击手", "igl", "指挥",
+    "烟雾弹", "闪光弹", "手雷", "燃烧弹",
+    "身法", "走位", "预瞄", "提前枪", "听声辨位",
+    "单排", "组队", "开黑", "脚步", "听脚步", "进攻", "防守",
+    "打游戏", "玩游戏", "模式", "竞技模式", "排位模式", "休闲模式",
   ];
   for (const kw of shootingKeywords) {
-    if (q.toLowerCase().includes(kw.toLowerCase())) return "shooting_game";
+    if (qLower.includes(kw.toLowerCase())) return "shooting_game";
   }
 
-  return "other";
+  // --- Step 4: 默认 ambiguous ---
+  // 不包含任何明确关键词，可能是游戏语境下的对话延续
+  return "ambiguous";
 }
 
 function inferTopic(
@@ -502,6 +609,22 @@ function inferTopic(
   }
 
   return null;
+}
+
+/** 射击游戏引用识别（用于区分"CS2 vs Valorant" vs "王者荣耀"） */
+export function hasShootingGameReference(q: string): boolean {
+  const qLower = q.toLowerCase();
+  const shootingRefKeywords = [
+    "cs2", "csgo", "cs:go", "cs1.6", "valorant", "瓦罗兰特", "无畏契约", "瓦",
+    "pubg", "绝地求生", "吃鸡", "apex", "apex英雄", "cod", "使命召唤",
+    "overwatch", "守望先锋", "守望", "cf", "cfm", "cfhd", "穿越火线",
+    "r6", "彩虹六号", "彩六", "战地", "bf", "battlefield",
+    "fortnite", "堡垒之夜", "destiny", "命运2", "warzone", "战区",
+    "三角洲", "delta force", "暗区", "暗区突围", "arenabreakout",
+    "deadlock", "死锁", "helldivers", "地狱潜兵", "the finals",
+    "marvelrivals", "漫威争锋", "fps", "射击",
+  ];
+  return shootingRefKeywords.some((kw) => qLower.includes(kw.toLowerCase()));
 }
 
 function detectQuestionSubtype(rawQuery: string): string | null {

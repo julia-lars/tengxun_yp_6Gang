@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { PageHeader } from "@/components/shared/page-header";
 import { api, type AdminStats, type AuditLogEntry } from "../lib/api.js";
 
 interface TableCardConfig {
@@ -34,6 +35,12 @@ const TABLE_GROUPS: TableGroup[] = [
       { key: "source_segments", label: "用户原声片段", icon: FileText, route: "/admin/source-segments", description: "原始用户反馈与语料" },
       { key: "personas", label: "用户画像", icon: Users, route: "/admin/personas", description: "AI 生成的用户画像" },
       { key: "respondents", label: "受访者", icon: Users, route: "/admin/respondents", description: "受访者信息" },
+    ],
+  },
+  {
+    title: "文件管理",
+    tables: [
+      { key: "source_files", label: "按文件管理", icon: FileText, route: "/admin/files", description: "按来源文件浏览和筛选数据" },
     ],
   },
   {
@@ -133,28 +140,26 @@ export function AdminDashboard() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-(--color-content-primary)">数据管理</h1>
-        <p className="text-sm text-(--color-content-secondary) mt-1">
-          管理画像、用户原声、KOL 分身及所有对话记录
-        </p>
-      </div>
-
-      {/* 快速操作 */}
-      <div className="flex gap-3">
-        <Link to="/admin/import">
-          <Button size="sm" className="gap-1.5">
-            <Upload className="h-4 w-4" />
-            导入数据
-          </Button>
-        </Link>
-        <Link to="/admin/audit-log">
-          <Button variant="outline" size="sm" className="gap-1.5">
-            <Clock className="h-4 w-4" />
-            审计日志
-          </Button>
-        </Link>
-      </div>
+      <PageHeader
+        title="数据管理"
+        description="管理画像、用户原声、KOL 分身及所有对话记录"
+        actions={
+          <>
+            <Link to="/admin/import">
+              <Button size="sm" className="gap-1.5">
+                <Upload className="h-4 w-4" />
+                导入数据
+              </Button>
+            </Link>
+            <Link to="/admin/audit-log">
+              <Button variant="outline" size="sm" className="gap-1.5">
+                <Clock className="h-4 w-4" />
+                审计日志
+              </Button>
+            </Link>
+          </>
+        }
+      />
 
       {/* 分组统计卡片 */}
       {TABLE_GROUPS.map((group) => (
@@ -174,7 +179,9 @@ export function AdminDashboard() {
                   </CardHeader>
                   <CardContent>
                     <p className="text-2xl font-bold text-(--color-content-primary)">
-                      {(stats?.tables[key] ?? 0).toLocaleString()}
+                      {key === "source_files"
+                        ? (stats?.sourceDistribution?.length ?? 0).toLocaleString()
+                        : (stats?.tables[key] ?? 0).toLocaleString()}
                     </p>
                     <p className="text-xs text-(--color-content-tertiary) mt-1 group-hover:text-(--color-content-secondary) transition-colors">
                       {description}
@@ -246,11 +253,12 @@ export function AdminDashboard() {
             <CardTitle className="text-base">source_segments 来源分布（Top 20）</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-2 max-h-80 overflow-y-auto">
+            <div className="space-y-2">
               {stats.sourceDistribution.map((item) => (
-                <div
+                <Link
                   key={item.sourceFile}
-                  className="flex items-center justify-between text-sm"
+                  to={`/admin/files/${encodeURIComponent(item.sourceFile)}`}
+                  className="flex items-center justify-between text-sm hover:bg-neutral-50 rounded px-2 py-1 -mx-2 transition-colors"
                 >
                   <span className="text-(--color-content-secondary) truncate max-w-[80%]" title={item.sourceFile}>
                     {item.sourceFile}
@@ -258,7 +266,7 @@ export function AdminDashboard() {
                   <span className="font-mono text-(--color-content-primary) font-medium">
                     {item.count.toLocaleString()}
                   </span>
-                </div>
+                </Link>
               ))}
             </div>
           </CardContent>

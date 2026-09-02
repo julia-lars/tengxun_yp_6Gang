@@ -394,6 +394,28 @@ export const auditLog = pgTable(
 export type ImportJobRow = typeof importJobs.$inferSelect;
 export type AuditLogRow = typeof auditLog.$inferSelect;
 
+// -------------------- evidence_feedback（证据反馈）--------------------
+
+export const evidenceFeedback = pgTable(
+  "evidence_feedback",
+  {
+    id: serial("id").primaryKey(),
+    evidenceId: integer("evidence_id").notNull(),
+    rating: text("rating").notNull(), // "helpful" | "not_helpful"
+    chatSessionId: integer("chat_session_id"),
+    messageIndex: integer("message_index"),
+    queryText: text("query_text"),
+    personaId: integer("persona_id"),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => ({
+    evidenceIdx: index("ef_evidence_id_idx").on(table.evidenceId),
+    sessionIdx: index("ef_chat_session_idx").on(table.chatSessionId),
+  }),
+);
+
+export type EvidenceFeedbackRow = typeof evidenceFeedback.$inferSelect;
+
 // -------------------- interview_outlines（访谈大纲持久化）--------------------
 
 export const interviewOutlines = pgTable(
@@ -446,6 +468,7 @@ export const batchInterviewJobs = pgTable(
     totalRounds: integer("total_rounds").default(0),
     progressByPersona: jsonb("progress_by_persona").$type<Record<string, { name: string; question: string }>>(),
     startedAt: timestamp("started_at", { withTimezone: true }),
+    completedAt: timestamp("completed_at", { withTimezone: true }),
     estimatedCompletionAt: timestamp("estimated_completion_at", { withTimezone: true }),
     error: text("error"),
     config: jsonb("config").$type<BatchInterviewConfig>(),

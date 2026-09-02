@@ -460,7 +460,7 @@ export function DataPipelinePage() {
                   <p className="text-xs font-medium text-(--color-content-secondary)">
                     已添加 {files.length} 个文件
                   </p>
-                  <div className="max-h-48 overflow-y-auto space-y-1">
+                  <div className="space-y-1">
                     {files.map((f) => (
                       <div
                         key={f.name}

@@ -9,11 +9,12 @@ interface ConfidenceIndicatorProps {
   breakdown?: {
     evidenceScore: number;
     consistencyScore: number;
-    sampleScore: number;
+    evidenceCountScore: number;
   };
   flags?: string[];
   showLabel?: boolean;
   size?: "sm" | "md";
+  evidenceCount?: number;
 }
 
 function getLevel(score: number): { label: string; color: string } {
@@ -23,7 +24,7 @@ function getLevel(score: number): { label: string; color: string } {
 }
 
 const flagLabel: Record<string, string> = {
-  low_sample: "低样本",
+  low_evidence: "证据不足",
   inferred: "基于推断",
   boundary: "边界外推",
   low_confidence: "低置信度",
@@ -35,6 +36,7 @@ export function ConfidenceIndicator({
   flags,
   showLabel = true,
   size = "sm",
+  evidenceCount,
 }: ConfidenceIndicatorProps) {
   const { label, color } = getLevel(score);
   const [expanded, setExpanded] = useState(false);
@@ -98,8 +100,15 @@ export function ConfidenceIndicator({
               <span className="font-medium text-(--color-content-primary)">{Math.round(breakdown.consistencyScore * 100)}%</span>
             </div>
             <div className="flex justify-between text-xs">
-              <span className="text-(--color-content-tertiary)">样本量</span>
-              <span className="font-medium text-(--color-content-primary)">{Math.round(breakdown.sampleScore * 100)}%</span>
+              <span className="text-(--color-content-tertiary)">证据量</span>
+              <span className="font-medium text-(--color-content-primary)">
+                {Math.round(breakdown.evidenceCountScore * 100)}%
+                {evidenceCount !== undefined && (
+                  <span className="text-(--color-content-tertiary) font-normal ml-1">
+                    ({evidenceCount} 条证据)
+                  </span>
+                )}
+              </span>
             </div>
           </div>
         </div>

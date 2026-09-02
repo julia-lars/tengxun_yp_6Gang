@@ -25,12 +25,12 @@ STAGES = [
     ("clean_segments_v2_demo.py", "clean_segments_v2_demo", "数据清洗"),
     ("label_all_v3.py", "label_all_v3", "AI 打标"),
     ("merge_labeled_by_project.py", "merge_labeled_by_project", "合并标注"),
-    ("embed_segments.py", "embed_segments", "向量嵌入"),
+    ("embed_segments.py", "embed_segments", "Segment 向量嵌入"),
     ("generate_profiles.py", "generate_profiles", "生成画像"),
+    ("embed_profiles_v2.py", "embed_profiles_v2", "Profile 向量嵌入"),
     ("import_source_segments.py", "import_source_segments", "导入数据库"),
     ("classify_respondents.py", "classify_respondents", "受访者分类"),
     ("cluster_personas.py", "cluster_personas", "聚类分析"),
-    ("embed_server.py", "embed_server", "嵌入服务"),
 ]
 
 # 数据目录

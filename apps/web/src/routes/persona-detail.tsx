@@ -90,8 +90,8 @@ export function PersonaDetailPage() {
             {Object.entries(tagSpec).map(([dim, val]) => {
               const vals = Array.isArray(val) ? val : [val];
               return vals.map((v) => (
-                <Badge key={`${dim}-${v}`} variant="outline" className="bg-white">
-                  {dim}: {v}
+                <Badge key={`${dim}-${v}`} className="bg-(--color-brand-50) text-(--color-brand-700) border-(--color-brand-200) text-xs font-normal">
+                  {v}
                 </Badge>
               ));
             })}

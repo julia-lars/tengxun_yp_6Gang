@@ -4,7 +4,7 @@
 // --------------------------------------------------------------
 
 import type { InterviewOutline, OutlineJobStatus } from "@app/shared";
-import { outlineGenerateRequestSchema } from "@app/shared";
+import { outlineGenerateRequestSchema, refineQuestionRequestSchema } from "@app/shared";
 import { zValidator } from "@hono/zod-validator";
 import { desc, eq, inArray } from "drizzle-orm";
 import { Hono } from "hono";
@@ -198,6 +198,7 @@ async function executeOutlineGeneration(
 
   // 获取目标画像信息
   let personaContext = "";
+  const personaNames: string[] = [];
   if (req.targetPersonaIds && req.targetPersonaIds.length > 0) {
     const personaRows = await db
       .select({ id: personas.id, name: personas.name, description: personas.description })
@@ -208,12 +209,17 @@ async function executeOutlineGeneration(
       personaContext = personaRows
         .map((p) => `- ${p.name}: ${p.description ?? "暂无描述"}`)
         .join("\n");
+      personaNames.push(...personaRows.map((p) => p.name));
     }
   }
 
   if (req.targetPersonaNames && req.targetPersonaNames.length > 0) {
     personaContext +=
       "\n" + req.targetPersonaNames.map((n) => `- ${n}`).join("\n");
+    // 合并前端传入的名称（去重）
+    for (const n of req.targetPersonaNames) {
+      if (!personaNames.includes(n)) personaNames.push(n);
+    }
   }
 
     // 构建生成 Prompt
@@ -279,10 +285,24 @@ async function executeOutlineGeneration(
       return;
     }
 
-    const response = await chat(messages, {
-      temperature: 0.7,
-      maxTokens: 4096,
-    });
+    // 更新进度到 30%，表示开始调用 LLM
+    await updateJob({ progress: 30 });
+
+    // 带超时的 LLM 调用（120 秒）
+    const LLM_TIMEOUT_MS = 120_000;
+    const response = await Promise.race([
+      chat(messages, {
+        temperature: 0.7,
+        maxTokens: 4096,
+      }),
+      new Promise<string>((_, reject) =>
+        setTimeout(() => reject(new Error("LLM 调用超时")), LLM_TIMEOUT_MS),
+      ),
+    ]);
+
+    // LLM 调用完成，进度到 95%
+    await updateJob({ progress: 95 });
+
     // 提取 JSON
     const jsonMatch = response.match(/\{[\s\S]*\}/);
     if (!jsonMatch) throw new Error("无法解析大纲 JSON");
@@ -307,11 +327,8 @@ async function executeOutlineGeneration(
     section.purpose = String(section.purpose ?? "");
 
     for (const q of section.questions) {
-      if (!q.id) {
-        q.id = `q${++qIdx}`;
-      } else {
-        qIdx++;
-      }
+      qIdx++;
+      q.id = q.id || `q${qIdx}`;
       q.question = String(q.question ?? "");
       q.category = String(q.category ?? "行为");
       q.purpose = String(q.purpose ?? "");
@@ -329,6 +346,28 @@ async function executeOutlineGeneration(
     }
   }
 
+  // ---- 强制执行 questionCount ----
+  const targetCount = req.questionCount ?? 15;
+  let totalQuestions = 0;
+  for (const section of outlineData.sections) {
+    totalQuestions += section.questions.length;
+  }
+  if (totalQuestions > targetCount) {
+    // 从尾部截断多余问题，优先保留前面的章节
+    let remaining = targetCount;
+    for (const section of outlineData.sections) {
+      if (section.questions.length > remaining) {
+        section.questions = section.questions.slice(0, remaining);
+        remaining = 0;
+      } else {
+        remaining -= section.questions.length;
+      }
+      if (remaining <= 0) break;
+    }
+    // 移除空章节
+    outlineData.sections = outlineData.sections.filter((s) => s.questions.length > 0);
+  }
+
   const totalDuration = outlineData.sections.reduce(
     (sum, s) => sum + s.durationMinutes,
     0,
@@ -340,7 +379,7 @@ async function executeOutlineGeneration(
   const outline: InterviewOutline = {
     id: outlineId,
     theme: req.theme,
-    targetPersona: req.targetPersonaNames?.join("、") ?? "通用",
+    targetPersona: personaNames.length > 0 ? personaNames.join("、") : "通用",
     description: `针对「${req.theme}」的访谈大纲，共 ${outlineData.sections.length} 个章节`,
     sections: outlineData.sections,
     totalDurationMinutes: totalDuration,
@@ -417,12 +456,11 @@ interviewOutlineRoute.get("/", async (c) => {
 // ---- 优化单个问题 ----
 
 // POST /api/interview/outline/refine-question
-interviewOutlineRoute.post("/refine-question", async (c) => {
-  const body = await c.req.json<{
-    question: string;
-    theme: string;
-    personaContext?: string;
-  }>();
+interviewOutlineRoute.post(
+  "/refine-question",
+  zValidator("json", refineQuestionRequestSchema),
+  async (c) => {
+    const body = c.req.valid("json");
 
   const systemPrompt = [
     "你是一位资深用户研究专家。请优化以下访谈问题，使其更加精准、有效。",

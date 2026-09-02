@@ -13,6 +13,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { PageHeader } from "@/components/shared/page-header";
 import { api, type AuditLogEntry } from "../lib/api.js";
 
 const ACTION_ICONS: Record<string, typeof Plus> = {
@@ -123,18 +124,23 @@ export function AdminAuditLogPage() {
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       {/* 页头 */}
-      <div>
-        <button
-          type="button"
-          onClick={() => navigate(-1)}
-          className="inline-flex items-center gap-1 text-sm text-(--color-muted-foreground) hover:text-(--color-primary) transition-colors cursor-pointer"
-        >
-          <ArrowLeft className="h-3 w-3" /> 返回仪表盘
-        </button>
-        <h1 className="text-2xl font-bold text-(--color-content-primary) mt-1">操作审计日志</h1>
+      <div className="sticky top-0 z-10 -mt-6 pt-6 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 bg-neutral-50">
+        <div className="pb-2 border-b border-neutral-200">
+          <button
+            type="button"
+            onClick={() => navigate(-1)}
+            className="inline-flex items-center gap-1 text-sm text-(--color-content-secondary) hover:text-(--color-brand-500) transition-colors cursor-pointer"
+          >
+            <ArrowLeft className="h-3 w-3" /> 返回上一页
+          </button>
+        </div>
       </div>
+      <PageHeader
+        title="操作审计日志"
+        description="查看所有数据变更记录，支持按表名和操作类型筛选"
+      />
 
       {/* 筛选栏 */}
       <Card>

@@ -32,7 +32,7 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = SCRIPT_DIR.parent
 
 PROFILE_DIR = PROJECT_ROOT / "data" / "群体画像v2.0_profile"
-EMBED_DIR = PROJECT_ROOT / "data" / "embed" / "profiles"
+EMBED_DIR = PROJECT_ROOT / "data" / "embed" / "segments"
 MERGED_DIR = PROJECT_ROOT / "data" / "群体画像v2.0_merged"
 
 # 数据库连接
@@ -115,24 +115,31 @@ def load_profile_mapping():
 
 
 def classify_respondents():
-    """基于 Segment Embedding 的 M1_motivation 标注分类 respondents。"""
+    """基于 Segment Embedding 的 M1_motivation 标注分类 respondents。
+
+    embed_segments.py 输出格式：
+      data/embed/segments/segment_embeddings.json  — 所有项目的 metadata
+    """
     respondent_personas = defaultdict(Counter)  # respondent_id -> Counter(cluster_id)
     respondent_projects = {}  # respondent_id -> project_name
 
-    for proj_dir in sorted(os.listdir(EMBED_DIR)):
-        json_path = EMBED_DIR / proj_dir / "segment_embeddings.json"
-        if not json_path.exists():
-            continue
-        with open(json_path, "r", encoding="utf-8") as f:
-            data = json.load(f)
-        for u in data["units"]:
-            rid = u["respondent_id"]
-            respondent_projects[rid] = proj_dir
-            ice = u.get("iceberg", {})
-            for val in ice.get("M1_motivation", []):
-                cluster = M1_TO_PERSONA.get(val)
-                if cluster:
-                    respondent_personas[rid][cluster] += 1
+    json_path = EMBED_DIR / "segment_embeddings.json"
+    if not json_path.exists():
+        print(f"  ⚠️ Embedding 文件不存在: {json_path}")
+        return {}, {}
+
+    with open(json_path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    for u in data.get("units", []):
+        rid = u.get("respondent_id", "")
+        project = u.get("project", "")
+        if rid:
+            respondent_projects[rid] = project
+        ice = u.get("iceberg", {})
+        for val in ice.get("M1_motivation", []):
+            cluster = M1_TO_PERSONA.get(val)
+            if cluster:
+                respondent_personas[rid][cluster] += 1
 
     # 分配
     result = {}
@@ -245,18 +252,13 @@ def update_persona_ids(conn, profile_mapping, db_respondents, classification):
     # 策略 3: source_file 级别回退匹配
     if unmatched_db:
         # 收集 Segment Embedding 中每个 source_file 的 respondent 分类
-        # 从 classification 中获取每个 source_file 的 respondent 列表
-        # 需要从 embed 数据中获取 source_file -> respondent_id 映射
+        # 从 embed 数据中获取 source_file -> respondent_id 映射
         sf_to_rids = defaultdict(list)
-        for proj_dir in sorted(EMBED_DIR.iterdir()):
-            if not proj_dir.is_dir():
-                continue
-            json_path = proj_dir / "segment_embeddings.json"
-            if not json_path.exists():
-                continue
+        json_path = EMBED_DIR / "segment_embeddings.json"
+        if json_path.exists():
             with open(json_path, "r", encoding="utf-8") as f:
                 data = json.load(f)
-            for u in data["units"]:
+            for u in data.get("units", []):
                 sf = u.get("source_file", "")
                 rid = u.get("respondent_id", "")
                 if sf and rid:

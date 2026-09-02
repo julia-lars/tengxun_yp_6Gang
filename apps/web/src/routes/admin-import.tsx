@@ -6,10 +6,11 @@ import {
   Upload,
   XCircle,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { PageHeader } from "@/components/shared/page-header";
 import { api, type DryRunResult, type ImportJob } from "../lib/api.js";
 
 const TARGET_TABLES = [
@@ -119,20 +120,21 @@ export function AdminImportPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <button
-          type="button"
-          onClick={() => navigate(-1)}
-          className="inline-flex items-center gap-1 text-sm text-(--color-muted-foreground) hover:text-(--color-primary) transition-colors cursor-pointer"
-        >
-          <ArrowLeft className="h-3 w-3" />
-          返回仪表盘
-        </button>
-        <h1 className="text-2xl font-bold text-(--color-content-primary) mt-1">数据导入</h1>
-        <p className="text-sm text-(--color-content-secondary) mt-1">
-          上传 JSON/JSONL 文件导入数据库，或从 data/ 目录批量导入
-        </p>
+      <div className="sticky top-0 z-10 -mt-6 pt-6 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 bg-neutral-50">
+        <div className="pb-2 border-b border-neutral-200">
+          <button
+            type="button"
+            onClick={() => navigate(-1)}
+            className="inline-flex items-center gap-1 text-sm text-(--color-content-secondary) hover:text-(--color-brand-500) transition-colors cursor-pointer"
+          >
+            <ArrowLeft className="h-3 w-3" /> 返回上一页
+          </button>
+        </div>
       </div>
+      <PageHeader
+        title="数据导入"
+        description="上传 JSON/JSONL 文件导入数据库，或从 data/ 目录批量导入"
+      />
 
       {/* ========== 方式一：上传文件导入 ========== */}
       <Card>
@@ -413,29 +415,14 @@ export function AdminImportPage() {
 /** 导入历史组件 */
 function ImportHistory() {
   const [jobs, setJobs] = useState<ImportJob[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [expanded, setExpanded] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  const loadJobs = async () => {
-    setLoading(true);
-    try {
-      const res = await api.listImportJobs(20);
-      setJobs(res.data);
-      setExpanded(true);
-    } catch {
-      // ignore
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  if (!expanded) {
-    return (
-      <Button variant="outline" size="sm" onClick={loadJobs} disabled={loading} className="w-full">
-        {loading ? "加载中..." : "查看导入历史"}
-      </Button>
-    );
-  }
+  useEffect(() => {
+    api.listImportJobs(20)
+      .then((res) => setJobs(res.data))
+      .catch(() => { /* ignore */ })
+      .finally(() => setLoading(false));
+  }, []);
 
   return (
     <Card>
@@ -443,10 +430,14 @@ function ImportHistory() {
         <CardTitle className="text-base">导入历史</CardTitle>
       </CardHeader>
       <CardContent>
-        {jobs.length === 0 ? (
+        {loading ? (
+          <div className="flex items-center justify-center py-4">
+            <div className="animate-spin h-5 w-5 border-2 border-neutral-300 border-t-neutral-600 rounded-full" />
+          </div>
+        ) : jobs.length === 0 ? (
           <p className="text-sm text-(--color-content-tertiary)">暂无导入记录</p>
         ) : (
-          <div className="space-y-2 max-h-60 overflow-y-auto">
+          <div className="space-y-2">
             {jobs.map((job) => (
               <div
                 key={job.id}

@@ -1,88 +1,84 @@
 // --------------------------------------------------------------
-// Hard OUT Rules — 硬边界规则引擎
-// V0.2 Boundary Engine Layer 4
-// 纯规则引擎，不依赖 LLM，所有规则在 5ms 内完成
+// Game Relevance Rules — 游戏相关性规则引擎
+// V0.3 Boundary Engine Layer 4
+// 纯规则引擎，判断问题是否属于射击游戏领域
+// 职责：GAME RELEVANCE ONLY — 不判断证据充分性
 // --------------------------------------------------------------
 
-import type { CanonicalQuery } from "./normalization.js";
+import type { CanonicalQuery, DomainType } from "./normalization.js";
+import { hasShootingGameReference } from "./normalization.js";
 
 // ---- 规则接口 ----
 
-export interface HardRule {
+export interface GameRelevanceRule {
   id: string;
-  type: "deny" | "allow";
+  type: "allow" | "deny" | "context_allow";
   description: string;
-  condition: (canonical: CanonicalQuery, rawQuery: string) => boolean;
-  priority: number; // 越小越优先
+  condition: (canonical: CanonicalQuery, rawQuery: string, context?: string) => boolean;
+  priority: number;
 }
 
-export interface HardRuleResult {
-  decision: "OUT" | "IN" | "PASS";
+export interface GameRelevanceResult {
+  decision: "IN" | "OUT" | "AMBIGUOUS";
   rule_id: string | null;
   reason: string | null;
 }
 
-// ---- 规则定义 ----
+// ============================================================================
+// 规则定义
+// ============================================================================
 
 /**
- * 拒绝规则（Hard OUT）— 可以激进。
- * 优先级 1-10：领域外规则。
+ * 明确 IN 规则（射击游戏相关）
  */
-const DENY_RULES: HardRule[] = [
-  // R1: 领域外 — 明确不属于射击游戏领域
+const ALLOW_RULES: GameRelevanceRule[] = [
   {
-    id: "R1_DOMAIN_OUT",
-    type: "deny",
-    description: "领域不属于射击游戏",
-    condition: (canonical) => canonical.domain === "other",
+    id: "GR1_SHOOTING_DOMAIN",
+    type: "allow",
+    description: "标准化识别为射击游戏领域",
+    condition: (canonical) => canonical.domain === "shooting_game",
     priority: 1,
   },
-
-  // R2: 非射击游戏关键词
   {
-    id: "R2_NON_SHOOTING_KEYWORD",
-    type: "deny",
-    description: "包含明确非射击游戏关键词",
-    condition: (_canonical, rawQuery) => {
-      const nonShootingKeywords = [
-        "王者荣耀", "原神", "英雄联盟", "lol", "dota", "dota2",
-        "股票", "天气", "写代码", "翻译", "总结", "聊天",
-        "崩坏", "星穹铁道", "明日方舟", "阴阳师", "碧蓝航线",
-        "魔兽世界", "wow", "ff14", "最终幻想14", "剑网三", "逆水寒",
-        "我的世界", "minecraft", "roblox", "among us", "鹅鸭杀",
-        "poker", "德州", "麻将", "围棋", "象棋",
-        "做饭", "菜谱", "烹饪", "旅游", "景点", "酒店",
-        "音乐", "歌手", "歌曲", "电影", "电视剧", "综艺",
-        "新闻", "政治", "选举", "经济", "房价",
-      ];
-      const q = rawQuery.toLowerCase();
-      return nonShootingKeywords.some((kw) => q.includes(kw.toLowerCase()));
-    },
+    id: "GR2_SHOOTING_REF_WITH_OTHER_GAME",
+    type: "allow",
+    description: "包含射击游戏引用（即使也提到其他游戏）",
+    condition: (_canonical, rawQuery) => hasShootingGameReference(rawQuery),
     priority: 2,
   },
-
-  // R3: 非游戏领域意图
   {
-    id: "R3_NON_GAME_INTENT",
-    type: "deny",
-    description: "包含非游戏领域意图",
+    id: "GR7_GREETING",
+    type: "allow",
+    description: "纯社交问候语（你好/早/晚安等），作为对话入口放行",
     condition: (_canonical, rawQuery) => {
-      const nonGameIntents = [
-        "写代码", "编程", "debug", "翻译成", "翻译为",
-        "总结一下", "帮我写", "帮我做", "推荐股票", "推荐基金",
-        "天气预报", "今天天气", "明天天气",
-        "帮我查", "帮我搜", "搜索一下",
-        "你是谁", "你能做什么", "你的功能",
-      ];
-      const q = rawQuery.toLowerCase();
-      return nonGameIntents.some((kw) => q.includes(kw.toLowerCase()));
+      const greetingPattern = /^[\s'"‘"]*(?:你好|早\s*安|早$|早上好|晚上好|晚安|嗨|哈喽|hello|hi)[\s,，!.！'"‘"]*$/i;
+      return greetingPattern.test(rawQuery.trim());
     },
     priority: 3,
   },
+];
 
-  // R4: 攻击性/不当内容
+/**
+ * 明确 OUT 规则（非游戏领域）
+ */
+const DENY_RULES: GameRelevanceRule[] = [
   {
-    id: "R4_INAPPROPRIATE",
+    id: "GR3_NON_GAME_DOMAIN",
+    type: "deny",
+    description: "明确非游戏领域（天气/股票/编程/烹饪等）",
+    condition: (canonical) => canonical.domain === "non_game",
+    priority: 10,
+  },
+  {
+    id: "GR4_OTHER_GAME",
+    type: "deny",
+    description: "其他游戏领域（非射击游戏）且无射击游戏引用",
+    condition: (canonical, rawQuery) =>
+      canonical.domain === "other_game" && !hasShootingGameReference(rawQuery),
+    priority: 11,
+  },
+  {
+    id: "GR5_INAPPROPRIATE",
     type: "deny",
     description: "包含攻击性或不当内容",
     condition: (_canonical, rawQuery) => {
@@ -91,47 +87,52 @@ const DENY_RULES: HardRule[] = [
       ];
       return inappropriatePatterns.some((p) => p.test(rawQuery));
     },
-    priority: 4,
+    priority: 20,
   },
 ];
 
 /**
- * 允许规则（Hard IN）— 必须极其保守。
- * 优先级 90-100：仅允许可证明的确定性命中。
+ * 上下文相关的 IN 规则
+ * 当问题本身模糊（ambiguous），但上下文是射击游戏时，判定为 IN
  */
-const ALLOW_RULES: HardRule[] = [
-  // P1: Canonical Cache 命中已在 Cache 层处理，此处不重复
-  // P2: 预定义 FAQ 精确匹配（V0.2 暂不启用，保留接口）
+const CONTEXT_ALLOW_RULES: GameRelevanceRule[] = [
+  {
+    id: "GR6_GAME_CONTEXT",
+    type: "context_allow",
+    description: "问题模糊但上下文为射击游戏语境",
+    condition: (canonical, _rawQuery, context) => {
+      if (canonical.domain !== "ambiguous") return false;
+      if (!context) return false;
+      return hasShootingGameReference(context);
+    },
+    priority: 5,
+  },
 ];
 
 // ---- 规则引擎 ----
 
 /**
- * 执行 Hard Rules 判定。
- * 拒绝规则优先级 > 允许规则。
- * 任一拒绝规则触发 → OUT。
- * 所有规则通过 → PASS。
+ * 执行游戏相关性判定。
+ *
+ * 判定逻辑：
+ * 1. 任一 IN 规则触发 → IN
+ * 2. 任一 OUT 规则触发 → OUT
+ * 3. 上下文 IN 规则触发 → IN
+ * 4. 默认 → AMBIGUOUS
+ *
+ * @param canonical 标准化结果
+ * @param rawQuery 原始用户问题
+ * @param context 可选的上下文（如当前对话主题）
  */
-export function applyHardRules(
+export function applyGameRelevanceRules(
   canonical: CanonicalQuery,
   rawQuery: string,
-): HardRuleResult {
-  // 先检查拒绝规则（按优先级排序）
-  const sortedDenyRules = [...DENY_RULES].sort((a, b) => a.priority - b.priority);
-
-  for (const rule of sortedDenyRules) {
-    if (rule.condition(canonical, rawQuery)) {
-      return {
-        decision: "OUT",
-        rule_id: rule.id,
-        reason: rule.description,
-      };
-    }
-  }
-
-  // 再检查允许规则
-  for (const rule of ALLOW_RULES) {
-    if (rule.condition(canonical, rawQuery)) {
+  context?: string,
+): GameRelevanceResult {
+  // 1. 先检查 IN 规则（最优先）
+  const sortedAllow = [...ALLOW_RULES].sort((a, b) => a.priority - b.priority);
+  for (const rule of sortedAllow) {
+    if (rule.condition(canonical, rawQuery, context)) {
       return {
         decision: "IN",
         rule_id: rule.id,
@@ -140,40 +141,67 @@ export function applyHardRules(
     }
   }
 
+  // 2. 检查 OUT 规则
+  const sortedDeny = [...DENY_RULES].sort((a, b) => a.priority - b.priority);
+  for (const rule of sortedDeny) {
+    if (rule.condition(canonical, rawQuery, context)) {
+      return {
+        decision: "OUT",
+        rule_id: rule.id,
+        reason: rule.description,
+      };
+    }
+  }
+
+  // 3. 检查上下文 IN 规则
+  const sortedContext = [...CONTEXT_ALLOW_RULES].sort((a, b) => a.priority - b.priority);
+  for (const rule of sortedContext) {
+    if (rule.condition(canonical, rawQuery, context)) {
+      return {
+        decision: "IN",
+        rule_id: rule.id,
+        reason: rule.description,
+      };
+    }
+  }
+
+  // 4. 默认 AMBIGUOUS
+  return {
+    decision: "AMBIGUOUS",
+    rule_id: null,
+    reason: "无法确定是否与射击游戏相关，需要更多上下文",
+  };
+}
+
+// ---- 向后兼容 ----
+
+/**
+ * @deprecated 使用 applyGameRelevanceRules 替代。
+ * 保留此函数以保持向后兼容。
+ */
+export function applyHardRules(
+  canonical: CanonicalQuery,
+  rawQuery: string,
+): { decision: "OUT" | "IN" | "PASS"; rule_id: string | null; reason: string | null } {
+  const result = applyGameRelevanceRules(canonical, rawQuery);
+
+  if (result.decision === "OUT") {
+    return { decision: "OUT", rule_id: result.rule_id, reason: result.reason };
+  }
+  if (result.decision === "IN") {
+    return { decision: "IN", rule_id: result.rule_id, reason: result.reason };
+  }
+  // AMBIGUOUS → PASS（让下游处理）
   return { decision: "PASS", rule_id: null, reason: null };
 }
 
-/**
- * 获取所有已注册的拒绝规则（用于调试和监控）。
- */
-export function getDenyRules(): HardRule[] {
-  return [...DENY_RULES];
+// ---- 调试工具 ----
+
+export function getGameRelevanceRules(): GameRelevanceRule[] {
+  return [...ALLOW_RULES, ...DENY_RULES, ...CONTEXT_ALLOW_RULES];
 }
 
-/**
- * 获取所有已注册的允许规则（用于调试和监控）。
- */
-export function getAllowRules(): HardRule[] {
-  return [...ALLOW_RULES];
-}
-
-/**
- * 注册新的拒绝规则（热更新）。
- */
-export function registerDenyRule(rule: HardRule): void {
-  // 避免重复注册
-  const existing = DENY_RULES.findIndex((r) => r.id === rule.id);
-  if (existing >= 0) {
-    DENY_RULES[existing] = rule;
-  } else {
-    DENY_RULES.push(rule);
-  }
-}
-
-/**
- * 注册新的允许规则（热更新）。
- */
-export function registerAllowRule(rule: HardRule): void {
+export function registerAllowRule(rule: GameRelevanceRule): void {
   const existing = ALLOW_RULES.findIndex((r) => r.id === rule.id);
   if (existing >= 0) {
     ALLOW_RULES[existing] = rule;
@@ -182,9 +210,15 @@ export function registerAllowRule(rule: HardRule): void {
   }
 }
 
-/**
- * 移除拒绝规则。
- */
+export function registerDenyRule(rule: GameRelevanceRule): void {
+  const existing = DENY_RULES.findIndex((r) => r.id === rule.id);
+  if (existing >= 0) {
+    DENY_RULES[existing] = rule;
+  } else {
+    DENY_RULES.push(rule);
+  }
+}
+
 export function removeDenyRule(ruleId: string): boolean {
   const idx = DENY_RULES.findIndex((r) => r.id === ruleId);
   if (idx >= 0) {
@@ -193,3 +227,7 @@ export function removeDenyRule(ruleId: string): boolean {
   }
   return false;
 }
+
+// 保留旧的导出名称以保持向后兼容
+export { getGameRelevanceRules as getDenyRules };
+export { getGameRelevanceRules as getAllowRules };

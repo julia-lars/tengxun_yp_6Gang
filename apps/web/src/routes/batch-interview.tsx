@@ -132,23 +132,6 @@ export function BatchInterviewPage() {
     });
   }, []); // 仅在挂载时执行一次
 
-  // 旧：页面加载时，如果 URL 中有 jobId，自动恢复轮询（保留作为 fallback）
-  useEffect(() => {
-    const savedJobId = searchParams.get("jobId");
-    if (!savedJobId || running) return;
-
-    // 检查作业是否还存在
-    api.getBatchInterviewStatus(savedJobId).then((s) => {
-      setStatus(s);
-      setRunning(s.status === "pending" || s.status === "running");
-      if (s.status === "completed") {
-        api.getBatchInterviewReport(savedJobId).then(setReport).catch(() => {});
-      }
-    }).catch(() => {
-      setSearchParams({}, { replace: true });
-    });
-  }, []); // 仅在挂载时执行一次
-
   // 加载画像
   useEffect(() => {
     api.listPersonas().then(setPersonas).catch(console.error);
@@ -231,17 +214,17 @@ export function BatchInterviewPage() {
     try {
       await api.cancelBatchInterview(jobId);
       toast.success("批量访谈已取消");
+      if (pollRef.current) clearInterval(pollRef.current);
+      setRunning(false);
+      setJobId(null);
+      setSearchParams((prev) => {
+        const next = new URLSearchParams(prev);
+        next.delete("jobId");
+        return next;
+      });
     } catch (e) {
       toast.error(`取消失败: ${String(e)}`);
     }
-    if (pollRef.current) clearInterval(pollRef.current);
-    setRunning(false);
-    setJobId(null);
-    setSearchParams((prev) => {
-      const next = new URLSearchParams(prev);
-      next.delete("jobId");
-      return next;
-    });
   }, [jobId, setSearchParams]);
 
   // 全选/取消全选
@@ -498,36 +481,32 @@ export function BatchInterviewPage() {
                 </p>
               </div>
 
-              {/* 启动按钮 */}
-              <Button
-                className="w-full"
-                onClick={handleStart}
-                disabled={
-                  running || selectedPersonas.length === 0
-                }
-              >
-                {running ? (
-                  <div className="space-y-2">
-                    <Button className="w-full" disabled>
-                      <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                      {formatRemainingTime(estimatedRemainingMs)}
-                    </Button>
-                    <Button
-                      className="w-full"
-                      variant="outline"
-                      onClick={cancelBatch}
-                    >
-                      <XCircle className="h-4 w-4 mr-2 text-red-500" />
-                      取消访谈
-                    </Button>
-                  </div>
-                ) : (
-                  <>
-                    <Play className="h-4 w-4 mr-2" />
-                    开始批量访谈
-                  </>
-                )}
-              </Button>
+              {/* 启动/取消按钮 */}
+              {running ? (
+                <div className="space-y-2">
+                  <Button className="w-full" disabled>
+                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                    {formatRemainingTime(estimatedRemainingMs)}
+                  </Button>
+                  <Button
+                    className="w-full"
+                    variant="outline"
+                    onClick={cancelBatch}
+                  >
+                    <XCircle className="h-4 w-4 mr-2 text-red-500" />
+                    取消访谈
+                  </Button>
+                </div>
+              ) : (
+                <Button
+                  className="w-full"
+                  onClick={handleStart}
+                  disabled={selectedPersonas.length === 0}
+                >
+                  <Play className="h-4 w-4 mr-2" />
+                  开始批量访谈
+                </Button>
+              )}
             </CardContent>
           </Card>
         </div>

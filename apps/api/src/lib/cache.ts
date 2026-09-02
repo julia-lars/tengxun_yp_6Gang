@@ -9,27 +9,11 @@ import { computeAnswerabilitySignature, signatureToString } from "./normalizatio
 // ---- 缓存条目类型 ----
 
 export interface BoundaryResult {
-  final: "IN" | "OUT";
-  method: "exact_cache" | "canonical_cache" | "hard_rule" | "embedding_clear_out" | "matrix_out" | "llm_judge";
-  // 四维度判定
-  B1_domain: "IN" | "OUT";
-  B2_topic_coverage: "IN" | "OUT";
-  B3_question_type_capability: "IN" | "OUT";
-  B4_evidence_sufficiency: "IN" | "OUT";
-  // Embedding 信息
-  embedding?: {
-    top_region: string;
-    region_score: number;
-    candidate_zone: "CLEAR_OUT" | "CANDIDATE";
-    hn_proximity_warning: boolean;
-  };
-  // Matrix 信息
-  coverage_check?: {
-    matched_region: string;
-    matched_intent: string;
-    matrix_result: "MATRIX_IN" | "MATRIX_OUT" | "MATRIX_TBD";
-  };
-  // 版本信息
+  final: "IN" | "OUT" | "AMBIGUOUS";
+  method: "exact_cache" | "canonical_cache" | "game_relevance_rule" | "llm_ambiguity_judge";
+  /** 游戏相关性判定 */
+  B1_domain: "IN" | "OUT" | "AMBIGUOUS";
+  /** 版本信息 */
   boundary_version: string;
   threshold_version: string;
   knowledge_space_version: string;
@@ -86,9 +70,9 @@ const cacheStats = {
 
 // ---- 缓存版本配置 ----
 
-const BOUNDARY_VERSION = "v0.2";
-const THRESHOLD_VERSION = "v0.2-initial";
-const KNOWLEDGE_SPACE_VERSION = "v0.2";
+const BOUNDARY_VERSION = "v0.3";
+const THRESHOLD_VERSION = "v0.3-initial";
+const KNOWLEDGE_SPACE_VERSION = "v0.3";
 
 // ---- Layer 1: Exact Query Cache ----
 

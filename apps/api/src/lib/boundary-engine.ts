@@ -1,15 +1,16 @@
 // --------------------------------------------------------------
-// Boundary Engine — 编排器（Orchestrator）
-// V0.2 统一边界检测入口
+// Boundary Engine — 游戏相关性边界检测（V0.3）
+//
+// 职责：判断用户问题是否与射击游戏领域相关
+// 不负责：证据充分性、回答置信度、数据库覆盖度
 //
 // 判定流程:
 //   1. Exact Query Cache → HIT → 返回缓存
 //   2. Deterministic Normalization
-//   3. Canonical Cache → HIT (签名校验) → 返回缓存
-//   4. Hard OUT Rules → OUT → 拒答
-//   5. Semantic Candidate Coverage → CLEAR OUT → 拒答
-//   6. Knowledge Coverage Check → MATRIX OUT → 拒答
-//   7. LLM Evidence Judge → 最终 IN/OUT
+//   3. Canonical Cache → HIT → 返回缓存
+//   4. Game Relevance Rules → IN / OUT / AMBIGUOUS
+//
+// 原则: "相关性决定是否进入，证据决定能否可靠回答"
 // --------------------------------------------------------------
 
 import { normalizeQuery, type CanonicalQuery } from "./normalization.js";
@@ -22,37 +23,36 @@ import {
   makeVersionInfo,
   type BoundaryResult,
 } from "./cache.js";
-import { applyHardRules } from "./hard-rules.js";
-import {
-  detectCandidateCoverage,
-  type CandidateCoverageResult,
-} from "./embedding-check.js";
-import { lookupMatrix, type CoverageCheckResult } from "./coverage-check.js";
-import { runEvidenceJudge } from "./llm-judge.js";
+import { applyGameRelevanceRules } from "./hard-rules.js";
+import { runAmbiguityJudge } from "./ambiguity-judge.js";
 
 // ---- 导出类型 ----
 
 export type { BoundaryResult } from "./cache.js";
-export type { CanonicalQuery, TopicType, QuestionType } from "./normalization.js";
-export type { CandidateCoverageResult } from "./embedding-check.js";
-export type { CoverageCheckResult } from "./coverage-check.js";
+export type { CanonicalQuery, TopicType, QuestionType, DomainType } from "./normalization.js";
+export type { GameRelevanceResult } from "./hard-rules.js";
 
 // ---- 配置 ----
 
 export interface BoundaryEngineOptions {
-  /** 是否启用 LLM Evidence Judge（默认 true） */
-  enableLLMJudge?: boolean;
   /** 是否跳过缓存（用于 Benchmark 评估） */
   skipCache?: boolean;
-  /** Embedding T_low 阈值覆盖 */
-  t_low?: number;
+  /** 可选的上下文（如当前对话主题），用于消歧义模糊问题 */
+  context?: string;
+  /** 是否启用 LLM Ambiguity Judge（仅对 AMBIGUOUS 问题触发） */
+  useLLMJudge?: boolean;
 }
 
 // ---- 主入口 ----
 
 /**
- * 对用户问题执行完整的边界检测。
+ * 对用户问题执行游戏相关性边界检测。
  * 这是所有问答入口（群体画像 / KOL 分身）的统一调用点。
+ *
+ * 返回：
+ * - IN: 属于射击游戏领域，进入后续问答链
+ * - OUT: 不属于射击游戏领域，拒答
+ * - AMBIGUOUS: 无法确定，需要更多上下文（建议进入问答链，由证据链判断）
  */
 export async function checkBoundary(
   query: string,
@@ -76,149 +76,34 @@ export async function checkBoundary(
   if (!options.skipCache) {
     const canonicalHit = lookupCanonicalCache(canonical, query);
     if (canonicalHit) {
-      // 也存入 Exact Cache（加速后续完全相同的查询）
       storeExactCache(query, canonicalHit);
       return { ...canonicalHit, latency_ms: Date.now() - startTime };
     }
   }
 
-  // ---- Layer 4: Hard OUT Rules ----
-  const hardRuleResult = applyHardRules(canonical, query);
-  if (hardRuleResult.decision === "OUT") {
-    const result: BoundaryResult = {
-      final: "OUT",
-      method: "hard_rule",
-      B1_domain: "OUT",
-      B2_topic_coverage: "OUT",
-      B3_question_type_capability: "OUT",
-      B4_evidence_sufficiency: "OUT",
-      ...versionInfo,
-      timestamp: new Date().toISOString(),
-      latency_ms: Date.now() - startTime,
-    };
-    storeExactCache(query, result);
-    storeCanonicalCache(canonical, query, result);
-    return result;
-  }
-
-  // ---- Layer 5: Semantic Candidate Coverage Detection ----
-  const embeddingResult = await detectCandidateCoverage(query, {
-    t_low: options.t_low,
-  });
-
-  if (embeddingResult.candidate_zone === "CLEAR_OUT") {
-    const result: BoundaryResult = {
-      final: "OUT",
-      method: "embedding_clear_out",
-      B1_domain: "IN",
-      B2_topic_coverage: "OUT",
-      B3_question_type_capability: "OUT",
-      B4_evidence_sufficiency: "OUT",
-      embedding: {
-        top_region: embeddingResult.top_region,
-        region_score: embeddingResult.region_score,
-        candidate_zone: "CLEAR_OUT",
-        hn_proximity_warning: embeddingResult.hn_proximity_warning,
-      },
-      ...versionInfo,
-      timestamp: new Date().toISOString(),
-      latency_ms: Date.now() - startTime,
-    };
-    storeExactCache(query, result);
-    storeCanonicalCache(canonical, query, result);
-    return result;
-  }
-
-  // ---- Layer 6: Knowledge Coverage Check ----
-  const coverageResult = lookupMatrix(canonical);
-
-  if (coverageResult.matrix_result === "MATRIX_OUT") {
-    const result: BoundaryResult = {
-      final: "OUT",
-      method: "matrix_out",
-      B1_domain: "IN",
-      B2_topic_coverage: "IN",
-      B3_question_type_capability: "OUT",
-      B4_evidence_sufficiency: "OUT",
-      embedding: {
-        top_region: embeddingResult.top_region,
-        region_score: embeddingResult.region_score,
-        candidate_zone: "CANDIDATE",
-        hn_proximity_warning: embeddingResult.hn_proximity_warning,
-      },
-      coverage_check: {
-        matched_region: coverageResult.matched_region,
-        matched_intent: coverageResult.matched_intent,
-        matrix_result: "MATRIX_OUT",
-      },
-      ...versionInfo,
-      timestamp: new Date().toISOString(),
-      latency_ms: Date.now() - startTime,
-    };
-    storeExactCache(query, result);
-    storeCanonicalCache(canonical, query, result);
-    return result;
-  }
-
-  // ---- Layer 7: LLM Evidence Judge ----
-  if (options.enableLLMJudge === false) {
-    // LLM Judge 禁用时，保守返回 OUT
-    const result: BoundaryResult = {
-      final: "OUT",
-      method: "matrix_out",
-      B1_domain: "IN",
-      B2_topic_coverage: "IN",
-      B3_question_type_capability: "IN",
-      B4_evidence_sufficiency: "OUT",
-      embedding: {
-        top_region: embeddingResult.top_region,
-        region_score: embeddingResult.region_score,
-        candidate_zone: "CANDIDATE",
-        hn_proximity_warning: embeddingResult.hn_proximity_warning,
-      },
-      coverage_check: {
-        matched_region: coverageResult.matched_region,
-        matched_intent: coverageResult.matched_intent,
-        matrix_result: coverageResult.matrix_result,
-      },
-      ...versionInfo,
-      timestamp: new Date().toISOString(),
-      latency_ms: Date.now() - startTime,
-    };
-    storeExactCache(query, result);
-    storeCanonicalCache(canonical, query, result);
-    return result;
-  }
-
-  const judgeResult = await runEvidenceJudge(
-    query,
+  // ---- Layer 4: Game Relevance Rules ----
+  const relevanceResult = applyGameRelevanceRules(
     canonical,
-    coverageResult,
-    {
-      top_region: embeddingResult.top_region,
-      region_score: embeddingResult.region_score,
-      hn_proximity_warning: embeddingResult.hn_proximity_warning,
-    },
+    query,
+    options.context,
   );
 
+  // ---- Layer 5: LLM Ambiguity Judge（仅 AMBIGUOUS 且启用时触发）----
+  let finalDecision = relevanceResult.decision;
+  let method: BoundaryResult["method"] = "game_relevance_rule";
+  let ruleReason = relevanceResult.reason;
+
+  if (relevanceResult.decision === "AMBIGUOUS" && options.useLLMJudge) {
+    const judgeResult = await runAmbiguityJudge(query, options.context);
+    finalDecision = judgeResult.decision;
+    method = "llm_ambiguity_judge";
+    ruleReason = judgeResult.reason;
+  }
+
   const result: BoundaryResult = {
-    final: judgeResult.final,
-    method: "llm_judge",
-    B1_domain: judgeResult.B1_domain,
-    B2_topic_coverage: judgeResult.B2_topic_coverage,
-    B3_question_type_capability: judgeResult.B3_question_type_capability,
-    B4_evidence_sufficiency: judgeResult.B4_evidence_sufficiency,
-    embedding: {
-      top_region: embeddingResult.top_region,
-      region_score: embeddingResult.region_score,
-      candidate_zone: "CANDIDATE",
-      hn_proximity_warning: embeddingResult.hn_proximity_warning,
-    },
-    coverage_check: {
-      matched_region: coverageResult.matched_region,
-      matched_intent: coverageResult.matched_intent,
-      matrix_result: coverageResult.matrix_result,
-    },
+    final: finalDecision,
+    method,
+    B1_domain: finalDecision,
     ...versionInfo,
     timestamp: new Date().toISOString(),
     latency_ms: Date.now() - startTime,
@@ -232,49 +117,17 @@ export async function checkBoundary(
 }
 
 /**
- * 仅执行快速路径（不调用 LLM）。
- * 用于需要快速预判的场景（如前端即时反馈）。
+ * 同步版本的游戏相关性检测（仅规则检查，不涉及缓存）。
+ * 用于需要即时反馈的场景。
  */
-export async function checkBoundaryFast(
+export function checkBoundarySync(
   query: string,
   options: BoundaryEngineOptions = {},
-): Promise<{
-  quick_decision: "CLEAR_OUT" | "NEEDS_FULL_CHECK";
-  canonical: CanonicalQuery;
-  embedding?: CandidateCoverageResult;
-  coverage?: CoverageCheckResult;
-}> {
+): { final: "IN" | "OUT" | "AMBIGUOUS"; reason: string | null } {
   const canonical = normalizeQuery(query);
-
-  // Hard Rules
-  const hardRuleResult = applyHardRules(canonical, query);
-  if (hardRuleResult.decision === "OUT") {
-    return { quick_decision: "CLEAR_OUT", canonical };
-  }
-
-  // Embedding
-  const embeddingResult = await detectCandidateCoverage(query, {
-    t_low: options.t_low,
-  });
-  if (embeddingResult.candidate_zone === "CLEAR_OUT") {
-    return { quick_decision: "CLEAR_OUT", canonical, embedding: embeddingResult };
-  }
-
-  // Matrix
-  const coverageResult = lookupMatrix(canonical);
-  if (coverageResult.matrix_result === "MATRIX_OUT") {
-    return {
-      quick_decision: "CLEAR_OUT",
-      canonical,
-      embedding: embeddingResult,
-      coverage: coverageResult,
-    };
-  }
-
+  const result = applyGameRelevanceRules(canonical, query, options.context);
   return {
-    quick_decision: "NEEDS_FULL_CHECK",
-    canonical,
-    embedding: embeddingResult,
-    coverage: coverageResult,
+    final: result.decision,
+    reason: result.reason,
   };
 }

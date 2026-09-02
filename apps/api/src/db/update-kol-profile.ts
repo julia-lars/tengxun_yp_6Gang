@@ -1,53 +1,38 @@
 // --------------------------------------------------------------
-// 种子脚本：导入 KOL 数据（两个 B 站 UP 主的最新视频内容）
-// 运行: bun run apps/api/src/db/seed-kol.ts
+// 更新 KOL 画像（重新调用 LLM 提取，不重新插入语料）
+// 运行: bun run apps/api/src/db/update-kol-profile.ts
 // --------------------------------------------------------------
 
 import "dotenv/config";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
+import { eq } from "drizzle-orm";
 import { db } from "./client.js";
-import { kolProfiles, kolSegments } from "./schema.js";
+import { kolProfiles } from "./schema.js";
 import { chat } from "../lib/llm.js";
-import { embedQuery } from "../lib/embed.js";
-
-interface VideoData {
-  bvid: string;
-  aid: number;
-  title: string;
-  description: string;
-  duration: string;
-  play: number;
-  comment_count: number;
-  created: number;
-  subtitles: Array<{ lang: string; text: string; method: string }>;
-  up_replies: string[];
-}
-
-interface KolData {
-  uid: number;
-  videos: VideoData[];
-}
 
 const DATA_DIR = join(import.meta.dirname, "..", "..", "..", "..", "data", "kol");
 
-function loadKolData(filename: string): KolData {
+function loadKolData(filename: string) {
   const raw = readFileSync(join(DATA_DIR, filename), "utf-8");
-  return JSON.parse(raw) as KolData;
+  return JSON.parse(raw) as {
+    uid: number;
+    videos: Array<{
+      bvid: string;
+      title: string;
+      subtitles: Array<{ lang: string; text: string; method: string }>;
+      up_replies: string[];
+      play: number;
+    }>;
+  };
 }
 
-// 清洗套话：去除 UP 主的固定开场白、结尾求三连、关注引流等纯套路表达
-// 这些是视频格式套话，不包含对游戏的观点，保留会污染 RAG 检索和 AI 回答质量
 function cleanText(text: string): string {
   let cleaned = text;
-
-  // 开头自我介绍
   cleaned = cleaned.replace(/大家好[,，]?\s*我是.{0,30}(?=[。！？\n，,]|$)/g, "");
   cleaned = cleaned.replace(/大家好[,，]?\s*我说.{0,30}(?=[。！？\n，,]|$)/g, "");
   cleaned = cleaned.replace(/我是.{0,20}(UP主|up主|博主|游戏UP)/g, "");
-
-  // 结尾求三连 / 引导
   cleaned = cleaned.replace(/如果你喜欢这[期些个]视频.{0,60}/g, "");
   cleaned = cleaned.replace(/如果.{0,5}(喜欢|觉得).{0,5}(这期|这个)?视频.{0,60}/g, "");
   cleaned = cleaned.replace(
@@ -57,27 +42,17 @@ function cleanText(text: string): string {
   cleaned = cleaned.replace(/一键三连/g, "");
   cleaned = cleaned.replace(/还请[您你]?.{0,30}(投币|点赞|收藏|转发|订阅|三连|关注).{0,30}/g, "");
   cleaned = cleaned.replace(/带给.{0,10}(伯伯的)?关注/g, "");
-
-  // 结尾道别
   cleaned = cleaned.replace(/我们下期再见.{0,20}/g, "");
   cleaned = cleaned.replace(/下期再见.{0,10}/g, "");
   cleaned = cleaned.replace(/拜拜[~！!]*\s*$/gm, "");
-
-  // 关注/互动引导
   cleaned = cleaned.replace(/也?可以在(私信|评论区).{0,40}/g, "");
   cleaned = cleaned.replace(/[有想]?.{0,15}(私信|评论区).{0,20}(告诉我|留言)/g, "");
   cleaned = cleaned.replace(/关注[我我]们?.{0,20}/g, "");
   cleaned = cleaned.replace(/希望大家.{0,20}(点赞|投币|收藏|支持)/g, "");
-
-  // 清理多余空白
   cleaned = cleaned.replace(/\n{3,}/g, "\n\n");
   cleaned = cleaned.replace(/ {2,}/g, " ");
-  cleaned = cleaned.trim();
-
-  return cleaned;
+  return cleaned.trim();
 }
-
-// ── LLM 画像提取 ──
 
 async function extractWithLLM(
   name: string,
@@ -125,136 +100,34 @@ ${samples.slice(0, 8000)}
       [{ role: "user", content: prompt }],
       { temperature: 0.3, maxTokens: 2048 },
     );
-    // 清理可能的 Markdown 代码块标记
     content = content.replace(/^```json\s*/i, "").replace(/```\s*$/i, "").trim();
     return JSON.parse(content);
   } catch (e) {
-    console.error(`  ⚠️ LLM提取失败，使用备用统计方法: ${e}`);
-    return buildFallbackProfile(name, samples);
+    console.error(`  ⚠️ LLM提取失败: ${e}`);
+    throw e;
   }
-}
-
-// 备用方案：LLM 不可用时用统计方法
-function buildFallbackProfile(
-  name: string,
-  allText: string,
-): { personaCard: Record<string, unknown>; styleProfile: Record<string, unknown> } {
-  const sentences = allText.split(/[。！？\n]/).filter(Boolean);
-  const avgLen = Math.round(
-    sentences.reduce((s, x) => s + x.length, 0) / Math.max(sentences.length, 1),
-  );
-
-  const praiseWords = [
-    "好",
-    "不错",
-    "强",
-    "厉害",
-    "惊艳",
-    "满意",
-    "喜欢",
-    "爱",
-    "爽",
-    "帅",
-    "优秀",
-    "出色",
-  ];
-  const criticizeWords = [
-    "差",
-    "烂",
-    "不行",
-    "失望",
-    "问题",
-    "不足",
-    "缺陷",
-    "糟糕",
-    "无聊",
-    "粗糙",
-  ];
-  let praiseCount = 0,
-    criticCount = 0;
-  for (const w of praiseWords) praiseCount += (allText.match(new RegExp(w, "g")) ?? []).length;
-  for (const w of criticizeWords) criticCount += (allText.match(new RegExp(w, "g")) ?? []).length;
-
-  return {
-    personaCard: {
-      identity: `${name}，B站游戏测评UP主`,
-      contentFocus: ["游戏测评"],
-      evaluationFramework: { 玩法: "重要", 手感: "重要", 画面: "参考", 叙事: "参考" },
-      platformPreference: "未知",
-      specialty: "未知",
-      toneSummary:
-        praiseCount > criticCount * 1.5
-          ? "偏正面"
-          : criticCount > praiseCount * 1.5
-            ? "偏批判"
-            : "均衡",
-    },
-    styleProfile: {
-      tone:
-        praiseCount > criticCount * 1.5
-          ? "偏正面"
-          : criticCount > praiseCount * 1.5
-            ? "偏批判"
-            : "均衡",
-      avgSentenceLength: avgLen,
-      firstPersonStyle: allText.includes("我觉得") ? "我觉得" : "我",
-      speechHabits: "",
-      catchphrases: [],
-      signaturePatterns: [],
-      pacingStyle: "未知",
-      vocabularyStyle: "未知",
-    },
-  };
-}
-
-function chunkText(text: string, maxLen = 500): string[] {
-  const chunks: string[] = [];
-  const sentences = text.split(/(?<=[。！？\n])/);
-  let current = "";
-  for (const s of sentences) {
-    if (current.length + s.length > maxLen && current) {
-      chunks.push(current.trim());
-      current = s;
-    } else {
-      current += s;
-    }
-  }
-  if (current.trim()) chunks.push(current.trim());
-  return chunks;
 }
 
 async function main() {
-  const force = process.argv.includes("--force");
-
-  if (force) {
-    console.log("🧹 --force: 清空现有 KOL 数据...");
-    await db.delete(kolSegments);
-    await db.delete(kolProfiles);
-  }
-
   const kols = [
     { file: "鬼王陆行_all.json", name: "鬼王陆行", uid: "1628647" },
     { file: "冷面叶星星IKGN_all.json", name: "冷面叶星星IKGN", uid: "518045432" },
   ];
 
   for (const kol of kols) {
-    console.log(`\n📂 处理 ${kol.name}...`);
+    console.log(`\n📂 更新画像: ${kol.name}...`);
 
-    // 检查是否已导入
     const existing = await db.query.kolProfiles.findFirst({
       where: (k, { eq }) => eq(k.name, kol.name),
     });
-    if (existing && !force) {
-      console.log(`  ⏭️  已存在，跳过`);
+    if (!existing) {
+      console.log(`  ⏭️  KOL 不存在，跳过`);
       continue;
     }
 
     const data = loadKolData(kol.file);
     const videosWithSubtitles = data.videos.filter((v) => v.subtitles.length > 0);
 
-    console.log(`  📹 ${videosWithSubtitles.length}/${data.videos.length} 个视频含字幕`);
-
-    // 收集清洗后的样本文本（选最有代表性的：总字数最多的前 5 个视频 + 随机 3 个）
     const cleanedSamples = videosWithSubtitles
       .map((v) => ({
         title: v.title,
@@ -275,7 +148,6 @@ async function main() {
       .map((s) => `### ${s.title}\n${s.text.slice(0, 800)}`)
       .join("\n\n---\n\n");
 
-    // LLM 提取画像
     console.log(`  🤖 LLM 分析 ${llmSamples.length} 个样本文本...`);
     const { personaCard, styleProfile } = await extractWithLLM(kol.name, llmSamples);
 
@@ -283,62 +155,23 @@ async function main() {
     console.log(`  说话风格: ${styleProfile.speechHabits || "未提取"}`);
     console.log(`  语气: ${styleProfile.tone}`);
 
-    // 收集所有文本用于 sourceTexts（清洗后）
-    const allTexts = videosWithSubtitles.flatMap((v) =>
-      v.subtitles.map((s) => cleanText(s.text)).filter((t) => t.length > 20),
-    );
+    // 保留原有的 videoCount 和 totalPlayCount
+    const oldStyle = existing.styleProfile as Record<string, unknown>;
+    styleProfile.videoCount = oldStyle.videoCount;
+    styleProfile.totalPlayCount = oldStyle.totalPlayCount;
 
-    // 统计视频数据补充到 styleProfile
-    styleProfile.videoCount = videosWithSubtitles.length;
-    styleProfile.totalPlayCount = videosWithSubtitles.reduce((s, v) => s + v.play, 0);
+    await db
+      .update(kolProfiles)
+      .set({ personaCard, styleProfile })
+      .where(eq(kolProfiles.id, existing.id));
 
-    // 插入 KOL Profile
-    const [profile] = await db
-      .insert(kolProfiles)
-      .values({
-        name: kol.name,
-        bilibiliUid: kol.uid,
-        personaCard,
-        styleProfile,
-        sourceTexts: allTexts,
-      })
-      .returning();
-
-    console.log(`  ✅ KOL 画像已创建 (id=${profile!.id})`);
-
-    // 插入语料片段（清洗后的文本），同步生成 embedding
-    let segmentCount = 0;
-    for (const video of videosWithSubtitles) {
-      for (const sub of video.subtitles) {
-        const cleaned = cleanText(sub.text);
-        if (cleaned.length < 40) continue;
-        const chunks = chunkText(cleaned);
-        for (const chunk of chunks) {
-          if (chunk.length < 20) continue;
-          try {
-            const embedding = await embedQuery(chunk);
-            await db.insert(kolSegments).values({
-              kolId: profile!.id,
-              bvid: video.bvid,
-              title: video.title,
-              originalText: chunk,
-              sourceUrl: `https://www.bilibili.com/video/${video.bvid}`,
-              embedding,
-            });
-            segmentCount++;
-          } catch (e) {
-            console.error(`  ⚠️ embedding 生成失败，跳过片段: ${e}`);
-          }
-        }
-      }
-    }
-    console.log(`  📝 ${segmentCount} 个语料片段已入库`);
+    console.log(`  ✅ 画像已更新 (id=${existing.id})`);
   }
 
-  console.log("\n✅ KOL 种子数据完成");
+  console.log("\n✅ KOL 画像更新完成");
 }
 
 main().catch((e) => {
-  console.error("种子数据失败:", e);
+  console.error("更新失败:", e);
   process.exit(1);
 });

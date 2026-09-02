@@ -40,9 +40,10 @@ export interface ConfidenceResult {
   breakdown: {
     evidenceScore: number;
     consistencyScore: number;
-    sampleScore: number;
+    evidenceCountScore: number;
   };
   flags: string[];
+  evidenceCount: number;
 }
 
 export interface EvidenceMeta {
@@ -864,6 +865,7 @@ export function AgentChat({
                         score={m.confidence.score}
                         breakdown={m.confidence.breakdown}
                         flags={m.confidence.flags}
+                        evidenceCount={m.confidence.evidenceCount}
                         size="sm"
                         showLabel
                       />

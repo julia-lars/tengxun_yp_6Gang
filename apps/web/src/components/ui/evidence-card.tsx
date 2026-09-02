@@ -14,8 +14,13 @@ interface EvidenceCardProps {
   similarity?: number;
   /** 证据等级 */
   matchLevel?: "direct" | "partial" | "inferred";
+  /** LLM 判断的匹配理由（证据-回答相关性） */
+  relevanceReason?: string | null;
+  /** LLM 判断的相关性分数（0-1），独立于向量相似度 */
+  relevanceScore?: number | null;
   isActive?: boolean;
   onCopy?: () => void;
+  onClick?: (id: number) => void;
   className?: string;
 }
 
@@ -26,6 +31,7 @@ const matchLevelLabel: Record<string, string> = {
 };
 
 export function EvidenceCard({
+  id,
   sourceFile,
   originalText,
   annotation,
@@ -33,8 +39,11 @@ export function EvidenceCard({
   precedingQuestion,
   similarity,
   matchLevel,
+  relevanceReason,
+  relevanceScore,
   isActive,
   onCopy,
+  onClick,
   className,
 }: EvidenceCardProps) {
   return (
@@ -75,18 +84,39 @@ export function EvidenceCard({
         {similarity !== undefined && (
           <span>匹配 {Math.round(similarity * 100)}%</span>
         )}
+        {relevanceScore !== undefined && relevanceScore !== null && (
+          <span>相关 {Math.round(relevanceScore * 100)}%</span>
+        )}
       </div>
 
-      {/* 操作 */}
-      {onCopy && (
-        <button
-          type="button"
-          onClick={onCopy}
-          className="text-xs text-(--color-muted-foreground) hover:text-(--color-primary) flex items-center gap-1 transition-colors"
-        >
-          <Copy className="h-3 w-3" /> 复制引用
-        </button>
+      {/* 相关性理由 */}
+      {relevanceReason && (
+        <div className="text-xs text-(--color-muted-foreground) bg-(--color-muted)/20 rounded px-2 py-1 leading-relaxed">
+          <span className="font-medium">支撑理由：</span>{relevanceReason}
+        </div>
       )}
+
+      {/* 操作 */}
+      <div className="flex items-center gap-3">
+        {onCopy && (
+          <button
+            type="button"
+            onClick={onCopy}
+            className="text-xs text-(--color-muted-foreground) hover:text-(--color-primary) flex items-center gap-1 transition-colors"
+          >
+            <Copy className="h-3 w-3" /> 复制引用
+          </button>
+        )}
+        {onClick && (
+          <button
+            type="button"
+            onClick={() => onClick(id)}
+            className="text-xs text-(--color-brand-500) hover:underline"
+          >
+            定位句子
+          </button>
+        )}
+      </div>
     </div>
   );
 }

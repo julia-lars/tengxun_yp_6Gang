@@ -13,6 +13,7 @@ import { Link, useNavigate, useParams, useSearchParams } from "react-router";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { PageHeader } from "@/components/shared/page-header";
 import { BatchActionBar } from "@/components/admin/batch-action-bar.js";
 import { api, type AdminListResponse } from "../lib/api.js";
 
@@ -80,6 +81,18 @@ const TABLE_META: Record<string, {
 
 const PAGE_SIZE = 20;
 
+/** camelCase → snake_case */
+function camelToSnake(str: string): string {
+  return str.replace(/[A-Z]/g, (letter) => `_${letter.toLowerCase()}`);
+}
+
+/** 从 sourceFile 路径中提取组号 */
+function extractGroupCode(sourceFile: string): string | null {
+  const base = sourceFile.split("/").pop() || sourceFile;
+  const m = base.match(/^([A-Z]\d+)/i);
+  return m ? m[1].toUpperCase() : null;
+}
+
 export function AdminTablePage() {
   const navigate = useNavigate();
   const { table } = useParams<{ table: string }>();
@@ -96,22 +109,26 @@ export function AdminTablePage() {
   const page = Number(searchParams.get("page") ?? "1");
   const sort = searchParams.get("sort") ?? "id";
   const order = searchParams.get("order") ?? "desc";
+  const filters = searchParams.get("filters") ?? "";
 
   const fetchData = useCallback(() => {
     if (!table) return;
     setLoading(true);
     setError(null);
+    // API 的 sort 字段使用 snake_case
+    const sortParam = sort ? camelToSnake(sort) : "id";
     api.adminList<Record<string, unknown>>(table, {
       page,
       limit: PAGE_SIZE,
-      sort,
+      sort: sortParam,
       order,
       search: search || undefined,
+      filters: filters || undefined,
     })
       .then(setData)
       .catch((e) => setError(String(e)))
       .finally(() => setLoading(false));
-  }, [table, page, sort, order, search]);
+  }, [table, page, sort, order, search, filters]);
 
   useEffect(() => {
     fetchData();
@@ -128,7 +145,8 @@ export function AdminTablePage() {
 
   const handleSort = (col: string) => {
     const params = new URLSearchParams(searchParams);
-    params.set("sort", col);
+    // API 使用 snake_case 字段名排序
+    params.set("sort", camelToSnake(col));
     params.set("order", order === "asc" ? "desc" : "asc");
     params.set("page", "1");
     setSearchParams(params);
@@ -197,35 +215,46 @@ export function AdminTablePage() {
 
   const renderCellValue = (value: unknown): string => {
     if (value === null || value === undefined) return "—";
-    if (typeof value === "object") return JSON.stringify(value).slice(0, 100);
-    return String(value).slice(0, 200);
+    if (typeof value === "object") {
+      const str = JSON.stringify(value);
+      // 空对象 / 空数组显示为 —
+      if (str === "{}" || str === "[]") return "—";
+      return str.slice(0, 100);
+    }
+    const str = String(value).trim();
+    // 无意义占位值统一显示为 —
+    if (str === "" || str === "unknown" || str === "null" || str === "undefined") return "—";
+    return str.slice(0, 200);
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       {/* 页头 */}
-      <div className="flex items-center justify-between">
-        <div>
+      <div className="sticky top-0 z-10 -mt-6 pt-6 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 bg-neutral-50">
+        <div className="pb-2 border-b border-neutral-200">
           <button
             type="button"
             onClick={() => navigate(-1)}
-            className="inline-flex items-center gap-1 text-sm text-(--color-muted-foreground) hover:text-(--color-primary) transition-colors cursor-pointer"
+            className="inline-flex items-center gap-1 text-sm text-(--color-content-secondary) hover:text-(--color-brand-500) transition-colors cursor-pointer"
           >
-            <ArrowLeft className="h-3 w-3" /> 返回仪表盘
+            <ArrowLeft className="h-3 w-3" /> 返回上一页
           </button>
-          <h1 className="text-2xl font-bold text-(--color-content-primary) mt-1">
-            {meta.label}
-          </h1>
         </div>
-        {meta.creatable && (
-          <Link to={`/admin/${table}/new`}>
-            <Button size="sm" className="gap-1.5">
-              <Plus className="h-4 w-4" />
-              新增
-            </Button>
-          </Link>
-        )}
       </div>
+      <PageHeader
+        title={meta.label}
+        description={`管理 ${meta.label} 数据，支持搜索、排序、新增、编辑和删除操作`}
+        actions={
+          meta.creatable ? (
+            <Link to={`/admin/${table}/new`}>
+              <Button size="sm" className="gap-1.5">
+                <Plus className="h-4 w-4" />
+                新增
+              </Button>
+            </Link>
+          ) : undefined
+        }
+      />
 
       {/* 搜索 */}
       <div className="relative">
@@ -324,15 +353,27 @@ export function AdminTablePage() {
                           onChange={() => toggleSelect(row.id as number)}
                         />
                       </td>
-                      {meta.columns.map((col) => (
-                        <td
-                          key={col}
-                          className="px-3 py-2 text-(--color-content-primary) max-w-xs truncate"
-                          title={renderCellValue(row[col])}
-                        >
-                          {renderCellValue(row[col])}
-                        </td>
-                      ))}
+                      {meta.columns.map((col) => {
+                        // API 返回 snake_case 字段，前端列名使用 camelCase，需要做映射
+                        let val = row[camelToSnake(col)] ?? row[col];
+                        // groupCode 为 unknown 时，尝试从 sourceFile 推断真实组号
+                        if (col === "groupCode" && val === "unknown") {
+                          const sourceFile = row[camelToSnake("sourceFile")] ?? row["sourceFile"];
+                          if (typeof sourceFile === "string") {
+                            const inferred = extractGroupCode(sourceFile);
+                            if (inferred) val = inferred;
+                          }
+                        }
+                        return (
+                          <td
+                            key={col}
+                            className="px-3 py-2 text-(--color-content-primary) max-w-xs truncate"
+                            title={renderCellValue(val)}
+                          >
+                            {renderCellValue(val)}
+                          </td>
+                        );
+                      })}
                       <td className="px-3 py-2 text-right whitespace-nowrap">
                         <div className="flex items-center justify-end gap-1">
                           {meta.editable ? (
