@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ConfidenceIndicator } from "@/components/ui/confidence-indicator";
 import { IcebergChain } from "@/components/ui/iceberg-chain";
 import { api } from "../lib/api.js";
+import { computePersonaConfidence } from "../lib/utils.js";
 import { toast } from "sonner";
 
 export function PersonaDetailPage() {
@@ -101,7 +102,15 @@ export function PersonaDetailPage() {
             <span>·</span>
             <span>聚类 {persona.clusterId ?? "未知"}</span>
             <span>·</span>
-            <ConfidenceIndicator score={persona.sampleCount >= 30 ? 0.85 : 0.55} size="sm" />
+            <ConfidenceIndicator
+              score={computePersonaConfidence({
+                sampleCount: persona.sampleCount,
+                evidenceCount: persona.evidenceList.length,
+                tagSpec,
+                motivationChain: persona.motivationChain as Record<string, unknown> | null,
+              })}
+              size="sm"
+            />
           </div>
         </CardContent>
       </Card>

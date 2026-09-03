@@ -321,6 +321,27 @@ describe("E. Ambiguous / Context-dependent", () => {
       });
     }
   });
+
+  describe("E4. LLM Judge — non-shooting game → OUT", () => {
+    // 这些问題的关键词不在规则引擎的 other_game 列表中，
+    // 但 LLM Judge 应该能识别出它们属于非射击游戏
+    const cases = [
+      "你喜欢阿瓦隆吗？",
+      "阿瓦隆怎么玩？",
+    ];
+
+    for (const q of cases) {
+      it(`LLM Judge OUT: ${q}`, async () => {
+        const result = await checkBoundary(q, {
+          skipCache: true,
+          useLLMJudge: true,
+        });
+        // 确定性规则返回 AMBIGUOUS，LLM Judge 应判定为 OUT
+        expect(result.final).toBe("OUT");
+        expect(result.method).toBe("llm_ambiguity_judge");
+      });
+    }
+  });
 });
 
 // ============================================================================

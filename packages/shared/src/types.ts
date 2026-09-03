@@ -64,6 +64,8 @@ export const evidenceMetaSchema = z.object({
   similarity: z.number().min(0).max(1),
   matchLevel: z.enum(["direct", "partial", "inferred"]),
   tagOverlap: z.number().min(0).max(1),
+  llmScore: z.number().min(0).max(1).nullable().optional(),
+  llmReason: z.string().nullable().optional(),
 });
 export type EvidenceMeta = z.infer<typeof evidenceMetaSchema>;
 

@@ -299,6 +299,49 @@ function detectEntityType(entity: string | null): string | null {
  * 对用户问题执行确定性标准化。
  * 纯函数，无副作用，不调用 LLM。
  */
+
+/**
+ * 游戏名称匹配（带词边界检查）。
+ * 单字符中文关键词（如"瓦"=Valorant）需要检查是否被误匹配到其他词中（如"阿瓦隆"）。
+ */
+function matchGameName(query: string, key: string): boolean {
+  if (!query.includes(key)) return false;
+
+  // 多字符关键词直接匹配
+  if (key.length > 1) return true;
+
+  // 单字符关键词：检查上下文，避免误匹配到无关词中
+  const idx = query.indexOf(key);
+  const prevChar = idx > 0 ? query[idx - 1] : "";
+  const nextChar = idx < query.length - 1 ? query[idx + 1] : "";
+
+  // 中文字符范围
+  const isCJK = (c: string) => /[一-鿿]/.test(c);
+
+  // 仅当单字前后都是 CJK 字符时才需要检查（嵌在词中间）
+  if (isCJK(key) && isCJK(prevChar) && isCJK(nextChar)) {
+    // 提取包含该字的连续 CJK 子串，检查是否为已知非游戏词
+    let start = idx;
+    while (start > 0 && isCJK(query[start - 1]!)) start--;
+    let end = idx;
+    while (end < query.length - 1 && isCJK(query[end + 1]!)) end++;
+    const surroundingWord = query.slice(start, end + 1);
+
+    // 已知包含该单字但非射击游戏的词（如 "阿瓦隆" 中的 "瓦"）
+    const knownFalsePositives = ["阿瓦隆", "千瓦", "瓦斯", "砖瓦"];
+    if (knownFalsePositives.some((w) => surroundingWord.includes(w))) {
+      return false;
+    }
+  }
+
+  // 英文单字母/缩写：前后不能是英文字母
+  if (/[a-zA-Z]/.test(key) && /[a-zA-Z]/.test(prevChar) && /[a-zA-Z]/.test(nextChar)) {
+    return false;
+  }
+
+  return true;
+}
+
 export function normalizeQuery(rawQuery: string): CanonicalQuery {
   const q = rawQuery.trim();
   const qLower = q.toLowerCase();
@@ -308,7 +351,7 @@ export function normalizeQuery(rawQuery: string): CanonicalQuery {
   // 1a. 游戏名称
   let game: string | null = null;
   for (const [key, value] of Object.entries(GAME_NAME_MAP)) {
-    if (qLower.includes(key)) {
+    if (matchGameName(qLower, key)) {
       game = value;
       break;
     }
@@ -487,10 +530,10 @@ function determineDomain(q: string, game: string | null): DomainType {
     "fps", "射击", "枪", "爆头", "压枪",
   ];
 
-  const hasShootingRef = shootingRefKeywords.some((kw) => qLower.includes(kw.toLowerCase()));
+  const hasShootingRef = shootingRefKeywords.some((kw) => matchGameName(qLower, kw.toLowerCase()));
 
   for (const kw of otherGameKeywords) {
-    if (qLower.includes(kw.toLowerCase())) {
+    if (matchGameName(qLower, kw.toLowerCase())) {
       // 如果同时提到射击游戏，仍然是射击游戏相关
       if (hasShootingRef) return "shooting_game";
       return "other_game";
@@ -535,7 +578,7 @@ function determineDomain(q: string, game: string | null): DomainType {
     "打游戏", "玩游戏", "游戏", "模式", "竞技模式", "排位模式", "休闲模式",
   ];
   for (const kw of shootingKeywords) {
-    if (qLower.includes(kw.toLowerCase())) return "shooting_game";
+    if (matchGameName(qLower, kw.toLowerCase())) return "shooting_game";
   }
 
   // --- Step 4: 默认 ambiguous ---
@@ -624,7 +667,7 @@ export function hasShootingGameReference(q: string): boolean {
     "deadlock", "死锁", "helldivers", "地狱潜兵", "the finals",
     "marvelrivals", "漫威争锋", "fps", "射击",
   ];
-  return shootingRefKeywords.some((kw) => qLower.includes(kw.toLowerCase()));
+  return shootingRefKeywords.some((kw) => matchGameName(qLower, kw.toLowerCase()));
 }
 
 function detectQuestionSubtype(rawQuery: string): string | null {

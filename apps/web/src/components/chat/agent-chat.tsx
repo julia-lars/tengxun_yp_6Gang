@@ -51,6 +51,8 @@ export interface EvidenceMeta {
   similarity: number;
   matchLevel: "direct" | "partial" | "inferred";
   tagOverlap: number;
+  llmScore?: number | null;
+  llmReason?: string | null;
 }
 
 export interface ChatMessage {

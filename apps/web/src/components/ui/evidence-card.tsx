@@ -82,10 +82,7 @@ export function EvidenceCard({
           <span>{matchLevelLabel[matchLevel] ?? matchLevel}</span>
         )}
         {similarity !== undefined && (
-          <span>匹配 {Math.round(similarity * 100)}%</span>
-        )}
-        {relevanceScore !== undefined && relevanceScore !== null && (
-          <span>相关 {Math.round(relevanceScore * 100)}%</span>
+          <span>相关 {Math.round(similarity * 100)}%</span>
         )}
       </div>
 
