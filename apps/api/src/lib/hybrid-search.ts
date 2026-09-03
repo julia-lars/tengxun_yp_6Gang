@@ -67,15 +67,15 @@ async function vectorSearch(
   const rows = (await db.execute(
     sql`SELECT id, original_text,
                ${tableName === "source_segments" ? sql`source_file AS source_label` : sql`title AS source_label`},
-               COALESCE(cleaned_embedding, embedding) <=> ${vecStr}::vector AS distance,
+               embedding <=> ${vecStr}::vector AS distance,
                ${tableName === "source_segments" ? sql`annotation, speaker_id, preceding_question` : sql`NULL AS annotation, NULL AS speaker_id, NULL AS preceding_question`}
         FROM ${tableRef}
         WHERE embedding IS NOT NULL
           ${skipFilter}
           ${kolFilter}
           ${adFilter}
-          AND COALESCE(cleaned_embedding, embedding) <=> ${vecStr}::vector < ${SIMILARITY_THRESHOLD}
-        ORDER BY COALESCE(cleaned_embedding, embedding) <=> ${vecStr}::vector
+          AND embedding <=> ${vecStr}::vector < ${SIMILARITY_THRESHOLD}
+        ORDER BY embedding <=> ${vecStr}::vector
         LIMIT ${VECTOR_TOP_N}`,
   )) as unknown as Array<{
     id: number;
@@ -253,13 +253,13 @@ export async function hybridSearch(opts: {
     try {
       const rows = (await db.execute(
         sql`SELECT id, original_text, source_file AS source_label,
-                   COALESCE(cleaned_embedding, embedding) <=> ${vecStr}::vector AS distance,
+                   embedding <=> ${vecStr}::vector AS distance,
                    annotation, speaker_id, preceding_question
             FROM source_segments
             WHERE embedding IS NOT NULL
               AND (annotation->'meta'->>'rs' IS NULL OR annotation->'meta'->>'rs' != 'skip')
               AND (cleaning_status IS NULL OR cleaning_status NOT IN ('removed_noise', 'removed_flow', 'removed_duplicate', 'removed_irrelevant'))
-            ORDER BY COALESCE(cleaned_embedding, embedding) <=> ${vecStr}::vector
+            ORDER BY embedding <=> ${vecStr}::vector
             LIMIT ${VECTOR_TOP_N}`,
       )) as unknown as Array<{
         id: number;

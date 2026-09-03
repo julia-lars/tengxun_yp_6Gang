@@ -13,7 +13,6 @@ import { Link, useNavigate, useParams, useSearchParams } from "react-router";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { PageHeader } from "@/components/shared/page-header";
 import { BatchActionBar } from "@/components/admin/batch-action-bar.js";
 import { api, type AdminListResponse } from "../lib/api.js";
 
@@ -90,7 +89,7 @@ function camelToSnake(str: string): string {
 function extractGroupCode(sourceFile: string): string | null {
   const base = sourceFile.split("/").pop() || sourceFile;
   const m = base.match(/^([A-Z]\d+)/i);
-  return m ? m[1].toUpperCase() : null;
+  return m?.[1] ? m[1].toUpperCase() : null;
 }
 
 export function AdminTablePage() {
@@ -228,33 +227,30 @@ export function AdminTablePage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       {/* 页头 */}
-      <div className="sticky top-0 z-10 -mt-6 pt-6 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 bg-neutral-50">
-        <div className="pb-2 border-b border-neutral-200">
+      <div className="flex items-center justify-between">
+        <div>
           <button
             type="button"
             onClick={() => navigate(-1)}
-            className="inline-flex items-center gap-1 text-sm text-(--color-content-secondary) hover:text-(--color-brand-500) transition-colors cursor-pointer"
+            className="inline-flex items-center gap-1 text-sm text-(--color-muted-foreground) hover:text-(--color-primary) transition-colors cursor-pointer"
           >
-            <ArrowLeft className="h-3 w-3" /> 返回上一页
+            <ArrowLeft className="h-3 w-3" /> 返回仪表盘
           </button>
+          <h1 className="text-2xl font-bold text-(--color-content-primary) mt-1">
+            {meta.label}
+          </h1>
         </div>
+        {meta.creatable && (
+          <Link to={`/admin/${table}/new`}>
+            <Button size="sm" className="gap-1.5">
+              <Plus className="h-4 w-4" />
+              新增
+            </Button>
+          </Link>
+        )}
       </div>
-      <PageHeader
-        title={meta.label}
-        description={`管理 ${meta.label} 数据，支持搜索、排序、新增、编辑和删除操作`}
-        actions={
-          meta.creatable ? (
-            <Link to={`/admin/${table}/new`}>
-              <Button size="sm" className="gap-1.5">
-                <Plus className="h-4 w-4" />
-                新增
-              </Button>
-            </Link>
-          ) : undefined
-        }
-      />
 
       {/* 搜索 */}
       <div className="relative">

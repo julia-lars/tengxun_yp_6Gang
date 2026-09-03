@@ -65,7 +65,7 @@ export function AdminFilesPage() {
               {files.map((item) => (
                 <Link
                   key={item.sourceFile}
-                  to={`/admin/files/${encodeURIComponent(item.sourceFile)}`}
+                  to={`/admin/files/${item.sourceFile}`}
                   className="flex items-center justify-between px-4 py-3 hover:bg-neutral-50 transition-colors"
                 >
                   <div className="flex items-center gap-3 min-w-0">
@@ -109,8 +109,9 @@ const PAGE_SIZE = 20;
 
 export function AdminFileDetailPage() {
   const navigate = useNavigate();
-  const { sourceFile } = useParams<{ sourceFile: string }>();
-  const decodedFile = decodeURIComponent(sourceFile ?? "");
+  const params = useParams();
+  const sourceFile = params["*"] ?? "";
+  const decodedFile = sourceFile;
 
   const [segments, setSegments] = useState<Segment[]>([]);
   const [loading, setLoading] = useState(true);

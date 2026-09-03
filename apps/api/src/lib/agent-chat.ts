@@ -262,25 +262,31 @@ export async function streamChat(opts: {
       });
     }
 
-    // 构建 SSE 传输的完整证据数据
-    // 优先使用 evidenceMeta 中的 tagOverlap / similarity / matchLevel（调用方已计算）
+    // 构建 SSE 传输的完整证据数据（先发送基础数据，不等待 relevance 评分）
+    // tagOverlap 优先使用单条证据自身的值（e.tagOverlap），其次 fallback 到 evidenceMeta
     const metaMap = new Map((evidenceMeta ?? []).map((m) => [m.id, m]));
-    const evidencePayload = (evidenceData ?? []).map((e) => {
-      const m = metaMap.get(e.id);
-      return {
-        id: e.id,
-        sourceFile: e.sourceLabel,
-        originalText: e.originalText,
-        annotation: e.annotation ?? null,
-        similarity: m?.similarity ?? e.similarity ?? 0,
-        matchLevel: m?.matchLevel ?? e.matchLevel ?? classifyMatchLevel(e.similarity ?? 0),
-        tagOverlap: m?.tagOverlap ?? e.tagOverlap ?? 0,
-        speakerId: e.speakerId ?? null,
-        precedingQuestion: e.precedingQuestion ?? null,
-      };
-    });
+    const buildEvidencePayload = (relevanceMap?: Map<number, { score: number; reason: string }>) =>
+      (evidenceData ?? []).map((e) => {
+        const m = metaMap.get(e.id);
+        const rel = relevanceMap?.get(e.id);
+        return {
+          id: e.id,
+          sourceFile: e.sourceLabel,
+          originalText: e.originalText,
+          annotation: e.annotation ?? null,
+          similarity: m?.similarity ?? e.similarity ?? 0,
+          matchLevel: m?.matchLevel ?? e.matchLevel ?? classifyMatchLevel(e.similarity ?? 0),
+          tagOverlap: e.tagOverlap ?? m?.tagOverlap ?? 0,
+          speakerId: e.speakerId ?? null,
+          precedingQuestion: e.precedingQuestion ?? null,
+          relevanceScore: rel?.score ?? null,
+          relevanceReason: rel?.reason ?? null,
+        };
+      });
 
-    // 先发送 meta 事件（证据 + 置信度），前端立即显示
+    let evidencePayload = buildEvidencePayload();
+
+    // 立即发送 meta 事件（证据 + 置信度），前端立即显示证据面板
     try {
       await stream.writeSSE({
         data: JSON.stringify({
@@ -296,20 +302,35 @@ export async function streamChat(opts: {
       // 客户端已断开连接
     }
 
-    // 逐句证据映射（异步执行，不阻塞 meta 事件，完成后单独发送）
-    if (userMessage && fullResponse && (evidenceData ?? []).length > 0) {
+    // 并行执行相关性评分 + 逐句证据映射，完成后增量更新前端
+    if (fullResponse && (evidenceData ?? []).length > 0) {
+      const [relevanceMap, sentenceEvidence] = await Promise.all([
+        evaluateEvidenceRelevance(fullResponse, evidenceData!).catch((e) => {
+          console.error("证据相关性评分失败:", e);
+          return new Map<number, { score: number; reason: string }>();
+        }),
+        userMessage
+          ? mapSentencesToEvidence(fullResponse, evidenceData!, userMessage).catch((e) => {
+              console.error("逐句证据映射失败:", e);
+              return { sentences: [], userQuestion: userMessage, answerText: fullResponse };
+            })
+          : Promise.resolve({ sentences: [], userQuestion: "", answerText: fullResponse }),
+      ]);
+
+      // 更新 evidencePayload 为含 relevance 分数的版本，用于后续保存
+      evidencePayload = buildEvidencePayload(relevanceMap);
+
+      // 发送增量更新事件（relevance 分数 + 逐句映射）
       try {
-        const sentenceEvidence = await mapSentencesToEvidence(fullResponse, evidenceData!, userMessage);
-        if (sentenceEvidence.sentences.length > 0) {
-          await stream.writeSSE({
-            data: JSON.stringify({
-              type: "sentenceEvidence",
-              sentenceEvidence,
-            }),
-          });
-        }
-      } catch (e) {
-        console.error("逐句证据映射失败:", e);
+        await stream.writeSSE({
+          data: JSON.stringify({
+            type: "evidenceUpdate",
+            evidence: evidencePayload,
+            sentenceEvidence: sentenceEvidence.sentences.length > 0 ? sentenceEvidence : undefined,
+          }),
+        });
+      } catch {
+        // 客户端已断开连接
       }
     }
 

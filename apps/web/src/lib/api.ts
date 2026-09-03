@@ -331,6 +331,15 @@ export const api = {
       body: JSON.stringify({ ids }),
     }),
 
+  /** 从 profile 文件获取受访者背景信息 */
+  fetchRespondentBackground: (sourceFile: string, speakerId: string) =>
+    request<{
+      data: {
+        demographics: Record<string, unknown> | null;
+        gaming_background: Record<string, unknown> | null;
+      } | null;
+    }>(`/api/admin/respondents/background?source_file=${encodeURIComponent(sourceFile)}&speaker_id=${encodeURIComponent(speakerId)}`),
+
   // ====== 数据导入 ======
 
   /** 上传 JSON 文件导入 */

@@ -42,6 +42,7 @@ describe("A. Clear Game IN", () => {
     "CS2 里面 AK 好用吗？",
     "AK 和 M4 哪个更适合新手？",
     "你喜欢什么射击游戏？",
+    "你喜欢什么游戏？",
     "你平时玩 FPS 吗？",
     "你最喜欢哪张地图？",
     "你平时多久打一次 FPS？",
@@ -260,7 +261,6 @@ describe("D. Cross-game Boundary", () => {
 describe("E. Ambiguous / Context-dependent", () => {
   describe("E1. No context → AMBIGUOUS", () => {
     const cases = [
-      "你喜欢什么游戏？",
       "你平时玩什么？",
       "你最喜欢什么？",
       "你平常多久玩一次？",
@@ -286,7 +286,6 @@ describe("E. Ambiguous / Context-dependent", () => {
     const shootingContext = "我们正在讨论你的射击游戏经历。";
 
     const cases: Array<[string, string]> = [
-      ["你喜欢什么游戏？", shootingContext],
       ["你平时玩什么？", shootingContext],
       ["你最喜欢什么？", shootingContext],
       ["你平常多久玩一次？", shootingContext],
@@ -527,9 +526,9 @@ describe("Edge Cases", () => {
     expect(result.final).toBe("IN");
   });
 
-  it("包含'游戏'但不特指射击游戏 → AMBIGUOUS", async () => {
+  it("包含'游戏'但不特指射击游戏 → IN", async () => {
     const result = await testQuery("游戏好玩吗");
-    expect(result.final).toBe("AMBIGUOUS");
+    expect(result.final).toBe("IN");
   });
 
   it("'你喜欢什么射击游戏' 应该是 IN", async () => {

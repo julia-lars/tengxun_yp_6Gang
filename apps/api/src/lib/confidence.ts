@@ -49,14 +49,14 @@ export function calculateConfidence(input: ConfidenceInput): ConfidenceResult {
     : Math.min(
         1,
         (input.topSimilarity * 0.6 + input.avgSimilarity * 0.4) *
-          Math.min(1, input.evidenceCount / 3),
+          Math.min(1, input.evidenceCount / 2),
       );
 
   // 2. 标签一致性得分：直接使用标签重叠比例
   const consistencyScore = input.tagOverlapRatio;
 
-  // 3. 证据量得分：线性映射，15 条满分
-  const evidenceCountScore = Math.min(1, Math.round((input.evidenceCount / 15) * 100) / 100);
+  // 3. 证据量得分：一次函数线性映射，15 条满分，0 条 0 分
+  const evidenceCountScore = Math.min(1, input.evidenceCount / 15);
 
   // 4. 加权综合
   let score =

@@ -203,12 +203,14 @@ kolRoute.post("/chat", zValidator("json", kolChatRequestSchema), async (c) => {
           }>;
         }
 
-        return rawRows.map((r) => ({
-          id: r.id,
-          originalText: r.original_text,
-          sourceLabel: r.title,
-          similarity: 1 - (r.distance ?? 0),
-        }));
+        return rawRows
+          .map((r) => ({
+            id: r.id,
+            originalText: r.original_text,
+            sourceLabel: r.title,
+            similarity: 1 - (r.distance ?? 0),
+          }))
+          .filter((r) => r.similarity >= KOL_SIMILARITY_THRESHOLD);
       },
       ilikeQuery: async () => {
         const rows = await db

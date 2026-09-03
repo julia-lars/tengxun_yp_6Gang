@@ -49,7 +49,7 @@ const router = createBrowserRouter([
       // 管理后台
       { path: "admin", element: <AdminDashboard /> },
       { path: "admin/files", element: <AdminFilesPage /> },
-      { path: "admin/files/:sourceFile", element: <AdminFileDetailPage /> },
+      { path: "admin/files/*", element: <AdminFileDetailPage /> },
       { path: "admin/import", element: <AdminImportPage /> },
       { path: "admin/audit-log", element: <AdminAuditLogPage /> },
       { path: "admin/:table", element: <AdminTablePage /> },

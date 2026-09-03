@@ -532,7 +532,7 @@ function determineDomain(q: string, game: string | null): DomainType {
     "烟雾弹", "闪光弹", "手雷", "燃烧弹",
     "身法", "走位", "预瞄", "提前枪", "听声辨位",
     "单排", "组队", "开黑", "脚步", "听脚步", "进攻", "防守",
-    "打游戏", "玩游戏", "模式", "竞技模式", "排位模式", "休闲模式",
+    "打游戏", "玩游戏", "游戏", "模式", "竞技模式", "排位模式", "休闲模式",
   ];
   for (const kw of shootingKeywords) {
     if (qLower.includes(kw.toLowerCase())) return "shooting_game";

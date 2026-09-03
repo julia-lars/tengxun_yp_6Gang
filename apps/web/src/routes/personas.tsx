@@ -47,7 +47,7 @@ export function PersonasPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [personas, setPersonas] = useState<PersonaSummary[]>([]);
   const [loading, setLoading] = useState(true);
-  const [showAdvanced, setShowAdvanced] = useState(false);
+  const [showAdvanced, setShowAdvanced] = useState(true);
 
   const selectedTags = searchParams.get("tags") ?? "";
   const activeTags = useMemo(

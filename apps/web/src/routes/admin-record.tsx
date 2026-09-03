@@ -7,7 +7,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { PageHeader } from "@/components/shared/page-header";
 import { api } from "../lib/api.js";
 
 /** camelCase → snake_case 转换 */
@@ -96,6 +95,7 @@ export function AdminRecordPage() {
   const [loading, setLoading] = useState(!isNew);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [fetchingBackground, setFetchingBackground] = useState(false);
 
   const fields = table ? TABLE_FIELDS[table] : undefined;
   const meta = table
@@ -121,6 +121,32 @@ export function AdminRecordPage() {
   const handleChange = (key: string, value: string) => {
     setFormData((prev) => ({ ...prev, [key]: value }));
   };
+
+  const handleFillBackground = useCallback(async () => {
+    const sourceFile = String(formData["source_file"] ?? "");
+    const speakerId = String(formData["speaker_id"] ?? "");
+    if (!sourceFile || !speakerId) {
+      setError("请先填写来源文件和说话人 ID");
+      return;
+    }
+    setFetchingBackground(true);
+    setError(null);
+    try {
+      const res = await api.fetchRespondentBackground(sourceFile, speakerId);
+      if (res.data) {
+        setFormData((prev) => ({
+          ...prev,
+          background: JSON.stringify(res.data, null, 2),
+        }));
+      } else {
+        setError("未找到该受访者的 profile 资料");
+      }
+    } catch (e) {
+      setError(String(e));
+    } finally {
+      setFetchingBackground(false);
+    }
+  }, [formData]);
 
   const handleSave = useCallback(async () => {
     if (!table) return;
@@ -158,28 +184,26 @@ export function AdminRecordPage() {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="sticky top-0 z-10 -mt-6 pt-6 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 bg-neutral-50">
-        <div className="pb-2 border-b border-neutral-200">
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <div>
           <button
             type="button"
             onClick={() => navigate(-1)}
-            className="inline-flex items-center gap-1 text-sm text-(--color-content-secondary) hover:text-(--color-brand-500) transition-colors cursor-pointer"
+            className="text-sm text-blue-500 hover:underline inline-flex items-center gap-1 cursor-pointer"
           >
-            <ArrowLeft className="h-3 w-3" /> 返回上一页
+            <ArrowLeft className="h-3 w-3" />
+            返回列表
           </button>
+          <h1 className="text-2xl font-bold text-(--color-content-primary) mt-1">
+            {isNew ? `新增${meta}` : `编辑${meta} #${id}`}
+          </h1>
         </div>
+        <Button onClick={handleSave} disabled={saving} className="gap-1.5">
+          <Save className="h-4 w-4" />
+          {saving ? "保存中..." : "保存"}
+        </Button>
       </div>
-      <PageHeader
-        title={isNew ? `新增${meta}` : `编辑${meta} #${id}`}
-        description={`管理 ${meta} 字段信息`}
-        actions={
-          <Button onClick={handleSave} disabled={saving} className="gap-1.5">
-            <Save className="h-4 w-4" />
-            {saving ? "保存中..." : "保存"}
-          </Button>
-        }
-      />
 
       {error && (
         <div className="text-red-500 text-sm p-3 bg-red-50 rounded-lg">{error}</div>
@@ -191,6 +215,19 @@ export function AdminRecordPage() {
         </CardHeader>
         <CardContent>
           <div className="space-y-4 max-w-2xl">
+            {table === "respondents" && (
+              <div className="pb-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleFillBackground}
+                  disabled={fetchingBackground}
+                  className="text-xs"
+                >
+                  {fetchingBackground ? "补充中..." : "从 profile 文件补充背景"}
+                </Button>
+              </div>
+            )}
             {fields.map((field) => (
               <div key={field.key} className="space-y-1.5">
                 <Label htmlFor={`field-${field.key}`}>

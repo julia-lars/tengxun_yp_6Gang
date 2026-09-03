@@ -438,6 +438,23 @@ export function AgentChat({
                     return next;
                   });
                 }
+                if (parsed.type === "evidenceUpdate") {
+                  // 增量更新：relevance 分数 + 逐句证据映射
+                  if (parsed.evidence) evidenceData = parsed.evidence;
+                  if (parsed.sentenceEvidence) sentenceEvidence = parsed.sentenceEvidence;
+                  setMessages((prev) => {
+                    const next = [...prev];
+                    const last = next[next.length - 1];
+                    if (last?.role === "assistant") {
+                      next[next.length - 1] = {
+                        ...last,
+                        evidence: evidenceData,
+                        ...(sentenceEvidence ? { sentenceEvidence } : {}),
+                      };
+                    }
+                    return next;
+                  });
+                }
                 if (parsed.type === "evidence" && parsed.ids) evidenceIds = parsed.ids;
                 if (parsed.sessionId) setSessionId(parsed.sessionId);
                 if (parsed.suggestions) suggestions = parsed.suggestions;
