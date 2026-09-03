@@ -15,7 +15,7 @@
 
 
 # -------------------- 阶段 1：deps 装依赖 --------------------
-FROM oven/bun:1.3.11-alpine AS deps
+FROM oven/bun:1.3.14-alpine AS deps
 WORKDIR /app
 
 COPY package.json bun.lock ./
@@ -27,7 +27,7 @@ RUN bun install --frozen-lockfile
 
 
 # -------------------- 阶段 2：builder 打包 --------------------
-FROM oven/bun:1.3.11-alpine AS builder
+FROM oven/bun:1.3.14-alpine AS builder
 WORKDIR /app
 
 COPY --from=deps /app/node_modules ./node_modules

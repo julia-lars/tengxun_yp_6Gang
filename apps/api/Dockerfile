@@ -14,7 +14,7 @@
 
 
 # -------------------- 阶段 1：deps 装依赖 --------------------
-FROM oven/bun:1.3.11-alpine AS deps
+FROM oven/bun:1.3.14-alpine AS deps
 WORKDIR /app
 
 # 先只 COPY 所有 package.json 与锁文件 —— 只要它们不变，
@@ -32,7 +32,7 @@ RUN bun install --frozen-lockfile
 # -------------------- 阶段 2：builder 类型检查 --------------------
 # 后端由 Bun 直接跑 TypeScript，不需要编译成 JS。
 # 这一步只做 typecheck，让"类型错的代码构不出镜像"。
-FROM oven/bun:1.3.11-alpine AS builder
+FROM oven/bun:1.3.14-alpine AS builder
 WORKDIR /app
 
 # bun workspaces 下每个包各自有 node_modules（不做 hoisting），
@@ -49,7 +49,7 @@ RUN bun --filter @app/api typecheck
 # runner 只需要 hono/drizzle-orm/postgres/zod 等 runtime 包，
 # 不需要 vitest / pglite / drizzle-kit / @types/* 等 dev deps。
 # 单独一层重装 --production，让 runner 镜像瘦身（~127MB → ~30-40MB）。
-FROM oven/bun:1.3.11-alpine AS prod-deps
+FROM oven/bun:1.3.14-alpine AS prod-deps
 WORKDIR /app
 
 COPY package.json bun.lock ./
@@ -64,7 +64,7 @@ RUN bun install --frozen-lockfile --production
 # 关键：typecheck 由 builder 阶段完成（构成发布的强制门槛，失败则本阶段也无法构建，
 # 因为 buildx 会并行调度多个 stage 但最终 target=runner 依赖 builder 通过）。
 # node_modules 从 prod-deps 拿 —— 剥离所有 devDependencies，让 push 秒完成。
-FROM oven/bun:1.3.11-alpine AS runner
+FROM oven/bun:1.3.14-alpine AS runner
 WORKDIR /app
 
 # 让 buildkit 知道 runner 依赖 builder 通过 —— 用一个空 COPY 建立依赖边
