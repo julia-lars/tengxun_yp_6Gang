@@ -42,7 +42,7 @@ DEEPSEEK_API_KEY=sk-tp-your-key-here
 # TokenHub 网关地址（Anthropic 兼容端点）
 DEEPSEEK_BASE_URL=https://tokenhub.tencentmaas.com/plan/anthropic
 
-# 可用模型：deepseek-v4-pro / deepseek-v4-flash
+# 可用模型：deepseek-v4-pro / deepseek-v4-flash / glm-5.2 / glm-5-turbo / minimax-m3 / kimi-k2.7-code / kimi-k2.7-code-highspeed
 DEEPSEEK_MODEL=deepseek-v4-pro
 ```
 

@@ -63,7 +63,8 @@ export function AppSidebar({
 
   const isActive = (path: string) => {
     if (path === "/") return pathname === "/";
-    return pathname === path || pathname.startsWith(`${path}/`);
+    // 新建页面不应激活对应的列表项（如 /personas/new 不应高亮 /personas）
+    return pathname === path || (pathname.startsWith(`${path}/`) && pathname !== `${path}/new`);
   };
 
   const sidebarContent = (
@@ -164,7 +165,7 @@ export function AppSidebar({
                 className={cn(
                   "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors",
                   isActive(path)
-                    ? "bg-neutral-200 text-black font-semibold"
+                    ? "bg-neutral-100 text-black font-semibold"
                     : "text-neutral-700 hover:bg-neutral-50 hover:text-black",
                 )}
               >
@@ -204,7 +205,7 @@ export function AppSidebar({
                 className={cn(
                   "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors",
                   isActive(path)
-                    ? "bg-neutral-200 text-black font-semibold"
+                    ? "bg-neutral-100 text-black font-semibold"
                     : "text-neutral-700 hover:bg-neutral-50 hover:text-black",
                 )}
               >

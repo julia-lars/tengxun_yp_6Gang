@@ -1,7 +1,7 @@
 // 访谈大纲页面 — 主容器，管理所有子组件和状态
 import type { InterviewOutline, PersonaSummary } from "@app/shared";
 import { ArrowLeft } from "lucide-react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router";
 import { toast } from "sonner";
 import { PageHeader } from "@/components/shared/page-header";
@@ -43,6 +43,7 @@ export function InterviewOutlinePage() {
   const [importDialogOpen, setImportDialogOpen] = useState(false);
 
   const pollRef = useRef<ReturnType<typeof setInterval>>();
+  const containerRef = useRef<HTMLDivElement>(null);
   const hasUnsavedChanges = outline !== null && outline !== originalOutline;
 
   // ---- 加载画像列表 ----
@@ -102,14 +103,24 @@ export function InterviewOutlinePage() {
     return () => window.removeEventListener("beforeunload", handler);
   }, [hasUnsavedChanges]);
 
-  // ---- 禁用外层滚动，让内部模块独立滚动 ----
-  useEffect(() => {
+  // ---- 禁用外层滚动 + 让父级成为定位参考以支持内部滚动 ----
+  useLayoutEffect(() => {
     const main = document.querySelector("main");
     if (!main) return;
-    const prev = main.style.overflowY;
+    const prevOverflow = main.style.overflowY;
     main.style.overflowY = "hidden";
+
+    const parent = containerRef.current?.parentElement;
+    const prevPosition = parent?.style.position;
+    if (parent) {
+      parent.style.position = "relative";
+    }
+
     return () => {
-      main.style.overflowY = prev;
+      main.style.overflowY = prevOverflow;
+      if (parent) {
+        parent.style.position = prevPosition ?? "";
+      }
     };
   }, []);
 
@@ -395,7 +406,7 @@ export function InterviewOutlinePage() {
   }, [outline, navigate]);
 
   return (
-    <div className="flex flex-col gap-4 flex-1">
+    <div ref={containerRef} className="absolute inset-0 flex flex-col gap-4">
       {/* 返回按钮 */}
       <div className="sticky top-0 z-10 -mt-6 pt-6 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 bg-neutral-50">
         <div className="pb-2 border-b border-neutral-200">

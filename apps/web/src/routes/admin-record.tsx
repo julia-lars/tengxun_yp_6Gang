@@ -75,7 +75,7 @@ const TABLE_FIELDS: Record<string, Array<{
     { key: "bilibili_uid", label: "B站 UID", type: "text" },
     { key: "persona_card", label: "人物卡 (JSON)", type: "json", required: true },
     { key: "style_profile", label: "风格画像 (JSON)", type: "json", required: true },
-    { key: "source_texts", label: "来源文本 (JSON数组)", type: "json" },
+    { key: "source_texts", label: "来源片段 ID (JSON数组)", type: "json" },
   ],
   "kol-segments": [
     { key: "kol_id", label: "KOL ID", type: "number", required: true },
@@ -256,9 +256,9 @@ export function AdminRecordPage() {
                         typeof formData[field.key] === "object" && formData[field.key] !== null
                           ? JSON.stringify(formData[field.key], null, 2)
                           : String(formData[field.key] ?? ""),
-                        4,
+                        field.key === "persona_card" ? 20 : 4,
                       )}
-                      className="font-mono text-sm resize-y"
+                      className={`font-mono text-sm ${field.key === "persona_card" ? "resize-none" : "resize-y"}`}
                       placeholder='{"key": "value"}'
                     />
                     <p className="text-xs text-(--color-content-tertiary)">

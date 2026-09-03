@@ -73,18 +73,24 @@ export function EvidenceCard({
         <span className="flex items-center gap-1">
           <FileText className="h-3 w-3" /> {sourceFile}
         </span>
-        {speakerId && (
-          <span className="flex items-center gap-1">
-            <User className="h-3 w-3" /> {speakerId}
-          </span>
-        )}
-        {matchLevel && (
-          <span>{matchLevelLabel[matchLevel] ?? matchLevel}</span>
-        )}
-        {similarity !== undefined && (
-          <span>相关 {Math.round(similarity * 100)}%</span>
-        )}
       </div>
+
+      {/* 人物 / 关联性 / 相关度 */}
+      {(speakerId || matchLevel || similarity !== undefined) && (
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-(--color-muted-foreground)">
+          {speakerId && (
+            <span className="flex items-center gap-1">
+              <User className="h-3 w-3" /> {speakerId}
+            </span>
+          )}
+          {matchLevel && (
+            <span>{matchLevelLabel[matchLevel] ?? matchLevel}</span>
+          )}
+          {similarity !== undefined && (
+            <span>相关 {Math.round(similarity * 100)}%</span>
+          )}
+        </div>
+      )}
 
       {/* 相关性理由 */}
       {relevanceReason && (

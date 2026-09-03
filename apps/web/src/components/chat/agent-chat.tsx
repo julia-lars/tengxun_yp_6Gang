@@ -43,9 +43,9 @@ import { MODEL_VARIANT_LABELS, AVAILABLE_MODEL_VARIANTS, type ModelVariant } fro
 /** 模型变体按提供商分组 */
 const MODEL_GROUPS: { provider: string; variants: ModelVariant[] }[] = [
   { provider: "DeepSeek", variants: ["deepseek-v4-pro", "deepseek-v4-flash"] },
-  { provider: "GLM", variants: ["glm-5", "glm-5.1", "glm-5.2"] },
-  { provider: "MiniMax", variants: ["minimax-m2.5", "minimax-m3"] },
-  { provider: "Kimi", variants: ["kimi-k2.5", "kimi-k2.6", "kimi-k2.7-code"] },
+  { provider: "GLM", variants: ["glm-5.2", "glm-5-turbo"] },
+  { provider: "MiniMax", variants: ["minimax-m3"] },
+  { provider: "Kimi", variants: ["kimi-k2.7-code", "kimi-k2.7-code-highspeed"] },
 ];
 
 export interface ConfidenceResult {

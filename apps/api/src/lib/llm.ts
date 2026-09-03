@@ -28,14 +28,11 @@ const PROVIDER_CONFIG: Record<ModelName, { supportsThinking: boolean }> = {
 const VARIANT_CONFIG: Record<ModelVariant, { provider: ModelName; modelId: string }> = {
   "deepseek-v4-pro": { provider: "deepseek", modelId: "deepseek-v4-pro" },
   "deepseek-v4-flash": { provider: "deepseek", modelId: "deepseek-v4-flash" },
-  "glm-5": { provider: "glm", modelId: "glm-5" },
-  "glm-5.1": { provider: "glm", modelId: "glm-5.1" },
   "glm-5.2": { provider: "glm", modelId: "glm-5.2" },
-  "minimax-m2.5": { provider: "minimax", modelId: "minimax-m2.5" },
+  "glm-5-turbo": { provider: "glm", modelId: "glm-5-turbo" },
   "minimax-m3": { provider: "minimax", modelId: "minimax-m3" },
-  "kimi-k2.5": { provider: "kimi", modelId: "kimi-k2.5" },
-  "kimi-k2.6": { provider: "kimi", modelId: "kimi-k2.6" },
   "kimi-k2.7-code": { provider: "kimi", modelId: "kimi-k2.7-code" },
+  "kimi-k2.7-code-highspeed": { provider: "kimi", modelId: "kimi-k2.7-code-highspeed" },
 };
 
 const DEFAULT_VARIANT: ModelVariant = (process.env.LLM_MODEL as ModelVariant) ?? "deepseek-v4-pro";

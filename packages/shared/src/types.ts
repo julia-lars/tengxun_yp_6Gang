@@ -7,14 +7,11 @@ import { z } from "zod";
 export const MODEL_VARIANT_LABELS = {
   "deepseek-v4-pro": "DeepSeek V4 Pro",
   "deepseek-v4-flash": "DeepSeek V4 Flash",
-  "glm-5": "GLM-5",
-  "glm-5.1": "GLM-5.1",
   "glm-5.2": "GLM-5.2",
-  "minimax-m2.5": "MiniMax M2.5",
+  "glm-5-turbo": "GLM-5 Turbo",
   "minimax-m3": "MiniMax M3",
-  "kimi-k2.5": "Kimi K2.5",
-  "kimi-k2.6": "Kimi K2.6",
   "kimi-k2.7-code": "Kimi K2.7 Code",
+  "kimi-k2.7-code-highspeed": "Kimi K2.7 Code HighSpeed",
 } as const;
 
 export type ModelVariant = keyof typeof MODEL_VARIANT_LABELS;
@@ -24,14 +21,11 @@ export const AVAILABLE_MODEL_VARIANTS = Object.keys(MODEL_VARIANT_LABELS) as Mod
 const MODEL_VARIANT_ENUM = [
   "deepseek-v4-pro",
   "deepseek-v4-flash",
-  "glm-5",
-  "glm-5.1",
   "glm-5.2",
-  "minimax-m2.5",
+  "glm-5-turbo",
   "minimax-m3",
-  "kimi-k2.5",
-  "kimi-k2.6",
   "kimi-k2.7-code",
+  "kimi-k2.7-code-highspeed",
 ] as const;
 
 // ---- 标签 ----

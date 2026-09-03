@@ -533,9 +533,9 @@ function forceSplit(text: string, maxLen: number): string[] {
   return result;
 }
 
-// 对外统一入口：语义分段
+// 对外统一入口：语义分段，过滤过短片段
 function chunkText(text: string, maxLen = MAX_CHUNK_LEN): string[] {
-  return semanticChunkText(text, maxLen);
+  return semanticChunkText(text, maxLen).filter((c) => c.length >= 20);
 }
 
 async function main() {

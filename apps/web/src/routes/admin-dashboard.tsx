@@ -31,21 +31,22 @@ interface TableGroup {
 
 const TABLE_GROUPS: TableGroup[] = [
   {
-    title: "核心数据",
-    tables: [
-      { key: "source_segments", label: "用户原声片段", icon: FileText, route: "/admin/source-segments", description: "原始用户反馈与语料" },
-      { key: "personas", label: "用户画像", icon: Users, route: "/admin/personas", description: "AI 生成的用户画像" },
-      { key: "respondents", label: "受访者", icon: Users, route: "/admin/respondents", description: "受访者信息" },
-    ],
-  },
-  {
     title: "文件管理",
     tables: [
-      { key: "source_files", label: "按文件管理", icon: FileText, route: "/admin/files", description: "按来源文件浏览和筛选数据" },
+      { key: "source_files", label: "群体画像文件", icon: FileText, route: "/admin/files", description: "按来源文件浏览和筛选数据" },
+      { key: "kol_files", label: "KOL 文件", icon: FileText, route: "/admin/kol-segments", description: "KOL 来源文件与语料" },
     ],
   },
   {
-    title: "KOL 数据",
+    title: "群体画像",
+    tables: [
+      { key: "personas", label: "用户画像", icon: Users, route: "/admin/personas", description: "AI 生成的用户画像" },
+      { key: "source_segments", label: "用户原声片段", icon: FileText, route: "/admin/source-segments", description: "原始用户反馈与语料" },
+      { key: "respondents", label: "受访者", icon: Users, route: "/admin/respondents", description: "受访者信息与分组" },
+    ],
+  },
+  {
+    title: "KOL 分身",
     tables: [
       { key: "kol_profiles", label: "KOL 画像", icon: MessageCircle, route: "/admin/kol-profiles", description: "KOL 分身画像" },
       { key: "kol_segments", label: "KOL 语料", icon: MessageCircle, route: "/admin/kol-segments", description: "KOL 原始语料片段" },
@@ -60,13 +61,13 @@ const TABLE_GROUPS: TableGroup[] = [
   },
 ];
 
-const ACTION_ICONS: Record<string, typeof FileText> = {
-  INSERT: FileText,
-  UPDATE: FileText,
-  DELETE: FileText,
+const ACTION_DOT_COLORS: Record<string, string> = {
+  INSERT: "bg-green-500",
+  UPDATE: "bg-blue-500",
+  DELETE: "bg-red-500",
 };
 
-const ACTION_COLORS: Record<string, string> = {
+const ACTION_TAG_COLORS: Record<string, string> = {
   INSERT: "text-green-600 bg-green-50",
   UPDATE: "text-blue-600 bg-blue-50",
   DELETE: "text-red-600 bg-red-50",
@@ -195,7 +196,9 @@ export function AdminDashboard() {
                     <p className="text-2xl font-bold text-(--color-content-primary)">
                       {key === "source_files"
                         ? (stats?.sourceDistribution?.length ?? 0).toLocaleString()
-                        : (stats?.tables[key] ?? 0).toLocaleString()}
+                        : key === "kol_files"
+                          ? (stats?.tables["kol_segments"] ?? 0).toLocaleString()
+                          : (stats?.tables[key] ?? 0).toLocaleString()}
                     </p>
                     <p className="text-xs text-(--color-content-tertiary) mt-1 group-hover:text-(--color-content-secondary) transition-colors">
                       {description}
@@ -224,22 +227,19 @@ export function AdminDashboard() {
           ) : (
             <div>
               {recentActivity.map((entry) => {
-                const ActionIcon = ACTION_ICONS[entry.action] ?? FileText;
                 const data = entry.newData ?? entry.oldData;
                 const recordName = data
                   ? (data.name ? String(data.name).slice(0, 30) : (data.title ? String(data.title).slice(0, 30) : `#${entry.recordId}`))
                   : `#${entry.recordId}`;
 
                 return (
-                  <div key={entry.id} className="flex items-start gap-3 px-4 py-2.5 border-b border-neutral-100 last:border-b-0">
-                    <div className={`p-1 rounded-md mt-0.5 flex-shrink-0 ${ACTION_COLORS[entry.action] ?? "text-neutral-600 bg-neutral-50"}`}>
-                      <ActionIcon className="h-3 w-3" />
-                    </div>
+                  <div key={entry.id} className="flex items-start gap-3 px-4 py-3 border-b border-neutral-100 last:border-b-0">
+                    <div className={`w-2 h-2 rounded-full mt-1.5 flex-shrink-0 ${ACTION_DOT_COLORS[entry.action] ?? "bg-neutral-400"}`} />
                     <div className="flex-1 min-w-0">
                       <p className="text-sm text-(--color-content-primary)">
                         <span className="font-medium">{entry.changedBy}</span>
                         {" "}
-                        <span className={`text-xs px-1 py-0.5 rounded font-medium ${ACTION_COLORS[entry.action] ?? ""}`}>
+                        <span className={`text-xs px-1.5 py-0.5 rounded font-semibold ${ACTION_TAG_COLORS[entry.action] ?? ""}`}>
                           {ACTION_LABELS[entry.action] ?? entry.action}
                         </span>
                         {" "}
@@ -247,8 +247,7 @@ export function AdminDashboard() {
                         {" "}
                         <span className="text-(--color-content-secondary)">{recordName}</span>
                       </p>
-                      <p className="text-xs text-(--color-content-tertiary) mt-0.5 flex items-center gap-1">
-                        <Clock className="h-3 w-3" />
+                      <p className="text-xs text-(--color-content-tertiary) mt-1">
                         {formatTime(entry.changedAt)}
                       </p>
                     </div>
@@ -259,33 +258,6 @@ export function AdminDashboard() {
           )}
         </CardContent>
       </Card>
-
-      {/* 来源分布 */}
-      {stats?.sourceDistribution && stats.sourceDistribution.length > 0 && (
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-base">source_segments 来源分布（Top 20）</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-2">
-              {stats.sourceDistribution.map((item) => (
-                <Link
-                  key={item.sourceFile}
-                  to={`/admin/files/${encodeURIComponent(item.sourceFile)}`}
-                  className="flex items-center justify-between text-sm hover:bg-neutral-50 rounded px-2 py-1 -mx-2 transition-colors"
-                >
-                  <span className="text-(--color-content-secondary) truncate max-w-[80%]" title={item.sourceFile}>
-                    {item.sourceFile}
-                  </span>
-                  <span className="font-mono text-(--color-content-primary) font-medium">
-                    {item.count.toLocaleString()}
-                  </span>
-                </Link>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      )}
     </div>
   );
 }
