@@ -16,14 +16,24 @@ app = FastAPI(title="BGE-M3 Embedding Server")
 MODEL_PATH = os.environ.get("BGE_M3_MODEL_PATH", "BAAI/bge-m3")
 model = SentenceTransformer(MODEL_PATH)
 
+# BGE-M3 推荐的中文查询指令前缀
+# 查询端加 prefix，文档端不加，是 BGE 系列模型的标准用法
+# 参考: https://huggingface.co/BAAI/bge-m3
+QUERY_INSTRUCTION = "为这个句子生成表示以用于检索相关文章："
+
 
 class EmbedRequest(BaseModel):
     text: str
+    mode: str = "document"  # "query" | "document"
 
 
 @app.post("/embed")
 def embed(req: EmbedRequest):
-    vec = model.encode(req.text, normalize_embeddings=True)
+    if req.mode == "query":
+        text = QUERY_INSTRUCTION + req.text
+    else:
+        text = req.text
+    vec = model.encode(text, normalize_embeddings=True)
     return {"embedding": vec.tolist()}
 
 

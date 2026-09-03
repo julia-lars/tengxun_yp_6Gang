@@ -99,7 +99,7 @@ export async function detectCandidateCoverage(
   const regions = options?.regions ?? regionStore;
 
   // 1. 向量化用户问题
-  const queryVec = await embedQuery(query);
+  const queryVec = await embedQuery(query, "query");
 
   // 2. 如果没有区域向量，返回 CANDIDATE（保守策略）
   if (regions.length === 0) {

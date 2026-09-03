@@ -236,6 +236,7 @@ def build_db_rows(segments, embed_map, persona_map):
 def main():
     parser = argparse.ArgumentParser(description="导入新 source_segments 数据")
     parser.add_argument("--dry-run", action="store_true", help="只分析不执行")
+    parser.add_argument("--force", action="store_true", help="清空全部数据后重新导入")
     parser.add_argument(
         "--source-file",
         type=str,
@@ -277,8 +278,14 @@ def main():
             print(f"\n🔍 Dry-run 模式，不写入数据库")
             return
 
-        # ── Step 4: 写入数据库（增量 upsert） ──
+        # ── Step 4: 写入数据库 ──
         cur = conn.cursor()
+
+        # --force: 清空全部数据
+        if args.force:
+            print(f"\n🗑️  --force: 清空全部 source_segments ...")
+            cur.execute("DELETE FROM source_segments")
+            print(f"   已删除 {cur.rowcount} 条")
 
         # 如果指定了 --source-file，先删除该 source_file 的旧数据再插入
         if args.source_file:
@@ -291,7 +298,7 @@ def main():
 
         print(f"\n💾 写入 {len(rows)} 条 segments ...")
 
-        # 批量 upsert（每批 500 条）
+        # 批量插入（每批 500 条）
         batch_size = 500
         total_inserted = 0
         for i in range(0, len(rows), batch_size):
@@ -302,18 +309,7 @@ def main():
                    (source_file, segment_index, speaker_id, speaker_role,
                     preceding_question, original_text, cleaned_text, char_count,
                     annotation, embedding, embedding_version, persona_ids)
-                   VALUES %s
-                   ON CONFLICT (source_file, segment_index, speaker_id)
-                   DO UPDATE SET
-                     speaker_role = EXCLUDED.speaker_role,
-                     preceding_question = EXCLUDED.preceding_question,
-                     original_text = EXCLUDED.original_text,
-                     cleaned_text = EXCLUDED.cleaned_text,
-                     char_count = EXCLUDED.char_count,
-                     annotation = EXCLUDED.annotation,
-                     embedding = EXCLUDED.embedding,
-                     embedding_version = EXCLUDED.embedding_version,
-                     persona_ids = EXCLUDED.persona_ids""",
+                   VALUES %s""",
                 batch,
                 template="(%s, %s, %s, %s, %s, %s, %s, %s, %s::jsonb, %s::vector, %s, %s::integer[])",
             )

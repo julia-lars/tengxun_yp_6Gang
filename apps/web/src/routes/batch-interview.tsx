@@ -63,6 +63,11 @@ export function BatchInterviewPage() {
     initialOutline ?? null,
   );
 
+  // 大纲库选择
+  const [outlines, setOutlines] = useState<InterviewOutline[]>([]);
+  const [outlineDropdownOpen, setOutlineDropdownOpen] = useState(false);
+  const [outlineSearch, setOutlineSearch] = useState("");
+
   // 数据状态
   const [personas, setPersonas] = useState<PersonaSummary[]>([]);
   const [running, setRunning] = useState(false);
@@ -75,7 +80,7 @@ export function BatchInterviewPage() {
   const [expandedPersonas, setExpandedPersonas] = useState<Set<string>>(
     new Set(),
   );
-  const [expandedComparisons, setExpandedComparisons] = useState<Set<string>>(
+  const [expandedQuestions, setExpandedQuestions] = useState<Set<number>>(
     new Set(),
   );
   const [estimatedRemainingMs, setEstimatedRemainingMs] = useState<number | undefined>();
@@ -91,6 +96,11 @@ export function BatchInterviewPage() {
       api.listOutlines(),
       api.listBatchInterviewJobs(),
     ]).then(([outlinesResult, jobsResult]) => {
+      // 0. 存储大纲列表供下拉选择
+      if (outlinesResult.status === "fulfilled") {
+        setOutlines(outlinesResult.value);
+      }
+
       // 1. 恢复 outline（从 URL 参数或后端最新数据）
       const urlOutlineId = searchParams.get("outlineId");
       if (urlOutlineId && !initialOutline && !outline) {
@@ -246,11 +256,11 @@ export function BatchInterviewPage() {
     });
   }, []);
 
-  const toggleComparison = useCallback((theme: string) => {
-    setExpandedComparisons((prev) => {
+  const toggleQuestion = useCallback((index: number) => {
+    setExpandedQuestions((prev) => {
       const next = new Set(prev);
-      if (next.has(theme)) next.delete(theme);
-      else next.add(theme);
+      if (next.has(index)) next.delete(index);
+      else next.add(index);
       return next;
     });
   }, []);
@@ -264,16 +274,22 @@ export function BatchInterviewPage() {
       `画像数：${report.summary.completedInterviews}/${report.summary.totalInterviews}`,
       `总轮次：${report.summary.totalRounds}`,
       "",
-      "## 跨画像共性主题",
-      ...report.summary.crossCuttingThemes.map((t) => `- ${t}`),
-      "",
-      "## 画像对比分析",
-      ...report.summary.personaComparison.flatMap((pc) => [
-        `### ${pc.theme}`,
-        ...pc.observations.map(
-          (o) => `- **${o.personaName}**: ${o.stance}${o.quote ? `\n  > "${o.quote}"` : ""}`,
+      "## 问题分析",
+      ...report.summary.questionAnalysis.flatMap((qa, i) => [
+        `### ${i + 1}. ${qa.question}`,
+        `**分析总结**：${qa.summary}`,
+        "",
+        `**共性发现**：`,
+        ...qa.commonThemes.map((t) => `- ${t}`),
+        "",
+        `**各画像观点**：`,
+        ...qa.personaResponses.map(
+          (pr) => `- **${pr.personaName}**：${pr.keyPoint}${pr.quote ? `\n  > "${pr.quote}"` : ""}`,
         ),
         "",
+        qa.divergences.length > 0
+          ? [`**分歧点**：`, ...qa.divergences.map((d) => `- ${d}`), ""].join("\n")
+          : "",
       ]),
       "",
       "## 各画像访谈详情",
@@ -411,32 +427,123 @@ export function BatchInterviewPage() {
                       )}{" "}
                       个问题
                     </p>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="text-xs text-(--color-brand-500)"
-                      onClick={() => {
+                    <div className="flex gap-2">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="text-xs text-(--color-brand-500)"
+                        onClick={() => {
                           setOutline(null);
                           const next = new URLSearchParams(searchParams);
                           next.delete("outlineId");
                           setSearchParams(next, { replace: true });
                         }}
-                    >
-                      清除大纲
-                    </Button>
+                      >
+                        清除大纲
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="text-xs text-(--color-brand-500)"
+                        onClick={() => setOutlineDropdownOpen(!outlineDropdownOpen)}
+                      >
+                        从库中选择
+                      </Button>
+                    </div>
                   </div>
                 ) : (
-                  <div className="p-3 rounded-lg bg-(--color-surface-secondary) space-y-2">
-                    <p className="text-xs text-(--color-content-secondary)">
-                      未使用大纲，将使用默认问题集
-                    </p>
-                    <Button variant="outline" size="sm" asChild>
-                      <Link to="/interview/outline">
-                        <Sparkles className="h-3 w-3 mr-1" />
-                        生成大纲
-                      </Link>
-                    </Button>
+                  <div className="space-y-2">
+                    {/* 大纲库下拉选择器 */}
+                    <div className="relative">
+                      <button
+                        type="button"
+                        onClick={() => setOutlineDropdownOpen(!outlineDropdownOpen)}
+                        disabled={running}
+                        className="w-full flex items-center justify-between gap-2 px-3 py-2 text-sm border border-(--color-border-primary) rounded-lg bg-white hover:bg-(--color-surface-secondary) transition-colors disabled:opacity-50"
+                      >
+                        <span className="text-(--color-content-secondary) truncate">
+                          从大纲库中选择...
+                        </span>
+                        <ChevronDown className={cn("h-4 w-4 text-(--color-content-tertiary) flex-shrink-0 transition-transform", outlineDropdownOpen && "rotate-180")} />
+                      </button>
+                      {outlineDropdownOpen && (
+                        <div className="absolute z-20 mt-1 w-full bg-white border border-(--color-border-primary) rounded-lg shadow-lg max-h-60 overflow-hidden flex flex-col">
+                          <div className="p-2 border-b border-(--color-border-secondary)">
+                            <Input
+                              placeholder="搜索大纲..."
+                              value={outlineSearch}
+                              onChange={(e) => setOutlineSearch(e.target.value)}
+                              className="h-8 text-xs"
+                            />
+                          </div>
+                          <div className="overflow-y-auto flex-1">
+                            {outlines
+                              .filter((o) =>
+                                outlineSearch
+                                  ? o.theme.toLowerCase().includes(outlineSearch.toLowerCase())
+                                  : true,
+                              )
+                              .map((o) => (
+                                <button
+                                  key={o.id}
+                                  type="button"
+                                  className="w-full text-left px-3 py-2 text-sm hover:bg-(--color-brand-50) transition-colors border-b border-(--color-border-secondary) last:border-b-0"
+                                  onClick={() => {
+                                    api.getOutline(o.id).then((full) => {
+                                      setOutline(full);
+                                      const next = new URLSearchParams(searchParams);
+                                      next.set("outlineId", o.id);
+                                      setSearchParams(next, { replace: true });
+                                    }).catch(() => toast.error("加载大纲失败"));
+                                    setOutlineDropdownOpen(false);
+                                    setOutlineSearch("");
+                                  }}
+                                >
+                                  <p className="font-medium text-(--color-content-primary) truncate">
+                                    {o.theme}
+                                  </p>
+                                  <p className="text-[10px] text-(--color-content-tertiary)">
+                                    {o.sections.length} 章节 ·{" "}
+                                    {o.sections.reduce((sum, s) => sum + s.questions.length, 0)}{" "}
+                                    个问题
+                                  </p>
+                                </button>
+                              ))}
+                            {outlines.filter((o) =>
+                              outlineSearch
+                                ? o.theme.toLowerCase().includes(outlineSearch.toLowerCase())
+                                : true,
+                            ).length === 0 && (
+                              <p className="text-xs text-(--color-content-tertiary) text-center py-4">
+                                {outlineSearch ? "无匹配大纲" : "暂无大纲，请先生成"}
+                              </p>
+                            )}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Button variant="outline" size="sm" asChild className="flex-1">
+                        <Link to="/interview/outline">
+                          <Sparkles className="h-3 w-3 mr-1" />
+                          生成新大纲
+                        </Link>
+                      </Button>
+                      <p className="text-[10px] text-(--color-content-tertiary)">
+                        或使用默认问题集
+                      </p>
+                    </div>
                   </div>
+                )}
+                {/* 点击外部关闭下拉 */}
+                {outlineDropdownOpen && (
+                  <div
+                    className="fixed inset-0 z-10"
+                    onClick={() => {
+                      setOutlineDropdownOpen(false);
+                      setOutlineSearch("");
+                    }}
+                  />
                 )}
               </div>
 
@@ -616,7 +723,7 @@ export function BatchInterviewPage() {
           {report ? (
             <div className="space-y-6">
               {/* 概览统计 */}
-              <div className="grid gap-4 sm:grid-cols-4">
+              <div className="grid gap-4 sm:grid-cols-3">
                 <StatCard
                   label="完成画像"
                   value={report.summary.completedInterviews}
@@ -628,96 +735,123 @@ export function BatchInterviewPage() {
                   icon={MessageCircle}
                 />
                 <StatCard
-                  label="共性主题"
-                  value={report.summary.crossCuttingThemes.length}
-                  icon={Sparkles}
-                />
-                <StatCard
-                  label="对比维度"
-                  value={report.summary.personaComparison.length}
-                  icon={BarChart3}
+                  label="分析问题"
+                  value={report.summary.questionAnalysis.length}
+                  icon={FileText}
                 />
               </div>
 
-              {/* 跨画像共性主题 */}
-              {report.summary.crossCuttingThemes.length > 0 && (
+              {/* 问题分析 */}
+              {report.summary.questionAnalysis.length > 0 && (
                 <Card>
                   <CardHeader className="pb-3">
                     <CardTitle className="text-lg flex items-center gap-2">
-                      <Sparkles className="h-4 w-4 text-amber-500" />
-                      跨画像共性主题
+                      <FileText className="h-4 w-4 text-(--color-brand-500)" />
+                      问题分析
                     </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-2">
-                      {report.summary.crossCuttingThemes.map((theme, i) => (
-                        <div
-                          key={i}
-                          className="flex items-start gap-3 p-3 rounded-lg bg-(--color-surface-secondary)"
-                        >
-                          <span className="text-sm font-medium text-(--color-brand-500) mt-0.5">
-                            {i + 1}.
-                          </span>
-                          <p className="text-sm text-(--color-content-primary)">
-                            {theme}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              )}
-
-              {/* 画像对比分析 */}
-              {report.summary.personaComparison.length > 0 && (
-                <Card>
-                  <CardHeader className="pb-3">
-                    <CardTitle className="text-lg flex items-center gap-2">
-                      <BarChart3 className="h-4 w-4 text-(--color-brand-500)" />
-                      画像对比分析
-                    </CardTitle>
+                    <CardDescription>
+                      按访谈问题维度，分析各画像的回答共性与差异
+                    </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-3">
-                    {report.summary.personaComparison.map((pc) => (
-                      <div key={pc.theme}>
+                    {report.summary.questionAnalysis.map((qa, qi) => (
+                      <div key={qi}>
                         <div
                           className="flex items-center gap-2 p-2 rounded-md hover:bg-(--color-surface-secondary) cursor-pointer transition-colors"
-                          onClick={() => toggleComparison(pc.theme)}
+                          onClick={() => toggleQuestion(qi)}
                         >
-                          {expandedComparisons.has(pc.theme) ? (
-                            <ChevronDown className="h-4 w-4 text-(--color-content-tertiary)" />
+                          {expandedQuestions.has(qi) ? (
+                            <ChevronDown className="h-4 w-4 text-(--color-content-tertiary) flex-shrink-0" />
                           ) : (
-                            <ChevronRight className="h-4 w-4 text-(--color-content-tertiary)" />
+                            <ChevronRight className="h-4 w-4 text-(--color-content-tertiary) flex-shrink-0" />
                           )}
-                          <span className="text-sm font-medium text-(--color-content-primary)">
-                            {pc.theme}
+                          <span className="text-sm font-medium text-(--color-content-primary) line-clamp-1">
+                            {qi + 1}. {qa.question}
                           </span>
-                          <Badge variant="secondary" className="text-[10px]">
-                            {pc.observations.length} 画像
+                          <Badge variant="secondary" className="text-[10px] flex-shrink-0">
+                            {qa.personaResponses.length} 画像
                           </Badge>
                         </div>
-                        {expandedComparisons.has(pc.theme) && (
-                          <div className="mt-2 space-y-2 pl-6">
-                            {pc.observations.map((obs, i) => (
-                              <div
-                                key={i}
-                                className="p-3 rounded-lg bg-(--color-surface-secondary)"
-                              >
-                                <div className="flex items-center gap-2 mb-1">
-                                  <Badge className="text-[10px]">
-                                    {obs.personaName}
-                                  </Badge>
-                                  <span className="text-sm text-(--color-content-primary)">
-                                    {obs.stance}
-                                  </span>
-                                </div>
-                                {obs.quote && (
-                                  <blockquote className="text-xs text-(--color-content-secondary) italic border-l-2 border-(--color-brand-300) pl-2 mt-1">
-                                    "{obs.quote}"
-                                  </blockquote>
-                                )}
+                        {expandedQuestions.has(qi) && (
+                          <div className="mt-2 space-y-3 pl-6">
+                            {/* 分析总结 */}
+                            <div className="p-3 rounded-lg bg-(--color-brand-50)">
+                              <p className="text-xs font-medium text-(--color-brand-500) mb-1">
+                                分析总结
+                              </p>
+                              <p className="text-sm text-(--color-brand-700)">
+                                {qa.summary}
+                              </p>
+                            </div>
+
+                            {/* 共性发现 */}
+                            {qa.commonThemes.length > 0 && (
+                              <div className="space-y-1">
+                                <p className="text-xs font-medium text-(--color-content-secondary)">
+                                  共性发现
+                                </p>
+                                {qa.commonThemes.map((theme, ti) => (
+                                  <div
+                                    key={ti}
+                                    className="flex items-start gap-2 p-2 rounded-md bg-(--color-surface-secondary)"
+                                  >
+                                    <Lightbulb className="h-3.5 w-3.5 text-amber-500 mt-0.5 flex-shrink-0" />
+                                    <p className="text-sm text-(--color-content-primary)">
+                                      {theme}
+                                    </p>
+                                  </div>
+                                ))}
                               </div>
-                            ))}
+                            )}
+
+                            {/* 各画像观点 */}
+                            <div className="space-y-2">
+                              <p className="text-xs font-medium text-(--color-content-secondary)">
+                                各画像观点
+                              </p>
+                              {qa.personaResponses.map((pr, pi) => (
+                                <div
+                                  key={pi}
+                                  className="p-3 rounded-lg bg-(--color-surface-secondary)"
+                                >
+                                  <div className="flex items-center gap-2 mb-1">
+                                    <Badge className="text-[10px]">
+                                      {pr.personaName}
+                                    </Badge>
+                                  </div>
+                                  <p className="text-sm text-(--color-content-primary)">
+                                    {pr.keyPoint}
+                                  </p>
+                                  {pr.quote && (
+                                    <blockquote className="text-xs text-(--color-content-secondary) italic border-l-2 border-(--color-brand-300) pl-2 mt-1">
+                                      "{pr.quote}"
+                                    </blockquote>
+                                  )}
+                                </div>
+                              ))}
+                            </div>
+
+                            {/* 分歧点 */}
+                            {qa.divergences.length > 0 && (
+                              <div className="space-y-1">
+                                <p className="text-xs font-medium text-(--color-content-secondary)">
+                                  关键分歧
+                                </p>
+                                {qa.divergences.map((d, di) => (
+                                  <div
+                                    key={di}
+                                    className="flex items-start gap-2 p-2 rounded-md bg-amber-50"
+                                  >
+                                    <span className="text-sm font-medium text-amber-600 mt-0.5">
+                                      {di + 1}.
+                                    </span>
+                                    <p className="text-sm text-amber-800">
+                                      {d}
+                                    </p>
+                                  </div>
+                                ))}
+                              </div>
+                            )}
                           </div>
                         )}
                       </div>

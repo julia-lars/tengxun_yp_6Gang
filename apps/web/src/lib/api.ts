@@ -205,6 +205,28 @@ export const api = {
     request<{ success: boolean; message: string }>(`/api/pipeline/cancel/${jobId}`, {
       method: "POST",
     }),
+  deletePipelineJob: (jobId: string) =>
+    request<{ success: boolean; message: string }>(`/api/pipeline/jobs/${jobId}`, {
+      method: "DELETE",
+    }),
+  clearAllPipelineJobs: () =>
+    request<{ success: boolean; message: string }>(`/api/pipeline/jobs`, {
+      method: "DELETE",
+    }),
+  listPipelineProjects: () =>
+    request<{ projects: string[] }>("/api/pipeline/projects"),
+  generateParser: (filePath: string) =>
+    request<{
+      status: string;
+      parser_path?: string;
+      format_type?: string;
+      hash?: string;
+      message?: string;
+      encoding?: string;
+    }>("/api/pipeline/generate-parser", {
+      method: "POST",
+      body: JSON.stringify({ filePath }),
+    }),
 
   // 访谈大纲
   generateOutline: (req: OutlineGenerateRequest) =>
@@ -230,6 +252,15 @@ export const api = {
     request<RefineQuestionResult>("/api/interview/outline/refine-question", {
       method: "POST",
       body: JSON.stringify(body),
+    }),
+  updateOutline: (id: string, data: Partial<InterviewOutline>) =>
+    request<InterviewOutline>(`/api/interview/outline/${id}`, {
+      method: "PUT",
+      body: JSON.stringify(data),
+    }),
+  deleteOutline: (id: string) =>
+    request<{ success: boolean }>(`/api/interview/outline/${id}`, {
+      method: "DELETE",
     }),
 
   // 批量访谈

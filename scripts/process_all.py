@@ -36,6 +36,9 @@ OUT = os.environ.get(
     str(PROJECT_ROOT / "data" / "群体画像v2.0_data")
 )
 
+# 项目名：当 PIPELINE_SRC_DIR 为扁平目录时，通过此环境变量指定项目名
+PIPELINE_PROJECT_NAME = os.environ.get("PIPELINE_PROJECT_NAME", "")
+
 MAX_PQ_LENGTH = 200  # §6.7 PQ 长度上限
 
 # English patterns for classify_mod
@@ -2090,6 +2093,431 @@ def parse_xlsx(filepath, source_file):
 
 
 # ============================================================
+# GENERIC FILE PARSERS (txt, csv, json, pdf)
+# ============================================================
+
+# Common speaker patterns for plain text files
+TEXT_SPEAKER_RE = re.compile(
+    r'^([A-Za-z0-9_一-鿿]{1,20})[：:]\s*(.*)', re.UNICODE
+)
+TEXT_Q_RE = re.compile(r'^Q\d*[：:.\s]', re.IGNORECASE)
+
+
+def parse_plain_text(filepath, source_file):
+    """Parse plain text files (.txt, .md) into segments.
+
+    Tries to detect speaker patterns (e.g. "Speaker1: content").
+    If no patterns found, treats entire file as one speaker's content split by paragraphs.
+    """
+    try:
+        with open(filepath, "r", encoding="utf-8") as f:
+            content = f.read()
+    except UnicodeDecodeError:
+        try:
+            with open(filepath, "r", encoding="gbk") as f:
+                content = f.read()
+        except Exception as e:
+            print(f"    ERROR reading file: {e}")
+            return [], []
+    except Exception as e:
+        print(f"    ERROR reading file: {e}")
+        return [], []
+
+    lines = content.strip().split("\n")
+    speakers = {}
+    segments = []
+    current_speaker = None
+    seg_idx = 0
+
+    # Try to detect speaker patterns
+    has_speaker_patterns = False
+    for line in lines[:50]:
+        if TEXT_SPEAKER_RE.match(line.strip()):
+            has_speaker_patterns = True
+            break
+
+    if has_speaker_patterns:
+        buffer = ""
+        current_speaker = None
+        for line in lines:
+            line = line.strip()
+            if not line:
+                if buffer and current_speaker:
+                    seg_idx += 1
+                    segments.append({
+                        "speaker_id": current_speaker,
+                        "speaker_role": "respondent",
+                        "preceding_question": "",
+                        "original_text": buffer.strip(),
+                        "source_file": source_file,
+                    })
+                    buffer = ""
+                continue
+
+            m = TEXT_SPEAKER_RE.match(line)
+            if m:
+                # Save previous buffer
+                if buffer and current_speaker:
+                    seg_idx += 1
+                    segments.append({
+                        "speaker_id": current_speaker,
+                        "speaker_role": "respondent",
+                        "preceding_question": "",
+                        "original_text": buffer.strip(),
+                        "source_file": source_file,
+                    })
+                    buffer = ""
+
+                speaker = m.group(1).strip()
+                text = m.group(2).strip()
+                current_speaker = speaker
+                if speaker not in speakers:
+                    speakers[speaker] = {
+                        "speaker_id": speaker,
+                        "display_name": speaker,
+                        "profile": {"name": speaker, "age": None, "gender": "", "occupation": "", "education": ""},
+                        "gaming_background": {"current_games": [], "platform": [], "experience_years": None, "genre_experience": []},
+                    }
+                if text:
+                    buffer = text
+            else:
+                if current_speaker:
+                    buffer += " " + line
+
+        # Flush final buffer
+        if buffer and current_speaker:
+            seg_idx += 1
+            segments.append({
+                "speaker_id": current_speaker,
+                "speaker_role": "respondent",
+                "preceding_question": "",
+                "original_text": buffer.strip(),
+                "source_file": source_file,
+            })
+    else:
+        # No speaker patterns — treat as single-speaker text
+        speaker_id = "S001"
+        speakers[speaker_id] = {
+            "speaker_id": speaker_id,
+            "display_name": "Unknown",
+            "profile": {"name": "Unknown", "age": None, "gender": "", "occupation": "", "education": ""},
+            "gaming_background": {"current_games": [], "platform": [], "experience_years": None, "genre_experience": []},
+        }
+        # Split into paragraphs
+        paragraphs = [p.strip() for p in content.split("\n\n") if p.strip()]
+        if not paragraphs:
+            paragraphs = [line.strip() for line in lines if line.strip()]
+        for p in paragraphs:
+            if len(p) < 10:
+                continue
+            seg_idx += 1
+            segments.append({
+                "speaker_id": speaker_id,
+                "speaker_role": "respondent",
+                "preceding_question": "",
+                "original_text": p,
+                "source_file": source_file,
+            })
+
+    if not speakers:
+        speakers["S001"] = {
+            "speaker_id": "S001",
+            "display_name": "Unknown",
+            "profile": {"name": "Unknown", "age": None, "gender": "", "occupation": "", "education": ""},
+            "gaming_background": {"current_games": [], "platform": [], "experience_years": None, "genre_experience": []},
+        }
+
+    respondents = list(speakers.values())
+    return respondents, segments
+
+
+def parse_csv_file(filepath, source_file):
+    """Parse CSV files into segments.
+
+    Tries to detect columns for speaker, text, and optionally question.
+    Falls back to treating each row as a segment.
+    """
+    import csv as csv_module
+
+    try:
+        with open(filepath, "r", encoding="utf-8") as f:
+            reader = csv_module.reader(f)
+            rows = list(reader)
+    except UnicodeDecodeError:
+        try:
+            with open(filepath, "r", encoding="gbk") as f:
+                reader = csv_module.reader(f)
+                rows = list(reader)
+        except Exception as e:
+            print(f"    ERROR reading CSV: {e}")
+            return [], []
+    except Exception as e:
+        print(f"    ERROR reading CSV: {e}")
+        return [], []
+
+    if not rows:
+        return [], []
+
+    header = rows[0]
+    data_rows = rows[1:] if len(rows) > 1 else []
+
+    # Try to detect column roles
+    text_col = None
+    speaker_col = None
+    question_col = None
+
+    text_keywords = ["text", "content", "回答", "回复", "内容", "answer", "response", "message"]
+    speaker_keywords = ["speaker", "user", "name", "说话人", "用户", "姓名", "id", "speaker_id"]
+    question_keywords = ["question", "问题", "提问", "topic"]
+
+    for idx, col in enumerate(header):
+        col_lower = col.strip().lower()
+        if text_col is None and any(kw in col_lower for kw in text_keywords):
+            text_col = idx
+        if speaker_col is None and any(kw in col_lower for kw in speaker_keywords):
+            speaker_col = idx
+        if question_col is None and any(kw in col_lower for kw in question_keywords):
+            question_col = idx
+
+    # Fallback: if no clear columns found, use first column as text, second as speaker
+    if text_col is None and len(header) >= 1:
+        text_col = 0
+    if speaker_col is None and len(header) >= 2:
+        speaker_col = 1
+
+    speakers = {}
+    segments = []
+    seg_idx = 0
+
+    for row in data_rows:
+        if not row or all(not c.strip() for c in row):
+            continue
+
+        text = row[text_col].strip() if text_col is not None and text_col < len(row) else ""
+        speaker = row[speaker_col].strip() if speaker_col is not None and speaker_col < len(row) else "S001"
+        question = row[question_col].strip() if question_col is not None and question_col < len(row) else ""
+
+        if not text or len(text) < 5:
+            continue
+
+        if speaker not in speakers:
+            speakers[speaker] = {
+                "speaker_id": speaker,
+                "display_name": speaker,
+                "profile": {"name": speaker, "age": None, "gender": "", "occupation": "", "education": ""},
+                "gaming_background": {"current_games": [], "platform": [], "experience_years": None, "genre_experience": []},
+            }
+
+        seg_idx += 1
+        segments.append({
+            "speaker_id": speaker,
+            "speaker_role": "respondent",
+            "preceding_question": question or "",
+            "original_text": text,
+            "source_file": source_file,
+        })
+
+    if not speakers:
+        speakers["S001"] = {
+            "speaker_id": "S001",
+            "display_name": "Unknown",
+            "profile": {"name": "Unknown", "age": None, "gender": "", "occupation": "", "education": ""},
+            "gaming_background": {"current_games": [], "platform": [], "experience_years": None, "genre_experience": []},
+        }
+
+    respondents = list(speakers.values())
+    return respondents, segments
+
+
+def parse_json_file(filepath, source_file):
+    """Parse JSON files into segments.
+
+    If the JSON is already in the expected format (respondents + segments), use it directly.
+    Otherwise, try to extract text from known fields.
+    """
+    try:
+        with open(filepath, "r", encoding="utf-8") as f:
+            data = json.load(f)
+    except Exception as e:
+        print(f"    ERROR reading JSON: {e}")
+        return [], []
+
+    # Case 1: Already in pipeline format
+    if isinstance(data, dict) and "segments" in data:
+        respondents = data.get("respondents", [])
+        segments = data.get("segments", [])
+        for seg in segments:
+            seg["source_file"] = source_file
+        return respondents, segments
+
+    # Case 2: Array of objects — try to extract text
+    if isinstance(data, list):
+        speakers = {}
+        segments = []
+        text_fields = ["text", "content", "message", "body", "original_text", "cleaned_text",
+                       "回答", "内容", "文本", "answer", "response", "description"]
+        speaker_fields = ["speaker", "user", "name", "speaker_id", "author", "说话人", "用户"]
+
+        for idx, item in enumerate(data):
+            if not isinstance(item, dict):
+                continue
+
+            # Find text
+            text = ""
+            for tf in text_fields:
+                if tf in item and item[tf]:
+                    text = str(item[tf])
+                    break
+            if not text:
+                # Try first string value
+                for v in item.values():
+                    if isinstance(v, str) and len(v) > 10:
+                        text = v
+                        break
+            if not text or len(text) < 5:
+                continue
+
+            # Find speaker
+            speaker = "S001"
+            for sf in speaker_fields:
+                if sf in item and item[sf]:
+                    speaker = str(item[sf])
+                    break
+
+            if speaker not in speakers:
+                speakers[speaker] = {
+                    "speaker_id": speaker,
+                    "display_name": speaker,
+                    "profile": {"name": speaker, "age": None, "gender": "", "occupation": "", "education": ""},
+                    "gaming_background": {"current_games": [], "platform": [], "experience_years": None, "genre_experience": []},
+                }
+
+        respondents = list(speakers.values())
+        return respondents, segments
+
+    # Case 3: Single object — treat as one segment
+    if isinstance(data, dict):
+        text = data.get("text", data.get("content", str(data)))
+        if len(text) < 5:
+            return [], []
+        return (
+            [{"speaker_id": "S001", "display_name": "Unknown",
+              "profile": {"name": "Unknown", "age": None, "gender": "", "occupation": "", "education": ""},
+              "gaming_background": {"current_games": [], "platform": [], "experience_years": None, "genre_experience": []}}],
+            [{"speaker_id": "S001", "speaker_role": "respondent",
+              "preceding_question": "", "original_text": text[:5000],
+              "source_file": source_file}],
+        )
+
+    return [], []
+
+
+def parse_pdf_file(filepath, source_file):
+    """Parse PDF files by extracting text.
+
+    Tries PyPDF2 first, falls back to pdfplumber.
+    If neither is available, returns empty.
+    """
+    text = ""
+
+    # Try PyPDF2
+    try:
+        from PyPDF2 import PdfReader
+        reader = PdfReader(filepath)
+        pages = []
+        for page in reader.pages:
+            t = page.extract_text()
+            if t:
+                pages.append(t)
+        text = "\n\n".join(pages)
+    except ImportError:
+        pass
+    except Exception as e:
+        print(f"    PyPDF2 failed: {e}")
+
+    # Fallback: try pdfplumber
+    if not text:
+        try:
+            import pdfplumber
+            with pdfplumber.open(filepath) as pdf:
+                pages = []
+                for page in pdf.pages:
+                    t = page.extract_text()
+                    if t:
+                        pages.append(t)
+                text = "\n\n".join(pages)
+        except ImportError:
+            pass
+        except Exception as e:
+            print(f"    pdfplumber failed: {e}")
+
+    if not text:
+        print(f"    WARNING: Could not extract text from PDF (install PyPDF2 or pdfplumber)")
+        return [], []
+
+    # Parse extracted text as plain text
+    # Write to temp file and use plain text parser
+    import tempfile
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".txt", delete=False, encoding="utf-8") as tmp:
+        tmp.write(text)
+        tmp_path = tmp.name
+
+    try:
+        return parse_plain_text(tmp_path, source_file)
+    finally:
+        try:
+            os.unlink(tmp_path)
+        except Exception:
+            pass
+
+
+def parse_auto_generated(filepath, source_file):
+    """Auto-generate a parser for unknown file formats, then run it.
+
+    Calls generate_parser.py to analyze the file and generate a reusable parser.
+    If generation fails, falls back to parse_plain_text.
+    """
+    import importlib.util
+    import subprocess
+    import tempfile
+
+    script = os.path.join(os.path.dirname(__file__), "generate_parser.py")
+    output_dir = os.path.join(os.path.dirname(__file__), "generated_parsers")
+
+    # 1. Try to generate a parser
+    try:
+        result = subprocess.run(
+            [sys.executable, script, filepath, "--output-dir", output_dir],
+            capture_output=True, text=True, timeout=30,
+        )
+        # Parse the last line of stdout as JSON
+        stdout_lines = result.stdout.strip().split("\n")
+        info = json.loads(stdout_lines[-1]) if stdout_lines else {}
+    except Exception as e:
+        print(f"  Parser generation failed: {e}, falling back to plain_text")
+        return parse_plain_text(filepath, source_file)
+
+    if info.get("status") not in ("generated", "cached"):
+        print(f"  No parser generated ({info.get('message', 'unknown')}), falling back to plain_text")
+        return parse_plain_text(filepath, source_file)
+
+    # 2. Import and run the generated parser
+    parser_path = info["parser_path"]
+    try:
+        spec = importlib.util.spec_from_file_location(
+            f"generated_parser_{info.get('hash', 'unknown')}", parser_path
+        )
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        respondents, segments = mod.parse(filepath, source_file)
+        print(f"  [auto-generated parser: {info.get('format_type', '?')}] ", end="")
+        return respondents, segments
+    except Exception as e:
+        print(f"  Generated parser failed: {e}, falling back to plain_text")
+        return parse_plain_text(filepath, source_file)
+
+
+# ============================================================
 # FILE DISPATCHER
 # ============================================================
 
@@ -2133,7 +2561,26 @@ def detect_format(filepath, rel_path):
     if ext == '.xlsx':
         return ('xlsx', {})
 
-    doc = Document(filepath)
+    if ext in ('.txt', '.md'):
+        return ('plain_text', {})
+
+    if ext == '.csv':
+        return ('csv', {})
+
+    if ext == '.json':
+        return ('json', {})
+
+    if ext == '.pdf':
+        return ('pdf', {})
+
+    # .docx files
+    if ext != '.docx':
+        return ('auto_generated', {})
+
+    try:
+        doc = Document(filepath)
+    except Exception:
+        return ('unknown', {})
 
     # Check if it's paragraph-only (no tables)
     if not doc.tables:
@@ -2225,6 +2672,16 @@ def process_file(filepath, rel_path):
         return parse_xlsx(filepath, rel_path)
     elif ftype == 'webvtt':
         return parse_webvtt(filepath, rel_path)
+    elif ftype == 'plain_text':
+        return parse_plain_text(filepath, rel_path)
+    elif ftype == 'csv':
+        return parse_csv_file(filepath, rel_path)
+    elif ftype == 'json':
+        return parse_json_file(filepath, rel_path)
+    elif ftype == 'pdf':
+        return parse_pdf_file(filepath, rel_path)
+    elif ftype == 'auto_generated':
+        return parse_auto_generated(filepath, rel_path, **params)
     else:
         print(f"  WARNING: Unknown format: {rel_path}")
         return [], []
@@ -2238,7 +2695,8 @@ def main():
     all_files = []
     for root, dirs, fnames in os.walk(BASE):
         for f in sorted(fnames):
-            if f.endswith(('.docx', '.xlsx')) and not f.startswith('~'):
+            if f.endswith(('.docx', '.xlsx', '.txt', '.csv', '.json', '.md', '.pdf',
+                           '.xml', '.html', '.htm', '.yaml', '.yml', '.tsv', '.log')) and not f.startswith('~'):
                 full = os.path.join(root, f)
                 rel = os.path.relpath(full, BASE)
                 all_files.append((full, rel))
@@ -2317,6 +2775,9 @@ def main():
             }
 
             out_rel = os.path.splitext(rel)[0] + ".json"
+            # 如果设置了 PIPELINE_PROJECT_NAME，将输出文件放在项目子目录下
+            if PIPELINE_PROJECT_NAME:
+                out_rel = os.path.join(PIPELINE_PROJECT_NAME, os.path.basename(out_rel))
             out_path = os.path.join(OUT, out_rel)
             os.makedirs(os.path.dirname(out_path), exist_ok=True)
             with open(out_path, "w", encoding="utf-8") as f:

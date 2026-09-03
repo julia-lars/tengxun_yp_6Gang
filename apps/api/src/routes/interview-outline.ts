@@ -4,7 +4,7 @@
 // --------------------------------------------------------------
 
 import type { InterviewOutline, OutlineJobStatus } from "@app/shared";
-import { outlineGenerateRequestSchema, refineQuestionRequestSchema } from "@app/shared";
+import { interviewOutlineSchema, outlineGenerateRequestSchema, refineQuestionRequestSchema } from "@app/shared";
 import { zValidator } from "@hono/zod-validator";
 import { desc, eq, inArray } from "drizzle-orm";
 import { Hono } from "hono";
@@ -451,6 +451,99 @@ interviewOutlineRoute.get("/", async (c) => {
       createdAt: row.createdAt.toISOString(),
     } satisfies InterviewOutline)),
   );
+});
+
+// ---- 更新大纲 ----
+
+// PUT /api/interview/outline/:id
+interviewOutlineRoute.put("/:id", async (c) => {
+  const { id } = c.req.param();
+
+  // 检查大纲是否存在
+  const existing = await db
+    .select()
+    .from(interviewOutlines)
+    .where(eq(interviewOutlines.id, id))
+    .limit(1);
+
+  if (!existing[0]) return c.json({ error: "大纲不存在" }, 404);
+
+  let body: Record<string, unknown>;
+  try {
+    body = await c.req.json();
+  } catch {
+    return c.json({ error: "请求体必须是 JSON" }, 400);
+  }
+
+  // 只更新允许的字段
+  const updates: Record<string, unknown> = {};
+  if (typeof body.theme === "string") updates.theme = body.theme;
+  if (typeof body.targetPersona === "string" || body.targetPersona === null) {
+    updates.targetPersona = body.targetPersona;
+  }
+  if (typeof body.description === "string" || body.description === null) {
+    updates.description = body.description;
+  }
+  if (body.sections != null) {
+    // 基本验证 sections 结构
+    if (!Array.isArray(body.sections)) {
+      return c.json({ error: "sections 必须是数组" }, 400);
+    }
+    updates.sections = body.sections;
+  }
+  if (typeof body.totalDurationMinutes === "number") {
+    updates.totalDurationMinutes = body.totalDurationMinutes;
+  }
+
+  if (Object.keys(updates).length === 0) {
+    return c.json({ error: "没有可更新的字段" }, 400);
+  }
+
+  await db
+    .update(interviewOutlines)
+    .set(updates as any)
+    .where(eq(interviewOutlines.id, id))
+    .execute();
+
+  // 返回更新后的大纲
+  const updated = await db
+    .select()
+    .from(interviewOutlines)
+    .where(eq(interviewOutlines.id, id))
+    .limit(1);
+
+  const row = updated[0]!;
+  return c.json({
+    id: row.id,
+    theme: row.theme,
+    targetPersona: row.targetPersona ?? undefined,
+    description: row.description ?? "",
+    sections: row.sections as InterviewOutline["sections"],
+    totalDurationMinutes: row.totalDurationMinutes ?? 0,
+    createdAt: row.createdAt.toISOString(),
+  } satisfies InterviewOutline);
+});
+
+// ---- 删除大纲 ----
+
+// DELETE /api/interview/outline/:id
+interviewOutlineRoute.delete("/:id", async (c) => {
+  const { id } = c.req.param();
+
+  const existing = await db
+    .select({ id: interviewOutlines.id })
+    .from(interviewOutlines)
+    .where(eq(interviewOutlines.id, id))
+    .limit(1);
+
+  if (!existing[0]) return c.json({ error: "大纲不存在" }, 404);
+
+  await db
+    .delete(interviewOutlines)
+    .where(eq(interviewOutlines.id, id))
+    .execute();
+
+  return c.json({ success: true });
 });
 
 // ---- 优化单个问题 ----

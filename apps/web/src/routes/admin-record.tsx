@@ -185,25 +185,25 @@ export function AdminRecordPage() {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <div>
+      <div className="sticky top-0 z-10 -mt-6 pt-6 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 bg-neutral-50">
+        <div className="pb-2 border-b border-neutral-200 flex items-center justify-between">
           <button
             type="button"
             onClick={() => navigate(-1)}
-            className="text-sm text-blue-500 hover:underline inline-flex items-center gap-1 cursor-pointer"
+            className="inline-flex items-center gap-1 text-sm text-(--color-content-secondary) hover:text-(--color-brand-500) transition-colors cursor-pointer"
           >
             <ArrowLeft className="h-3 w-3" />
             返回列表
           </button>
-          <h1 className="text-2xl font-bold text-(--color-content-primary) mt-1">
-            {isNew ? `新增${meta}` : `编辑${meta} #${id}`}
-          </h1>
+          <Button onClick={handleSave} disabled={saving} className="gap-1.5">
+            <Save className="h-4 w-4" />
+            {saving ? "保存中..." : "保存"}
+          </Button>
         </div>
-        <Button onClick={handleSave} disabled={saving} className="gap-1.5">
-          <Save className="h-4 w-4" />
-          {saving ? "保存中..." : "保存"}
-        </Button>
       </div>
+      <h1 className="text-2xl font-bold text-(--color-content-primary)">
+        {isNew ? `新增${meta}` : `编辑${meta} #${id}`}
+      </h1>
 
       {error && (
         <div className="text-red-500 text-sm p-3 bg-red-50 rounded-lg">{error}</div>

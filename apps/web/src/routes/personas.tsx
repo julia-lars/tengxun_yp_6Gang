@@ -216,7 +216,7 @@ export function PersonasPage() {
               快速筛选
             </CardTitle>
             {Object.values(simpleValue).some(Boolean) && (
-              <Button variant="ghost" size="sm" onClick={clearSimple} className="text-xs h-7">
+              <Button variant="ghost" size="sm" onClick={clearSimple} className="text-xs h-7 text-neutral-600">
                 <X className="h-3 w-3 mr-1" /> 清空全部
               </Button>
             )}

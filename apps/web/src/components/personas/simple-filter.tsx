@@ -1,5 +1,5 @@
 // 简洁筛选组件 — 3 道选择题（单张卡片内纵向排列，Q1 多选，Q2-Q3 单选）
-import { RotateCcw, X } from "lucide-react";
+import { X } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { parseMultiValue, SIMPLE_QUESTIONS, type SimpleFilterValue } from "@/lib/simple-filter";
 
@@ -10,8 +10,6 @@ interface SimpleFilterProps {
 }
 
 export function SimpleFilter({ value, onChange, onClear }: SimpleFilterProps) {
-  const anySelected = Object.values(value).some(Boolean);
-
   return (
     <div className="space-y-5">
       {SIMPLE_QUESTIONS.map((q, idx) => {
@@ -62,16 +60,6 @@ export function SimpleFilter({ value, onChange, onClear }: SimpleFilterProps) {
           </div>
         );
       })}
-
-      {anySelected && (
-        <button
-          type="button"
-          onClick={onClear}
-          className="inline-flex items-center gap-1 text-xs text-(--color-muted-foreground) hover:text-(--color-foreground) transition-colors"
-        >
-          <RotateCcw className="h-3 w-3" /> 清空选择
-        </button>
-      )}
     </div>
   );
 }

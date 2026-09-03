@@ -18,8 +18,9 @@ const RRF_K = 60;
 
 /**
  * 向量检索的 Top N（粗排）
+ * 提高候选数，给 reranker 更多筛选空间
  */
-const VECTOR_TOP_N = 30;
+const VECTOR_TOP_N = 50;
 
 /**
  * BM25 关键词检索的 Top N（粗排）
@@ -27,9 +28,10 @@ const VECTOR_TOP_N = 30;
 const BM25_TOP_N = 30;
 
 /**
- * 向量相似度阈值
+ * 向量相似度阈值（cosine distance）
+ * 收紧到 0.45（即 cosine similarity > 0.55），减少与查询无关的噪音片段
  */
-const SIMILARITY_THRESHOLD = 0.6;
+const SIMILARITY_THRESHOLD = 0.45;
 
 /**
  * 混合检索结果
@@ -214,7 +216,7 @@ function rrfFusion(
 
 /**
  * 混合检索入口：向量 + BM25 RRF 融合
- * 返回融合后的排序结果，最多 20 条
+ * 返回融合后的排序结果，最多 15 条
  */
 export async function hybridSearch(opts: {
   message: string;
@@ -226,7 +228,7 @@ export async function hybridSearch(opts: {
   // 向量化查询
   let vecStr: string;
   try {
-    const queryVec = await embedQuery(message);
+    const queryVec = await embedQuery(message, "query");
     vecStr = JSON.stringify(queryVec);
   } catch (e) {
     console.error("混合检索：向量化失败，降级为纯 BM25:", e);
@@ -287,8 +289,8 @@ export async function hybridSearch(opts: {
   // RRF 融合
   const fused = rrfFusion(finalVectorResults, bm25Results);
 
-  // Cross-Encoder 重排序（精排 Top 15）
-  const reranked = await rerankEvidence(message, fused, 15);
+  // Cross-Encoder 重排序（精排 Top 20，给 reranker 更多候选）
+  const reranked = await rerankEvidence(message, fused, 20);
 
   // 噪音过滤：排除不含游戏信息的短片段和单字噪音
   return filterNoiseRows(reranked).slice(0, 15);

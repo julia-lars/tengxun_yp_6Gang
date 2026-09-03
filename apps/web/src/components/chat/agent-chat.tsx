@@ -4,6 +4,9 @@
 import {
   ArrowDown,
   ArrowLeft,
+  Bot,
+  Check,
+  ChevronDown,
   ChevronRight,
   Copy,
   Download,
@@ -29,10 +32,21 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { MODEL_VARIANT_LABELS, AVAILABLE_MODEL_VARIANTS, type ModelVariant } from "@app/shared";
 
 // ---- 类型 ----
+
+/** 模型变体按提供商分组 */
+const MODEL_GROUPS: { provider: string; variants: ModelVariant[] }[] = [
+  { provider: "DeepSeek", variants: ["deepseek-v4-pro", "deepseek-v4-flash"] },
+  { provider: "GLM", variants: ["glm-5", "glm-5.1", "glm-5.2"] },
+  { provider: "MiniMax", variants: ["minimax-m2.5", "minimax-m3"] },
+  { provider: "Kimi", variants: ["kimi-k2.5", "kimi-k2.6", "kimi-k2.7-code"] },
+];
 
 export interface ConfidenceResult {
   score: number;
@@ -199,6 +213,8 @@ export function AgentChat({
   const [highlightedEvidenceIds, setHighlightedEvidenceIds] = useState<Set<number>>(new Set());
   const [showScrollButton, setShowScrollButton] = useState(false);
   const [isNearBottom, setIsNearBottom] = useState(true);
+  // 模型选择
+  const [selectedModel, setSelectedModel] = useState<ModelVariant>("deepseek-v4-pro");
   // 无限滚动向上加载历史消息
   const [hasMore, setHasMore] = useState(false);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
@@ -336,6 +352,8 @@ export function AgentChat({
 
     try {
       const body = buildRequestBody(userMsg, sessionId);
+      // 附加用户选择的模型
+      body.model = selectedModel;
 
       const res = await fetch(chatEndpoint, {
         method: "POST",
@@ -364,6 +382,8 @@ export function AgentChat({
       }
       const decoder = new TextDecoder();
       let buffer = "";
+	      // SSE 多行数据累积：content 中的换行符被 SSE 编码为多行 data:，需用 \n 重新 join
+	      let sseTextLines: string[] = [];
 
       if (f.thinking) setThinking(false);
       const assistantMsgIndex = messages.length; // 当前即将添加的 assistant 消息索引
@@ -465,7 +485,15 @@ export function AgentChat({
               }
               continue;
             }
-            aiContent += data;
+            // 文本数据：累积多行，等遇到空行（SSE 事件结束）时 join("\n") 还原
+            sseTextLines.push(data);
+            continue;
+          }
+
+          // 空行 = SSE 事件结束，flush 累积的文本行
+          if (sseTextLines.length > 0) {
+            aiContent += sseTextLines.join("\n");
+            sseTextLines = [];
             setMessages((prev) => {
               const next = [...prev];
               const last = next[next.length - 1];
@@ -530,7 +558,7 @@ export function AgentChat({
       if (f.thinking) setThinking(false);
       abortRef.current = null;
     }
-  }, [input, streaming, sessionId, chatEndpoint, buildRequestBody, f.thinking, setSearchParams]);
+  }, [input, streaming, sessionId, chatEndpoint, buildRequestBody, f.thinking, setSearchParams, selectedModel]);
 
   // 重试
   const retry = useCallback(() => {
@@ -750,7 +778,7 @@ export function AgentChat({
   return (
     <div className="flex flex-col h-full">
       {/* 顶部信息栏 */}
-      <div className="flex items-center gap-3 pb-3 border-b border-(--color-border-default) shrink-0 sticky top-0 z-10 bg-(--color-surface-primary) pt-3">
+      <div className="flex items-center gap-3 pb-3 shrink-0 sticky top-0 z-10 bg-(--color-surface-primary) pt-3">
         <button
           type="button"
           onClick={() => navigate(-1)}
@@ -769,6 +797,36 @@ export function AgentChat({
           )}
         </div>
         <div className="flex items-center gap-1">
+          {/* 模型选择器 */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="sm" className="text-xs h-7 gap-1">
+                <Bot className="h-3 w-3" />
+                {MODEL_VARIANT_LABELS[selectedModel]}
+                <ChevronDown className="h-3 w-3" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-48">
+              {MODEL_GROUPS.map((group, gi) => (
+                <div key={group.provider}>
+                  {gi > 0 && <DropdownMenuSeparator />}
+                  <DropdownMenuLabel className="text-[10px] text-(--color-content-tertiary) py-1">
+                    {group.provider}
+                  </DropdownMenuLabel>
+                  {group.variants.map((v) => (
+                    <DropdownMenuItem
+                      key={v}
+                      onClick={() => setSelectedModel(v)}
+                      className="flex items-center justify-between text-xs"
+                    >
+                      {MODEL_VARIANT_LABELS[v]}
+                      {selectedModel === v && <Check className="h-3.5 w-3.5" />}
+                    </DropdownMenuItem>
+                  ))}
+                </div>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
           {messages.length > 0 && (
             <>
               {f.export && (
@@ -809,7 +867,7 @@ export function AgentChat({
       {/* 对话区域 */}
       <div
         ref={chatContainerRef}
-        className="flex-1 overflow-y-auto py-4 space-y-4 min-h-0 relative scrollbar-hide"
+        className="flex-1 overflow-y-auto pt-4 pb-6 space-y-4 min-h-0 relative"
       >
         {messages.length === 0 && (
           <div className="text-center py-12 px-4">
@@ -1029,14 +1087,14 @@ export function AgentChat({
       </div>
 
       {/* 输入区域 */}
-      <div className="border-t border-(--color-border-default) pt-3 flex gap-2 shrink-0">
+      <div className="pt-2 pb-2 flex gap-2 shrink-0">
         <Textarea
           ref={inputRef}
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder={placeholder ?? defaultPlaceholder}
-          rows={2}
+          rows={1}
           disabled={streaming}
           className="flex-1 resize-none"
           maxLength={2000}

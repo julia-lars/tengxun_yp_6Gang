@@ -13,6 +13,7 @@ import json
 import os
 import re
 import sys
+import argparse
 from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
@@ -39,14 +40,24 @@ def _load_dotenv():
 _load_dotenv()
 
 # ---------------------------------------------------------------------------
-# 路径配置
+# 路径配置（可通过 CLI 参数覆盖）
 # ---------------------------------------------------------------------------
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-IN_DIR = PROJECT_ROOT / "data" / "群体画像v2.0_data"
-OUT_DIR = PROJECT_ROOT / "data" / "群体画像v2.0_cleaned"
+_DEFAULT_IN_DIR = PROJECT_ROOT / "data" / "群体画像v2.0_data"
+_DEFAULT_OUT_DIR = PROJECT_ROOT / "data" / "群体画像v2.0_cleaned"
 
-# 本次 demo 处理的目标文件（相对 IN_DIR），None 表示处理全部
+# 运行时设置（在 main() 中通过 argparse 更新）
+IN_DIR = _DEFAULT_IN_DIR
+OUT_DIR = _DEFAULT_OUT_DIR
 TARGET_FILE = None
+
+
+def _safe_rel(path: Path, base: Path = PROJECT_ROOT) -> str:
+    """Return path relative to base, or absolute path if not under base."""
+    try:
+        return str(path.resolve().relative_to(base.resolve()))
+    except ValueError:
+        return str(path)
 
 # ---------------------------------------------------------------------------
 # 附录 A：游戏名标准化映射（常见称呼 -> 中文标准名）
@@ -946,7 +957,7 @@ def write_cleaned_output(
         json.dump(output, f, ensure_ascii=False, indent=2)
 
     return {
-        "cleaned_path": str(cleaned_path.relative_to(PROJECT_ROOT)),
+        "cleaned_path": _safe_rel(cleaned_path),
         "cleaned_count": cleaned_count,
         "review_count": review_count,
     }
@@ -1035,7 +1046,7 @@ def clean_segments(segments: list[dict]) -> dict[str, Any]:
 
 def clean_file(in_path: Path, out_path: Path) -> dict[str, Any]:
     """清洗单个文件。"""
-    print(f"\n📂 输入: {in_path.relative_to(PROJECT_ROOT)}")
+    print(f"\n📂 输入: {_safe_rel(in_path)}")
 
     with open(in_path, "r", encoding="utf-8") as f:
         data = json.load(f)
@@ -1108,7 +1119,7 @@ def clean_file(in_path: Path, out_path: Path) -> dict[str, Any]:
     # 生成 v2.1-demo 清洗结果文件
     file_outputs = write_cleaned_output(OUT_DIR, source_file, segments, respondents, full_dist)
 
-    print(f"✅ 审计输出: {out_path.relative_to(PROJECT_ROOT)}")
+    print(f"✅ 审计输出: {_safe_rel(out_path)}")
     print(f"   Segment 状态分布: {seg_stats}")
     print(f"   进入标注数 (kept): {full_dist['kept']}")
     if file_outputs['cleaned_path']:
@@ -1116,8 +1127,8 @@ def clean_file(in_path: Path, out_path: Path) -> dict[str, Any]:
         print(f"     有效(kept): {file_outputs['cleaned_count']}, 待复核(needs_review): {file_outputs['review_count']}")
 
     return {
-        "input_file": str(in_path.relative_to(PROJECT_ROOT)),
-        "output_file": str(out_path.relative_to(PROJECT_ROOT)),
+        "input_file": _safe_rel(in_path),
+        "output_file": _safe_rel(out_path),
         "source_file": source_file,
         "total_segments": len(segments),
         "status_distribution": full_dist,
@@ -1127,6 +1138,20 @@ def clean_file(in_path: Path, out_path: Path) -> dict[str, Any]:
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser(description="数据清洗 v2.1-demo")
+    parser.add_argument("--input-dir", type=str, default=str(_DEFAULT_IN_DIR),
+                        help=f"输入目录 (默认: {_DEFAULT_IN_DIR})")
+    parser.add_argument("--output-dir", type=str, default=str(_DEFAULT_OUT_DIR),
+                        help=f"输出目录 (默认: {_DEFAULT_OUT_DIR})")
+    parser.add_argument("--target-file", type=str, default=None,
+                        help="只处理指定文件（相对 IN_DIR 的路径）")
+    args = parser.parse_args()
+
+    global IN_DIR, OUT_DIR, TARGET_FILE
+    IN_DIR = Path(args.input_dir)
+    OUT_DIR = Path(args.output_dir)
+    TARGET_FILE = args.target_file
+
     # 收集所有待处理文件
     if TARGET_FILE:
         in_path = IN_DIR / TARGET_FILE
@@ -1173,7 +1198,7 @@ def main() -> int:
             if report["file_outputs"]["cleaned_path"]:
                 files_with_output += 1
         except Exception as e:
-            print(f"❌ 处理失败: {in_path.relative_to(PROJECT_ROOT)} — {e}")
+            print(f"❌ 处理失败: {_safe_rel(in_path)} — {e}")
             errors += 1
 
     # 生成汇总 manifest.json
@@ -1226,7 +1251,7 @@ def main() -> int:
     print(f"  removed_duplicate: {grand_removed_duplicate} ({grand_removed_duplicate/grand_total_segments*100:.1f}%)")
     print(f"  removed_irrelevant: {grand_removed_irrelevant} ({grand_removed_irrelevant/grand_total_segments*100:.1f}%)")
     print(f"  ✅ 有效保留率: {grand_kept/grand_total_segments*100:.1f}%")
-    print(f"  📄 manifest.json: {manifest_path.relative_to(PROJECT_ROOT)}")
+    print(f"  📄 manifest.json: {_safe_rel(manifest_path)}")
     print(f"{'='*60}")
 
     return 0 if errors == 0 else 1

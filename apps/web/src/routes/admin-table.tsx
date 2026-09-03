@@ -229,28 +229,28 @@ export function AdminTablePage() {
   return (
     <div className="space-y-4">
       {/* 页头 */}
-      <div className="flex items-center justify-between">
-        <div>
+      <div className="sticky top-0 z-10 -mt-6 pt-6 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 bg-neutral-50">
+        <div className="pb-2 border-b border-neutral-200 flex items-center justify-between">
           <button
             type="button"
             onClick={() => navigate(-1)}
-            className="inline-flex items-center gap-1 text-sm text-(--color-muted-foreground) hover:text-(--color-primary) transition-colors cursor-pointer"
+            className="inline-flex items-center gap-1 text-sm text-(--color-content-secondary) hover:text-(--color-brand-500) transition-colors cursor-pointer"
           >
             <ArrowLeft className="h-3 w-3" /> 返回仪表盘
           </button>
-          <h1 className="text-2xl font-bold text-(--color-content-primary) mt-1">
-            {meta.label}
-          </h1>
+          {meta.creatable && (
+            <Link to={`/admin/${table}/new`}>
+              <Button size="sm" className="gap-1.5">
+                <Plus className="h-4 w-4" />
+                新增
+              </Button>
+            </Link>
+          )}
         </div>
-        {meta.creatable && (
-          <Link to={`/admin/${table}/new`}>
-            <Button size="sm" className="gap-1.5">
-              <Plus className="h-4 w-4" />
-              新增
-            </Button>
-          </Link>
-        )}
       </div>
+      <h1 className="text-2xl font-bold text-(--color-content-primary)">
+        {meta.label}
+      </h1>
 
       {/* 搜索 */}
       <div className="relative">

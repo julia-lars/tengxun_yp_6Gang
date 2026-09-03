@@ -1,5 +1,6 @@
 // 管理后台 — 仪表盘
 import {
+  ArrowLeft,
   Clock,
   Database,
   FileText,
@@ -9,7 +10,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { PageHeader } from "@/components/shared/page-header";
@@ -97,6 +98,7 @@ function formatTime(iso: string): string {
 }
 
 export function AdminDashboard() {
+  const navigate = useNavigate();
   const [stats, setStats] = useState<AdminStats | null>(null);
   const [recentActivity, setRecentActivity] = useState<AuditLogEntry[]>([]);
   const [loading, setLoading] = useState(true);
@@ -140,6 +142,18 @@ export function AdminDashboard() {
 
   return (
     <div className="space-y-6">
+      <div className="sticky top-0 z-10 -mt-6 pt-6 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 bg-neutral-50">
+        <div className="pb-2 border-b border-neutral-200">
+          <button
+            type="button"
+            onClick={() => navigate(-1)}
+            className="inline-flex items-center gap-1 text-sm text-(--color-content-secondary) hover:text-(--color-brand-500) transition-colors cursor-pointer"
+          >
+            <ArrowLeft className="h-3 w-3" /> 返回上一页
+          </button>
+        </div>
+      </div>
+
       <PageHeader
         title="数据管理"
         description="管理画像、用户原声、KOL 分身及所有对话记录"

@@ -1,6 +1,39 @@
 // 前后端共享类型 — AI 模拟用户系统
 import { z } from "zod";
 
+// ---- AI 模型变体 ----
+
+/** 所有可选的 AI 模型变体（具体型号，非提供商） */
+export const MODEL_VARIANT_LABELS = {
+  "deepseek-v4-pro": "DeepSeek V4 Pro",
+  "deepseek-v4-flash": "DeepSeek V4 Flash",
+  "glm-5": "GLM-5",
+  "glm-5.1": "GLM-5.1",
+  "glm-5.2": "GLM-5.2",
+  "minimax-m2.5": "MiniMax M2.5",
+  "minimax-m3": "MiniMax M3",
+  "kimi-k2.5": "Kimi K2.5",
+  "kimi-k2.6": "Kimi K2.6",
+  "kimi-k2.7-code": "Kimi K2.7 Code",
+} as const;
+
+export type ModelVariant = keyof typeof MODEL_VARIANT_LABELS;
+export const AVAILABLE_MODEL_VARIANTS = Object.keys(MODEL_VARIANT_LABELS) as ModelVariant[];
+
+/** zod enum 所需的字面量元组（保持类型精确） */
+const MODEL_VARIANT_ENUM = [
+  "deepseek-v4-pro",
+  "deepseek-v4-flash",
+  "glm-5",
+  "glm-5.1",
+  "glm-5.2",
+  "minimax-m2.5",
+  "minimax-m3",
+  "kimi-k2.5",
+  "kimi-k2.6",
+  "kimi-k2.7-code",
+] as const;
+
 // ---- 标签 ----
 export const tagDimensionSchema = z.object({
   name: z.string(),
@@ -38,6 +71,7 @@ export const personaDetailSchema = personaSummarySchema.extend({
   motivationChain: z.record(z.string(), z.unknown()).nullable(),
   evidenceList: z.array(evidenceSchema),
   clusterId: z.string().nullable(),
+  segmentCount: z.number().int().nonnegative(),
 });
 export type PersonaDetail = z.infer<typeof personaDetailSchema>;
 
@@ -117,6 +151,7 @@ export const chatRequestSchema = z.object({
   personaId: z.number().int().positive(),
   sessionId: z.number().int().positive().optional(),
   message: z.string().min(1).max(2000),
+  model: z.enum(MODEL_VARIANT_ENUM).optional(),
 });
 export type ChatRequest = z.infer<typeof chatRequestSchema>;
 
@@ -164,6 +199,7 @@ export const kolChatRequestSchema = z.object({
   kolId: z.number().int().positive(),
   sessionId: z.number().int().positive().optional(),
   message: z.string().min(1).max(2000),
+  model: z.enum(MODEL_VARIANT_ENUM).optional(),
 });
 export type KolChatRequest = z.infer<typeof kolChatRequestSchema>;
 
@@ -195,6 +231,8 @@ export const pipelineConfigSchema = z.object({
   enableClustering: z.boolean().optional(),
   kolId: z.number().int().positive().optional(),
   notes: z.string().optional(),
+  projectName: z.string().optional(),
+  mergeMode: z.enum(["append", "full"]).optional(),
 });
 export type PipelineConfig = z.infer<typeof pipelineConfigSchema>;
 
@@ -205,6 +243,7 @@ export const pipelineStatusSchema = z.object({
     "extracting",
     "cleaning",
     "tagging",
+    "merge",
     "embedding",
     "clustering",
     "cancelled",
@@ -337,18 +376,20 @@ export const batchInterviewReportSchema = z.object({
     totalInterviews: z.number().int(),
     completedInterviews: z.number().int(),
     totalRounds: z.number().int(),
-    crossCuttingThemes: z.array(z.string()),
-    personaComparison: z.array(
+    questionAnalysis: z.array(
       z.object({
-        theme: z.string(),
-        observations: z.array(
+        question: z.string(),
+        summary: z.string(),
+        commonThemes: z.array(z.string()),
+        personaResponses: z.array(
           z.object({
             personaId: z.number().int().positive(),
             personaName: z.string(),
-            stance: z.string(),
+            keyPoint: z.string(),
             quote: z.string().optional(),
           }),
         ),
+        divergences: z.array(z.string()),
       }),
     ),
   }),

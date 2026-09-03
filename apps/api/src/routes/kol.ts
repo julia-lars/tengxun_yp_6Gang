@@ -14,7 +14,6 @@ import { db } from "../db/client.js";
 import { kolChatSessions, kolProfiles, kolSegments } from "../db/schema.js";
 import type { ChatMessage } from "../lib/llm.js";
 import { SPOKEN_STYLE_RULES, formatSpokenStyleRules } from "../lib/prompt-rules.js";
-import { escapeLike } from "../lib/sql.js";
 import {
   getOrCreateSession,
   searchEvidence,
@@ -23,16 +22,16 @@ import {
   reformulateQueryForSearch,
   type EvidenceRow,
 } from "../lib/agent-chat.js";
-import {
-  calculateConfidence,
-  classifyMatchLevel,
-} from "../lib/confidence.js";
+import { calculateKOLConfidence, extractKOLTags } from "../lib/kol-confidence.js";
+import { classifyMatchLevel } from "../lib/confidence.js";
 import { checkBoundary } from "../lib/boundary-engine.js";
 
 export const kolRoute = new Hono();
 
-// RAG 相似度阈值（余弦距离 < 0.5 视为相关）
-const KOL_SIMILARITY_THRESHOLD = 0.5;
+// RAG 相似度阈值（KOL ASR 转录质量较差，阈值从 0.5 降至 0.35）
+const KOL_SIMILARITY_THRESHOLD = 0.35;
+// pgvector <=> 返回余弦距离，相似度 = 1 - 距离，距离阈值 = 1 - 相似度阈值
+const KOL_DISTANCE_THRESHOLD = 1 - KOL_SIMILARITY_THRESHOLD;
 
 // ---- KOL 列表 ----
 
@@ -115,7 +114,7 @@ kolRoute.get("/:id", async (c) => {
 
 // POST /api/kol/chat
 kolRoute.post("/chat", zValidator("json", kolChatRequestSchema), async (c) => {
-  const { kolId, sessionId, message } = c.req.valid("json");
+  const { kolId, sessionId, message, model } = c.req.valid("json");
 
   // 1. 获取 KOL 画像
   const kol = await db.query.kolProfiles.findFirst({
@@ -163,7 +162,7 @@ kolRoute.post("/chat", zValidator("json", kolChatRequestSchema), async (c) => {
   }
 
   // 4. RAG 检索（使用共享引擎）
-  const searchQuery = await reformulateQueryForSearch(message);
+  const searchQuery = await reformulateQueryForSearch(message, model);
   const evidenceRows: EvidenceRow[] = await searchEvidence({
       message: searchQuery,
       vectorQuery: async (vecStr) => {
@@ -174,9 +173,9 @@ kolRoute.post("/chat", zValidator("json", kolChatRequestSchema), async (c) => {
               WHERE kol_id = ${kolId}
                 AND embedding IS NOT NULL
                 AND (ad_label IS NULL OR ad_label != '广告口播')
-                AND embedding <=> ${vecStr}::vector < ${KOL_SIMILARITY_THRESHOLD}
+                AND embedding <=> ${vecStr}::vector < ${KOL_DISTANCE_THRESHOLD}
               ORDER BY embedding <=> ${vecStr}::vector
-              LIMIT 10`,
+              LIMIT 15`,
         )) as unknown as Array<{
           id: number;
           original_text: string;
@@ -194,7 +193,7 @@ kolRoute.post("/chat", zValidator("json", kolChatRequestSchema), async (c) => {
                   AND embedding IS NOT NULL
                   AND (ad_label IS NULL OR ad_label != '广告口播')
                 ORDER BY embedding <=> ${vecStr}::vector
-                LIMIT 10`,
+                LIMIT 15`,
           )) as unknown as Array<{
             id: number;
             original_text: string;
@@ -213,24 +212,27 @@ kolRoute.post("/chat", zValidator("json", kolChatRequestSchema), async (c) => {
           .filter((r) => r.similarity >= KOL_SIMILARITY_THRESHOLD);
       },
       ilikeQuery: async () => {
-        const rows = await db
-          .select({
-            id: kolSegments.id,
-            originalText: kolSegments.originalText,
-            title: kolSegments.title,
-          })
-          .from(kolSegments)
-          .where(
-            sql`${kolSegments.kolId} = ${kolId}
-                AND (${kolSegments.adLabel} IS NULL OR ${kolSegments.adLabel} != '广告口播')
-                AND ${kolSegments.originalText} ILIKE ${"%" + escapeLike(message.slice(0, 30)) + "%"}`,
-          )
-          .limit(10);
+        // 使用 pg_trgm 三元组相似度做模糊匹配，比 ILIKE 子串匹配语义更强
+        const rows = await db.execute(
+          sql`SELECT id, original_text, title,
+                     similarity(original_text, ${message}) AS sim
+              FROM kol_segments
+              WHERE kol_id = ${kolId}
+                AND (ad_label IS NULL OR ad_label != '广告口播')
+                AND similarity(original_text, ${message}) > 0.05
+              ORDER BY sim DESC
+              LIMIT 15`,
+        ) as unknown as Array<{
+          id: number;
+          original_text: string;
+          title: string;
+          sim: number;
+        }>;
         return rows.map((r) => ({
           id: r.id,
-          originalText: r.originalText,
+          originalText: r.original_text,
           sourceLabel: r.title,
-          similarity: 0.5, // ILIKE 兜底给中等相似度
+          similarity: Math.round(r.sim * 100) / 100, // pg_trgm 相似度 0-1，保留两位
         }));
       },
     });
@@ -250,27 +252,40 @@ kolRoute.post("/chat", zValidator("json", kolChatRequestSchema), async (c) => {
       ? similarities.reduce((a, b) => a + b, 0) / similarities.length
       : 0;
 
-  const hasDirectQuote = evidenceRows.some(
-    (e) => (e.matchLevel ?? classifyMatchLevel(e.similarity ?? 0)) === "direct",
-  );
+  // KOL 专属标签（从 personaCard 提取）
+  const personaCard = kol.personaCard as Record<string, unknown>;
+  const kolTags = extractKOLTags(personaCard);
 
-  const confidenceResult = calculateConfidence({
+  // KOL 专属可信度：四维评估
+  const matchLevels = evidenceRows.map((e) => e.matchLevel ?? classifyMatchLevel(e.similarity ?? 0));
+  const directQuoteCount = matchLevels.filter((l) => l === "direct").length;
+  const highMatchCount = similarities.filter((s) => s >= 0.75).length;
+  const hasDirectQuote = directQuoteCount > 0;
+  const evidenceTexts = evidenceRows.map((e) => e.originalText);
+
+  const confidenceResult = calculateKOLConfidence({
     evidenceCount: evidenceRows.length,
     topSimilarity,
     avgSimilarity,
-    tagOverlapRatio: 0.5, // KOL 没有画像标签体系，给中性值
+    directQuoteCount,
+    highMatchCount,
     hasDirectQuote,
-    isBoundaryQuestion: false, // 边界外已提前返回，此处必为 false
+    isBoundaryQuestion: false,
+    kolTags,
+    evidenceTexts,
   });
 
-  const evidenceMeta: EvidenceMeta[] = evidenceRows.map((e) => {
+  const evidenceMeta: EvidenceMeta[] = evidenceRows.map((e, i) => {
     const similarity = e.similarity ?? 0;
-    const matchLevel = e.matchLevel ?? classifyMatchLevel(similarity);
-    return { id: e.id, similarity, matchLevel, tagOverlap: 0.5 };
+    const matchLevel = matchLevels[i]!;
+    // KOL 标签命中度：该条证据是否命中 KOL 标签
+    const tagOverlap = kolTags.length > 0
+      ? matchLevel === "direct" ? 0.9 : similarity >= 0.75 ? 0.7 : 0.5
+      : 0.5;
+    return { id: e.id, similarity, matchLevel, tagOverlap };
   });
 
   // 4.5 构建 System Prompt（KOL 特有逻辑）
-  const personaCard = kol.personaCard as Record<string, unknown>;
   const styleProfile = kol.styleProfile as Record<string, unknown>;
   const evalFramework = personaCard.evaluationFramework as Record<string, string> | undefined;
   const speechHabits = (styleProfile.speechHabits as string) ?? "";
@@ -328,6 +343,7 @@ kolRoute.post("/chat", zValidator("json", kolChatRequestSchema), async (c) => {
     errorMessage: "[KOL分身暂时无法响应，请稍后重试]",
     confidence: confidenceResult,
     evidenceMeta,
+    model,
     saveMessages: async (updatedMessages) => {
       await db
         .update(kolChatSessions)

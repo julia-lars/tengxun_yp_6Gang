@@ -131,7 +131,20 @@ personasRoute.get("/:id", async (c) => {
     motivationChain: (row.motivationChain as Record<string, unknown>) ?? null,
     clusterId: row.clusterId,
     evidenceList,
+    segmentCount: evidenceIds.length,
   };
+
+  // 查询该画像关联的 source_segments 总数
+  try {
+    const countResult = await db
+      .select({ count: sql<number>`count(*)` })
+      .from(sourceSegments)
+      .where(sql`${sourceSegments.personaIds} @> ARRAY[${id}]`);
+    const totalSegments = Number(countResult[0]?.count ?? 0);
+    result.segmentCount = totalSegments;
+  } catch {
+    // 查询失败时保持 evidenceIds.length 作为 fallback
+  }
 
   return c.json(result);
 });

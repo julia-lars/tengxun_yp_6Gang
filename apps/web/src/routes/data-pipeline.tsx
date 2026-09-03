@@ -35,7 +35,7 @@ import { api } from "@/lib/api";
 import { cn, formatRemainingTime } from "@/lib/utils";
 
 // ---- 流水线阶段 ----
-type PipelineStage = "idle" | "uploading" | "extracting" | "cleaning" | "tagging" | "embedding" | "clustering" | "cancelled" | "done";
+type PipelineStage = "idle" | "uploading" | "extracting" | "cleaning" | "tagging" | "merge" | "embedding" | "clustering" | "cancelled" | "done";
 
 interface StageInfo {
   key: PipelineStage;
@@ -60,6 +60,8 @@ interface StoredPipelineState {
   selectedKol: string;
   notes: string;
   enableClustering: boolean;
+  projectName: string;
+  mergeMode: "append" | "full";
   fileNames: StoredFileMeta[];
   uploadResult: { fileIds: string[]; fileNames: string[] } | null;
   stats: PipelineStatus["stats"] | null;
@@ -96,6 +98,7 @@ function clearPipelineState() {
   { key: "extracting", label: "数据提取", description: "结构化提取关键信息", icon: Braces },
   { key: "cleaning", label: "数据清洗", description: "去重、去噪、格式标准化", icon: RotateCw },
   { key: "tagging", label: "AI 打标", description: "冰山模型标注 M1-M5", icon: Tag },
+  { key: "merge", label: "增量合并", description: "合并到项目语料库", icon: FolderOpen },
   { key: "embedding", label: "向量嵌入", description: "生成语义向量，建立索引", icon: Zap },
 ];
 
@@ -144,6 +147,11 @@ export function DataPipelinePage() {
   const [enableClustering, setEnableClustering] = useState(
     saved.enableClustering ?? false,
   );
+  const [projectName, setProjectName] = useState(saved.projectName ?? "");
+  const [mergeMode, setMergeMode] = useState<"append" | "full">(
+    saved.mergeMode ?? "append",
+  );
+  const [availableProjects, setAvailableProjects] = useState<string[]>([]);
   const [dragOver, setDragOver] = useState(false);
   const [jobId, setJobId] = useState<string | null>(saved.jobId ?? null);
   const [pipelineStats, setPipelineStats] = useState<PipelineStatus["stats"] | null>(
@@ -158,26 +166,55 @@ export function DataPipelinePage() {
 
   const isRunning = currentStage !== "idle" && currentStage !== "done" && currentStage !== "cancelled";
 
+  // 加载可用项目列表
+  useEffect(() => {
+    api.listPipelineProjects().then((res) => {
+      setAvailableProjects(res.projects ?? []);
+    }).catch(() => {});
+  }, []);
+
   // 页面刷新后恢复轮询（优先 sessionStorage，兜底 API）
   useEffect(() => {
     const recoverJob = async () => {
       // 1. 优先从 sessionStorage 恢复
       if (saved.jobId) {
         const restoredStage = saved.stage ?? "uploading";
-        if (restoredStage === "done") {
+        // 已完成或已取消的任务直接清理
+        if (restoredStage === "done" || restoredStage === "cancelled") {
           clearPipelineState();
-          setCurrentStage("done");
-          setProgress(100);
+          if (restoredStage === "done") {
+            setCurrentStage("done");
+            setProgress(100);
+          }
+          return;
+        }
+        // 验证 job 是否还存在于 API 中
+        try {
+          const status = await api.getPipelineStatus(saved.jobId);
+          if (status.completedAt || status.stage === "cancelled") {
+            clearPipelineState();
+            return;
+          }
+        } catch {
+          // API 查询失败（job 可能已被删除），清理 sessionStorage
+          clearPipelineState();
           return;
         }
         // jobId 已通过 useState 初始化，轮询 effect 会自动启动
         return;
       }
 
-      // 2. 兜底：从 API 查找是否有运行中的作业
+      // 2. 兜底：从 API 查找是否有运行中的作业（仅恢复 1 小时内的）
       try {
         const jobs = await api.listPipelineJobs();
-        const activeJob = jobs.find((j) => !j.completedAt);
+        const oneHourAgo = Date.now() - 3600_000;
+        const activeJob = jobs.find((j) => {
+          if (!j.completedAt) {
+            const startedAt = j.startedAt ? new Date(j.startedAt).getTime() : 0;
+            return startedAt > oneHourAgo;
+          }
+          return false;
+        });
         if (activeJob) {
           setJobId(activeJob.jobId);
           setCurrentStage(activeJob.stage);
@@ -317,6 +354,8 @@ export function DataPipelinePage() {
         notes: notes || undefined,
         enableClustering,
         enableKol: target === "kol",
+        projectName: projectName || undefined,
+        mergeMode: target === "personas" ? mergeMode : "full",
       });
       setJobId(newJobId);
 
@@ -331,6 +370,8 @@ export function DataPipelinePage() {
         selectedKol,
         notes,
         enableClustering,
+        projectName,
+        mergeMode,
         fileNames: files.map((f) => ({ name: f.name, size: f.size, type: f.type })),
         uploadResult: uploadRes,
         stats: null,
@@ -348,7 +389,7 @@ export function DataPipelinePage() {
         prev.map((f) => ({ ...f, status: "error" as const })),
       );
     }
-  }, [files, target, selectedKol, notes]);
+  }, [files, target, selectedKol, notes, projectName, mergeMode]);
 
   // 重置
   const reset = useCallback(() => {
@@ -357,6 +398,8 @@ export function DataPipelinePage() {
     setFiles([]);
     setNotes("");
     setEnableClustering(false);
+    setProjectName("");
+    setMergeMode("append");
     setJobId(null);
     setPipelineStats(null);
     setUploadResult(null);
@@ -367,15 +410,20 @@ export function DataPipelinePage() {
   // 取消流水线
   const cancelPipeline = useCallback(async () => {
     if (!jobId) return;
-    try {
-      await api.cancelPipeline(jobId);
-      toast.success("流水线已取消，已清理相关数据");
-    } catch (e) {
-      toast.error(`取消失败: ${String(e)}`);
-    }
-    // 无论取消请求是否成功，都停止轮询并重置 UI
+    // 先停止轮询并重置 UI
     if (pollRef.current) clearInterval(pollRef.current);
     reset();
+
+    try {
+      // 同时取消当前 job 和清除所有 job
+      await Promise.all([
+        api.cancelPipeline(jobId).catch(() => {}),
+        api.clearAllPipelineJobs().catch(() => {}),
+      ]);
+      toast.success("所有任务已取消并清除");
+    } catch {
+      toast.success("任务已清除");
+    }
   }, [jobId, reset]);
 
   const formatSize = (bytes: number) => {
@@ -610,6 +658,82 @@ export function DataPipelinePage() {
                   <div className="flex items-center gap-2 text-xs text-(--color-content-tertiary)">
                     <Database className="h-3.5 w-3.5" />
                     当前语料库: 17,132 条片段
+                  </div>
+
+                  {/* 项目名称 */}
+                  <div>
+                    <label className="text-xs text-(--color-content-secondary) block mb-1">
+                      目标项目
+                    </label>
+                    <div className="relative">
+                      <input
+                        type="text"
+                        value={projectName}
+                        onChange={(e) => setProjectName(e.target.value)}
+                        placeholder="输入项目名称或选择已有项目..."
+                        disabled={isRunning}
+                        list="project-list"
+                        className="w-full h-9 rounded-md border border-(--color-border-default) bg-(--color-surface-elevated) px-3 text-sm text-(--color-content-primary)"
+                      />
+                      <datalist id="project-list">
+                        {availableProjects.map((p) => (
+                          <option key={p} value={p} />
+                        ))}
+                      </datalist>
+                    </div>
+                    <p className="text-xs text-(--color-content-tertiary) mt-1">
+                      新数据将合并到该项目下；留空则创建新项目
+                    </p>
+                  </div>
+
+                  {/* 合并模式 */}
+                  <div>
+                    <label className="text-xs text-(--color-content-secondary) block mb-1">
+                      合并模式
+                    </label>
+                    <div className="flex gap-2">
+                      <label className={cn(
+                        "flex-1 flex items-center justify-center gap-1.5 h-9 rounded-md border text-sm cursor-pointer transition-colors",
+                        mergeMode === "append"
+                          ? "border-(--color-brand-500) bg-(--color-brand-50) text-(--color-brand-700)"
+                          : "border-(--color-border-default) bg-(--color-surface-elevated) text-(--color-content-secondary)",
+                        isRunning && "opacity-50 cursor-not-allowed",
+                      )}>
+                        <input
+                          type="radio"
+                          name="mergeMode"
+                          value="append"
+                          checked={mergeMode === "append"}
+                          onChange={() => setMergeMode("append")}
+                          disabled={isRunning}
+                          className="sr-only"
+                        />
+                        追加合并
+                      </label>
+                      <label className={cn(
+                        "flex-1 flex items-center justify-center gap-1.5 h-9 rounded-md border text-sm cursor-pointer transition-colors",
+                        mergeMode === "full"
+                          ? "border-(--color-brand-500) bg-(--color-brand-50) text-(--color-brand-700)"
+                          : "border-(--color-border-default) bg-(--color-surface-elevated) text-(--color-content-secondary)",
+                        isRunning && "opacity-50 cursor-not-allowed",
+                      )}>
+                        <input
+                          type="radio"
+                          name="mergeMode"
+                          value="full"
+                          checked={mergeMode === "full"}
+                          onChange={() => setMergeMode("full")}
+                          disabled={isRunning}
+                          className="sr-only"
+                        />
+                        全量重建
+                      </label>
+                    </div>
+                    <p className="text-xs text-(--color-content-tertiary) mt-1">
+                      {mergeMode === "append"
+                        ? "追加：新数据去重后追加到已有项目，保留原有数据"
+                        : "全量：清空并重建整个项目数据"}
+                    </p>
                   </div>
                 </TabsContent>
                 <TabsContent value="kol" className="space-y-3 mt-3">

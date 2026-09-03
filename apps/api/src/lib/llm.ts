@@ -1,55 +1,66 @@
-// llm.ts - LLM SDK (Anthropic-compatible via TokenHub / 腾讯 MaaS)
+// llm.ts - LLM SDK（统一走腾讯云 TokenHub Anthropic 兼容网关）
 import "dotenv/config";
+import type { ModelVariant } from "@app/shared";
 
-export type ModelName = "deepseek" | "glm" | "minimax";
+export type { ModelVariant } from "@app/shared";
+
+export type ModelName = "deepseek" | "glm" | "minimax" | "kimi";
 
 export interface ChatOptions {
-  model?: ModelName;
+  model?: ModelVariant;
   temperature?: number;
   maxTokens?: number;
 }
 
-const MODEL_CONFIG: Record<ModelName, { baseUrl: string; apiKey: string; defaultModel: string; supportsThinking: boolean }> = {
-  deepseek: {
-    baseUrl: process.env.DEEPSEEK_BASE_URL ?? "https://api.deepseek.com/v1",
-    apiKey: process.env.DEEPSEEK_API_KEY ?? "",
-    defaultModel: process.env.DEEPSEEK_MODEL ?? "deepseek-chat",
-    supportsThinking: true,
-  },
-  glm: {
-    baseUrl: process.env.GLM_BASE_URL ?? "https://open.bigmodel.cn/api/paas/v4",
-    apiKey: process.env.GLM_API_KEY ?? "",
-    defaultModel: process.env.GLM_MODEL ?? "glm-4-flash",
-    supportsThinking: false,
-  },
-  minimax: {
-    baseUrl: process.env.MINIMAX_BASE_URL ?? "https://api.minimaxi.com/v1",
-    apiKey: process.env.MINIMAX_API_KEY ?? "",
-    defaultModel: process.env.MINIMAX_MODEL ?? "abab6.5s-chat",
-    supportsThinking: false,
-  },
+// TokenHub 网关统一入口（所有模型共用）
+const GATEWAY_BASE_URL = process.env.DEEPSEEK_BASE_URL ?? "https://api.deepseek.com/v1";
+const GATEWAY_API_KEY = process.env.DEEPSEEK_API_KEY ?? "";
+
+// 各提供商特有配置（只需覆盖 baseUrl / apiKey 时设置）
+const PROVIDER_CONFIG: Record<ModelName, { supportsThinking: boolean }> = {
+  deepseek: { supportsThinking: true },
+  glm: { supportsThinking: false },
+  minimax: { supportsThinking: false },
+  kimi: { supportsThinking: false },
 };
 
-const DEFAULT_MODEL: ModelName = (process.env.LLM_MODEL as ModelName) ?? "deepseek";
+// 模型变体 → 提供商 + 具体模型 ID（发给 TokenHub 的 model 字段）
+const VARIANT_CONFIG: Record<ModelVariant, { provider: ModelName; modelId: string }> = {
+  "deepseek-v4-pro": { provider: "deepseek", modelId: "deepseek-v4-pro" },
+  "deepseek-v4-flash": { provider: "deepseek", modelId: "deepseek-v4-flash" },
+  "glm-5": { provider: "glm", modelId: "glm-5" },
+  "glm-5.1": { provider: "glm", modelId: "glm-5.1" },
+  "glm-5.2": { provider: "glm", modelId: "glm-5.2" },
+  "minimax-m2.5": { provider: "minimax", modelId: "minimax-m2.5" },
+  "minimax-m3": { provider: "minimax", modelId: "minimax-m3" },
+  "kimi-k2.5": { provider: "kimi", modelId: "kimi-k2.5" },
+  "kimi-k2.6": { provider: "kimi", modelId: "kimi-k2.6" },
+  "kimi-k2.7-code": { provider: "kimi", modelId: "kimi-k2.7-code" },
+};
 
-function getConfig(model?: ModelName) {
-  const m = model ?? DEFAULT_MODEL;
-  return MODEL_CONFIG[m];
+const DEFAULT_VARIANT: ModelVariant = (process.env.LLM_MODEL as ModelVariant) ?? "deepseek-v4-pro";
+
+function getConfig(variant?: ModelVariant) {
+  const v = variant ?? DEFAULT_VARIANT;
+  const vc = VARIANT_CONFIG[v];
+  if (!vc) {
+    const fallback = VARIANT_CONFIG[DEFAULT_VARIANT];
+    return { modelId: fallback.modelId, supportsThinking: PROVIDER_CONFIG[fallback.provider].supportsThinking };
+  }
+  return { modelId: vc.modelId, supportsThinking: PROVIDER_CONFIG[vc.provider].supportsThinking };
 }
 
-// ---- Anthropic-compatible API fetch ----
+// ---- Anthropic-compatible API fetch（统一走 TokenHub 网关）----
 
-async function anthropicFetch(
+async function apiFetch(
   path: string,
   body: Record<string, unknown>,
-  model?: ModelName,
 ): Promise<Response> {
-  const cfg = getConfig(model);
-  const res = await fetch(`${cfg.baseUrl}${path}`, {
+  const res = await fetch(`${GATEWAY_BASE_URL}${path}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "x-api-key": cfg.apiKey,
+      "x-api-key": GATEWAY_API_KEY,
       "anthropic-version": "2023-06-01",
     },
     body: JSON.stringify(body),
@@ -82,15 +93,15 @@ export interface ChatMessage {
 
 export async function chat(messages: ChatMessage[], options: ChatOptions = {}): Promise<string> {
   const cfg = getConfig(options.model);
+
   return withRetry(async () => {
-    // Extract system prompt (Anthropic API puts it as top-level field)
     const systemMsg = messages.find((m) => m.role === "system");
     const chatMessages = messages
       .filter((m) => m.role !== "system")
       .map((m) => ({ role: m.role, content: m.content }));
 
     const body: Record<string, unknown> = {
-      model: cfg.defaultModel,
+      model: cfg.modelId,
       messages: chatMessages,
       max_tokens: options.maxTokens ?? 2048,
       temperature: options.temperature ?? 0.7,
@@ -102,11 +113,10 @@ export async function chat(messages: ChatMessage[], options: ChatOptions = {}): 
       body.system = systemMsg.content;
     }
 
-    const res = await anthropicFetch("/v1/messages", body, options.model);
+    const res = await apiFetch("/v1/messages", body);
     const data = (await res.json()) as {
       content: Array<{ type: string; text: string }>;
     };
-    // Extract text from content blocks
     const textBlocks = data.content.filter((c) => c.type === "text");
     return textBlocks.map((c) => c.text).join("");
   });
@@ -120,14 +130,13 @@ export async function* chatStream(
 ): AsyncGenerator<string> {
   const cfg = getConfig(options.model);
 
-  // Extract system prompt (Anthropic API puts it as top-level field)
   const systemMsg = messages.find((m) => m.role === "system");
   const chatMessages = messages
     .filter((m) => m.role !== "system")
     .map((m) => ({ role: m.role, content: m.content }));
 
   const body: Record<string, unknown> = {
-    model: cfg.defaultModel,
+    model: cfg.modelId,
     messages: chatMessages,
     max_tokens: options.maxTokens ?? 2048,
     temperature: options.temperature ?? 0.7,
@@ -140,9 +149,7 @@ export async function* chatStream(
     body.system = systemMsg.content;
   }
 
-  const res = await withRetry(async () =>
-    anthropicFetch("/v1/messages", body, options.model),
-  );
+  const res = await withRetry(async () => apiFetch("/v1/messages", body));
 
   const reader = res.body?.getReader();
   if (!reader) throw new Error("No response body");
@@ -169,14 +176,9 @@ export async function* chatStream(
           delta?: { type: string; text: string };
           content_block?: { type: string; text: string };
         };
-
-        // Anthropic streaming format:
-        // content_block_delta: { type: "content_block_delta", delta: { type: "text_delta", text: "..." } }
         if (parsed.type === "content_block_delta" && parsed.delta?.type === "text_delta") {
           if (parsed.delta.text) yield parsed.delta.text;
         }
-        // content_block_stop - end of a content block, ignore
-        // message_delta with stop_reason - end of message
         if (parsed.type === "message_stop") return;
       } catch {
         // skip malformed chunks

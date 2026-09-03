@@ -81,21 +81,23 @@ export function Root() {
             "ml-0",
           )}
         >
-          <div className="max-w-[80%] mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
-            <Outlet />
-          </div>
-
-          {/* 页脚 */}
-          <footer className="max-w-[80%] mx-auto px-4 sm:px-6 lg:px-8 pb-8">
-            <div className="border-t border-(--color-border-default) pt-6 text-center">
-              <p className="text-xs text-(--color-content-tertiary)">
-                MUR 用户智库 · 腾讯 IEG 市场与用户研究部 × 北京大学元培学院
-              </p>
-              <p className="text-[10px] text-(--color-content-tertiary) mt-1">
-                AI 生成内容仅供参考，所有画像数据基于真实玩家访谈
-              </p>
+          <div className="max-w-[80%] mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 min-h-full flex flex-col">
+            <div className="flex-1 min-h-0">
+              <Outlet />
             </div>
-          </footer>
+
+            {/* 页脚 */}
+            <footer className="pb-8">
+              <div className="border-t border-(--color-border-default) pt-6 text-center">
+                <p className="text-xs text-(--color-content-tertiary)">
+                  MUR 用户智库 · 腾讯 IEG 市场与用户研究部 × 北京大学元培学院
+                </p>
+                <p className="text-[10px] text-(--color-content-tertiary) mt-1">
+                  AI 生成内容仅供参考，所有画像数据基于真实玩家访谈
+                </p>
+              </div>
+            </footer>
+          </div>
         </main>
       </div>
 

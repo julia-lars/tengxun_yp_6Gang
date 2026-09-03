@@ -44,8 +44,8 @@ API_KEYS = [k.strip() for k in _API_KEYS_RAW.split(",") if k.strip()]
 _api_key_lock = Lock()
 _api_key_idx = 0
 
-SRC_DIR = os.path.join(BASE_DIR, "data", "群体画像v2.0_cleaned")
-OUT_DIR = os.path.join(BASE_DIR, "data", "群体画像v2.0_labeled")
+SRC_DIR = os.environ.get("PIPELINE_CLEANED_DIR", os.path.join(BASE_DIR, "data", "群体画像v2.0_cleaned"))
+OUT_DIR = os.environ.get("PIPELINE_LABELED_DIR", os.path.join(BASE_DIR, "data", "群体画像v2.0_labeled"))
 CKPT_DIR = os.path.join(OUT_DIR, ".checkpoint")
 
 MAX_TOKENS = 20000

@@ -216,7 +216,7 @@ function buildSystemPrompt(
 
 // POST /api/chat —— SSE 流式对话
 chatRoute.post("/", zValidator("json", chatRequestSchema), async (c) => {
-  const { personaId, sessionId, message } = c.req.valid("json");
+  const { personaId, sessionId, message, model } = c.req.valid("json");
 
   // 1. 获取画像
   const persona = await db.query.personas.findFirst({
@@ -284,7 +284,7 @@ chatRoute.post("/", zValidator("json", chatRequestSchema), async (c) => {
     // 查询语义改写：将口语化问题改写为搜索关键词，消除表面词汇歧义
     // 如 "你一般什么时候玩游戏" → "游戏时间安排 游戏时段 日常游戏习惯"
     // 避免与 "你不知道什么时候出现人" 因共享"什么时候"而错误匹配
-    const searchQuery = await reformulateQueryForSearch(message);
+    const searchQuery = await reformulateQueryForSearch(message, model);
 
     evidenceRows = await searchEvidence({
       message: searchQuery,
@@ -426,6 +426,7 @@ chatRoute.post("/", zValidator("json", chatRequestSchema), async (c) => {
     errorMessage: "[模拟用户暂时无法响应，请稍后重试]",
     confidence: confidenceResult,
     evidenceMeta,
+    model,
     saveMessages: async (updatedMessages) => {
       await db
         .update(chatSessions)

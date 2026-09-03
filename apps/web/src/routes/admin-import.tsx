@@ -119,20 +119,22 @@ export function AdminImportPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <button
-          type="button"
-          onClick={() => navigate(-1)}
-          className="inline-flex items-center gap-1 text-sm text-(--color-muted-foreground) hover:text-(--color-primary) transition-colors cursor-pointer"
-        >
-          <ArrowLeft className="h-3 w-3" />
-          返回仪表盘
-        </button>
-        <h1 className="text-2xl font-bold text-(--color-content-primary) mt-1">数据导入</h1>
-        <p className="text-sm text-(--color-content-secondary) mt-1">
-          上传 JSON/JSONL 文件导入数据库，或从 data/ 目录批量导入
-        </p>
+      <div className="sticky top-0 z-10 -mt-6 pt-6 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 bg-neutral-50">
+        <div className="pb-2 border-b border-neutral-200">
+          <button
+            type="button"
+            onClick={() => navigate(-1)}
+            className="inline-flex items-center gap-1 text-sm text-(--color-content-secondary) hover:text-(--color-brand-500) transition-colors cursor-pointer"
+          >
+            <ArrowLeft className="h-3 w-3" />
+            返回仪表盘
+          </button>
+        </div>
       </div>
+      <h1 className="text-2xl font-bold text-(--color-content-primary)">数据导入</h1>
+      <p className="text-sm text-(--color-content-secondary)">
+        上传 JSON/JSONL 文件导入数据库，或从 data/ 目录批量导入
+      </p>
 
       {/* ========== 方式一：上传文件导入 ========== */}
       <Card>

@@ -8,7 +8,7 @@ import type { Context } from "hono";
 import { streamSSE } from "hono/streaming";
 
 import { db } from "../db/client.js";
-import type { ChatMessage } from "../lib/llm.js";
+import type { ChatMessage, ModelVariant } from "../lib/llm.js";
 import { chat, chatStream } from "../lib/llm.js";
 import { embedQuery } from "../lib/embed.js";
 import type { ConfidenceResult, EvidenceMeta, SentenceEvidenceResult } from "@app/shared";
@@ -133,7 +133,7 @@ export interface EvidenceRow {
  *
  * 改写后，查询加入时间/频率/场景等语义锚点，embedding 会被拉向正确的语义空间。
  */
-export async function reformulateQueryForSearch(userMessage: string): Promise<string> {
+export async function reformulateQueryForSearch(userMessage: string, model?: ModelVariant): Promise<string> {
   // 短问题不需要改写（≤8 字的问题通常语义已经很聚焦）
   if (userMessage.trim().length <= 8) return userMessage;
 
@@ -161,7 +161,7 @@ export async function reformulateQueryForSearch(userMessage: string): Promise<st
   try {
     const result = await chat(
       [{ role: "user", content: prompt }],
-      { temperature: 0, maxTokens: 128 },
+      { temperature: 0, maxTokens: 128, model },
     );
     return result.trim() || userMessage;
   } catch (e) {
@@ -180,7 +180,7 @@ export async function searchEvidence(opts: {
 }): Promise<EvidenceRow[]> {
   let rows: EvidenceRow[];
   try {
-    const queryVec = await embedQuery(opts.message);
+    const queryVec = await embedQuery(opts.message, "query");
     const vecStr = JSON.stringify(queryVec);
     rows = await opts.vectorQuery(vecStr);
     if (rows.length > 0) return filterNoiseRows(rows);
@@ -220,6 +220,8 @@ export async function streamChat(opts: {
   evidenceMeta?: EvidenceMeta[];
   /** 首轮对话完成后自动生成标题的回调 */
   updateTitle?: (title: string) => Promise<void>;
+  /** 用户选择的 AI 模型 */
+  model?: ModelVariant;
 }): Promise<Response> {
   const {
     c,
@@ -233,13 +235,14 @@ export async function streamChat(opts: {
     confidence,
     evidenceMeta,
     updateTitle,
+    model,
   } = opts;
 
   return streamSSE(c, async (stream) => {
     let fullResponse = "";
 
     try {
-      for await (const token of chatStream(llmMessages)) {
+      for await (const token of chatStream(llmMessages, { model })) {
         fullResponse += token;
         await stream.writeSSE({ data: token });
       }
@@ -305,12 +308,12 @@ export async function streamChat(opts: {
     // 并行执行相关性评分 + 逐句证据映射，完成后增量更新前端
     if (fullResponse && (evidenceData ?? []).length > 0) {
       const [relevanceMap, sentenceEvidence] = await Promise.all([
-        evaluateEvidenceRelevance(fullResponse, evidenceData!).catch((e) => {
+        evaluateEvidenceRelevance(fullResponse, evidenceData!, model).catch((e) => {
           console.error("证据相关性评分失败:", e);
           return new Map<number, { score: number; reason: string }>();
         }),
         userMessage
-          ? mapSentencesToEvidence(fullResponse, evidenceData!, userMessage).catch((e) => {
+          ? mapSentencesToEvidence(fullResponse, evidenceData!, userMessage, model).catch((e) => {
               console.error("逐句证据映射失败:", e);
               return { sentences: [], userQuestion: userMessage, answerText: fullResponse };
             })
@@ -337,7 +340,7 @@ export async function streamChat(opts: {
     // 首轮对话完成后自动生成标题
     if (updateTitle && history.length === 0 && fullResponse) {
       try {
-        const generatedTitle = await generateTitle(userMessage, fullResponse);
+        const generatedTitle = await generateTitle(userMessage, fullResponse, model);
         await updateTitle(generatedTitle);
       } catch (e) {
         console.error("标题生成失败，使用默认标题:", e);
@@ -411,7 +414,7 @@ export function formatEvidenceContext(
 /**
  * 根据首轮对话内容自动生成简短标题（≤20字）。
  */
-export async function generateTitle(userMessage: string, aiResponse: string): Promise<string> {
+export async function generateTitle(userMessage: string, aiResponse: string, model?: ModelVariant): Promise<string> {
   const prompt = [
     "根据以下对话内容，生成一个简短的对话标题。",
     "要求：不超过20个字，直接返回标题文本，不要加引号、不要加句号、不要加任何前缀说明。",
@@ -422,7 +425,7 @@ export async function generateTitle(userMessage: string, aiResponse: string): Pr
 
   const result = await chat(
     [{ role: "user", content: prompt }],
-    { temperature: 0, maxTokens: 64 },
+    { temperature: 0, maxTokens: 64, model },
   );
 
   return result.trim().slice(0, 30);
@@ -440,6 +443,7 @@ export async function generateTitle(userMessage: string, aiResponse: string): Pr
 export async function evaluateEvidenceRelevance(
   answer: string,
   evidenceRows: EvidenceRow[],
+  model?: ModelVariant,
 ): Promise<Map<number, { score: number; reason: string }>> {
   if (evidenceRows.length === 0) return new Map();
 
@@ -482,7 +486,7 @@ ${evidenceList}
         { role: "system", content: "你只输出合法 JSON 数组，不输出任何解释或 markdown 代码块。回复必须以 [ 开头，以 ] 结尾。" },
         { role: "user", content: prompt },
       ],
-      { temperature: 0.3, maxTokens: 2048 },
+      { temperature: 0.3, maxTokens: 2048, model },
     );
 
     // 提取 JSON
@@ -534,6 +538,7 @@ export async function mapSentencesToEvidence(
   answer: string,
   evidenceRows: EvidenceRow[],
   userQuestion: string,
+  model?: ModelVariant,
 ): Promise<SentenceEvidenceResult> {
   if (evidenceRows.length === 0) {
     return { sentences: [], userQuestion, answerText: answer };
@@ -589,7 +594,7 @@ ${evidenceList}
         { role: "system", content: "你只输出合法 JSON 数组，不输出任何解释或 markdown 代码块。回复必须以 [ 开头，以 ] 结尾。" },
         { role: "user", content: prompt },
       ],
-      { temperature: 0, maxTokens: 2048 },
+      { temperature: 0, maxTokens: 2048, model },
     );
 
     // 提取 JSON

@@ -70,7 +70,7 @@ route.route("/", createCrudRoutes({
   tableName: "source_segments",
   searchableFields: ["source_file", "original_text", "cleaned_text", "speaker_id"],
   filterableFields: ["source_file", "speaker_role", "speaker_id"],
-  sortableFields: ["id", "source_file", "speaker_id", "char_count", "created_at"],
+  sortableFields: ["id", "source_file", "speaker_id", "char_count", "created_at", "segment_index"],
   editableFields: [
     "source_file",
     "segment_index",

@@ -63,6 +63,21 @@ export function createCrudRoutes<T extends PgTable>(config: CrudConfig<T>) {
   const route = new Hono();
   const maxLimit = config.maxLimit ?? 100;
 
+  // 构建列名映射：snake_case (DB 名) → Drizzle 列引用
+  // Drizzle 表对象的 JS 属性是 camelCase，但前端/配置使用 snake_case，需要双向映射
+  const columnByName: Record<string, ReturnType<typeof sql>> = {};
+  for (const [jsKey, col] of Object.entries(config.table)) {
+    if (col && typeof col === "object" && "name" in col) {
+      const dbName = (col as { name: string }).name;
+      columnByName[dbName] = col as ReturnType<typeof sql>;
+    }
+    // 也保留 camelCase 访问（向后兼容）
+    columnByName[jsKey] = col as ReturnType<typeof sql>;
+  }
+
+  /** 按名称获取列引用，优先 snake_case（DB 名），其次 camelCase */
+  const getCol = (name: string): ReturnType<typeof sql> | undefined => columnByName[name];
+
   // ============================================================
   // GET / — 分页列表（支持搜索、筛选、排序）
   // ============================================================
@@ -76,10 +91,10 @@ export function createCrudRoutes<T extends PgTable>(config: CrudConfig<T>) {
 
       // 模糊搜索
       if (search && config.searchableFields.length > 0) {
-        const searchConditions = config.searchableFields.map((field) => {
-          const col = (config.table as Record<string, unknown>)[field] as ReturnType<typeof sql>;
-          return ilike(col, `%${search}%`);
-        });
+        const searchConditions = config.searchableFields
+          .map((field) => getCol(field))
+          .filter((col): col is ReturnType<typeof sql> => !!col)
+          .map((col) => ilike(col, `%${search}%`));
         conditions.push(or(...searchConditions)!);
       }
 
@@ -89,8 +104,8 @@ export function createCrudRoutes<T extends PgTable>(config: CrudConfig<T>) {
           const filterObj = JSON.parse(filters) as Record<string, string>;
           for (const [key, value] of Object.entries(filterObj)) {
             if (config.filterableFields.includes(key) && value) {
-              const col = (config.table as Record<string, unknown>)[key] as ReturnType<typeof sql>;
-              conditions.push(eq(col, value));
+              const col = getCol(key);
+              if (col) conditions.push(eq(col, value));
             }
           }
         } catch {
@@ -111,12 +126,13 @@ export function createCrudRoutes<T extends PgTable>(config: CrudConfig<T>) {
       // 排序
       let orderBy;
       if (sort && config.sortableFields.includes(sort)) {
-        const sortCol = (config.table as Record<string, unknown>)[sort] as ReturnType<typeof sql>;
-        orderBy = order === "asc" ? asc(sortCol) : desc(sortCol);
-      } else {
+        const sortCol = getCol(sort);
+        orderBy = sortCol ? (order === "asc" ? asc(sortCol) : desc(sortCol)) : undefined;
+      }
+      if (!orderBy) {
         // 默认按 id 降序
-        const idCol = (config.table as Record<string, unknown>)["id"] as ReturnType<typeof sql>;
-        orderBy = desc(idCol);
+        const idCol = getCol("id");
+        orderBy = idCol ? desc(idCol) : undefined;
       }
 
       // 查询数据

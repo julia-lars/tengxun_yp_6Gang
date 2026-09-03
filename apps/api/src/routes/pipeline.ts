@@ -1,6 +1,6 @@
 // --------------------------------------------------------------
 // 数据流水线路由 — AI 全流程处理
-// 上传文件 → 数据提取 → 数据清洗 → AI 打标 → 向量嵌入 → (聚类)
+// 上传文件 → 数据提取 → 数据清洗 → AI 打标 → 增量合并 → 向量嵌入 → (聚类)
 //
 // 实现策略：TS 作为调度层，通过子进程调用 Python 脚本执行实际处理。
 // Python 脚本（scripts/）已经过验证，产出了全部 14 项目 18,743 片段。
@@ -305,6 +305,82 @@ pipelineRoute.post("/cancel/:jobId", async (c) => {
   return c.json({ success: true, message: "流水线作业已取消，已清理相关数据" });
 });
 
+// DELETE /api/pipeline/jobs/:jobId — 永久删除流水线作业
+pipelineRoute.delete("/jobs/:jobId", async (c) => {
+  const { jobId } = c.req.param();
+  try {
+    await db.delete(pipelineJobs).where(eq(pipelineJobs.jobId, jobId)).execute();
+    return c.json({ success: true, message: "流水线作业已删除" });
+  } catch (e) {
+    console.error("删除流水线作业失败:", e);
+    return c.json({ success: false, error: String(e) }, 500);
+  }
+});
+
+// DELETE /api/pipeline/jobs — 清除所有流水线作业
+pipelineRoute.delete("/jobs", async (c) => {
+  try {
+    await db.delete(pipelineJobs).execute();
+    return c.json({ success: true, message: "所有流水线作业已清除" });
+  } catch (e) {
+    console.error("清除流水线作业失败:", e);
+    return c.json({ success: false, error: String(e) }, 500);
+  }
+});
+
+// GET /api/pipeline/projects — 列出可用的项目名称（来自 merged 目录）
+pipelineRoute.get("/projects", async (c) => {
+  try {
+    const mergedDir = join(process.cwd(), "data", "群体画像v2.0_merged");
+    if (!existsSync(mergedDir)) {
+      return c.json({ projects: [] });
+    }
+    const entries = await readdir(mergedDir);
+    const projectNames = entries
+      .filter((f) => f.endsWith(".json") && !f.startsWith("."))
+      .map((f) => f.replace(/\.json$/, ""))
+      .sort();
+    return c.json({ projects: projectNames });
+  } catch (e) {
+    console.error("读取项目列表失败:", e);
+    return c.json({ projects: [], error: String(e) }, 500);
+  }
+});
+
+// POST /api/pipeline/generate-parser — 为未知格式文件自动生成解析器
+pipelineRoute.post("/generate-parser", async (c) => {
+  try {
+    const body = await c.req.json();
+    const { filePath } = body as { filePath: string };
+    if (!filePath) {
+      return c.json({ error: "filePath is required" }, 400);
+    }
+    if (!existsSync(filePath)) {
+      return c.json({ error: `File not found: ${filePath}` }, 404);
+    }
+
+    const { exitCode, stdout, stderr } = await runPythonScript(
+      scriptPath("scripts/generate_parser.py"),
+      [filePath],
+      { timeoutMs: 30_000 },
+    );
+
+    if (exitCode !== 0) {
+      return c.json({ error: "Parser generation failed", stderr: stderr.slice(0, 500) }, 500);
+    }
+
+    try {
+      const lastLine = stdout.trim().split("\n").pop() || "{}";
+      const result = JSON.parse(lastLine);
+      return c.json(result);
+    } catch {
+      return c.json({ error: "Failed to parse generation result", stdout: stdout.slice(0, 500) }, 500);
+    }
+  } catch (e) {
+    return c.json({ error: `Parser generation failed: ${String(e)}` }, 500);
+  }
+});
+
 // ---- 流水线执行逻辑 ----
 
 /**
@@ -314,12 +390,13 @@ pipelineRoute.post("/cancel/:jobId", async (c) => {
 async function runPythonScript(
   scriptPath: string,
   args: string[] = [],
-  opts?: { cwd?: string; timeoutMs?: number },
+  opts?: { cwd?: string; timeoutMs?: number; env?: Record<string, string> },
 ): Promise<{ exitCode: number; stdout: string; stderr: string }> {
   const proc = Bun.spawn(["python3", scriptPath, ...args], {
     cwd: opts?.cwd ?? process.cwd(),
     stdout: "pipe",
     stderr: "pipe",
+    env: opts?.env,
   });
 
   const timeout = opts?.timeoutMs ?? 600_000; // 默认 10 分钟
@@ -349,6 +426,7 @@ const stageLabels: Record<string, string> = {
   extracting: "数据提取",
   cleaning: "数据清洗",
   tagging: "AI 打标",
+  merge: "增量合并",
   embedding: "向量嵌入",
   clustering: "聚类分析",
 };
@@ -359,6 +437,7 @@ const STAGE_WEIGHTS: Record<string, number> = {
   extracting: 5,
   cleaning: 15,
   tagging: 35,
+  merge: 5,
   embedding: 25,
   clustering: 10,
 };
@@ -431,6 +510,7 @@ async function executePipeline(jobId: string, config: PipelineConfig) {
     "extracting",
     "cleaning",
     "tagging",
+    "merge",
     "embedding",
   ];
   if (config.enableClustering) stages.push("clustering");
@@ -484,6 +564,7 @@ async function executePipeline(jobId: string, config: PipelineConfig) {
                 ),
                 PIPELINE_SRC_DIR: uploadDir,
                 PIPELINE_OUT_DIR: join(process.cwd(), "data", "群体画像v2.0_data"),
+                PIPELINE_PROJECT_NAME: config.projectName ?? "",
               },
             },
           );
@@ -529,7 +610,15 @@ async function executePipeline(jobId: string, config: PipelineConfig) {
 
         case "cleaning": {
           // 阶段 2: 数据清洗 — 调用 clean_segments_v2_demo.py
-          const cleanArgs = ["--input-dir", join(process.cwd(), "data", "群体画像v2.0_data")];
+          const dataDir = join(process.cwd(), "data", "群体画像v2.0_data");
+          const cleanedDir = join(process.cwd(), "data", "群体画像v2.0_cleaned");
+          const projectName = config.projectName;
+          const cleanInputDir = projectName ? join(dataDir, projectName) : dataDir;
+          const cleanOutputDir = projectName ? join(cleanedDir, projectName) : cleanedDir;
+          const cleanArgs = [
+            "--input-dir", cleanInputDir,
+            "--output-dir", cleanOutputDir,
+          ];
           const { exitCode, stdout, stderr } = await runPythonScript(
             scriptPath("scripts/clean_segments_v2_demo.py"),
             cleanArgs,
@@ -572,10 +661,16 @@ async function executePipeline(jobId: string, config: PipelineConfig) {
         case "tagging": {
           // 阶段 3: AI 打标 — 调用 label_all_v3.py
           const tagArgs = ["--resume", "--workers", "4"];
+          const tagEnv: Record<string, string> | undefined = config.projectName
+            ? {
+                PIPELINE_CLEANED_DIR: join(process.cwd(), "data", "群体画像v2.0_cleaned", config.projectName),
+                PIPELINE_LABELED_DIR: join(process.cwd(), "data", "群体画像v2.0_labeled", config.projectName),
+              }
+            : undefined;
           const { exitCode, stdout, stderr } = await runPythonScript(
             scriptPath("scripts/label_all_v3.py"),
             tagArgs,
-            { timeoutMs: 600_000 },
+            { timeoutMs: 600_000, env: tagEnv },
           );
 
           const taggedMatch = stdout.match(/labeled[:\s]*(\d+)/i) ||
@@ -595,13 +690,6 @@ async function executePipeline(jobId: string, config: PipelineConfig) {
               },
             });
           } else {
-            // 打标完成后合并
-            const { exitCode: mergeCode, stderr: mergeErr } = await runPythonScript(
-              scriptPath("scripts/merge_labeled_by_project.py"),
-              [],
-              { timeoutMs: 120_000 },
-            );
-
             await update({
               stats: {
                 ...cachedStats,
@@ -609,7 +697,54 @@ async function executePipeline(jobId: string, config: PipelineConfig) {
                 errors: [
                   ...cachedStats.errors,
                   ...(taggedCount > 0 ? [`AI 打标完成: ${taggedCount} 条`] : []),
-                  ...(mergeCode !== 0 ? [`合并标注失败: ${mergeErr.slice(0, 200)}`] : []),
+                ],
+              },
+            });
+          }
+
+          await calibrateTotalMs(jobId, stage, stages);
+          break;
+        }
+
+        case "merge": {
+          // 阶段 4: 增量合并 — 调用 merge_labeled_by_project.py
+          const mergeMode = config.mergeMode ?? "full";
+          const projectName = config.projectName;
+          const mergeArgs: string[] = ["--mode", mergeMode];
+          if (projectName) {
+            mergeArgs.push("--project", projectName);
+          }
+          const mergeEnv: Record<string, string> | undefined = projectName
+            ? {
+                PIPELINE_LABELED_DIR: join(process.cwd(), "data", "群体画像v2.0_labeled"),
+                PIPELINE_CLEANED_DIR: join(process.cwd(), "data", "群体画像v2.0_cleaned"),
+                PIPELINE_MERGED_DIR: join(process.cwd(), "data", "群体画像v2.0_merged"),
+              }
+            : undefined;
+
+          const { exitCode, stdout, stderr } = await runPythonScript(
+            scriptPath("scripts/merge_labeled_by_project.py"),
+            mergeArgs,
+            { timeoutMs: 120_000, env: mergeEnv },
+          );
+
+          if (exitCode !== 0) {
+            await update({
+              stats: {
+                ...cachedStats,
+                errors: [
+                  ...cachedStats.errors,
+                  `增量合并失败 (exit ${exitCode}): ${stderr.slice(0, 500)}`,
+                ],
+              },
+            });
+          } else {
+            await update({
+              stats: {
+                ...cachedStats,
+                errors: [
+                  ...cachedStats.errors,
+                  `增量合并完成 (${mergeMode === "append" ? "追加" : "全量"}模式)`,
                 ],
               },
             });
@@ -620,7 +755,7 @@ async function executePipeline(jobId: string, config: PipelineConfig) {
         }
 
         case "embedding": {
-          // 阶段 4: 向量嵌入 — 调用 embed_segments.py + import_source_segments.py
+          // 阶段 5: 向量嵌入 — 调用 embed_segments.py + import_source_segments.py
           const embedArgs: string[] = [];
           const { exitCode, stdout, stderr } = await runPythonScript(
             scriptPath("scripts/embed_segments.py"),
@@ -680,7 +815,7 @@ async function executePipeline(jobId: string, config: PipelineConfig) {
         }
 
         case "clustering": {
-          // 阶段 5: 聚类分析 — 调用 cluster_personas.py
+          // 阶段 6: 聚类分析 — 调用 cluster_personas.py
           const { exitCode, stdout, stderr } = await runPythonScript(
             scriptPath("scripts/cluster_personas.py"),
             [],
@@ -710,25 +845,33 @@ async function executePipeline(jobId: string, config: PipelineConfig) {
         }
       }
     } catch (e) {
-      await update({
-        stats: {
-          ...cachedStats,
-          errors: [
-            ...cachedStats.errors,
-            `${stageLabels[stage] ?? stage}: ${String(e)}`,
-          ],
-        },
-      });
+      try {
+        await update({
+          stats: {
+            ...cachedStats,
+            errors: [
+              ...cachedStats.errors,
+              `${stageLabels[stage] ?? stage}: ${String(e)}`,
+            ],
+          },
+        });
+      } catch {
+        // 更新失败不阻止后续阶段
+      }
     }
   }
 
   // 清理上传文件
   await cleanupUploadedFiles(uploadedFileIds);
 
-  await update({
-    progress: 100,
-    completedAt: new Date(),
-  });
+  try {
+    await update({
+      progress: 100,
+      completedAt: new Date(),
+    });
+  } catch {
+    console.error(`流水线 ${jobId} 最终状态更新失败`);
+  }
 }
 
 // ---- 工具函数 ----

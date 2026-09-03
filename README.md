@@ -4,12 +4,16 @@
 
 ## 本地运行
 
+### 环境准备
+
 ```bash
 # 1. 克隆仓库
 git clone https://github.com/julia-lars/tengxun_yp_6Gang.git
 cd tengxun_yp_6Gang
 
-# 2. 装依赖（需要 Bun：curl -fsSL https://bun.sh/install | bash）
+# 2. 安装依赖（需要 Bun）
+# macOS / Linux：
+curl -fsSL https://bun.sh/install | bash
 bun install
 
 # 3. 启动 PostgreSQL（二选一）
@@ -23,17 +27,51 @@ createuser -s dev && createdb -O dev webtutor
 # 4. 初始化数据库
 bun run db:migrate
 bun run db:seed-personas   # 灌入示例画像
+```
 
-# 5. 配置 API Key
-cp .env.example apps/api/.env
+### 配置 API Key
 
-# 6. 启动
+项目通过 **TokenHub（腾讯 MaaS）** 网关调用 LLM，需要配置以下环境变量。
+
+在项目根目录的 `.env` 和 `apps/api/.env` 中设置：
+
+```bash
+# TokenHub DeepSeek API Key（找 TL 要 sk-tp- 开头的 key）
+DEEPSEEK_API_KEY=sk-tp-your-key-here
+
+# TokenHub 网关地址（Anthropic 兼容端点）
+DEEPSEEK_BASE_URL=https://tokenhub.tencentmaas.com/plan/anthropic
+
+# 可用模型：deepseek-v4-pro / deepseek-v4-flash
+DEEPSEEK_MODEL=deepseek-v4-pro
+```
+
+> **注意**：Key 是 `sk-tp-` 前缀的 TokenHub 密钥，不是 DeepSeek 官方的 `sk-` 密钥。Base URL 必须指向 TokenHub 网关，不能直接连 `api.deepseek.com`。
+
+### 启动项目
+
+```bash
+# 正常启动
 bun run dev
+
+# 快速重启（先杀进程再启动）
+./restart.sh
 ```
 
 打开 **[http://localhost:5173](http://localhost:5173)**，首页 → 进入画像系统 → 选择画像 → 开始对话。
 
-常用命令：`bun run test`（跑测试）`bun run typecheck`（类型检查）
+### 常用命令
+
+```bash
+bun run dev          # 启动前后端
+bun run test         # 跑全部测试
+bun run typecheck    # 类型检查
+bun run lint         # 代码规范检查
+bun run db:studio    # 可视化看数据库
+bun run db:generate  # Schema 改了之后生成 migration
+bun run db:migrate   # 执行 migration
+./restart.sh         # 快速重启开发服务器
+```
 
 ---
 

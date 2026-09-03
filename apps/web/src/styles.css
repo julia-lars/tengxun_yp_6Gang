@@ -190,6 +190,13 @@
   --color-destructive-foreground: white;
   --color-warning: var(--color-warning-500);
   --color-success: var(--color-success-500);
+
+  /* ---- 维度配色（群体画像雷达图）---- */
+  --color-dim-needs: #F59E0B;
+  --color-dim-ability: #10B981;
+  --color-dim-style: #8B5CF6;
+  --color-dim-platform: #3B82F6;
+  --color-dim-mode: #EC4899;
 }
 
 /* ============================================================
@@ -394,6 +401,15 @@
 
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
+  }
+
+  /* ---- 蓝色滚动条 ---- */
+  .scrollbar-blue::-webkit-scrollbar-thumb {
+    background: var(--color-brand-400);
+  }
+
+  .scrollbar-blue::-webkit-scrollbar-thumb:hover {
+    background: var(--color-brand-500);
   }
 }
 

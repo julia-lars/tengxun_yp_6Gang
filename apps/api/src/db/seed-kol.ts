@@ -207,20 +207,335 @@ function buildFallbackProfile(
   };
 }
 
-function chunkText(text: string, maxLen = 500): string[] {
-  const chunks: string[] = [];
-  const sentences = text.split(/(?<=[。！？\n])/);
+// ── 语义分段：多级边界检测 + 话题相似度（解决语义不连贯和 chunk 过大的问题）──
+// 策略：先按语义相似度检测话题边界，再在边界内做多级标点切分
+// 边界优先级：段落 > 话题边界 > 句子（。！？）> 从句（，；：）> 短语（、）> 强制切分
+
+const MAX_CHUNK_LEN = 500;
+
+// ── 广告/赞助关键词（用于广告段检测）──
+const AD_BRAND_KEYWORDS = [
+  "盖世小机", "奥加诗", "联想云电脑", "清闲PRO", "雷蛇",
+  "TMR瓷变组摇杆", "光微动", "霍尔线性",
+  "原生震动信号", "微软官方授权", "Xbox官方授权",
+  "购买链接", "优惠券", "下单", "限时优惠", "限量", "首发价", "到手价",
+  "评论区置顶", "点击下方", "专属福利", "折扣码", "立减", "包邮",
+];
+
+const AD_TRANSITION_PATTERNS = [
+  /有一款好的.{0,10}(外设|手柄|键盘|鼠标|耳机|显示器)/,
+  /比如这台.{0,20}/,
+  /推荐.{0,5}(大家|各位|一下)/,
+  /这.{0,5}(手柄|外设|键盘|鼠标|耳机|显示器).{0,10}(真|确实|太|很)/,
+  /说(到这|到这里|到这了).{0,5}(必须|不得不|要)/,
+];
+
+function isAdSegment(text: string): boolean {
+  const hitCount = AD_BRAND_KEYWORDS.filter((kw) => text.includes(kw)).length;
+  if (hitCount >= 2) return true;
+  for (const pat of AD_TRANSITION_PATTERNS) {
+    if (pat.test(text)) return true;
+  }
+  return false;
+}
+
+// ── 语义特征提取（用于话题相似度计算）──
+const SEMANTIC_KEY_TERMS = [
+  "游戏", "玩家", "战斗", "玩法", "画面", "设计", "系统", "体验",
+  "BOSS", "关卡", "武器", "角色", "剧情", "手感", "打击", "操作",
+  "魂系", "硬核", "开放世界", "RPG", "FPS", "动作", "射击", "策略",
+  "PVP", "PVE", "竞技", "单人", "多人", "联机", "在线",
+  "画质", "帧率", "优化", "引擎", "物理", "AI",
+  "音效", "配乐", "配音", "剧情", "叙事", "世界观",
+  "价格", "性价比", "氪金", "付费", "免费", "买断",
+  "手柄", "键盘", "鼠标", "主机", "PC", "手机", "平台",
+  "新手", "老玩家", "硬核玩家", "休闲玩家",
+  "育碧", "卡普空", "任天堂", "索尼", "微软",
+  "广告", "赞助", "推广", "合作",
+];
+
+function extractFeatures(text: string): Set<string> {
+  const features = new Set<string>();
+  // 游戏名《XXX》
+  for (const m of text.matchAll(/《([^》]+)》/g)) {
+    features.add(`GAME:${m[1]!}`);
+  }
+  // 关键术语
+  for (const term of SEMANTIC_KEY_TERMS) {
+    if (text.includes(term)) features.add(`TERM:${term}`);
+  }
+  // 广告标记
+  if (isAdSegment(text)) features.add("AD");
+  return features;
+}
+
+function featureSimilarity(a: Set<string>, b: Set<string>): number {
+  if (a.size === 0 && b.size === 0) return 0.5;
+  if (a.size === 0 || b.size === 0) return 0.3;
+  let intersection = 0;
+  for (const x of a) {
+    if (b.has(x)) intersection++;
+  }
+  const union = a.size + b.size - intersection;
+  return union > 0 ? intersection / union : 0.5;
+}
+
+// ── 语义分段主函数 ──
+function semanticChunkText(text: string, maxLen = MAX_CHUNK_LEN): string[] {
+  if (!text || text.trim().length < 20) return [];
+
+  // Step 1: 按句子拆分
+  const sentences = text
+    .split(/(?<=[。！？])\s*/)
+    .map((s) => s.trim())
+    .filter((s) => s.length > 0);
+
+  if (sentences.length <= 3) {
+    return chunkByPunctuation(text, maxLen);
+  }
+
+  // Step 2: 把句子合并成 ~200-400 字的块，用于相似度计算
+  const blocks: string[] = [];
   let current = "";
-  for (const s of sentences) {
-    if (current.length + s.length > maxLen && current) {
-      chunks.push(current.trim());
-      current = s;
+  for (const sent of sentences) {
+    if (current.length + sent.length > 400 && current.length > 100) {
+      blocks.push(current.trim());
+      current = sent;
     } else {
-      current += s;
+      current += sent;
     }
   }
-  if (current.trim()) chunks.push(current.trim());
+  if (current.trim()) blocks.push(current.trim());
+
+  if (blocks.length <= 2) {
+    return chunkByPunctuation(text, maxLen);
+  }
+
+  // Step 3: 计算相邻块的语义相似度
+  const blockFeatures = blocks.map((b) => extractFeatures(b));
+  const similarities: number[] = [];
+  for (let i = 0; i < blockFeatures.length - 1; i++) {
+    similarities.push(featureSimilarity(blockFeatures[i]!, blockFeatures[i + 1]!));
+  }
+
+  // Step 4: 检测话题边界（相似度的谷底）
+  const mean = similarities.reduce((a, b) => a + b, 0) / similarities.length;
+  const variance =
+    similarities.reduce((a, b) => a + (b - mean) ** 2, 0) / similarities.length;
+  const std = Math.sqrt(variance);
+  const threshold = Math.max(0.15, mean - 0.5 * std);
+
+  const boundaries = new Set<number>();
+  for (let i = 0; i < similarities.length; i++) {
+    const prev = i > 0 ? similarities[i - 1]! : 1;
+    const next = i < similarities.length - 1 ? similarities[i + 1]! : 1;
+    if (similarities[i]! < threshold && similarities[i]! < prev && similarities[i]! < next) {
+      boundaries.add(i + 1); // 边界在第 i 块之后
+    }
+  }
+
+  // 额外：广告段强制边界
+  for (let i = 0; i < blocks.length; i++) {
+    if (isAdSegment(blocks[i]!)) {
+      if (i > 0) boundaries.add(i); // 广告开始前
+      boundaries.add(i + 1); // 广告结束后
+    }
+  }
+
+  // Step 5: 按边界合并块，形成语义段
+  const semanticSegments: string[] = [];
+  current = "";
+  for (let i = 0; i < blocks.length; i++) {
+    if (boundaries.has(i) && current.trim()) {
+      semanticSegments.push(current.trim());
+      current = blocks[i]!;
+    } else {
+      current = current ? `${current} ${blocks[i]}` : blocks[i]!;
+    }
+  }
+  if (current.trim()) semanticSegments.push(current.trim());
+
+  // Step 6: 对每个语义段，如果超过 maxLen 则用标点切分
+  const finalChunks: string[] = [];
+  for (const seg of semanticSegments) {
+    if (seg.length > maxLen) {
+      finalChunks.push(...chunkByPunctuation(seg, maxLen));
+    } else if (seg.length >= 20) {
+      finalChunks.push(seg);
+    }
+  }
+
+  return finalChunks.length > 0 ? finalChunks : chunkByPunctuation(text, maxLen);
+}
+
+// ── 多级标点切分（语义段内部的 fallback）──
+function chunkByPunctuation(text: string, maxLen = MAX_CHUNK_LEN): string[] {
+  const targetMin = 150;
+  const targetMax = maxLen;
+  const hardMax = targetMax + 50;
+
+  if (!text || text.trim().length < 20) return [];
+
+  const paragraphs = text.trim().split(/\n{2,}/);
+  const chunks: string[] = [];
+
+  for (const para of paragraphs) {
+    const trimmed = para.trim();
+    if (!trimmed) continue;
+    if (trimmed.length <= targetMax) {
+      if (trimmed.length >= 20) chunks.push(trimmed);
+      continue;
+    }
+    chunks.push(...splitBySentences(trimmed, targetMin, targetMax, hardMax));
+  }
+
   return chunks;
+}
+
+function splitBySentences(
+  text: string,
+  targetMin: number,
+  targetMax: number,
+  hardMax: number,
+): string[] {
+  const parts = text.split(/(?<=[。！？])\s*/).filter((s) => s.trim());
+  if (parts.length === 1 && parts[0]!.length > targetMax) {
+    return splitByClauses(parts[0]!, targetMin, targetMax, hardMax);
+  }
+
+  const result: string[] = [];
+  let current = "";
+
+  for (const part of parts) {
+    const s = part.trim();
+    if (!s) continue;
+
+    if (s.length > hardMax) {
+      if (current.trim()) {
+        result.push(current.trim());
+        current = "";
+      }
+      result.push(...splitByClauses(s, targetMin, targetMax, hardMax));
+      continue;
+    }
+
+    const combinedLen = current.length + s.length + (current ? 1 : 0);
+    if (combinedLen > targetMax) {
+      if (current.trim()) result.push(current.trim());
+      current = s;
+    } else {
+      current = current ? `${current} ${s}` : s;
+    }
+  }
+
+  if (current.trim()) result.push(current.trim());
+  return result;
+}
+
+function splitByClauses(
+  text: string,
+  targetMin: number,
+  targetMax: number,
+  hardMax: number,
+): string[] {
+  const parts = text.split(/(?<=[，；：])\s*/).filter((s) => s.trim());
+  if (parts.length === 1) {
+    return splitByPhrases(parts[0]!, targetMin, targetMax, hardMax);
+  }
+
+  const result: string[] = [];
+  let current = "";
+
+  for (const part of parts) {
+    const c = part.trim();
+    if (!c) continue;
+
+    if (c.length > hardMax) {
+      if (current.trim()) {
+        result.push(current.trim());
+        current = "";
+      }
+      result.push(...splitByPhrases(c, targetMin, targetMax, hardMax));
+      continue;
+    }
+
+    const combinedLen = current.length + c.length + (current ? 1 : 0);
+    if (combinedLen > targetMax) {
+      if (current.trim()) result.push(current.trim());
+      current = c;
+    } else {
+      current = current ? `${current} ${c}` : c;
+    }
+  }
+
+  if (current.trim()) result.push(current.trim());
+  return result;
+}
+
+function splitByPhrases(
+  text: string,
+  targetMin: number,
+  targetMax: number,
+  hardMax: number,
+): string[] {
+  const parts = text.split(/(?<=[、])\s*/).filter((s) => s.trim());
+  if (parts.length === 1) {
+    return forceSplit(parts[0]!, targetMax);
+  }
+
+  const result: string[] = [];
+  let current = "";
+
+  for (const part of parts) {
+    const p = part.trim();
+    if (!p) continue;
+
+    if (p.length > hardMax) {
+      if (current.trim()) {
+        result.push(current.trim());
+        current = "";
+      }
+      result.push(...forceSplit(p, targetMax));
+      continue;
+    }
+
+    const combinedLen = current.length + p.length + (current ? 1 : 0);
+    if (combinedLen > targetMax) {
+      if (current.trim()) result.push(current.trim());
+      current = p;
+    } else {
+      current = current ? `${current} ${p}` : p;
+    }
+  }
+
+  if (current.trim()) result.push(current.trim());
+  return result;
+}
+
+function forceSplit(text: string, maxLen: number): string[] {
+  const result: string[] = [];
+  let remaining = text.trim();
+
+  while (remaining.length > maxLen) {
+    let splitAt = maxLen;
+    for (let i = maxLen - 1; i >= Math.max(0, maxLen - 60); i--) {
+      if ("，；：。！？、 ".includes(remaining[i]!)) {
+        splitAt = i + 1;
+        break;
+      }
+    }
+    const chunk = remaining.slice(0, splitAt).trim();
+    if (chunk) result.push(chunk);
+    remaining = remaining.slice(splitAt).trim();
+  }
+
+  if (remaining) result.push(remaining);
+  return result;
+}
+
+// 对外统一入口：语义分段
+function chunkText(text: string, maxLen = MAX_CHUNK_LEN): string[] {
+  return semanticChunkText(text, maxLen);
 }
 
 async function main() {

@@ -8,23 +8,36 @@ interface IcebergLevel {
 }
 
 interface IcebergChainProps {
-  chain: Record<string, string>;
+  chain: Record<string, unknown>;
   className?: string;
 }
 
-const LEVELS: { key: string; label: string }[] = [
-  { key: "M1_motivation", label: "M1 动机" },
-  { key: "M2_expectation", label: "M2 期待" },
-  { key: "M3_cognition", label: "M3 认知" },
-  { key: "M4_feeling", label: "M4 感受" },
-  { key: "M5_behavior", label: "M5 行为" },
+const LEVELS: { key: string; aliases: string[]; label: string }[] = [
+  { key: "M1_motivation", aliases: [], label: "M1 动机" },
+  { key: "M2_expectation", aliases: [], label: "M2 期待" },
+  { key: "M3_cognition", aliases: ["M3_perception"], label: "M3 认知" },
+  { key: "M4_feeling", aliases: [], label: "M4 感受" },
+  { key: "M5_behavior", aliases: [], label: "M5 行为" },
 ];
 
+/** 安全地从 chain 中获取字符串值 */
+function getChainString(chain: Record<string, unknown>, key: string, aliases: string[]): string {
+  // 先尝试主 key
+  const val = chain[key];
+  if (typeof val === "string" && val.trim().length > 0) return val;
+  // 尝试别名
+  for (const alias of aliases) {
+    const aliasVal = chain[alias];
+    if (typeof aliasVal === "string" && aliasVal.trim().length > 0) return aliasVal;
+  }
+  return "";
+}
+
 export function IcebergChain({ chain, className }: IcebergChainProps) {
-  const items: IcebergLevel[] = LEVELS.map(({ key, label }) => ({
+  const items: IcebergLevel[] = LEVELS.map(({ key, aliases, label }) => ({
     key,
     label,
-    content: chain[key] ?? "",
+    content: getChainString(chain, key, aliases),
   }));
 
   if (items.every((item) => !item.content)) {

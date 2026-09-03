@@ -207,7 +207,7 @@ def build_embedding_text(seg):
     规则（规范 §5, §6）：
     - 默认 embedding_text = cleaned_text
     - 仅当语义无法独立理解时才补充最小必要 context
-    - 本版本 demo 采用纯规则判断，不调用 LLM
+    - 短文本（< 10 字）拼接前置问题作为上下文消歧
 
     Returns:
         (embedding_text, needs_context)
@@ -218,9 +218,15 @@ def build_embedding_text(seg):
     if not text:
         return "", False
 
-    # 简单规则：如果文本 < 5 字且包含指代词，标记为需要上下文
-    # 但根据规范 §5.1，默认不改写
-    needs_context = False
+    # 短文本（< 10 字）：拼接前置问题消歧
+    # 避免 "喜欢"、"嗯"、"为什么" 等短回复与复杂查询产生虚假高相似度
+    needs_context = len(text) < 10
+    if needs_context:
+        preceding = seg.get("preceding_question", "")
+        if preceding:
+            preceding = normalize_text(preceding)
+            text = f"问题：{preceding}\n回答：{text}"
+
     return text, needs_context
 
 

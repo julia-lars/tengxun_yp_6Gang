@@ -588,40 +588,57 @@ async function generateReport(
   config: BatchInterviewConfig,
   results: InterviewResult[],
 ): Promise<BatchInterviewReport> {
-  // 将结果汇总，用 LLM 生成综合分析
-  const allInsights = results.flatMap((r) =>
-    r.keyInsights.map((i) => `[${r.personaName}] ${i}`),
-  );
+  // 按问题聚合所有画像的回答，供 LLM 进行问题聚焦分析
+  const questionMap = new Map<string, { personaName: string; answer: string; personaId: number }[]>();
+  for (const result of results) {
+    for (const round of result.rounds) {
+      const q = round.question;
+      if (!questionMap.has(q)) questionMap.set(q, []);
+      questionMap.get(q)!.push({
+        personaName: result.personaName,
+        answer: round.answer,
+        personaId: result.personaId,
+      });
+    }
+  }
+
+  // 构建问题聚合文本
+  const questionSummaries = Array.from(questionMap.entries()).map(([question, responses]) => {
+    const responseText = responses
+      .map((r) => `[${r.personaName}] ${r.answer.slice(0, 400)}`)
+      .join("\n---\n");
+    return `## 问题：${question}\n回答人数：${responses.length}\n\n${responseText}`;
+  });
 
   const systemPrompt = [
-    "你是一位资深用户研究分析师。请根据多个用户画像的访谈结果，生成一份综合分析报告。",
+    "你是一位资深用户研究分析师。请根据多个用户画像对同一组访谈问题的回答，按问题维度进行综合分析。",
+    "",
+    "## 分析要求",
+    "对每个问题，分析：",
+    "1. 总结该问题的整体回答情况（summary）",
+    "2. 提炼跨画像的共性发现（commonThemes）",
+    "3. 各画像的核心观点和代表性引用（personaResponses）",
+    "4. 不同画像之间的分歧和差异点（divergences）",
     "",
     "## 输出格式",
     "以 JSON 格式输出：",
     '{',
-    '  "crossCuttingThemes": ["跨画像的共性主题1", "主题2", ...],',
-    '  "personaComparison": [',
+    '  "questionAnalysis": [',
     '    {',
-    '      "theme": "对比维度",',
-    '      "observations": [',
-    '        {"personaId": 1, "personaName": "画像名", "stance": "该画像在此维度的立场/态度", "quote": "代表性引用"}',
-    '      ]',
+    '      "question": "问题原文",',
+    '      "summary": "对该问题的整体分析总结",',
+    '      "commonThemes": ["共性发现1", "共性发现2"],',
+    '      "personaResponses": [',
+    '        {"personaId": 1, "personaName": "画像名", "keyPoint": "核心观点", "quote": "代表性原话引用"},',
+    '      ],',
+    '      "divergences": ["分歧点1", "分歧点2"]',
     '    }',
     '  ]',
     '}',
     "只输出 JSON，不要其他内容。",
   ].join("\n");
 
-  const summaryText = results
-    .map(
-      (r) =>
-        `## ${r.personaName}\n关键洞察：\n${r.keyInsights.map((i) => `- ${i}`).join("\n")}`,
-    )
-    .join("\n\n");
-
-  let crossCuttingThemes: string[] = [];
-  let personaComparison: BatchInterviewReport["summary"]["personaComparison"] =
-    [];
+  let questionAnalysis: BatchInterviewReport["summary"]["questionAnalysis"] = [];
 
   try {
     const REPORT_TIMEOUT_MS = 120_000;
@@ -631,10 +648,10 @@ async function generateReport(
           { role: "system", content: systemPrompt },
           {
             role: "user",
-            content: `以下是对 ${results.length} 个用户画像的批量访谈结果摘要：\n\n${summaryText.slice(0, 6000)}\n\n请生成综合分析报告。`,
+            content: `以下是对 ${results.length} 个用户画像的批量访谈结果，按问题聚合：\n\n${questionSummaries.join("\n\n").slice(0, 8000)}\n\n请按问题维度生成综合分析报告。`,
           },
         ],
-        { temperature: 0.5, maxTokens: 3072 },
+        { temperature: 0.5, maxTokens: 4096 },
       ),
       new Promise<string>((_, reject) =>
         setTimeout(() => reject(new Error("报告生成超时")), REPORT_TIMEOUT_MS),
@@ -644,11 +661,9 @@ async function generateReport(
     const jsonMatch = response.match(/\{[\s\S]*\}/);
     if (jsonMatch) {
       const analysis = JSON.parse(jsonMatch[0]) as {
-        crossCuttingThemes: string[];
-        personaComparison: BatchInterviewReport["summary"]["personaComparison"];
+        questionAnalysis: BatchInterviewReport["summary"]["questionAnalysis"];
       };
-      crossCuttingThemes = analysis.crossCuttingThemes ?? [];
-      personaComparison = analysis.personaComparison ?? [];
+      questionAnalysis = analysis.questionAnalysis ?? [];
     }
   } catch (e) {
     console.error("报告生成失败:", e);
@@ -662,8 +677,7 @@ async function generateReport(
       totalInterviews: config.personaIds.length,
       completedInterviews: results.length,
       totalRounds: results.reduce((sum, r) => sum + r.rounds.length, 0),
-      crossCuttingThemes,
-      personaComparison,
+      questionAnalysis,
     },
     generatedAt: new Date().toISOString(),
   };
