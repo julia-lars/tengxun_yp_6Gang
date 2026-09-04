@@ -20,6 +20,7 @@ import {
   streamChat,
   formatEvidenceContext,
   reformulateQueryForSearch,
+  preScoreEvidence,
   type EvidenceRow,
 } from "../lib/agent-chat.js";
 import { calculateKOLConfidence, extractKOLTags } from "../lib/kol-confidence.js";
@@ -163,7 +164,7 @@ kolRoute.post("/chat", zValidator("json", kolChatRequestSchema), async (c) => {
 
   // 4. RAG 检索（使用共享引擎）
   const searchQuery = await reformulateQueryForSearch(message, model);
-  const evidenceRows: EvidenceRow[] = await searchEvidence({
+  let evidenceRows: EvidenceRow[] = await searchEvidence({
       message: searchQuery,
       vectorQuery: async (vecStr) => {
         let rawRows = (await db.execute(
@@ -175,7 +176,7 @@ kolRoute.post("/chat", zValidator("json", kolChatRequestSchema), async (c) => {
                 AND (ad_label IS NULL OR ad_label != '广告口播')
                 AND embedding <=> ${vecStr}::vector < ${KOL_DISTANCE_THRESHOLD}
               ORDER BY embedding <=> ${vecStr}::vector
-              LIMIT 15`,
+              LIMIT 50`,
         )) as unknown as Array<{
           id: number;
           original_text: string;
@@ -193,7 +194,7 @@ kolRoute.post("/chat", zValidator("json", kolChatRequestSchema), async (c) => {
                   AND embedding IS NOT NULL
                   AND (ad_label IS NULL OR ad_label != '广告口播')
                 ORDER BY embedding <=> ${vecStr}::vector
-                LIMIT 15`,
+                LIMIT 50`,
           )) as unknown as Array<{
             id: number;
             original_text: string;
@@ -221,7 +222,7 @@ kolRoute.post("/chat", zValidator("json", kolChatRequestSchema), async (c) => {
                 AND (ad_label IS NULL OR ad_label != '广告口播')
                 AND similarity(original_text, ${message}) > 0.05
               ORDER BY sim DESC
-              LIMIT 15`,
+              LIMIT 50`,
         ) as unknown as Array<{
           id: number;
           original_text: string;
@@ -236,6 +237,18 @@ kolRoute.post("/chat", zValidator("json", kolChatRequestSchema), async (c) => {
         }));
       },
     });
+
+  // 4.5 LLM 前置评分：对向量检索结果按用户问题评分，筛选 Top 20 高质量证据
+  if (evidenceRows.length > 0) {
+    try {
+      const scored = await preScoreEvidence(message, evidenceRows, model);
+      evidenceRows = scored
+        .filter((r) => (r.relevanceScore ?? 0) >= 0.5)
+        .slice(0, 20);
+    } catch (e) {
+      console.error("前置评分失败，使用原始向量检索结果:", e);
+    }
+  }
 
   const evidenceContext = formatEvidenceContext(
     evidenceRows,

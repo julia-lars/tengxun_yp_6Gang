@@ -89,6 +89,21 @@ export function EvidenceCard({
           {similarity !== undefined && (
             <span>相关 {Math.round(similarity * 100)}%</span>
           )}
+          {relevanceScore != null && (
+            <span
+              title="LLM 按用户问题评估的证据匹配度"
+              className={cn(
+                "font-medium",
+                relevanceScore >= 0.7
+                  ? "text-green-600 dark:text-green-400"
+                  : relevanceScore >= 0.5
+                    ? "text-amber-600 dark:text-amber-400"
+                    : "text-(--color-muted-foreground)",
+              )}
+            >
+              LLM 匹配 {Math.round(relevanceScore * 100)}%
+            </span>
+          )}
         </div>
       )}
 

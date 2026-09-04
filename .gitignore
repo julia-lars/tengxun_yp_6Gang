@@ -29,6 +29,9 @@ lerna-debug.log*
 .idea/
 .DS_Store
 
+# Claude Code 会话临时产物
+.claude/
+
 # testing
 coverage/
 

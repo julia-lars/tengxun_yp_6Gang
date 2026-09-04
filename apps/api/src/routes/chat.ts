@@ -19,6 +19,7 @@ import {
   compressHistory,
   formatEvidenceContext,
   reformulateQueryForSearch,
+  preScoreEvidence,
   type EvidenceRow,
 } from "../lib/agent-chat.js";
 import {
@@ -298,7 +299,7 @@ chatRoute.post("/", zValidator("json", chatRequestSchema), async (c) => {
                 AND (annotation->'meta'->>'rs' IS NULL OR annotation->'meta'->>'rs' != 'skip')
                 AND (cleaning_status IS NULL OR cleaning_status NOT IN ('removed_noise', 'removed_flow', 'removed_duplicate', 'removed_irrelevant'))
               ORDER BY embedding <=> ${vecStr}::vector
-              LIMIT 20`,
+              LIMIT 50`,
         )) as unknown as Array<{
           id: number;
           original_text: string;
@@ -352,6 +353,18 @@ chatRoute.post("/", zValidator("json", chatRequestSchema), async (c) => {
         }));
       },
     });
+  }
+
+  // 4.5 LLM 前置评分：对向量检索结果按用户问题评分，筛选 Top 20 高质量证据
+  if (evidenceRows.length > 0) {
+    try {
+      const scored = await preScoreEvidence(message, evidenceRows, model);
+      evidenceRows = scored
+        .filter((r) => (r.relevanceScore ?? 0) >= 0.5)
+        .slice(0, 20);
+    } catch (e) {
+      console.error("前置评分失败，使用原始向量检索结果:", e);
+    }
   }
 
   const evidenceContext = formatEvidenceContext(

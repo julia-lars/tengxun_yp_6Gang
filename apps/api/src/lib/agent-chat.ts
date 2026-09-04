@@ -282,8 +282,9 @@ export async function streamChat(opts: {
           tagOverlap: e.tagOverlap ?? m?.tagOverlap ?? 0,
           speakerId: e.speakerId ?? null,
           precedingQuestion: e.precedingQuestion ?? null,
-          relevanceScore: rel?.score ?? null,
-          relevanceReason: rel?.reason ?? null,
+          // 优先使用前置评分的结果（已在 evidenceRow 上），其次使用 relevanceMap
+          relevanceScore: e.relevanceScore ?? rel?.score ?? null,
+          relevanceReason: e.relevanceReason ?? rel?.reason ?? null,
         };
       });
 
@@ -305,35 +306,25 @@ export async function streamChat(opts: {
       // 客户端已断开连接
     }
 
-    // 并行执行相关性评分 + 逐句证据映射，完成后增量更新前端
-    if (fullResponse && (evidenceData ?? []).length > 0) {
-      const [relevanceMap, sentenceEvidence] = await Promise.all([
-        evaluateEvidenceRelevance(fullResponse, evidenceData!, model).catch((e) => {
-          console.error("证据相关性评分失败:", e);
-          return new Map<number, { score: number; reason: string }>();
-        }),
-        userMessage
-          ? mapSentencesToEvidence(fullResponse, evidenceData!, userMessage, model).catch((e) => {
-              console.error("逐句证据映射失败:", e);
-              return { sentences: [], userQuestion: userMessage, answerText: fullResponse };
-            })
-          : Promise.resolve({ sentences: [], userQuestion: "", answerText: fullResponse }),
-      ]);
+    // 逐句证据映射（回答生成后执行），完成后增量更新前端
+    if (fullResponse && (evidenceData ?? []).length > 0 && userMessage) {
+      const sentenceEvidence = await mapSentencesToEvidence(fullResponse, evidenceData!, userMessage, model).catch((e) => {
+        console.error("逐句证据映射失败:", e);
+        return { sentences: [], userQuestion: userMessage, answerText: fullResponse };
+      });
 
-      // 更新 evidencePayload 为含 relevance 分数的版本，用于后续保存
-      evidencePayload = buildEvidencePayload(relevanceMap);
-
-      // 发送增量更新事件（relevance 分数 + 逐句映射）
-      try {
-        await stream.writeSSE({
-          data: JSON.stringify({
-            type: "evidenceUpdate",
-            evidence: evidencePayload,
-            sentenceEvidence: sentenceEvidence.sentences.length > 0 ? sentenceEvidence : undefined,
-          }),
-        });
-      } catch {
-        // 客户端已断开连接
+      // 发送增量更新事件（仅逐句映射，relevance 分数已在 meta 事件中发送）
+      if (sentenceEvidence.sentences.length > 0) {
+        try {
+          await stream.writeSSE({
+            data: JSON.stringify({
+              type: "evidenceUpdate",
+              sentenceEvidence,
+            }),
+          });
+        } catch {
+          // 客户端已断开连接
+        }
       }
     }
 
@@ -431,54 +422,50 @@ export async function generateTitle(userMessage: string, aiResponse: string, mod
   return result.trim().slice(0, 30);
 }
 
-// ---- 8. 证据-回答匹配度评分 ----
+// ---- 8. 证据-问题前置评分 ----
 
 /**
- * 用 LLM 对每条证据与 AI 回答做匹配度评分。
- * 衡量"这条证据是否真正支撑了回答中的某个具体观点"，
- * 而非向量相似度（衡量"用户问题是否与证据语义接近"）。
+ * 用 LLM 对每条证据与用户问题做前置匹配度评分。
+ * 在回答生成之前执行，用于筛选高质量证据喂给 LLM。
  *
- * 返回 Map<evidenceId, { score, reason }>
+ * 返回按 LLM 分数降序排列的 EvidenceRow[]（含 relevanceScore + relevanceReason）。
+ * 调用方自行过滤 Top N 且 >= 阈值。
  */
-export async function evaluateEvidenceRelevance(
-  answer: string,
+export async function preScoreEvidence(
+  question: string,
   evidenceRows: EvidenceRow[],
   model?: ModelVariant,
-): Promise<Map<number, { score: number; reason: string }>> {
-  if (evidenceRows.length === 0) return new Map();
+): Promise<EvidenceRow[]> {
+  if (evidenceRows.length === 0) return evidenceRows;
 
-  // 截断过长的回答，避免 prompt 过大
-  const truncatedAnswer = answer.slice(0, 1200);
-
-  // 构建证据列表（带编号）
   const evidenceList = evidenceRows
     .map((e, i) => `[${i + 1}] ${e.originalText.slice(0, 200)}`)
     .join("\n");
 
-  const prompt = `请判断以下每条证据是否支撑了 AI 回答中的某个具体观点。给每条证据打一个精确到两位小数的相关性分数（0.00-1.00）。
+  const prompt = `请判断以下每条证据与用户问题的匹配程度。给每条证据打一个精确到两位小数的相关性分数（0.00-1.00）。
 
-AI 回答：
+用户问题：
 ---
-${truncatedAnswer}
+${question.slice(0, 500)}
 ---
 
 证据列表：
 ${evidenceList}
 
 评分要求：
-- 分数必须精确到两位小数（如 0.87、0.43、0.15），不要只给整十数（如 0.8、0.5、0.2）
-- 仔细对比证据文本和回答中的具体句子，找到直接的引用或支撑关系
+- 分数必须精确到两位小数（如 0.87、0.43、0.15），不要只给整十数
+- 判断证据是否能帮助回答该问题，而非证据本身的内容质量
 - 每条证据必须给出不同的分数，体现精细差异
 
 评分参考：
-- 0.90-1.00：证据中的具体表述直接出现在回答中，或明确支撑了回答的核心观点
-- 0.70-0.89：证据与回答语义高度相关，内容有实质重叠，但措辞不同
-- 0.50-0.69：证据与回答话题相同，但具体观点不完全一致
-- 0.30-0.49：证据与回答领域相近，但讨论的具体内容不同
-- 0.00-0.29：证据与回答基本无关
+- 0.90-1.00：证据直接回答了用户问题，包含问题所需的具体信息
+- 0.70-0.89：证据与问题高度相关，可作为回答的核心素材
+- 0.50-0.69：证据与问题话题相同，但具体内容不完全匹配
+- 0.30-0.49：证据与问题领域相近，但讨论的具体内容不同
+- 0.00-0.29：证据与问题基本无关
 
 只输出一个 JSON 数组，不要输出任何其它文字：
-[{"index": 1, "score": 0.87, "reason": "证据提到了朋友组队和语音配合，直接支撑了回答中'跟朋友开黑、语音喊话'的核心观点"}, {"index": 2, "score": 0.23, "reason": "证据讨论的是CS手感，与回答中团队合作的乐趣无关"}]`;
+[{"index": 1, "score": 0.87, "reason": "证据直接描述了游戏时间安排，与问题'什么时候玩游戏'高度匹配"}, {"index": 2, "score": 0.23, "reason": "证据讨论的是游戏画质，与问题无关"}]`;
 
   try {
     const result = await chat(
@@ -489,13 +476,15 @@ ${evidenceList}
       { temperature: 0.3, maxTokens: 2048, model },
     );
 
-    // 提取 JSON
     const trimmed = result.trim();
     const jsonStart = trimmed.indexOf("[");
     const jsonEnd = trimmed.lastIndexOf("]");
     if (jsonStart < 0 || jsonEnd <= jsonStart) {
-      console.error("证据匹配度评分返回格式异常:", trimmed.slice(0, 200));
-      return new Map();
+      console.error("前置评分返回格式异常:", trimmed.slice(0, 200));
+      // 降级：用向量相似度作为分数
+      return evidenceRows
+        .map((e) => ({ ...e, relevanceScore: e.similarity, relevanceReason: null }))
+        .sort((a, b) => (b.relevanceScore ?? 0) - (a.relevanceScore ?? 0));
     }
 
     const parsed = JSON.parse(trimmed.slice(jsonStart, jsonEnd + 1)) as Array<{
@@ -504,21 +493,34 @@ ${evidenceList}
       reason: string;
     }>;
 
-    const resultMap = new Map<number, { score: number; reason: string }>();
+    const scoreMap = new Map<number, { score: number; reason: string }>();
     for (const item of parsed) {
-      const idx = item.index - 1; // 转回 0-based
+      const idx = item.index - 1;
       if (idx >= 0 && idx < evidenceRows.length) {
-        const evidenceId = evidenceRows[idx]!.id;
-        resultMap.set(evidenceId, {
+        scoreMap.set(idx, {
           score: Math.max(0, Math.min(1, item.score)),
           reason: item.reason?.slice(0, 100) ?? "",
         });
       }
     }
-    return resultMap;
+
+    // 给每条证据打上 LLM 评分，未评分的降级用向量相似度
+    const scored = evidenceRows.map((e, i) => {
+      const llm = scoreMap.get(i);
+      return {
+        ...e,
+        relevanceScore: llm?.score ?? e.similarity ?? 0,
+        relevanceReason: llm?.reason ?? null,
+      };
+    });
+
+    // 按 LLM 分数降序排列
+    return scored.sort((a, b) => (b.relevanceScore ?? 0) - (a.relevanceScore ?? 0));
   } catch (e) {
-    console.error("证据匹配度评分解析失败:", e);
-    return new Map();
+    console.error("前置评分失败，降级使用向量相似度:", e);
+    return evidenceRows
+      .map((e) => ({ ...e, relevanceScore: e.similarity, relevanceReason: null }))
+      .sort((a, b) => (b.relevanceScore ?? 0) - (a.relevanceScore ?? 0));
   }
 }
 
@@ -528,11 +530,11 @@ ${evidenceList}
  * 用 LLM 将 AI 回答拆分为句子，标注每句话被哪些证据支撑。
  * 返回 SentenceEvidenceResult，包含逐句映射、用户问题原文和回答原文。
  *
- * 与 evaluateEvidenceRelevance 不同：
- * - evaluateEvidenceRelevance 是 N-to-1（N 条证据 → 1 个回答，输出每条证据的匹配分）
- * - mapSentencesToEvidence 是 M-to-N（M 个句子 → N 条证据，输出每句话的支撑证据 ID）
+ * 与 preScoreEvidence（证据-问题前置评分）不同：
+ * - preScoreEvidence 在回答生成前按用户问题筛选证据（N-to-1）
+ * - mapSentencesToEvidence 在回答生成后做逐句标注（M-to-N：M 个句子 → N 条支撑证据 ID）
  *
- * 两者独立，调用方应使用 Promise.all 并行执行。
+ * 两者在不同阶段执行，互不依赖。
  */
 export async function mapSentencesToEvidence(
   answer: string,
@@ -563,7 +565,7 @@ export async function mapSentencesToEvidence(
     .map((s, i) => `[${i}] ${s}`)
     .join("\n");
 
-  // 构建证据列表（1-based 编号，与 evaluateEvidenceRelevance 一致）
+  // 构建证据列表（1-based 编号）
   const evidenceList = evidenceRows
     .map((e, i) => `[${i + 1}] ${e.originalText.slice(0, 150)}`)
     .join("\n");
