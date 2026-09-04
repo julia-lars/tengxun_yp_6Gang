@@ -12,6 +12,10 @@
 !kol/archive_1309seg/*.json
 !kol/.rechunk_checkpoint/
 !kol/.rechunk_checkpoint/*.json
+!kol/.backup_pre200_20260904/kol_segments_dump.json
+!embed/
+!embed/segments/
+!embed/segments/*.json
 !eval/
 !eval/README.md
 !群体画像/

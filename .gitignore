@@ -50,10 +50,6 @@ apps/api/drizzle/meta/_journal.json.bak
 # 临时脚本（非流水线标准脚本）
 fix_shooting_final.py
 
-# 大数据文件（不上传 GitHub）
-data/embed/
-*.npy
-
 # 临时音频文件
 data/kol/_temp_audio/
 apps/api/local.db
