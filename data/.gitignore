@@ -8,6 +8,10 @@
 !sheets_processed/*.json
 !kol/
 !kol/*.json
+!kol/archive_1309seg/
+!kol/archive_1309seg/*.json
+!kol/.rechunk_checkpoint/
+!kol/.rechunk_checkpoint/*.json
 !eval/
 !eval/README.md
 !群体画像/
