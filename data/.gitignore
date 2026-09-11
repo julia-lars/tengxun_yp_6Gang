@@ -18,6 +18,7 @@
 !embed/segments/*.json
 !eval/
 !eval/README.md
+!eval/test_cases_persona_smoke_v1.json
 !群体画像/
 !群体画像/*.json
 !群体画像v2.0_merged/
