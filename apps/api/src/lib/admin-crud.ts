@@ -113,7 +113,7 @@ export function createCrudRoutes<T extends PgTable>(config: CrudConfig<T>) {
         }
       }
 
-      const where = conditions.length > 0 ? and(...conditions) : undefined;
+      const where = conditions.length > 0 ? and(...conditions) : sql`1=1`;
 
       // 查询总数
       const countResult = await db
@@ -124,7 +124,7 @@ export function createCrudRoutes<T extends PgTable>(config: CrudConfig<T>) {
       const total = countResult[0]?.count ?? 0;
 
       // 排序
-      let orderBy;
+      let orderBy: ReturnType<typeof sql> | undefined;
       if (sort && config.sortableFields.includes(sort)) {
         const sortCol = getCol(sort);
         orderBy = sortCol ? (order === "asc" ? asc(sortCol) : desc(sortCol)) : undefined;
@@ -132,7 +132,7 @@ export function createCrudRoutes<T extends PgTable>(config: CrudConfig<T>) {
       if (!orderBy) {
         // 默认按 id 降序
         const idCol = getCol("id");
-        orderBy = idCol ? desc(idCol) : undefined;
+        orderBy = idCol ? desc(idCol) : sql`1=1`;
       }
 
       // 查询数据

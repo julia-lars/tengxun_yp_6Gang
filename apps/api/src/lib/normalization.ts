@@ -312,8 +312,8 @@ function matchGameName(query: string, key: string): boolean {
 
   // 单字符关键词：检查上下文，避免误匹配到无关词中
   const idx = query.indexOf(key);
-  const prevChar = idx > 0 ? query[idx - 1] : "";
-  const nextChar = idx < query.length - 1 ? query[idx + 1] : "";
+  const prevChar = idx > 0 ? (query[idx - 1] ?? "") : "";
+  const nextChar = idx < query.length - 1 ? (query[idx + 1] ?? "") : "";
 
   // 中文字符范围
   const isCJK = (c: string) => /[一-鿿]/.test(c);
