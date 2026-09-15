@@ -26,7 +26,8 @@ COPY packages/shared/package.json ./packages/shared/
 
 # --frozen-lockfile：只装锁文件里已确定的版本，绝不升级
 # 生产构建要的就是 100% 可复现
-RUN bun install --frozen-lockfile
+# --registry：CVM 直连 npmjs 不稳定，走国内镜像
+RUN bun install --frozen-lockfile --registry=https://registry.npmmirror.com
 
 
 # -------------------- 阶段 2：builder 类型检查 --------------------
@@ -57,7 +58,7 @@ COPY apps/api/package.json ./apps/api/
 COPY apps/web/package.json ./apps/web/
 COPY packages/shared/package.json ./packages/shared/
 
-RUN bun install --frozen-lockfile --production
+RUN bun install --frozen-lockfile --production --registry=https://registry.npmmirror.com
 
 
 # -------------------- 阶段 3：runner 最小运行时 --------------------

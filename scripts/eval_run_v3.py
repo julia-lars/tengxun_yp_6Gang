@@ -409,6 +409,9 @@ AI 的回答：
         "temperature": 0.0,
         "max_tokens": 1536,
     }
+    # DeepSeek 模型关闭 thinking（与 09-01 基线评测配置一致，且大幅提速）
+    if "deepseek" in cfg.get("model", ""):
+        payload["thinking"] = {"type": "disabled"}
 
     resp = requests.post(
         f"{cfg['base_url']}/v1/messages",
@@ -760,7 +763,7 @@ def render_markdown_v3(meta: dict, results: list, started: str, cross_analysis: 
     lines.append("## 逐题明细")
     lines.append("")
     for r in results:
-        fs = r.get("final_score", {})
+        fs = r.get("final_score") or {}
         composite = fs.get("composite_score", "—")
         judge_s = fs.get("judge_score", "—")
         auto_s = fs.get("auto_score", "—")
@@ -779,7 +782,7 @@ def render_markdown_v3(meta: dict, results: list, started: str, cross_analysis: 
             for dim in JUDGE_DIMENSIONS:
                 if dim in j:
                     lines.append(f"- {dim}：{j[dim]['score']}/5 —— {j[dim]['reason'][:80]}")
-        if r.get("final_score", {}).get("auto_metrics"):
+        if (r.get("final_score") or {}).get("auto_metrics"):
             am = r["final_score"]["auto_metrics"]
             warnings = []
             if am.get("unknown_games"):

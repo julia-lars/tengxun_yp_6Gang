@@ -49,6 +49,8 @@ services:
       API_PORT: "3000"
       DATABASE_URL: postgres://${POSTGRES_USER:-dev}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-webtutor}
       DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY}
+      DEEPSEEK_BASE_URL: ${DEEPSEEK_BASE_URL:-https://tokenhub.tencentmaas.com/plan/anthropic}
+      LLM_MODEL: ${LLM_MODEL:-deepseek-v4-pro}
     expose:
       - "3000"
 

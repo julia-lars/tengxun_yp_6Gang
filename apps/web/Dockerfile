@@ -23,7 +23,7 @@ COPY apps/api/package.json ./apps/api/
 COPY apps/web/package.json ./apps/web/
 COPY packages/shared/package.json ./packages/shared/
 
-RUN bun install --frozen-lockfile
+RUN bun install --frozen-lockfile --registry=https://registry.npmmirror.com
 
 
 # -------------------- 阶段 2：builder 打包 --------------------
