@@ -474,8 +474,20 @@ function determineDomain(q: string, game: string | null): DomainType {
     "零食", "奶茶", "火锅", "烧烤", "饮料", "外卖",
     "睡了吗", "在吗", "在干嘛", "吃了吗", "吃了没",
   ];
+  // 游戏语境豁免：问题整体是游戏产品/玩家语境时，软性非游戏词（电影/明星/歌手等）
+  // 不直接判 non_game —— 例如"电影级CG预告片"是游戏宣传片方案，不是问电影
+  const gameContextWords = [
+    "游戏", "玩家", "手游", "端游", "网游", "射击", "电竞", "战队", "公会",
+    "皮肤", "抽卡", "氪金", "排位", "段位", "赛季", "版本", "上线", "玩法",
+    "副本", "开黑", "匹配", "新手游", "新游戏", "立项", "代言", "宣传视频",
+    "预告片", "美术风格", "师徒系统", "老玩家", "新玩家", "策划",
+  ];
+  const hasGameContext = gameContextWords.some((w) => qLower.includes(w));
   for (const kw of nonGameKeywords) {
-    if (qLower.includes(kw.toLowerCase())) return "non_game";
+    if (qLower.includes(kw.toLowerCase())) {
+      if (hasGameContext) continue; // 游戏语境下交给后续层级判定
+      return "non_game";
+    }
   }
 
   // --- Step 2: 明确其他游戏领域（非射击游戏）---
