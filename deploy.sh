@@ -10,7 +10,7 @@ SERVER="ubuntu@49.232.59.125"
 REMOTE_DIR="/opt/muru-thinktank"
 
 echo "📦 1/4 同步源码到服务器..."
-rsync -avz --progress \
+rsync -avz --delete --progress \
   --exclude 'node_modules' \
   --exclude '.turbo' \
   --exclude '.git' \
