@@ -80,7 +80,7 @@ function matchGameContent(text: string): boolean {
  *
  * 与集体画像 calculateConfidence 的核心区别：
  * - 内容一致性使用游戏领域通用关键词匹配，而非 persona 的结构化标签重叠
- * - 证据量满分线降至 5 条（KOL 语料总量远小于集体画像库）
+ * - 证据量满分线 10 条
  * - 四维权重：evidenceMatch 0.40 / sourceQuality 0.25 / contentRelevance 0.20 / quantity 0.15
  *
  * 输出格式与集体画像 ConfidenceResult 完全兼容。
@@ -97,10 +97,8 @@ export function calculateKOLConfidence(input: KOLConfidenceInput): ConfidenceRes
     evidenceTexts,
   } = input;
 
-  // 1. 证据匹配质量分：综合最高相似度 + 平均相似度
-  const evidenceMatchScore = evidenceCount === 0
-    ? 0
-    : Math.min(1, topSimilarity * 0.6 + avgSimilarity * 0.4);
+  // 1. 证据匹配质量分：累积加分制 Σ(s²)/3，已在调用方计算
+  const evidenceMatchScore = avgSimilarity;
 
   // 2. 来源质量分：直引比例 + 高匹配比例
   const directQuoteRatio = evidenceCount > 0 ? directQuoteCount / evidenceCount : 0;
@@ -114,8 +112,8 @@ export function calculateKOLConfidence(input: KOLConfidenceInput): ConfidenceRes
     ? 0
     : evidenceTexts.filter((t) => matchGameContent(t)).length / evidenceCount;
 
-  // 4. 证据量分：KOL 语料总量小，5 条满分
-  const evidenceQuantityScore = Math.min(1, evidenceCount / 5);
+  // 4. 证据量分：KOL 语料总量小，10 条满分
+  const evidenceQuantityScore = Math.min(1, evidenceCount / 10);
 
   // 5. 加权综合
   let score =

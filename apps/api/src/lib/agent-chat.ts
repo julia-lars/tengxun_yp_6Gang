@@ -133,9 +133,39 @@ export interface EvidenceRow {
  *
  * 改写后，查询加入时间/频率/场景等语义锚点，embedding 会被拉向正确的语义空间。
  */
+// ---- 查询改写缓存 ----
+// 相同/相似问题复用改写结果，避免重复 LLM 调用
+const reformulationCache = new Map<string, { result: string; ts: number }>();
+const REFORMULATION_CACHE_TTL = 10 * 60 * 1000; // 10 分钟
+const REFORMULATION_CACHE_MAX = 200;
+
+function getCachedReformulation(query: string): string | undefined {
+  const cached = reformulationCache.get(query);
+  if (cached && Date.now() - cached.ts < REFORMULATION_CACHE_TTL) {
+    return cached.result;
+  }
+  if (cached) reformulationCache.delete(query);
+  return undefined;
+}
+
+function setCachedReformulation(query: string, result: string): void {
+  if (reformulationCache.size >= REFORMULATION_CACHE_MAX) {
+    // 淘汰最旧的一半条目
+    const entries = [...reformulationCache.entries()].sort((a, b) => a[1].ts - b[1].ts);
+    for (const [k] of entries.slice(0, Math.floor(REFORMULATION_CACHE_MAX / 2))) {
+      reformulationCache.delete(k);
+    }
+  }
+  reformulationCache.set(query, { result, ts: Date.now() });
+}
+
 export async function reformulateQueryForSearch(userMessage: string, model?: ModelVariant): Promise<string> {
   // 短问题不需要改写（≤8 字的问题通常语义已经很聚焦）
   if (userMessage.trim().length <= 8) return userMessage;
+
+  // 命中缓存直接返回
+  const cached = getCachedReformulation(userMessage);
+  if (cached) return cached;
 
   const prompt = [
     "将以下用户问题改写为用于向量检索的搜索关键词。",
@@ -159,11 +189,14 @@ export async function reformulateQueryForSearch(userMessage: string, model?: Mod
   ].join("\n");
 
   try {
+    // 改写用 flash 模型加速
     const result = await chat(
       [{ role: "user", content: prompt }],
-      { temperature: 0, maxTokens: 128, model },
+      { temperature: 0, maxTokens: 128, model: model ?? "deepseek-v4-flash" },
     );
-    return result.trim() || userMessage;
+    const rewritten = result.trim() || userMessage;
+    setCachedReformulation(userMessage, rewritten);
+    return rewritten;
   } catch (e) {
     console.error("查询改写失败，使用原始问题:", e);
     return userMessage;
@@ -428,6 +461,10 @@ export async function generateTitle(userMessage: string, aiResponse: string, mod
  * 用 LLM 对每条证据与用户问题做前置匹配度评分。
  * 在回答生成之前执行，用于筛选高质量证据喂给 LLM。
  *
+ * 优化：
+ * - 默认使用 flash 模型加速（pre-scoring 不需要最强推理能力）
+ * - 仅评分前 20 条（向量排序已保证头部质量）
+ *
  * 返回按 LLM 分数降序排列的 EvidenceRow[]（含 relevanceScore + relevanceReason）。
  * 调用方自行过滤 Top N 且 >= 阈值。
  */
@@ -438,7 +475,12 @@ export async function preScoreEvidence(
 ): Promise<EvidenceRow[]> {
   if (evidenceRows.length === 0) return evidenceRows;
 
-  const evidenceList = evidenceRows
+  // 仅对前 20 条做 LLM 评分（向量排序已保证头部质量），减少 prompt 长度
+  const topN = 20;
+  const toScore = evidenceRows.slice(0, topN);
+  const rest = evidenceRows.slice(topN);
+
+  const evidenceList = toScore
     .map((e, i) => `[${i + 1}] ${e.originalText.slice(0, 200)}`)
     .join("\n");
 
@@ -468,12 +510,14 @@ ${evidenceList}
 [{"index": 1, "score": 0.87, "reason": "证据直接描述了游戏时间安排，与问题'什么时候玩游戏'高度匹配"}, {"index": 2, "score": 0.23, "reason": "证据讨论的是游戏画质，与问题无关"}]`;
 
   try {
+    // 前置评分用 flash 模型加速，不影响最终回答质量
+    const preScoreModel: ModelVariant = "deepseek-v4-flash";
     const result = await chat(
       [
         { role: "system", content: "你只输出合法 JSON 数组，不输出任何解释或 markdown 代码块。回复必须以 [ 开头，以 ] 结尾。" },
         { role: "user", content: prompt },
       ],
-      { temperature: 0.3, maxTokens: 2048, model },
+      { temperature: 0.3, maxTokens: 2048, model: preScoreModel },
     );
 
     const trimmed = result.trim();
@@ -482,7 +526,7 @@ ${evidenceList}
     if (jsonStart < 0 || jsonEnd <= jsonStart) {
       console.error("前置评分返回格式异常:", trimmed.slice(0, 200));
       // 降级：用向量相似度作为分数
-      return evidenceRows
+      return [...toScore, ...rest]
         .map((e) => ({ ...e, relevanceScore: e.similarity, relevanceReason: null }))
         .sort((a, b) => (b.relevanceScore ?? 0) - (a.relevanceScore ?? 0));
     }
@@ -496,7 +540,7 @@ ${evidenceList}
     const scoreMap = new Map<number, { score: number; reason: string }>();
     for (const item of parsed) {
       const idx = item.index - 1;
-      if (idx >= 0 && idx < evidenceRows.length) {
+      if (idx >= 0 && idx < toScore.length) {
         scoreMap.set(idx, {
           score: Math.max(0, Math.min(1, item.score)),
           reason: item.reason?.slice(0, 100) ?? "",
@@ -504,8 +548,8 @@ ${evidenceList}
       }
     }
 
-    // 给每条证据打上 LLM 评分，未评分的降级用向量相似度
-    const scored = evidenceRows.map((e, i) => {
+    // 给参与评分的证据打上 LLM 评分，未评分的降级用向量相似度
+    const scored = toScore.map((e, i) => {
       const llm = scoreMap.get(i);
       return {
         ...e,
@@ -514,8 +558,15 @@ ${evidenceList}
       };
     });
 
-    // 按 LLM 分数降序排列
-    return scored.sort((a, b) => (b.relevanceScore ?? 0) - (a.relevanceScore ?? 0));
+    // 剩余证据用向量相似度作为分数
+    const restScored = rest.map((e) => ({
+      ...e,
+      relevanceScore: e.similarity ?? 0,
+      relevanceReason: null as string | null,
+    }));
+
+    // 合并并按 LLM 分数降序排列
+    return [...scored, ...restScored].sort((a, b) => (b.relevanceScore ?? 0) - (a.relevanceScore ?? 0));
   } catch (e) {
     console.error("前置评分失败，降级使用向量相似度:", e);
     return evidenceRows

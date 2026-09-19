@@ -43,20 +43,14 @@ const WEIGHTS = {
 };
 
 export function calculateConfidence(input: ConfidenceInput): ConfidenceResult {
-  // 1. 证据匹配得分：综合最高相似度 + 平均相似度 + 证据数量
-  const evidenceScore = input.evidenceCount === 0
-    ? 0
-    : Math.min(
-        1,
-        (input.topSimilarity * 0.6 + input.avgSimilarity * 0.4) *
-          Math.min(1, input.evidenceCount / 2),
-      );
+  // 1. 证据匹配得分：累积加分制 Σ(s²)/3，已在调用方计算，低分证据不拉低总分
+  const evidenceScore = input.avgSimilarity;
 
   // 2. 标签一致性得分：直接使用标签重叠比例
   const consistencyScore = input.tagOverlapRatio;
 
-  // 3. 证据量得分：一次函数线性映射，15 条满分，0 条 0 分
-  const evidenceCountScore = Math.min(1, input.evidenceCount / 15);
+  // 3. 证据量得分：一次函数线性映射，10 条满分，0 条 0 分
+  const evidenceCountScore = Math.min(1, input.evidenceCount / 10);
 
   // 4. 加权综合
   let score =

@@ -213,6 +213,23 @@ function buildSystemPrompt(
   return parts.join("\n");
 }
 
+// 闲聊/寒暄 检测 — 这类消息不需要 LLM 前置评分
+function isChitChat(msg: string): boolean {
+  const t = msg.trim();
+  if (t.length <= 4) return true;
+  const patterns = [
+    /^(你好|嗨|hi|hello|hey)[!！,，。.]*$/i,
+    /^(谢谢|感谢|多谢|thanks|thank)/i,
+    /^(再见|拜拜|bye|goodbye)/i,
+    /^(好的|嗯|哦|喔|行|可以|ok|okay)[!！。.]*$/i,
+    /^(继续|接着说|然后呢|还有呢|接下来|往下)/i,
+    /^(明白了|懂了|知道了|了解|收到|get)/i,
+    /^(哈哈|呵呵|嘿嘿|嘻嘻|hh+|lol)[!！]*$/i,
+    /^(是的|没错|对的|对|是|不是|不对)[!！。.]*$/i,
+  ];
+  return patterns.some((p) => p.test(t));
+}
+
 // ---- 对话路由 ----
 
 // POST /api/chat —— SSE 流式对话
@@ -259,11 +276,18 @@ chatRoute.post("/", zValidator("json", chatRequestSchema), async (c) => {
     ? recentMessages.map((m) => `${m.role === "user" ? "用户" : "助手"}: ${m.content}`).join("\n")
     : undefined;
 
-  const boundaryResult = await checkBoundary(message, {
-    skipCache: false,
-    context: contextForBoundary,
-    useLLMJudge: true,
-  });
+  // 4. RAG 检索（使用共享引擎）
+  const skipRAG = message.trim().length <= 5;
+
+  // 并行：边界检测 + 查询改写（两者无依赖，同时发起能省 ~1-2s）
+  const [boundaryResult, searchQuery] = await Promise.all([
+    checkBoundary(message, {
+      skipCache: false,
+      context: contextForBoundary,
+      useLLMJudge: true,
+    }),
+    skipRAG ? Promise.resolve(message) : reformulateQueryForSearch(message, model),
+  ]);
   const isOutOfDomain = boundaryResult.final === "OUT";
 
   // 边界外：明确非游戏领域，直接返回拒答
@@ -275,18 +299,12 @@ chatRoute.post("/", zValidator("json", chatRequestSchema), async (c) => {
     });
   }
 
-  // 4. RAG 检索（使用共享引擎）
-  const skipRAG = message.trim().length <= 5;
   let evidenceRows: EvidenceRow[] = [];
   // 向量相似度阈值 — 余弦距离转换为相似度后低于此值的不保留
   const SIMILARITY_THRESHOLD = 0.5;
 
   if (!skipRAG) {
-    // 查询语义改写：将口语化问题改写为搜索关键词，消除表面词汇歧义
-    // 如 "你一般什么时候玩游戏" → "游戏时间安排 游戏时段 日常游戏习惯"
-    // 避免与 "你不知道什么时候出现人" 因共享"什么时候"而错误匹配
-    const searchQuery = await reformulateQueryForSearch(message, model);
-
+    // searchQuery 已在上面与 boundary 检测并行获取
     evidenceRows = await searchEvidence({
       message: searchQuery,
       vectorQuery: async (vecStr) => {
@@ -356,7 +374,8 @@ chatRoute.post("/", zValidator("json", chatRequestSchema), async (c) => {
   }
 
   // 4.5 LLM 前置评分：对向量检索结果按用户问题评分，筛选 Top 20 高质量证据
-  if (evidenceRows.length > 0) {
+  // 闲聊/寒暄跳过评分，节省一次 LLM 调用
+  if (evidenceRows.length > 0 && !isChitChat(message)) {
     try {
       const scored = await preScoreEvidence(message, evidenceRows, model);
       evidenceRows = scored
@@ -376,14 +395,16 @@ chatRoute.post("/", zValidator("json", chatRequestSchema), async (c) => {
   const evidenceAnnotations = evidenceRows.map((e) => e.annotation ?? null);
   const tagOverlapRatio = computeTagOverlap(tagSpec, evidenceAnnotations, motivationChain as Record<string, unknown>);
 
-  const similarities = evidenceRows
-    .map((e) => e.similarity ?? 0)
+  // 使用 LLM 匹配度（relevanceScore），fallback 到向量相似度
+  const llmScores = evidenceRows
+    .map((e) => e.relevanceScore ?? e.similarity ?? 0)
     .filter((s) => s > 0);
-  const topSimilarity = similarities.length > 0 ? Math.max(...similarities) : 0;
-  const avgSimilarity =
-    similarities.length > 0
-      ? similarities.reduce((a, b) => a + b, 0) / similarities.length
-      : 0;
+  const topSimilarity = llmScores.length > 0 ? Math.max(...llmScores) : 0;
+  // 累积加分制：每条证据独立贡献 s²，K=3 条满分证据归一化
+  // (90,90,90,50) > (90,90,90) > (90,80,70)，低分证据不会拉低总分
+  const cumulativeScore = llmScores.length > 0
+    ? Math.min(1, llmScores.reduce((sum, s) => sum + s * s, 0) / 3)
+    : 0;
 
   const hasDirectQuote = evidenceRows.some(
     (e) => (e.matchLevel ?? classifyMatchLevel(e.similarity ?? 0)) === "direct",
@@ -392,7 +413,7 @@ chatRoute.post("/", zValidator("json", chatRequestSchema), async (c) => {
   const confidenceResult = calculateConfidence({
     evidenceCount: evidenceRows.length,
     topSimilarity,
-    avgSimilarity,
+    avgSimilarity: cumulativeScore,
     tagOverlapRatio,
     hasDirectQuote,
     isBoundaryQuestion: false, // 边界外已提前返回，此处必为 false

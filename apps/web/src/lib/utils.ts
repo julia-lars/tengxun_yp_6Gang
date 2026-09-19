@@ -67,8 +67,8 @@ export function computePersonaConfidence(input: PersonaConfidenceInput): number 
   // 1. 样本量得分：对数映射，100 样本 → 满分
   const sampleScore = Math.min(1, Math.log(sampleCount + 1) / Math.log(101));
 
-  // 2. 证据丰富度：绝对证据量，15 条 → 满分
-  const evidenceScore = Math.min(1, evidenceCount / 15);
+  // 2. 证据丰富度：绝对证据量，10 条 → 满分
+  const evidenceScore = Math.min(1, evidenceCount / 10);
 
   // 3. 标签完整度：5 个维度中有值的比例
   let filledDims = 0;

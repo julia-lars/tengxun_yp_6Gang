@@ -86,9 +86,6 @@ export function EvidenceCard({
           {matchLevel && (
             <span>{matchLevelLabel[matchLevel] ?? matchLevel}</span>
           )}
-          {similarity !== undefined && (
-            <span>相关 {Math.round(similarity * 100)}%</span>
-          )}
           {relevanceScore != null && (
             <span
               title="LLM 按用户问题评估的证据匹配度"
@@ -101,7 +98,7 @@ export function EvidenceCard({
                     : "text-(--color-muted-foreground)",
               )}
             >
-              LLM 匹配 {Math.round(relevanceScore * 100)}%
+              匹配度 {Math.round(relevanceScore * 100)}%
             </span>
           )}
         </div>

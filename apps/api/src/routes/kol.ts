@@ -256,14 +256,15 @@ kolRoute.post("/chat", zValidator("json", kolChatRequestSchema), async (c) => {
   );
 
   // 3.5 计算置信度 + 增强证据元数据
-  const similarities = evidenceRows
-    .map((e) => e.similarity ?? 0)
+  // 使用 LLM 匹配度（relevanceScore），fallback 到向量相似度
+  const llmScores = evidenceRows
+    .map((e) => e.relevanceScore ?? e.similarity ?? 0)
     .filter((s) => s > 0);
-  const topSimilarity = similarities.length > 0 ? Math.max(...similarities) : 0;
-  const avgSimilarity =
-    similarities.length > 0
-      ? similarities.reduce((a, b) => a + b, 0) / similarities.length
-      : 0;
+  const topSimilarity = llmScores.length > 0 ? Math.max(...llmScores) : 0;
+  // 累积加分制：每条证据独立贡献 s²，K=3 条满分证据归一化
+  const cumulativeScore = llmScores.length > 0
+    ? Math.min(1, llmScores.reduce((sum, s) => sum + s * s, 0) / 3)
+    : 0;
 
   // KOL 专属标签（从 personaCard 提取）
   const personaCard = kol.personaCard as Record<string, unknown>;
@@ -272,14 +273,14 @@ kolRoute.post("/chat", zValidator("json", kolChatRequestSchema), async (c) => {
   // KOL 专属可信度：四维评估
   const matchLevels = evidenceRows.map((e) => e.matchLevel ?? classifyMatchLevel(e.similarity ?? 0));
   const directQuoteCount = matchLevels.filter((l) => l === "direct").length;
-  const highMatchCount = similarities.filter((s) => s >= 0.75).length;
+  const highMatchCount = llmScores.filter((s) => s >= 0.75).length;
   const hasDirectQuote = directQuoteCount > 0;
   const evidenceTexts = evidenceRows.map((e) => e.originalText);
 
   const confidenceResult = calculateKOLConfidence({
     evidenceCount: evidenceRows.length,
     topSimilarity,
-    avgSimilarity,
+    avgSimilarity: cumulativeScore,
     directQuoteCount,
     highMatchCount,
     hasDirectQuote,
