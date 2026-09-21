@@ -51,6 +51,9 @@ services:
       DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY}
       DEEPSEEK_BASE_URL: ${DEEPSEEK_BASE_URL:-https://tokenhub.tencentmaas.com/plan/anthropic}
       LLM_MODEL: ${LLM_MODEL:-deepseek-v4-pro}
+      # 查询向量化服务：本机开发走 127.0.0.1:8765；线上通过宿主机网关访问
+      # （embed 服务可跑在宿主机，经 SSH 反向隧道转发到有 GPU 的开发机）
+      EMBED_SERVER_URL: ${EMBED_SERVER_URL:-http://172.18.0.1:8765/embed}
     expose:
       - "3000"
 

@@ -62,8 +62,7 @@ async function vectorSearch(
     : sql``;
 
   const skipFilter = tableName === "source_segments"
-    ? sql`AND (annotation->'meta'->>'rs' IS NULL OR annotation->'meta'->>'rs' != 'skip')
-          AND (cleaning_status IS NULL OR cleaning_status NOT IN ('removed_noise', 'removed_flow', 'removed_duplicate', 'removed_irrelevant'))`
+    ? sql`AND (annotation->'meta'->>'rs' IS NULL OR annotation->'meta'->>'rs' != 'skip')`
     : sql``;
 
   const rows = (await db.execute(
@@ -122,8 +121,7 @@ async function bm25Search(
     : sql``;
 
   const skipFilter = tableName === "source_segments"
-    ? sql`AND (annotation->'meta'->>'rs' IS NULL OR annotation->'meta'->>'rs' != 'skip')
-          AND (cleaning_status IS NULL OR cleaning_status NOT IN ('removed_noise', 'removed_flow', 'removed_duplicate', 'removed_irrelevant'))`
+    ? sql`AND (annotation->'meta'->>'rs' IS NULL OR annotation->'meta'->>'rs' != 'skip')`
     : sql``;
 
   // 使用 simple 分词：将查询文本按非字母数字字符切分，每个词变成 OR 连接的 tsquery
@@ -260,7 +258,6 @@ export async function hybridSearch(opts: {
             FROM source_segments
             WHERE embedding IS NOT NULL
               AND (annotation->'meta'->>'rs' IS NULL OR annotation->'meta'->>'rs' != 'skip')
-              AND (cleaning_status IS NULL OR cleaning_status NOT IN ('removed_noise', 'removed_flow', 'removed_duplicate', 'removed_irrelevant'))
             ORDER BY embedding <=> ${vecStr}::vector
             LIMIT ${VECTOR_TOP_N}`,
       )) as unknown as Array<{

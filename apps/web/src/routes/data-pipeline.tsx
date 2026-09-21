@@ -657,7 +657,7 @@ export function DataPipelinePage() {
                   </p>
                   <div className="flex items-center gap-2 text-xs text-(--color-content-tertiary)">
                     <Database className="h-3.5 w-3.5" />
-                    当前语料库: 17,132 条片段
+                    当前语料库: 15,395 条片段
                   </div>
 
                   {/* 项目名称 */}

@@ -552,7 +552,27 @@ export function PersonaDetailPage() {
             {persona.evidenceList.map((e) => {
               const isExpanded = expandedEvidence.has(e.id);
               const annotation = (e.annotation as Record<string, unknown> | null) ?? {};
-              const icebergLevel = annotation.iceberg as string | undefined;
+              // annotation.iceberg 可能是字符串（旧格式），也可能是
+              // {M1_motivation:[{value,...}], ...} 对象（v3.0 标注格式）——
+              // 对象直接渲染会触发 React 错误，这里统一转成文本
+              const icebergText = (() => {
+                const raw = annotation.iceberg;
+                if (typeof raw === "string") return raw;
+                if (raw && typeof raw === "object") {
+                  const m1 = (raw as Record<string, unknown>).M1_motivation;
+                  if (Array.isArray(m1)) {
+                    const values = m1
+                      .map((x) =>
+                        x && typeof x === "object" && "value" in (x as object)
+                          ? String((x as { value: unknown }).value)
+                          : String(x)
+                      )
+                      .filter((v) => v && v !== "undefined");
+                    if (values.length > 0) return values.join("、");
+                  }
+                }
+                return undefined;
+              })();
               const truncated = e.originalText.length > 300;
 
               return (
@@ -573,9 +593,9 @@ export function PersonaDetailPage() {
                   </blockquote>
                   <div className="flex items-center gap-3 mt-1.5 text-xs text-[--color-muted-foreground]/70">
                     <span>📁 {e.sourceFile.split("/").pop() ?? e.sourceFile}</span>
-                    {icebergLevel && (
+                    {icebergText && (
                       <span className="text-(--color-brand-600) font-medium">
-                        🧊 {icebergLevel}
+                        🧊 {icebergText}
                       </span>
                     )}
                     {annotation.iceberg ? (

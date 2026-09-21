@@ -53,7 +53,9 @@ COPY --from=builder /app/apps/web/dist /usr/share/nginx/html
 EXPOSE 80
 
 # nginx 官方镜像自带健康检查？没有 —— 自己加一个：拉首页应返回 200
+# 注意：必须用 127.0.0.1 而不是 localhost —— busybox wget 会把 localhost
+# 解析成 IPv6 ::1，而 nginx 的 listen 80 只绑 IPv4，导致 healthcheck 一直失败
 HEALTHCHECK --interval=10s --timeout=3s --start-period=5s --retries=3 \
-  CMD wget -qO- http://localhost/ > /dev/null || exit 1
+  CMD wget -qO- http://127.0.0.1/ > /dev/null || exit 1
 
 # nginx:alpine 的 ENTRYPOINT/CMD 已配好，无需覆盖

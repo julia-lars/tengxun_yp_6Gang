@@ -158,7 +158,7 @@ export function HomePage() {
           AI 驱动的玩家画像模拟系统
         </h1>
         <p className="text-sm text-(--color-content-secondary)">
-          基于 17,132 条真实玩家访谈片段 · 构建射击品类 AI 模拟用户画像
+          基于 15,395 条真实玩家访谈片段 · 构建射击品类 AI 模拟用户画像
         </p>
       </section>
 

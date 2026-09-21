@@ -315,7 +315,6 @@ chatRoute.post("/", zValidator("json", chatRequestSchema), async (c) => {
               FROM source_segments
               WHERE embedding IS NOT NULL
                 AND (annotation->'meta'->>'rs' IS NULL OR annotation->'meta'->>'rs' != 'skip')
-                AND (cleaning_status IS NULL OR cleaning_status NOT IN ('removed_noise', 'removed_flow', 'removed_duplicate', 'removed_irrelevant'))
               ORDER BY embedding <=> ${vecStr}::vector
               LIMIT 50`,
         )) as unknown as Array<{
@@ -348,7 +347,6 @@ chatRoute.post("/", zValidator("json", chatRequestSchema), async (c) => {
               FROM source_segments
               WHERE similarity(original_text, ${message}) > 0.1
                 AND (annotation->'meta'->>'rs' IS NULL OR annotation->'meta'->>'rs' != 'skip')
-                AND (cleaning_status IS NULL OR cleaning_status NOT IN ('removed_noise', 'removed_flow', 'removed_duplicate', 'removed_irrelevant'))
               ORDER BY sim DESC
               LIMIT 20`,
         ) as unknown as Array<{

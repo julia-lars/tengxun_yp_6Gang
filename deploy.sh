@@ -41,9 +41,12 @@ ssh ${SERVER} "cd ${REMOTE_DIR} && \
 
 echo ""
 echo "🌱 5/5 种子数据（画像）..."
+# 注意：不带 --force —— 幂等种子（已有画像就跳过）。
+# --force 会删除重建画像、导致 persona id 递增变化，使
+# source_segments/respondents 里的 persona_ids 全部失配。
 ssh ${SERVER} "cd ${REMOTE_DIR} && \
   docker compose --env-file .env.prod -f docker-compose.prod.yml \
-    run --rm --pull never api bun run apps/api/src/db/seed-personas.ts --force"
+    run --rm --pull never api bun run apps/api/src/db/seed-personas.ts"
 
 echo ""
 echo "✅ 部署完成！访问 http://49.232.59.125"

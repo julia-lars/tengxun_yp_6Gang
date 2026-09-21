@@ -191,7 +191,13 @@ async function main() {
   console.log("   聚类方法: 半监督 M1 归桶 → HDBSCAN (Gower 距离)");
 }
 
-main().catch((e) => {
-  console.error("种子数据失败:", e);
-  process.exit(1);
-});
+main()
+  .then(() => {
+    // 主动退出：drizzle 的数据库连接池不会自动释放，进程不 exit 会导致
+    // `docker compose run` 一直挂住（部署脚本卡在最后一步）
+    process.exit(0);
+  })
+  .catch((e) => {
+    console.error("种子数据失败:", e);
+    process.exit(1);
+  });
